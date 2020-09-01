@@ -1,0 +1,508 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ContinueOnError_Description" xml:space="preserve">
+    <value>If set, continue executing the remaining activities even if the current activity has failed.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ContinueOnError_DisplayName" xml:space="preserve">
+    <value>ContinueOnError</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Timeout_Description" xml:space="preserve">
+    <value>Specifies the amount of time (in milliseconds) to wait for the activity to run before an error is thrown. The default value is 60000 (1 minute).</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Timeout_DisplayName" xml:space="preserve">
+    <value>Timeout (milliseconds)</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Timeout_Error" xml:space="preserve">
+    <value>The activity timed out and was canceled.</value>
+    <comment>error message</comment>
+  </data>
+  <data name="Do" xml:space="preserve">
+    <value>Do</value>
+    <comment>generic</comment>
+  </data>
+  <data name="Common_Category" xml:space="preserve">
+    <value>Common</value>
+    <comment>category</comment>
+  </data>
+  <data name="Authentication_Category" xml:space="preserve">
+    <value>Authentication</value>
+    <comment>category</comment>
+  </data>
+  <data name="Input_Category" xml:space="preserve">
+    <value>Input</value>
+    <comment>category</comment>
+  </data>
+  <data name="Output_Category" xml:space="preserve">
+    <value>Output</value>
+    <comment>category</comment>
+  </data>
+  <data name="Options_Category" xml:space="preserve">
+    <value>Options</value>
+    <comment>category</comment>
+  </data>
+  <data name="ValidationScope_Error" xml:space="preserve">
+    <value>Cannot be used outside of a {0}.</value>
+    <comment>error message; {0} is a container activity (e.g. a scope)</comment>
+  </data>
+  <data name="ValidationValue_Error" xml:space="preserve">
+    <value>Please provide a value for {0}.</value>
+    <comment>error message; {0} is the name of a missing property</comment>
+  </data>
+  <data name="ValidationExclusiveProperties_Error" xml:space="preserve">
+    <value>Please provide a value either for {0} or {1}, but not both.</value>
+    <comment>error message; {0} &amp; {1} are mutually exclusive activities</comment>
+  </data>
+  <data name="ValidationOverloadGroup_Error" xml:space="preserve">
+    <value>Please provide values for both {0} and {1}.</value>
+    <comment>error message; {0} &amp; {1} are complementary properties</comment>
+  </data>
+  <data name="SplitTextNewLines_DisplayName" xml:space="preserve">
+    <value>Split Text New Lines</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="SplitTextNewLines_Description" xml:space="preserve">
+    <value>Split Text by New Lines</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="SplitTextNewLines_TextLines_DisplayName" xml:space="preserve">
+    <value>Text Lines</value>
+    <comment>property name</comment>
+  </data>
+  <data name="SplitTextNewLines_TextLines_Description" xml:space="preserve">
+    <value>Array of strings each item containing a line</value>
+    <comment>property description</comment>
+  </data>
+  <data name="TextApplicationScope_DisplayName" xml:space="preserve">
+    <value>Text Application Scope</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="TextApplicationScope_Description" xml:space="preserve">
+    <value>Provide a Text for Text Activities</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="TextApplicationScope_InputText_DisplayName" xml:space="preserve">
+    <value>Input Text</value>
+    <comment>property name</comment>
+  </data>
+  <data name="TextApplicationScope_InputText_Description" xml:space="preserve">
+    <value>Enter Text to be processed</value>
+    <comment>property description</comment>
+  </data>
+  <data name="CountWordsInText_DisplayName" xml:space="preserve">
+    <value>Count Words in Text</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="CountWordsInText_Description" xml:space="preserve">
+    <value>Returns percentage of words found in text</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="CountWordsInText_SearchWords_DisplayName" xml:space="preserve">
+    <value>Search Words</value>
+    <comment>property name</comment>
+  </data>
+  <data name="CountWordsInText_SearchWords_Description" xml:space="preserve">
+    <value>Words to be searched (Array of Strings)</value>
+    <comment>property description</comment>
+  </data>
+  <data name="CountWordsInText_Percentage_DisplayName" xml:space="preserve">
+    <value>Percentage</value>
+    <comment>property name</comment>
+  </data>
+  <data name="CountWordsInText_Percentage_Description" xml:space="preserve">
+    <value>Percentage of words found in text</value>
+    <comment>property description</comment>
+  </data>
+  <data name="RemoveEmptyRows_DisplayName" xml:space="preserve">
+    <value>Remove Empty Rows</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="RemoveEmptyRows_Description" xml:space="preserve">
+    <value>Remove Empty Rows from String</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="RemoveEmptyRows_InputTextRow_DisplayName" xml:space="preserve">
+    <value>Input Text Row</value>
+    <comment>property name</comment>
+  </data>
+  <data name="RemoveEmptyRows_InputTextRow_Description" xml:space="preserve">
+    <value>Text to be adjusted</value>
+    <comment>property description</comment>
+  </data>
+  <data name="RemoveEmptyRows_AdjustedTextRow_DisplayName" xml:space="preserve">
+    <value>Adjusted Text Row</value>
+    <comment>property name</comment>
+  </data>
+  <data name="RemoveEmptyRows_AdjustedTextRow_Description" xml:space="preserve">
+    <value>Adjusted Text</value>
+    <comment>property description</comment>
+  </data>
+  <data name="SplitTextRows_DisplayName" xml:space="preserve">
+    <value>Split Text Uneven Blank Spaces</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="SplitTextRows_Description" xml:space="preserve">
+    <value>Split Text into an Array with uneven blank spaces</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="SplitTextRows_InputTextRow_DisplayName" xml:space="preserve">
+    <value>Input Text Row</value>
+    <comment>property name</comment>
+  </data>
+  <data name="SplitTextRows_InputTextRow_Description" xml:space="preserve">
+    <value>Text to be splited</value>
+    <comment>property description</comment>
+  </data>
+  <data name="SplitTextRows_NullLimit_DisplayName" xml:space="preserve">
+    <value>Null Limit</value>
+    <comment>property name</comment>
+  </data>
+  <data name="SplitTextRows_NullLimit_Description" xml:space="preserve">
+    <value>Number of empty Characters to be considered as space among words</value>
+    <comment>property description</comment>
+  </data>
+  <data name="SplitTextRows_ExtractedText_DisplayName" xml:space="preserve">
+    <value>Extracted Words</value>
+    <comment>property name</comment>
+  </data>
+  <data name="SplitTextRows_ExtractedText_Description" xml:space="preserve">
+    <value>Extracted Words (Array of Strings)</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractAllLinesBelowAnchorText_DisplayName" xml:space="preserve">
+    <value>Extract All Lines Below Anchor Words</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="ExtractAllLinesBelowAnchorText_Description" xml:space="preserve">
+    <value>Extract all text below anchor text until the end of Input Text</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="ExtractAllLinesBelowAnchorText_AnchorText_DisplayName" xml:space="preserve">
+    <value>Anchor Words</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractAllLinesBelowAnchorText_AnchorText_Description" xml:space="preserve">
+    <value>Anchor Words to be searched in Input Text (Array of Strings)</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractAllLinesBelowAnchorText_Results_DisplayName" xml:space="preserve">
+    <value>Results</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractAllLinesBelowAnchorText_Results_Description" xml:space="preserve">
+    <value>Search Results</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractAllLinesBelowAnchorText_DisplayLog_DisplayName" xml:space="preserve">
+    <value>Display Log</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractAllLinesBelowAnchorText_DisplayLog_Description" xml:space="preserve">
+    <value>Display activity output in Ouput Pane</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractAllLinesBelowAnchorText_DisplayRegex_DisplayName" xml:space="preserve">
+    <value>Display Regex</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractAllLinesBelowAnchorText_DisplayRegex_Description" xml:space="preserve">
+    <value>Display Regex expression</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractAllLinesBelowAnchorText_AnchorTextParam_DisplayName" xml:space="preserve">
+    <value>Anchor Words Parameter</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractAllLinesBelowAnchorText_AnchorTextParam_Description" xml:space="preserve">
+    <value>Any Word or All the Words to be found in Input Text</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractTextBelowAnchorWords_DisplayName" xml:space="preserve">
+    <value>Extract Text Below Anchor Words</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="ExtractTextBelowAnchorWords_Description" xml:space="preserve">
+    <value>Extract Text below a specific Anchor Word</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="ExtractTextBelowAnchorWords_AnchorWords_DisplayName" xml:space="preserve">
+    <value>Anchor Words</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractTextBelowAnchorWords_AnchorWords_Description" xml:space="preserve">
+    <value>Anchor Words to be searched in Input Text (Array of Strings)</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractTextBelowAnchorWords_Results_DisplayName" xml:space="preserve">
+    <value>Results</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractTextBelowAnchorWords_Results_Description" xml:space="preserve">
+    <value>Search Results</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractTextBelowAnchorWords_DisplayLog_DisplayName" xml:space="preserve">
+    <value>Display Log</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractTextBelowAnchorWords_DisplayLog_Description" xml:space="preserve">
+    <value>Display activity output in Output Pane</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractTextBelowAnchorWords_DisplayRegex_DisplayName" xml:space="preserve">
+    <value>Display Regex</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractTextBelowAnchorWords_DisplayRegex_Description" xml:space="preserve">
+    <value>Display Regex Empression</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractTextBelowAnchorWords_LinesNumber_DisplayName" xml:space="preserve">
+    <value>Lines Below</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractTextBelowAnchorWords_LinesNumber_Description" xml:space="preserve">
+    <value>Lines below anchor row to be extracted</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractTextBetweenTwoAnchorWords_DisplayName" xml:space="preserve">
+    <value>Extract Text Between Two Anchor Words</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="ExtractTextBetweenTwoAnchorWords_Description" xml:space="preserve">
+    <value>Extract all text between two anchor words</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="ExtractTextBetweenTwoAnchorWords_BegWords_DisplayName" xml:space="preserve">
+    <value>Beg Words</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractTextBetweenTwoAnchorWords_BegWords_Description" xml:space="preserve">
+    <value>Beggining words to be searched</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractTextBetweenTwoAnchorWords_EndWords_DisplayName" xml:space="preserve">
+    <value>End Words</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractTextBetweenTwoAnchorWords_EndWords_Description" xml:space="preserve">
+    <value>Ending words to be searched, leave it null in case it is the end of the row</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractTextBetweenTwoAnchorWords_RegexParameter_DisplayName" xml:space="preserve">
+    <value>Regex Parameter</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractTextBetweenTwoAnchorWords_RegexParameter_Description" xml:space="preserve">
+    <value>Both words in samme or different lines</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractTextBetweenTwoAnchorWords_DisplayLog_DisplayName" xml:space="preserve">
+    <value>Display Log</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractTextBetweenTwoAnchorWords_DisplayLog_Description" xml:space="preserve">
+    <value>Display activity output in Output Pane</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractTextBetweenTwoAnchorWords_DisplatyRegex_DisplayName" xml:space="preserve">
+    <value>Display Regex</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractTextBetweenTwoAnchorWords_DisplatyRegex_Description" xml:space="preserve">
+    <value>Display Regex Expression</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractTextBetweenTwoAnchorWords_Results_DisplayName" xml:space="preserve">
+    <value>Results</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractTextBetweenTwoAnchorWords_Results_Description" xml:space="preserve">
+    <value>Search Results</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractTextAboveAnchorWords_DisplayName" xml:space="preserve">
+    <value>Extract Text Above Anchor Words</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="ExtractTextAboveAnchorWords_Description" xml:space="preserve">
+    <value>Extract Text above a specific Anchor Word</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="ExtractTextAboveAnchorWords_AnchorWords_DisplayName" xml:space="preserve">
+    <value>Anchor Words</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractTextAboveAnchorWords_AnchorWords_Description" xml:space="preserve">
+    <value>Anchor Words to be searched in Input Text (Array of Strings)</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractTextAboveAnchorWords_Results_DisplayName" xml:space="preserve">
+    <value>Results</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractTextAboveAnchorWords_Results_Description" xml:space="preserve">
+    <value>Search Results</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractTextAboveAnchorWords_DisplayLog_DisplayName" xml:space="preserve">
+    <value>Display Log</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractTextAboveAnchorWords_DisplayLog_Description" xml:space="preserve">
+    <value>Display activity output in Output Pane</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractTextAboveAnchorWords_DisplayRegex_DisplayName" xml:space="preserve">
+    <value>Display Regex</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractTextAboveAnchorWords_DisplayRegex_Description" xml:space="preserve">
+    <value>Display Regex Empression</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractTextAboveAnchorWords_LinesNumber_DisplayName" xml:space="preserve">
+    <value>Lines Above</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractTextAboveAnchorWords_LinesNumber_Description" xml:space="preserve">
+    <value>Lines above archor row to be extracted</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractTextBelowAnchorWords_NumberLines_Description" xml:space="preserve">
+    <value>Number of lines to be extracted</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractTextBelowAnchorWords_NumberLines_DisplayName" xml:space="preserve">
+    <value>Number of Lines</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractTextAboveAnchorWords_NumberLines_Description" xml:space="preserve">
+    <value>Number of lines to be extracted</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractTextAboveAnchorWords_NumberLines_DisplayName" xml:space="preserve">
+    <value>Number of Lines</value>
+    <comment>property name</comment>
+  </data>
+</root>
