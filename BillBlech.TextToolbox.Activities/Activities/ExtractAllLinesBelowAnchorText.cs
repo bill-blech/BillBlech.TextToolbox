@@ -1,10 +1,10 @@
+using BillBlech.TextToolbox.Activities.Activities;
+using BillBlech.TextToolbox.Activities.Properties;
 using System;
 using System.Activities;
 using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
-using BillBlech.TextToolbox.Activities.Activities;
-using BillBlech.TextToolbox.Activities.Properties;
 using UiPath.Shared.Activities;
 using UiPath.Shared.Activities.Localization;
 using UiPath.Shared.Activities.Utilities;
@@ -48,7 +48,8 @@ namespace BillBlech.TextToolbox.Activities
         [LocalizedDisplayName(nameof(Resources.ExtractAllLinesBelowAnchorText_AnchorTextParam_DisplayName))]
         [LocalizedDescription(nameof(Resources.ExtractAllLinesBelowAnchorText_AnchorTextParam_Description))]
         [LocalizedCategory(nameof(Resources.Options_Category))]
-        public EnumAnchorTextParam AnchorTextParam { get; set; }
+        //public EnumAnchorTextParam AnchorTextParam { get; set; }
+        public InArgument<String> AnchorTextParam { get; set; }
 
         //////////////////////////////////////////////////////////////////////
         //Update Data Row
@@ -73,8 +74,15 @@ namespace BillBlech.TextToolbox.Activities
         [LocalizedCategory("Output Data Row")]
         public InArgument<int> MyIndex { get; set; }
 
+        [LocalizedDisplayName(nameof(Resources.IDText_DisplayName))]
+        [LocalizedDescription(nameof(Resources.IDText_Description))]
+        [LocalizedCategory(nameof(Resources.Common_Category))]
+        public InArgument<string> IDText { get; set; }
+
+
         public enum EnumAnchorTextParam
         {
+            Null,
             Any,
             All,
 
@@ -116,9 +124,7 @@ namespace BillBlech.TextToolbox.Activities
             var anchorText = AnchorText.Get(context);
             var displayLog = DisplayLog;
             var displayRegex = DisplayRegex;
-            var anchorTextParam = AnchorTextParam;
-
-            string[] OutputResults = null;
+            var anchorTextParamText = AnchorTextParam.Get(context);
 
             //Output Data Row
             bool bUpdateDataRow = BUpdateDataRow;
@@ -127,42 +133,10 @@ namespace BillBlech.TextToolbox.Activities
             var myIndex = MyIndex.Get(context);
 
             string OutputString = null;
-            
+
             ///////////////////////////
             // Add execution logic HERE
-
-            //Check the Variable
-            switch (anchorTextParam)
-            {
-
-                //Any of the Anchor Words
-                case EnumAnchorTextParam.Any:
-
-                    //Loop through the Words
-                    foreach(string Word in anchorText)
-                    {
-                        OutputResults = Utils.ExtractTextAllLinesBelowStartTAGUntilEnd(inputText, Word, displayLog, displayRegex);
-
-                        //Exit the Loop in case result is found
-                        if (OutputResults.Length > 0)
-                        {
-                            //Exit the Loop
-                            goto ExitLoop;
-                        }
-                    }
-
-                    break;
-                //All of the Anchor Words
-                case EnumAnchorTextParam.All:
-
-                    //Extract All Lines Below Anchor Text Array of Strings 
-                    OutputResults = Utils.ExtractTextAllLinesBelowArrayTAGUntilEnd(inputText, anchorText, displayLog, displayRegex);
-
-                    break;
-
-            }
-
-            ExitLoop:
+            string[] OutputResults = CallExtractions.CallExtractAllLinesBelowAnchorText(inputText, anchorText, anchorTextParamText, displayLog, displayRegex);
 
             #region Update Data Row (optional)
             //Check if functionality is Activated
@@ -190,7 +164,8 @@ namespace BillBlech.TextToolbox.Activities
             #endregion
             ///////////////////////////
             // Outputs
-            return (ctx) => {
+            return (ctx) =>
+            {
                 Results.Set(ctx, OutputResults);
             };
         }

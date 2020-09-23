@@ -1,11 +1,11 @@
+using BillBlech.TextToolbox.Activities.Activities;
+using BillBlech.TextToolbox.Activities.Properties;
 using System;
 using System.Activities;
+using System.Data;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Data;
-using BillBlech.TextToolbox.Activities.Activities;
-using BillBlech.TextToolbox.Activities.Properties;
 using UiPath.Shared.Activities;
 using UiPath.Shared.Activities.Localization;
 using UiPath.Shared.Activities.Utilities;
@@ -39,7 +39,8 @@ namespace BillBlech.TextToolbox.Activities
         [LocalizedDisplayName(nameof(Resources.ExtractTextBetweenTwoAnchorWords_RegexParameter_DisplayName))]
         [LocalizedDescription(nameof(Resources.ExtractTextBetweenTwoAnchorWords_RegexParameter_Description))]
         [LocalizedCategory(nameof(Resources.Options_Category))]
-        public EnumRegexParameter RegexParameter { get; set; }
+        //public EnumRegexParameter RegexParameter { get; set; }
+        public InArgument<String> RegexParameter { get; set; }
 
         [LocalizedDisplayName(nameof(Resources.ExtractTextBetweenTwoAnchorWords_DisplayLog_DisplayName))]
         [LocalizedDescription(nameof(Resources.ExtractTextBetweenTwoAnchorWords_DisplayLog_Description))]
@@ -80,12 +81,18 @@ namespace BillBlech.TextToolbox.Activities
         [LocalizedCategory("Output Data Row")]
         public InArgument<int> MyIndex { get; set; }
 
+        [LocalizedDisplayName(nameof(Resources.IDText_DisplayName))]
+        [LocalizedDescription(nameof(Resources.IDText_Description))]
+        [LocalizedCategory(nameof(Resources.Common_Category))]
+        public InArgument<string> IDText { get; set; }
+
 
         public enum EnumRegexParameter
         {
+            Null,
             SameLine,
             DifferentLines
-            
+
         }
 
         #endregion
@@ -124,11 +131,9 @@ namespace BillBlech.TextToolbox.Activities
             // Inputs
             var begWords = BegWords.Get(context);
             var endWords = EndWords.Get(context);
-            var regexParameter = RegexParameter;
+            var regexParameterText = RegexParameter.Get(context);
             bool displayLog = DisplayLog;
             bool displayRegex = DisplatyRegex;
-
-            string[] OutputResults = null;
 
             //Output Data Row
             bool bUpdateDataRow = BUpdateDataRow;
@@ -137,94 +142,11 @@ namespace BillBlech.TextToolbox.Activities
             var myIndex = MyIndex.Get(context);
 
             string OutputString = null;
-            
-            //Start the Variable
-            RegexOptions regexOptionsoptions = RegexOptions.None;
-
-            //Check the Variable
-            switch (regexParameter)
-            {
-                //Same Line
-                case EnumRegexParameter.SameLine:
-                    regexOptionsoptions = RegexOptions.Multiline;
-                    break;
-                //Different Lines
-                case EnumRegexParameter.DifferentLines:
-                    regexOptionsoptions = RegexOptions.Singleline;
-                    break;
-
-            }
 
             ///////////////////////////
             // Add execution logic HERE
+            string[] OutputResults = CallExtractions.CallExtractTextBetweenTwoAnchorWords(inputText, begWords, endWords, regexParameterText, displayLog, displayRegex);
 
-            #region BegWords & End Words
-            if (begWords != null && endWords != null)
-            {
-                //Loop through the Beggining Words
-                foreach (string begWord in begWords)
-                {
-                    //Loop through Ending Words
-                    foreach (string endWord in endWords)
-                    {
-
-                        //Search the Text
-                        OutputResults = Utils.ExtractTextBetweenTags(inputText, begWord, endWord, regexOptionsoptions, displayLog, displayRegex);
-
-                        //Exit the Loop in case result is found
-                        if (OutputResults.Length > 0)
-                        {
-                            //Exit the Loop
-                            goto ExitLoop;
-                        }
-
-                    }
-                }
-            }
-
-            #endregion
-
-            #region BegWords Only
-            if (begWords != null && endWords == null)
-            {
-                //Loop through the Beggining Words
-                foreach (string begWord in begWords)
-                {
-                    //Search the Text
-                    OutputResults = Utils.ExtractTextBetweenTags(inputText, begWord, null, regexOptionsoptions, displayLog, displayRegex);
-
-                    //Exit the Loop in case result is found
-                    if (OutputResults.Length > 0)
-                    {
-                        //Exit the Loop
-                        goto ExitLoop;
-                    }
-
-                }
-            }
-
-            #endregion
-
-            #region EndWords Only
-            if (begWords == null && endWords != null)
-            {
-                //Loop through the Beggining Words
-                foreach (string endWord in endWords)
-                {
-                    //Search the Text
-                    OutputResults = Utils.ExtractTextBetweenTags(inputText, null, endWord, regexOptionsoptions, displayLog, displayRegex);
-
-                    //Exit the Loop in case result is found
-                    if (OutputResults.Length > 0)
-                    {
-                        //Exit the Loop
-                        goto ExitLoop;
-                    }
-
-                }
-            }
-
-            #endregion
 
         ExitLoop:
 
@@ -255,7 +177,8 @@ namespace BillBlech.TextToolbox.Activities
 
             ///////////////////////////
             // Outputs
-            return (ctx) => {
+            return (ctx) =>
+            {
                 Results.Set(ctx, OutputResults);
             };
         }

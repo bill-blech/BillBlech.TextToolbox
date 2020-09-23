@@ -1,9 +1,9 @@
+using BillBlech.TextToolbox.Activities.Activities;
+using BillBlech.TextToolbox.Activities.Properties;
 using System;
 using System.Activities;
 using System.Threading;
 using System.Threading.Tasks;
-using BillBlech.TextToolbox.Activities.Activities;
-using BillBlech.TextToolbox.Activities.Properties;
 using UiPath.Shared.Activities;
 using UiPath.Shared.Activities.Localization;
 using UiPath.Shared.Activities.Utilities;
@@ -38,6 +38,11 @@ namespace BillBlech.TextToolbox.Activities
         [LocalizedDescription(nameof(Resources.ExtractTextBetweenTwoAnchorWords_DisplayLog_Description))]
         [LocalizedCategory(nameof(Resources.Options_Category))]
         public bool DisplayLog { get; set; }
+
+        [LocalizedDisplayName(nameof(Resources.IDText_DisplayName))]
+        [LocalizedDescription(nameof(Resources.IDText_Description))]
+        [LocalizedCategory(nameof(Resources.Common_Category))]
+        public InArgument<string> IDText { get; set; }
 
         #endregion
 
@@ -83,7 +88,8 @@ namespace BillBlech.TextToolbox.Activities
             ///////////////////////////
 
             // Outputs
-            return (ctx) => {
+            return (ctx) =>
+            {
                 Percentage.Set(ctx, PercResults);
             };
         }

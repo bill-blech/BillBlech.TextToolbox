@@ -1,10 +1,10 @@
+using BillBlech.TextToolbox.Activities.Properties;
 using System;
 using System.Activities;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Activities.Statements;
 using System.ComponentModel;
-using BillBlech.TextToolbox.Activities.Properties;
+using System.Threading;
+using System.Threading.Tasks;
 using UiPath.Shared.Activities;
 using UiPath.Shared.Activities.Localization;
 
@@ -32,6 +32,16 @@ namespace BillBlech.TextToolbox.Activities
         [LocalizedCategory(nameof(Resources.Input_Category))]
         public InArgument<string> InputText { get; set; }
 
+        [LocalizedDisplayName(nameof(Resources.IDText_DisplayName))]
+        [LocalizedDescription(nameof(Resources.IDText_Description))]
+        [LocalizedCategory(nameof(Resources.Common_Category))]
+        public InArgument<string> IDText { get; set; }
+
+        [LocalizedDisplayName(nameof(Resources.TextApplicationScope_FilePathPreview_DisplayName))]
+        [LocalizedDescription(nameof(Resources.TextApplicationScope_FilePathPreview_Description))]
+        [LocalizedCategory(nameof(Resources.Common_Category))]
+        public InArgument<string> FilePathPreview { get; set; }
+
         // A tag used to identify the scope in the activity context
         internal static string ParentContainerPropertyTag => "ScopeActivity";
 
@@ -49,7 +59,7 @@ namespace BillBlech.TextToolbox.Activities
 
             Body = new ActivityAction<IObjectContainer>
             {
-                Argument = new DelegateInArgument<IObjectContainer> (ParentContainerPropertyTag),
+                Argument = new DelegateInArgument<IObjectContainer>(ParentContainerPropertyTag),
                 Handler = new Sequence { DisplayName = Resources.Do }
             };
         }
@@ -71,7 +81,7 @@ namespace BillBlech.TextToolbox.Activities
             base.CacheMetadata(metadata);
         }
 
-        protected override async Task<Action<NativeActivityContext>> ExecuteAsync(NativeActivityContext  context, CancellationToken cancellationToken)
+        protected override async Task<Action<NativeActivityContext>> ExecuteAsync(NativeActivityContext context, CancellationToken cancellationToken)
         {
             // Inputs
             var inputText = InputText.Get(context);
@@ -79,7 +89,8 @@ namespace BillBlech.TextToolbox.Activities
             //Add Dummy last line to InputText
             //inputText = inputText +
             //Environment.NewLine + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@";
-            inputText = inputText + Environment.NewLine;
+            //inputText = inputText + Environment.NewLine;
+            inputText += Environment.NewLine;
 
             //////Get Data from Text File
             ////string source = System.IO.File.ReadAllText(inputText);
@@ -92,10 +103,11 @@ namespace BillBlech.TextToolbox.Activities
             //==========================================
 
 
-            return (ctx) => {
+            return (ctx) =>
+            {
                 // Schedule child activities
                 if (Body != null)
-				    ctx.ScheduleAction<IObjectContainer>(Body, _objectContainer, OnCompleted, OnFaulted);
+                    ctx.ScheduleAction<IObjectContainer>(Body, _objectContainer, OnCompleted, OnFaulted);
 
                 // Outputs
             };
@@ -121,7 +133,7 @@ namespace BillBlech.TextToolbox.Activities
 
 
         #region Helpers
-        
+
         private void Cleanup()
         {
             var disposableObjects = _objectContainer.Where(o => o is IDisposable);

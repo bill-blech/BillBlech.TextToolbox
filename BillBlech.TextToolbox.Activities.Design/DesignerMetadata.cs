@@ -1,8 +1,8 @@
+using BillBlech.TextToolbox.Activities.Design.Designers;
+using BillBlech.TextToolbox.Activities.Design.Properties;
 using System.Activities.Presentation.Metadata;
 using System.ComponentModel;
 using System.ComponentModel.Design;
-using BillBlech.TextToolbox.Activities.Design.Designers;
-using BillBlech.TextToolbox.Activities.Design.Properties;
 
 namespace BillBlech.TextToolbox.Activities.Design
 {
@@ -50,6 +50,34 @@ namespace BillBlech.TextToolbox.Activities.Design
             builder.AddCustomAttributes(typeof(ExtractTextAboveAnchorWords), categoryAttribute);
             builder.AddCustomAttributes(typeof(ExtractTextAboveAnchorWords), new DesignerAttribute(typeof(ExtractTextAboveAnchorWordsDesigner)));
             builder.AddCustomAttributes(typeof(ExtractTextAboveAnchorWords), new HelpKeywordAttribute(""));
+
+            builder.AddCustomAttributes(typeof(ExtractTextUntilBlankLine), categoryAttribute);
+            builder.AddCustomAttributes(typeof(ExtractTextUntilBlankLine), new DesignerAttribute(typeof(ExtractTextUntilBlankLineDesigner)));
+            builder.AddCustomAttributes(typeof(ExtractTextUntilBlankLine), new HelpKeywordAttribute(""));
+
+            builder.AddCustomAttributes(typeof(RemoveWords), categoryAttribute);
+            builder.AddCustomAttributes(typeof(RemoveWords), new DesignerAttribute(typeof(RemoveWordsDesigner)));
+            builder.AddCustomAttributes(typeof(RemoveWords), new HelpKeywordAttribute(""));
+
+            builder.AddCustomAttributes(typeof(EncryptValue), categoryAttribute);
+            builder.AddCustomAttributes(typeof(EncryptValue), new DesignerAttribute(typeof(EncryptValueDesigner)));
+            builder.AddCustomAttributes(typeof(EncryptValue), new HelpKeywordAttribute(""));
+
+            builder.AddCustomAttributes(typeof(DecryptValue), categoryAttribute);
+            builder.AddCustomAttributes(typeof(DecryptValue), new DesignerAttribute(typeof(DecryptValueDesigner)));
+            builder.AddCustomAttributes(typeof(DecryptValue), new HelpKeywordAttribute(""));
+
+            builder.AddCustomAttributes(typeof(SplitTextByBlankLines), categoryAttribute);
+            builder.AddCustomAttributes(typeof(SplitTextByBlankLines), new DesignerAttribute(typeof(SplitTextByBlankLinesDesigner)));
+            builder.AddCustomAttributes(typeof(SplitTextByBlankLines), new HelpKeywordAttribute(""));
+
+            builder.AddCustomAttributes(typeof(ReplaceWords), categoryAttribute);
+            builder.AddCustomAttributes(typeof(ReplaceWords), new DesignerAttribute(typeof(ReplaceWordsDesigner)));
+            builder.AddCustomAttributes(typeof(ReplaceWords), new HelpKeywordAttribute(""));
+
+            builder.AddCustomAttributes(typeof(ExtractAllCharactersUntilWhiteSpace), categoryAttribute);
+            builder.AddCustomAttributes(typeof(ExtractAllCharactersUntilWhiteSpace), new DesignerAttribute(typeof(ExtractAllCharactersUntilWhiteSpaceDesigner)));
+            builder.AddCustomAttributes(typeof(ExtractAllCharactersUntilWhiteSpace), new HelpKeywordAttribute(""));
 
 
             MetadataStore.AddAttributeTable(builder.CreateTable());

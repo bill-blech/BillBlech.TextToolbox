@@ -6,7 +6,8 @@
                       xmlns:sapv="clr-namespace:System.Activities.Presentation.View;assembly=System.Activities.Presentation"
                       xmlns:sapc="clr-namespace:System.Activities.Presentation.Converters;assembly=System.Activities.Presentation"
                       xmlns:converters="clr-namespace:UiPath.Shared.Activities.Design.Converters"
-                      xmlns:uip="clr-namespace:UiPath.Shared.Activities.Design.Controls">
+                      xmlns:uip="clr-namespace:UiPath.Shared.Activities.Design.Controls"
+                      xmlns:c="clr-namespace:BillBlech.TextToolbox.Activities.Design">
 
     <sap:ActivityDesigner.Resources>
         <ResourceDictionary>
@@ -14,6 +15,7 @@
                 <ResourceDictionary Source="..\Themes\Generic.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <sapc:ArgumentToExpressionConverter x:Key="ArgumentToExpressionConverter" />
+            <c:ComboBoxConverter x:Key="comboBoxItemConverter"/>
             <converters:ActivityIconConverter x:Key="ActivityIconConverter" />
         </ResourceDictionary>
     </sap:ActivityDesigner.Resources>
@@ -24,32 +26,60 @@
 
     <uip:ActivityDecoratorControl Style="{StaticResource ActivityDecoratorStyle}">
         <Grid Width="300">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-        <Label Content="{x:Static activity:Resources.ExtractTextBetweenTwoAnchorWords_BegWords_DisplayName}" Grid.Row="0"
+            <!--ID Text -->
+            <sapv:ExpressionTextBox Grid.Row="0" ExpressionType="{Binding ModelItem.Properties[IDText].PropertyType.GenericTypeArguments[0]}" OwnerActivity="{Binding Path=ModelItem}" HintText="{x:Static activity:Resources.IDText_Description}" UseLocationExpression="False" Name="IDText" Visibility="Hidden">
+                <sapv:ExpressionTextBox.Expression>
+                    <Binding Path="ModelItem.IDText" Converter="{StaticResource ArgumentToExpressionConverter}" Mode="TwoWay" ConverterParameter="In"  UpdateSourceTrigger="PropertyChanged"/>
+                </sapv:ExpressionTextBox.Expression>
+            </sapv:ExpressionTextBox>
+
+            <!--Beg Words-->
+            <Label Content="{x:Static activity:Resources.ExtractTextBetweenTwoAnchorWords_BegWords_DisplayName}" Grid.Row="0"
                    ToolTip="{x:Static activity:Resources.ExtractTextBetweenTwoAnchorWords_BegWords_Description}"/>
 
-        <sapv:ExpressionTextBox Grid.Row="1" ExpressionType="{Binding ModelItem.Properties[BegWords].PropertyType.GenericTypeArguments[0]}" OwnerActivity="{Binding Path=ModelItem}" HintText="{x:Static activity:Resources.ExtractTextBetweenTwoAnchorWords_BegWords_Description}" UseLocationExpression="False">
-            <sapv:ExpressionTextBox.Expression>
-                <Binding Path="ModelItem.BegWords" Converter="{StaticResource ArgumentToExpressionConverter}" Mode="TwoWay" ConverterParameter="In" UpdateSourceTrigger="PropertyChanged" />
-            </sapv:ExpressionTextBox.Expression>
-        </sapv:ExpressionTextBox>
-
-        <Label Content="{x:Static activity:Resources.ExtractTextBetweenTwoAnchorWords_EndWords_DisplayName}" Grid.Row="2"
+            <sapv:ExpressionTextBox Grid.Row="1" ExpressionType="{Binding ModelItem.Properties[BegWords].PropertyType.GenericTypeArguments[0]}" OwnerActivity="{Binding Path=ModelItem}" HintText="{x:Static activity:Resources.ExtractTextBetweenTwoAnchorWords_BegWords_Description}" UseLocationExpression="False"  Name="BegWords" Margin="0,0,27,0">
+                <sapv:ExpressionTextBox.Expression>
+                    <Binding Path="ModelItem.BegWords" Converter="{StaticResource ArgumentToExpressionConverter}" Mode="TwoWay" ConverterParameter="In" UpdateSourceTrigger="PropertyChanged" />
+                </sapv:ExpressionTextBox.Expression>
+            </sapv:ExpressionTextBox>
+            <!-- Menu Button-->
+            <Button Content="" Height="20" Width="20" Margin="275,2,5,1" RenderTransformOrigin="0.529,-0.15" Click="CallCallButtonBegWords_SetupWizard" Grid.Row="1" Name="btnBegWords" ToolTip="Access 'Wizard' and 'Preview' functionalities" Focusable="False" Visibility="Visible">
+                <Button.Background>
+                    <ImageBrush ImageSource="/BillBlech.TextToolbox.Activities.Design;component/Resources/MenuIcon.png"/>
+                </Button.Background>
+            </Button>
+            <!--End Words-->
+            <Label Content="{x:Static activity:Resources.ExtractTextBetweenTwoAnchorWords_EndWords_DisplayName}" Grid.Row="2"
                    ToolTip="{x:Static activity:Resources.ExtractTextBetweenTwoAnchorWords_EndWords_Description}"/>
+            <sapv:ExpressionTextBox Grid.Row="3" ExpressionType="{Binding ModelItem.Properties[EndWords].PropertyType.GenericTypeArguments[0]}" OwnerActivity="{Binding Path=ModelItem}" HintText="{x:Static activity:Resources.ExtractTextBetweenTwoAnchorWords_EndWords_Description}" UseLocationExpression="False" Name="EndWords" Margin="0,0,27,0">
+                <sapv:ExpressionTextBox.Expression>
+                    <Binding Path="ModelItem.EndWords" Converter="{StaticResource ArgumentToExpressionConverter}" Mode="TwoWay" ConverterParameter="In" UpdateSourceTrigger="PropertyChanged" />
+                </sapv:ExpressionTextBox.Expression>
+            </sapv:ExpressionTextBox>
+            <!-- Menu Button-->
+            <Button Content="" Height="20" Width="20" Margin="275,2,5,1" RenderTransformOrigin="0.529,-0.15" Click="CallCallButtonEndWords_SetupWizard" Grid.Row="3" Name="btnEndWords" ToolTip="Access 'Wizard' and 'Preview' functionalities" Focusable="False" Visibility="Visible">
+                <Button.Background>
+                    <ImageBrush ImageSource="/BillBlech.TextToolbox.Activities.Design;component/Resources/MenuIcon.png"/>
+                </Button.Background>
+            </Button>
+            <!--Combo Box-->
+            <Label Content="{x:Static activity:Resources.ExtractTextBetweenTwoAnchorWords_RegexParameter_DisplayName}" Grid.Row="4"
+                   ToolTip="{x:Static activity:Resources.ExtractTextBetweenTwoAnchorWords_RegexParameter_Description}"/>
+            <ComboBox Grid.Row="4"
+                      SelectedValue="{Binding Path=ModelItem.RegexParameter, Mode=TwoWay, Converter={StaticResource comboBoxItemConverter}, ConverterParameter=In}"  
+                      ItemsSource="{Binding LstRegexParameter, Mode=TwoWay}"
+                            Margin="102,5,74,6"
+                      Name="RegexParameterComboBox"
+                      SelectionChanged="MyRegexParameterComboBox_SelectionChanged" Height="Auto"/>
 
-
-        <sapv:ExpressionTextBox Grid.Row="3" ExpressionType="{Binding ModelItem.Properties[EndWords].PropertyType.GenericTypeArguments[0]}" OwnerActivity="{Binding Path=ModelItem}" HintText="{x:Static activity:Resources.ExtractTextBetweenTwoAnchorWords_EndWords_Description}" UseLocationExpression="False">
-            <sapv:ExpressionTextBox.Expression>
-                <Binding Path="ModelItem.EndWords" Converter="{StaticResource ArgumentToExpressionConverter}" Mode="TwoWay" ConverterParameter="In" UpdateSourceTrigger="PropertyChanged" />
-            </sapv:ExpressionTextBox.Expression>
-        </sapv:ExpressionTextBox>
-
-    </Grid>
+        </Grid>
     </uip:ActivityDecoratorControl>
 </sap:ActivityDesigner>

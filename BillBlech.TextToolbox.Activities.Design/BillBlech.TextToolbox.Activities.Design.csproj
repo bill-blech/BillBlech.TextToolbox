@@ -31,11 +31,18 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Designers\CountWordsInTextDesigner.xaml" />
+    <None Remove="Designers\DecryptValueDesigner.xaml" />
+    <None Remove="Designers\EncryptValueDesigner.xaml" />
+    <None Remove="Designers\ExtractAllCharactersUntilWhiteSpaceDesigner.xaml" />
     <None Remove="Designers\ExtractAllLinesBelowAnchorTextDesigner.xaml" />
     <None Remove="Designers\ExtractTextAboveAnchorWordsDesigner.xaml" />
     <None Remove="Designers\ExtractTextBelowAnchorWordsDesigner.xaml" />
     <None Remove="Designers\ExtractTextBetweenTwoAnchorWordsDesigner.xaml" />
+    <None Remove="Designers\ExtractTextUntilBlankLineDesigner.xaml" />
     <None Remove="Designers\RemoveEmptyRowsDesigner.xaml" />
+    <None Remove="Designers\RemoveWordsDesigner.xaml" />
+    <None Remove="Designers\ReplaceWordsDesigner.xaml" />
+    <None Remove="Designers\SplitTextByBlankLinesDesigner.xaml" />
     <None Remove="Designers\SplitTextNewLinesDesigner.xaml" />
     <None Remove="Designers\SplitTextRowsDesigner.xaml" />
     <None Remove="Designers\TextApplicationScopeDesigner.xaml" />
@@ -43,6 +50,14 @@
   <!-- Package Icon -->
   <ItemGroup>
     <None Include="packageIcon.png" Pack="true" Visible="false" PackagePath="" />
+	<Resource Include="Resources\Excel-icon_Small.png" />
+	<Resource Include="Resources\SelectExcelSheetIcon.png" Pack="true" PackagePath="/Resource/SelectExcelSheetIcon.png" />
+	<Resource Include="Resources\Warning.png" />
+	<Resource Include="Resources\Doc_Check.png" Pack="true" PackagePath="/Resource/Doc_Check.png" />
+	<Resource Include="Resources\SelectText.png" Pack="true" PackagePath="/Resource/SelectText.png" />
+	<Resource Include="Resources\report2.png" Pack="true" PackagePath="/Resource/report2.png" />
+	<Resource Include="Resources\MenuIcon.png" Pack="true" PackagePath="/Resource/MenuIcon.png" />
+	  
   </ItemGroup>
   <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="BuildOnlySettings;ResolveReferences">
     <ItemGroup>
@@ -63,8 +78,10 @@
     <DocumentationFile>bin\$(Configuration)\BillBlech.TextToolbox.Activities.Design.xml</DocumentationFile>
   </PropertyGroup>
 	<ItemGroup>
+		<Reference Include="Microsoft.VisualBasic" />
 		<Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
 		<Reference Include="System.Xml.Linq" />
 		<Reference Include="System.Data.DataSetExtensions" />
 		<Reference Include="Microsoft.CSharp" />
@@ -88,6 +105,15 @@
     <Page Include="Designers\CountWordsInTextDesigner.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </Page>
+    <Page Include="Designers\DecryptValueDesigner.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </Page>
+    <Page Include="Designers\EncryptValueDesigner.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </Page>
+    <Page Include="Designers\ExtractAllCharactersUntilWhiteSpaceDesigner.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </Page>
     <Page Include="Designers\ExtractAllLinesBelowAnchorTextDesigner.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </Page>
@@ -100,7 +126,19 @@
     <Page Include="Designers\ExtractTextBetweenTwoAnchorWordsDesigner.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </Page>
+    <Page Include="Designers\ExtractTextUntilBlankLineDesigner.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </Page>
     <Page Include="Designers\RemoveEmptyRowsDesigner.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </Page>
+    <Page Include="Designers\RemoveWordsDesigner.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </Page>
+    <Page Include="Designers\ReplaceWordsDesigner.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </Page>
+    <Page Include="Designers\SplitTextByBlankLinesDesigner.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </Page>
     <Page Include="Designers\SplitTextNewLinesDesigner.xaml">

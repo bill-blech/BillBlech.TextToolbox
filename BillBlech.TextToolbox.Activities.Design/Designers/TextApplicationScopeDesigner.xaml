@@ -15,7 +15,7 @@
     xmlns:sharedres="clr-namespace:UiPath.Shared.Localization"
      >
 
- 
+
     <sap:ActivityDesigner.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -25,11 +25,11 @@
             <converters:ActivityIconConverter x:Key="ActivityIconConverter" />
         </ResourceDictionary>
     </sap:ActivityDesigner.Resources>
- 
+
     <sap:ActivityDesigner.Icon>
         <DrawingBrush Stretch="Uniform" Drawing="{Binding Path=ModelItem, Converter={StaticResource ActivityIconConverter}, ConverterParameter=pack://application:\,\,\,/BillBlech.TextToolbox.Activities.Design;component/themes/icons.xaml}" />
     </sap:ActivityDesigner.Icon>
- 
+
     <uip:ActivityDecoratorControl Style="{StaticResource ActivityDecoratorStyle}">
         <DockPanel LastChildFill="True">
             <sap:WorkflowItemPresenter x:Uid="sad:WorkflowItemPresenter_1"
@@ -50,9 +50,26 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
+                <!--Input Text Variable -->
+                <sapv:ExpressionTextBox  ExpressionType="{Binding ModelItem.Properties[FilePath].PropertyType.GenericTypeArguments[0]}" OwnerActivity="{Binding ModelItem}" UseLocationExpression="False" Margin="5,0,81,0"  Expression="{Binding ModelItem.InputText, ConverterParameter=In, Converter={StaticResource ArgumentToExpressionConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HintText="{x:Static activity:Resources.TextApplicationScope_InputText_Description}" Name="InputText"/>
+                <!--File Path Preview -->
+                <sapv:ExpressionTextBox  ExpressionType="{Binding ModelItem.Properties[FilePathPreview].PropertyType.GenericTypeArguments[0]}" OwnerActivity="{Binding ModelItem}" UseLocationExpression="False" Margin="358,0,20,0"  Expression="{Binding ModelItem.FilePathPreview, ConverterParameter=In, Converter={StaticResource ArgumentToExpressionConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HintText="{x:Static activity:Resources.TextApplicationScope_FilePathPreview_Description}" Name="FilePathPreview" Visibility="Hidden"/>
+                <!--IDText -->
+                <sapv:ExpressionTextBox  ExpressionType="{Binding ModelItem.Properties[IDText].PropertyType.GenericTypeArguments[0]}" OwnerActivity="{Binding ModelItem}" UseLocationExpression="False" Margin="380,0,3,0"  Expression="{Binding ModelItem.IDText, ConverterParameter=In, Converter={StaticResource ArgumentToExpressionConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HintText="{x:Static activity:Resources.IDText_Description}" Name="IDText" Visibility="Hidden"/>
 
-                <sapv:ExpressionTextBox  ExpressionType="{Binding ModelItem.Properties[FilePath].PropertyType.GenericTypeArguments[0]}" OwnerActivity="{Binding ModelItem}" UseLocationExpression="False" Margin="5,0,2,0"  Expression="{Binding ModelItem.InputText, ConverterParameter=In, Converter={StaticResource ArgumentToExpressionConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HintText="{x:Static activity:Resources.TextApplicationScope_InputText_Description}" Name="InputText"/>
-                <Button Content='...' Height="20" Width="20" Margin="331,2,49,1" RenderTransformOrigin="0.529,-0.15" Click="Button_LoadDocument" ToolTip="Select text file for Text Application Scope" Focusable="False" Visibility="Hidden"></Button>
+
+                <!--Select Text File -->
+                <Button Content='' Height="20" Width="20" Margin="331,2,49,1" RenderTransformOrigin="0.529,-0.15" Click="CallButton_BlechTextAppScope" ToolTip="Select Text File for 'Wizard' and 'Preview' Functionalities" Focusable="False">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/BillBlech.TextToolBox.Activities.Design;component/Resources/SelectText.png"/>
+                    </Button.Background>
+                </Button>
+
+                <Button Content=' ' Height="20" Width="20" Margin="353,2,27,1" RenderTransformOrigin="0.529,-0.15" Click="CallButton_CurrentFile" ToolTip="Enable 'Wizard' and 'Preview' Functionalities" Name="btnWarning" Focusable="False">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/BillBlech.TextToolBox.Activities.Design;component/Resources/Warning.png"/>
+                    </Button.Background>
+                </Button>
 
             </Grid>
 

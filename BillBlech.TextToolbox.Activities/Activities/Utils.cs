@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace BillBlech.TextToolbox.Activities.Activities
 {
-    class Utils
+    public class Utils
     {
         #region Regex
 
-        
+
         //https://stackoverflow.com/questions/7709337/extract-the-text-between-two-tag-in-c-sharp
         //https://docs.microsoft.com/en-us/dotnet/api/system.text.regularexpressions.matchcollection.count?view=netcore-3.1
 
@@ -68,18 +67,20 @@ namespace BillBlech.TextToolbox.Activities.Activities
 
                 //Different Lines
                 case RegexOptions.Singleline:
-                SearchCriteria = StartTAG + @"((.|\n)*?)" + EndTAG;
+                    SearchCriteria = StartTAG + @"((.|\n)*?)" + EndTAG;
                     break;
 
             }
 
             //Write Regex Expression
-            if (displayRegex ==true)
+            if (displayRegex == true)
                 WriteLogMessage("Regex Expression: " + Environment.NewLine + SearchCriteria);
 
             //Run Regex Extraction
             return RunRegexExtraction(InputString, SearchCriteria, regexOptionsoptions, displayLog);
         }
+
+        #region Below Anchor Line
 
         //Extract Text Below Anchor Line ***
         public static string[] ExtractTextLineBelowAnchorText(string InputString, string StartTAG, int linesBelow, int NumLines, bool displayLog, bool displayRegex)
@@ -120,60 +121,8 @@ namespace BillBlech.TextToolbox.Activities.Activities
                 WriteLogMessage("Regex Expression: " + Environment.NewLine + SearchCriteria);
 
             //Run Regex Extraction
-            return RunRegexExtraction(InputString, SearchCriteria, RegexOptions.None,displayLog);
+            return RunRegexExtraction(InputString, SearchCriteria, RegexOptions.None, displayLog);
 
-            ////Get Matches via Regex
-            //MatchCollection matches = Regex.Matches(InputString, SearchCriteria);
-
-            //if (displayLog==true)
-            //    Console.WriteLine($"Matches count: {matches.Count}");
-
-            ////In case items are found
-            //if (matches.Count > 0)
-            //{
-
-            //    //Start the Counter
-            //    int i = 0;
-
-            //    //Start the Output Array
-            //    string[] Results = new string[matches.Count];
-
-            //    //Loop through the Matches
-            //    foreach (Match match in matches)
-            //    {
-
-            //        ////Add Item to Output Array
-            //        //Results[i] = match.Groups[1].Value;
-
-            //        //Get Item from Regex
-            //        string MyString = match.Groups[1].Value.Trim();
-
-            //        //Split the Items via New Lines
-            //        string[] lines = MyString.Split(
-            //        new[] { Environment.NewLine },
-            //        StringSplitOptions.RemoveEmptyEntries
-            //        );
-
-            //        ////Add Item to Output Array
-            //        Results[i] = lines[lines.Length - 1].ToString().Trim();
-
-            //        //Update the counter
-            //        i++;
-
-            //    }
-
-            //    //Write Log Message
-            //    if(displayLog == true)
-            //        WriteLogMessage("Results: " + Environment.NewLine + string.Join(Environment.NewLine, Results));
-
-            //    return Results;
-
-            //}
-            //else
-            //{
-            //    string[] NullArray = new string[0];
-            //    return NullArray;
-            //}
         }
 
         //Extract Text Below Anchor Text Array of Strings ****
@@ -233,6 +182,9 @@ namespace BillBlech.TextToolbox.Activities.Activities
 
         }
 
+        #endregion
+
+        #region Previous Anchor Line
 
         //https://forum.omz-software.com/topic/4526/how-to-capture-the-line-before-a-regex-match
         //Extract Text Previous Anchor Line ***
@@ -277,58 +229,61 @@ namespace BillBlech.TextToolbox.Activities.Activities
             //Run Regex Extraction
             return RunRegexExtraction(InputString, SearchCriteria, RegexOptions.Multiline, displayLog);
 
-            ////Get Matches via Regex
-
-            ////string SearchCriteria = StartTAG + "\n(.+)";
-            ////string SearchCriteria = StartTAG + "[\r\n]+([^\r\n]+)";
-            ////string SearchCriteria = "(.*)\n.*" + StartTAG + ".*";
-
-            //MatchCollection matches = Regex.Matches(InputString, SearchCriteria);
-
-            //if (displayLog == true)
-            //    Console.WriteLine($"Matches count: {matches.Count}");
-
-            ////In case items are found
-            //if (matches.Count > 0)
-            //{
-
-            //    //Start the Counter
-            //    int i = 0;
-
-            //    //Start the Output Array
-            //    string[] Results = new string[matches.Count];
-
-            //    //Loop through the Matches
-            //    foreach (Match match in matches)
-            //    {
-
-            //        //Get Item from Regex
-            //        string MyString = match.Groups[1].Value.Trim();
-
-            //        //Add Item to Output Array
-            //        Results[i] = MyString;
-
-            //        //Update the counter
-            //        i++;
-
-            //    }
-
-            //    //Write Log Message
-            //    if (displayLog == true)
-            //        WriteLogMessage("Results: " + Environment.NewLine + string.Join(Environment.NewLine, Results));
-
-            //    return Results;
-
-            //}
-            //else
-            //{
-            //    string[] NullArray = new string[0];
-            //    return NullArray;
-            //}
+        
         }
 
-        
-        //All Lines Below Start TAG Until End ***
+        //Extract Text Previous Anchor Text Array of Strings ***
+        public static string[] ExtractTextLinePreviousAnchorArrayText(string InputString, string[] ArrayTAG, int linesAbove, int NumLines, bool displayLog, bool displayRegex)
+        {
+
+            //Log Message
+            if (displayLog == true)
+                WriteLogMessage($"Extract '{linesAbove}' Line(s) Above  Anchor Words: [Anchor Words: '{string.Join(";", ArrayTAG)}]'");
+
+            //Build Regex Clause
+            string SearchCriteria = null;
+
+            //Star the Clause
+            //string StartClause = @"(.*)\n.*";
+            string StartClause = @"(.*";
+            SearchCriteria = StartClause;
+
+            //Number of lines
+            for (int z = 1; z < NumLines; z++)
+            {
+                SearchCriteria += @"\n.*";
+            }
+
+            //Finish First Part
+            SearchCriteria += ")";
+
+            //Lines Above
+            for (int x = 0; x < linesAbove; x++)
+            {
+                SearchCriteria += @"\n.*";
+            }
+
+            //Loop through the ArrayTAG
+            foreach (string MyWord in ArrayTAG)
+            {
+                SearchCriteria += @"(?=.*\b" + MyWord + @"\b)";
+            }
+
+            //Finish the Clause
+            SearchCriteria += @".*";
+
+            if (displayRegex == true)
+                WriteLogMessage("Regex Expression: " + Environment.NewLine + SearchCriteria);
+
+            //Run Regex Extraction
+            return RunRegexExtraction(InputString, SearchCriteria, RegexOptions.Multiline, displayLog);
+        }
+
+        #endregion
+
+        #region All Lines Below Start TAG Until End
+
+        //Extract All Lines Below Start TAG Until End ***
         public static string[] ExtractTextAllLinesBelowStartTAGUntilEnd(string InputString, string StartTAG, bool displayLog, bool displayRegex)
         {
 
@@ -339,23 +294,455 @@ namespace BillBlech.TextToolbox.Activities.Activities
             if (displayLog == true)
                 WriteLogMessage($"Extract All Lines Below Anchor Word: [Anchor Word: '{StartTAG.Trim()}']");
 
-            //Set the Search Criteria
+            //Build Regex Clause
             string SearchCriteria = StartTAG + @".*\n((?:\n|.+)*)";
 
+            //Display Log
             if (displayRegex == true)
                 WriteLogMessage("Regex Expression: " + Environment.NewLine + SearchCriteria);
 
             //Run Regex Extraction
-            return RunRegexExtraction(InputString, SearchCriteria, RegexOptions.None,displayLog);
+            return RunRegexExtraction(InputString, SearchCriteria, RegexOptions.None, displayLog);
 
         }
+
+        //Extract All Lines Below Anchor Text Array of Strings
+        public static string[] ExtractTextAllLinesBelowArrayTAGUntilEnd(string InputString, string[] ArrayTAG, bool displayLog, bool displayRegex)
+        {
+            //Log Message
+            if (displayLog == true)
+                WriteLogMessage($"Extract All Line(s) Below Anchor Words: [Anchor Words: '{string.Join(";", ArrayTAG)}]'");
+
+            //Build Regex Clause
+            string SearchCriteria = null;
+
+            //Loop through the ArrayTAG
+            foreach (string MyWord in ArrayTAG)
+            {
+
+                //Adjust Special Characters, if needed
+                String MyWordAdj = AdjustSpecialCharacters(MyWord);
+
+                if (SearchCriteria == null)
+                {
+                    SearchCriteria = @"^(?=.*\b" + MyWordAdj + @"\b)";
+                }
+                else
+                {
+                    SearchCriteria = SearchCriteria + @"(?=.*\b" + MyWordAdj + @"\b)";
+                }
+            }
+
+            //Finish the Clause First Part
+            SearchCriteria += @".*$";
+
+            //Finish the Clause
+            SearchCriteria += @".*\n((?:\n|.+)*)";
+            //SearchCriteria += @"[\r\n]((?:[\r\n]|.)*)";
+            //SearchCriteria += @".*$[\r\n]((?:[\r\n]|.)*)";
+            //SearchCriteria += @"(.*)";
+
+            //Display Regex
+            if (displayRegex == true)
+                WriteLogMessage("Regex Expression: " + Environment.NewLine + SearchCriteria);
+
+            //Run Regex Extraction
+            return RunRegexExtraction(InputString, SearchCriteria, RegexOptions.Multiline, displayLog);
+
+        }
+
+        #endregion
+
+        #region All Lines Above Start TAG Until Beggining
+
+        //Extract All Lines Above Start TAG Until Beginning
+        public static string[] ExtractTextAllLinesAboveTextUntilStart(string InputString, string StartTAG, bool displayLog, bool displayRegex, bool includeAnchorWordsRow)
+        {
+
+            //Adjust Special Characters, if needed
+            StartTAG = AdjustSpecialCharacters(StartTAG);
+
+            string SearchCriteria = null;
+
+            //Build Regex Clause
+            if (includeAnchorWordsRow == true)
+            {
+                SearchCriteria = @"([\S+\n\r\s]+" + StartTAG + ".*)"; // Include first line
+            }
+            else
+            {
+                SearchCriteria = @"([\S+\n\r\s]+)\n.*" + StartTAG; // Do not include first line
+            }
+
+            //Display Regex
+            if (displayRegex == true)
+                WriteLogMessage("Regex Expression: " + Environment.NewLine + SearchCriteria);
+
+            //Run Regex Extraction
+            return RunRegexExtraction(InputString, SearchCriteria, RegexOptions.None, displayLog);
+
+        }
+
+        //Extract All Lines Below Anchor Text Array of Strings
+        public static string[] ExtractTextAllLinesAboveArrayTAGUntilStart(string InputString, string[] ArrayTAG, bool displayLog, bool displayRegex, bool includeAnchorWordsRow)
+        {
+            //Log Message
+            if (displayLog == true)
+                WriteLogMessage($"Extract All Line(s) Above Anchor Words: [Anchor Words: '{string.Join(";", ArrayTAG)}]'");
+
+            //Build Regex Clause
+            string SearchCriteria = null;
+
+            //Loop through the ArrayTAG
+            foreach (string MyWord in ArrayTAG)
+            {
+
+                //Adjust Special Characters, if needed
+                String MyWordAdj = AdjustSpecialCharacters(MyWord);
+
+                SearchCriteria += @"(?=.*\b" + MyWordAdj + @"\b)";
+
+            }
+
+            //Finish the Clause
+            if (includeAnchorWordsRow == true)
+            {
+                SearchCriteria = @"([\S+\n\r\s]+\n.*" + SearchCriteria + @".*)"; //include first line
+            }
+            else
+            {
+                SearchCriteria = @"([\S+\n\r\s]+)\n.*" + SearchCriteria; //Do not include first line
+            }
+
+            //Display Regex
+            if (displayRegex == true)
+                WriteLogMessage("Regex Expression: " + Environment.NewLine + SearchCriteria);
+
+            //Run Regex Extraction
+            return RunRegexExtraction(InputString, SearchCriteria, RegexOptions.Multiline, displayLog);
+
+        }
+
+        #endregion
+
+        #region Extract Text until Blank Line
+
+        //Extract All Lines Below Anchor Text Until Blank line 
+        public static string[] ExtractAllLinesBelowAnchorTextUntilBlankline(string InputString, string StartTAG, bool displayLog, bool displayRegex, bool includeAnchorWordsRow)
+        {
+
+            //Adjust Special Characters, if needed
+            StartTAG = AdjustSpecialCharacters(StartTAG);
+
+            string SearchCriteria = null;
+
+            //Set Search Criteria
+            if (includeAnchorWordsRow == true)
+            {
+                //SearchCriteria = @"(.*" + StartTAG + @"(.|\n)*?)(?:(?:\n\r|\n|\r){3})"; //Include first line
+                SearchCriteria = @"(.*" + StartTAG + @".*(.*(?:\r?\n(?!\r?\n).*)*))"; //Include first line
+            }
+            else
+            {
+                //SearchCriteria =  StartTAG + @".*\n((.|\n)*?)(?:(?:\n\r|\n|\r){3})"; //Do not include first line
+                SearchCriteria = @".*" + StartTAG + @".*\n((.*(?:\r?\n(?!\r?\n).*)*))"; //Do not include first line
+            }
+
+            //Display Regex
+            if (displayRegex == true)
+                WriteLogMessage("Regex Expression: " + Environment.NewLine + SearchCriteria);
+
+            //Run Regex Extraction
+            return RunRegexExtraction(InputString, SearchCriteria, RegexOptions.None, displayLog);
+
+        }
+
+        //Extract All Lines Below Anchor Text Array of Strings Until Blank line 
+        public static string[] ExtractAllLinesBelowAnchorArrayofTextUntilBlankline(string InputString, string[] ArrayTAG, bool displayLog, bool displayRegex, bool includeAnchorWordsRow)
+        {
+
+            string SearchCriteria = null;
+
+            //Loop through the ArrayTAG
+            foreach (string MyWord in ArrayTAG)
+            {
+                //Adjust Special Characters, if needed
+                String MyWordAdj = AdjustSpecialCharacters(MyWord);
+
+                SearchCriteria += @"(?=.*\b" + MyWordAdj + @"\b)";
+
+            }
+
+            //Finish the Clause
+            if (includeAnchorWordsRow == true)
+            {
+
+                SearchCriteria = @"(.*" + SearchCriteria + @".*(.*(?:\r?\n(?!\r?\n).*)*))"; //Include first line
+            }
+            else
+            {
+
+                SearchCriteria = @".*" + SearchCriteria + @".*\n((.*(?:\r?\n(?!\r?\n).*)*))"; //Do not include first line
+            }
+
+
+            //Display Regex
+            if (displayRegex == true)
+                Console.WriteLine($"Search Criteria {SearchCriteria}");
+
+            //Run Regex Extraction
+            return RunRegexExtraction(InputString, SearchCriteria, RegexOptions.None, displayLog);
+
+        }
+
+        //Extract All Lines Above Anchor Text Until Blank line 
+        public static string[] ExtractAllLinesAboveAnchorTextUntilBlankline(string InputString, string StartTAG, bool displayLog, bool displayRegex, bool includeAnchorWordsRow)
+        {
+            //Adjust Special Characters, if needed
+            StartTAG = AdjustSpecialCharacters(StartTAG);
+
+            string SearchCriteria = null;
+
+            //Set Search Criteria
+            if (includeAnchorWordsRow == true)
+            {
+                SearchCriteria = @"(((?:\r?\n(?!\r?\n).*)*)" + StartTAG + ".*)"; //Include first line
+            }
+            else
+            {
+                SearchCriteria = @"(((?:\r?\n(?!\r?\n).*)*))" + StartTAG; //Do not include first line
+            }
+
+            //Display Regex
+            if (displayRegex == true)
+                WriteLogMessage("Regex Expression: " + Environment.NewLine + SearchCriteria);
+
+            //Run Regex Extraction
+            return RunRegexExtraction(InputString, SearchCriteria, RegexOptions.None, displayLog);
+        }
+
+        //Extract All Lines Above Anchor Text Array of Strings Until Blank line
+        public static string[] ExtractAllLinesAboveAnchorArrayofTextUntilBlankline(string InputString, string[] ArrayTAG, bool displayLog, bool displayRegex, bool includeAnchorWordsRow)
+        {
+
+            string SearchCriteria = null;
+
+            //Loop through the ArrayTAG
+            foreach (string MyWord in ArrayTAG)
+            {
+                //Adjust Special Characters, if needed
+                String MyWordAdj = AdjustSpecialCharacters(MyWord);
+
+                SearchCriteria += @"(?=.*\b" + MyWordAdj + @"\b)";
+
+            }
+
+            //Finish the Clause
+            if (includeAnchorWordsRow == true)
+            {
+                SearchCriteria = @"(((?:\r?\n(?!\r?\n).*)*)" + SearchCriteria + ".*)"; //Include first line
+            }
+            else
+            {
+                SearchCriteria = @"(((?:\r?\n(?!\r?\n).*)*))" + SearchCriteria; //Do not include first line
+            }
+
+
+            //Display Regex
+            if (displayRegex == true)
+                Console.WriteLine($"Search Criteria {SearchCriteria}");
+
+            //Run Regex Extraction
+            return RunRegexExtraction(InputString, SearchCriteria, RegexOptions.None, displayLog);
+
+
+
+            ////Get all Lines above Text Until Start
+            //string[] OutputResults = ExtractTextAllLinesAboveArrayTAGUntilStart(InputString, ArrayTAG, false, false, includeAnchorWordsRow);
+
+            ////Display Log
+            //if (displayLog == true)
+            //    WriteLogMessage($"Matches count: {OutputResults.Length}");
+
+            ////Start the OutputVariable
+            //string[] OutputArray = new string[OutputResults.Length];
+
+            ////Start OutputArrayCounter
+            //int j = 0;
+
+            ////Loop through the OutputArray1 Array
+            //foreach (string Text in OutputResults)
+            //{
+
+            //    //Populate OutputArray
+            //    OutputArray[j] = Utils.ExtractTextAllLinesAboveUntilBlankLine(Text);
+
+            //    //Update the Counter
+            //    j++;
+
+            //}
+
+            ////Write Log Message
+            //if (displayLog == true)
+            //    WriteLogMessage("Results: " + Environment.NewLine + string.Join(Environment.NewLine, OutputArray));
+
+            //return OutputArray;
+        }
+
+        //Extract All Lines Both Direction Anchor Text Between Blank Lines
+        public static string[] ExtractAllLinesBothDirectionsAnchorTextBetweenBlanklines(string InputString, string StartTAG, bool displayLog, bool displayRegex)
+        {
+            //Adjust Special Characters, if needed
+            StartTAG = AdjustSpecialCharacters(StartTAG);
+
+            //Set Search Criteria
+            string SearchCriteria = @"(((?:\r?\n(?!\r?\n).*)*).*" + StartTAG + @".*(.*(?:\r?\n(?!\r?\n).*)*))";
+
+            //Display Regex
+            if (displayRegex == true)
+                WriteLogMessage("Regex Expression: " + Environment.NewLine + SearchCriteria);
+
+            //Run Regex Extraction
+            return RunRegexExtraction(InputString, SearchCriteria, RegexOptions.None, displayLog);
+
+        }
+
+        //Extract All Lines Both Direction Anchor Text Array Between Blank Lines
+        public static string[] ExtractAllLinesBothDirectionsAnchorArrayofTextBetweenBlanklines(string InputString, string[] ArrayTAG, bool displayLog, bool displayRegex)
+        {
+            string SearchCriteria = null;
+
+            //Loop through the ArrayTAG
+            foreach (string MyWord in ArrayTAG)
+            {
+                //Adjust Special Characters, if needed
+                String MyWordAdj = AdjustSpecialCharacters(MyWord);
+
+                SearchCriteria += @"(?=.*\b" + MyWordAdj + @"\b)";
+
+            }
+
+            //Set Search Criteria
+            //SearchCriteria = @"(((?:\r?\n(?!\r?\n).*)*).*" + SearchCriteria + @".*(.*(?:\r?\n(?!\r?\n).*)*))";
+            //SearchCriteria = @"(((?:\r?\n(?!\r?\n).*)*).*" + SearchCriteria +   @".*(.*(?:\r?\n(?!\r?\n).*)*))";
+            SearchCriteria = @"(((?:\r?\n(?!\r?\n).*)*).*" + SearchCriteria + @".*((?:\r?\n(?!\r?\n).*)*))";
+
+            //Display Regex
+            if (displayRegex == true)
+                Console.WriteLine($"Search Criteria {SearchCriteria}");
+
+            //Run Regex Extraction
+            return RunRegexExtraction(InputString, SearchCriteria, RegexOptions.None, displayLog);
+
+
+            return null;
+        }
+
+        //Extract All Lines Above Anchor Text Until Blank Line (No used)
+
+        public static string ExtractTextAllLinesAboveUntilBlankLine(string Text)
+        {
+
+            //Start the Variables
+            int i = 0;
+            int counter = 0;
+            string lineText = null;
+
+            //Split the Items via New Lines
+            string[] lines = Text.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+
+            #region Search Empty Line
+
+            //Loop through the lines (backwards)
+            for (int x = lines.Length; x > 0; x--)
+            {
+                //line index
+                i = x - 1;
+
+                //line text
+                lineText = lines[x - 1];
+
+                //Exit the Loop
+                if (lineText.Length == 0)
+                {
+                    goto ExitLoop;
+                }
+
+                //Update the Counter
+                counter++;
+
+            }
+
+        #endregion
+
+        ExitLoop:
+
+            #region Build OutputArray
+
+            //Build OutputArray
+
+            //Start the Counter
+            int j = 0;
+
+            //Start the Output vairable
+            string OutputString = null;
+
+            //Loop through the Array Indexes
+            for (int z = i + 1; z < lines.Length; z++)
+            {
+
+                //Get line Text from lines array
+                lineText = lines[z];
+
+                //Add Data to Output String
+                if (j == 0)
+                {
+                    //Start the Variable
+                    OutputString = lineText;
+                }
+                else
+                {
+                    //Start the Variable
+                    OutputString += Environment.NewLine + lineText;
+                }
+
+                //Update the Counter
+                j++;
+            }
+
+            #endregion
+
+            return OutputString;
+
+        }
+
+        #endregion
+
+        //Extract all Characters until next White Space
+        public static string[] ExtractAllCharactersUntilWhiteSpace(string InputString, string StartTAG, bool displayLog, bool displayRegex)
+        {
+            //Adjust Special Characters, if needed
+            StartTAG = AdjustSpecialCharacters(StartTAG);
+
+            //Set Search Criteria
+            string SearchCriteria = StartTAG + @"(.\S*)";
+
+            //Display Regex
+            if (displayRegex == true)
+                WriteLogMessage("Regex Expression: " + Environment.NewLine + SearchCriteria);
+
+            //Run Regex Extraction
+            return RunRegexExtraction(InputString, SearchCriteria, RegexOptions.Multiline, displayLog);
+
+        }
+
 
         //Extract Last Line Below Anchor Text Array of Strings 
         public static string[] ExtractTextLastLinesBelowArrayTAGUntilEnd(string InputString, string[] ArrayTAG, bool displayLog, bool displayRegex)
         {
             //Log Message
             if (displayLog == true)
-                WriteLogMessage($"Extract All Line(s) Below  Anchor Words: [Anchor Words: '{string.Join(";", ArrayTAG)}]'");
+                WriteLogMessage($"Extract All Line(s) Below Anchor Words: [Anchor Words: '{string.Join(";", ArrayTAG)}]'");
 
             //Build Regex Clause
             string SearchCriteria = null;
@@ -439,58 +826,15 @@ namespace BillBlech.TextToolbox.Activities.Activities
 
         }
 
-        //Extract All Lines Below Anchor Text Array of Strings
-        public static string[] ExtractTextAllLinesBelowArrayTAGUntilEnd(string InputString, string[] ArrayTAG, bool displayLog, bool displayRegex)
-        {
-            //Log Message
-            if (displayLog == true)
-                WriteLogMessage($"Extract All Line(s) Below  Anchor Words: [Anchor Words: '{string.Join(";", ArrayTAG)}]'");
-
-            //Build Regex Clause
-            string SearchCriteria = null;
-
-            //Loop through the ArrayTAG
-            foreach (string MyWord in ArrayTAG)
-            {
-
-                //Adjust Special Characters, if needed
-                String MyWordAdj = AdjustSpecialCharacters(MyWord);
-
-                if (SearchCriteria == null)
-                {
-                    SearchCriteria = @"^(?=.*\b" + MyWordAdj + @"\b)";
-                }
-                else
-                {
-                    SearchCriteria = SearchCriteria + @"(?=.*\b" + MyWordAdj + @"\b)";
-                }
-            }
-
-            //Finish the Clause First Part
-            SearchCriteria += @".*$";
-
-            //Finish the Clause
-            SearchCriteria += @"[\r\n]((?:[\r\n]|.)*)";
-            //SearchCriteria += @".*$[\r\n]((?:[\r\n]|.)*)";
-            //SearchCriteria += @"(.*)";
-
-            if (displayRegex == true)
-                WriteLogMessage("Regex Expression: " + Environment.NewLine + SearchCriteria);
-
-            //Run Regex Extraction
-            return RunRegexExtraction(InputString, SearchCriteria, RegexOptions.Multiline, displayLog);
-
-        }
-
         //Run Regex Expression **
         public static string[] RunRegexExtraction(string InputString, string SearchCriteria, RegexOptions regexOptionsoptions, bool displayLog)
         {
 
             //Run Regex Extraction
-            MatchCollection matches = Regex.Matches(InputString, SearchCriteria, regexOptionsoptions);
+            MatchCollection matches = Regex.Matches(InputString, SearchCriteria, regexOptionsoptions | RegexOptions.IgnoreCase);
 
             //Write Log Message
-            if (displayLog==true)
+            if (displayLog == true)
                 WriteLogMessage($"Matches count: {matches.Count}");
 
             //In case items are found
@@ -519,7 +863,9 @@ namespace BillBlech.TextToolbox.Activities.Activities
 
                 //Write Log Message
                 if (displayLog == true)
-                    WriteLogMessage("Results: " + Environment.NewLine + string.Join(Environment.NewLine, Results));
+                    WriteLogMessage("Results: " + Environment.NewLine + "-----------------------------------------------------------------------------------------------------------------------------------------------" + Environment.NewLine +
+                                      string.Join(Environment.NewLine + "-----------------------------------------------------------------------------------------------------------------------------------------------" + Environment.NewLine, Results) +
+                                                  Environment.NewLine + "-----------------------------------------------------------------------------------------------------------------------------------------------");
 
                 return Results;
 
@@ -532,6 +878,389 @@ namespace BillBlech.TextToolbox.Activities.Activities
         }
 
         #endregion
+
+
+        #region Remove / Replace Text
+        //Remove Words from Text
+        public static string RemoveWordsFromText(string InputString, string[] RemoveWords, string OccurrencesText, int IndexOccurence, bool displayLog)
+        {
+
+            //Fill in Text Occurence Variable
+            EnumTextOccurrence eEnumTextOccurrence = CallExtractions.ReturnEnumTextOccurrence(OccurrencesText);
+
+            //Log Message
+            if (displayLog == true)
+                WriteLogMessage($"Remove Words: [Words: '{string.Join(";", RemoveWords)}]'");
+
+            //Start Output Variable
+            string OuputString = InputString;
+
+            //Occurrence Index Validation
+            switch (eEnumTextOccurrence)
+            {
+
+                //Custom
+                case EnumTextOccurrence.Custom:
+                    if (IndexOccurence == 0)
+                    {
+
+                        //Error Message
+                        WriteLogMessage("No Occurence postion was supplied");
+
+                        //Exit the Procedure
+                        return OuputString;
+                    }
+
+
+                    break;
+            }
+
+            //Loop through the Words
+            foreach (string Word in RemoveWords)
+            {
+                //Start the Counter
+                int i = 0;
+
+                switch (eEnumTextOccurrence)
+                {
+                    //All Occurences
+                    case EnumTextOccurrence.All:
+
+                        //Find all occurences for the Word
+                        List<int> indexes = Utils.AllIndexesOf(OuputString, Word);
+
+                        //Loop through the Indexes
+                        foreach (int MyIndex1 in indexes)
+                        {
+                            //Remove Word from string
+                            OuputString = OuputString.Remove(MyIndex1 - Word.Length * (i), Word.Length);
+
+                            //Update the Counter
+                            i++;
+                        }
+
+                        break;
+
+                    //First Occurence
+                    case EnumTextOccurrence.First:
+
+                        //Get First Index
+                        int MyIndex2 = OuputString.IndexOf(Word);
+
+                        //Checkf if Index is found
+                        if (MyIndex2 != -1)
+                        {
+                            //Remove Word from String
+                            OuputString = OuputString.Remove(MyIndex2, Word.Length);
+
+                            //Log Message: Success
+                            if (displayLog == true)
+                                WriteLogMessage($"Word '{Word}' removed sucessfully");
+
+                        }
+                        else
+                        {
+                            //Log Message: Fail
+                            if (displayLog == true)
+                                WriteLogMessage($"Word '{Word}' not removed");
+                        }
+
+                        break;
+
+                    //Last Occurence
+                    case EnumTextOccurrence.Last:
+
+                        //Get Last Index
+                        int MyIndex3 = OuputString.LastIndexOf(Word);
+
+                        //Checkf if Index is found
+                        if (MyIndex3 != -1)
+                        {
+                            //Remove Word from String
+                            OuputString = OuputString.Remove(MyIndex3, Word.Length);
+
+                            //Log Message: Success
+                            if (displayLog == true)
+                                WriteLogMessage($"Word '{Word}' removed sucessfully");
+                        }
+                        else
+                        {
+                            //Log Message: Fail
+                            if (displayLog == true)
+                                WriteLogMessage($"Word '{Word}' not removed");
+                        }
+
+                        break;
+
+                    //Custom Occurence
+                    case EnumTextOccurrence.Custom:
+
+                        //Find all occurences for the Word
+                        List<int> indexes1 = Utils.AllIndexesOf(OuputString, Word);
+
+                        //Check if Item exists in the List
+                        if (IndexOccurence <= indexes1.Count)
+                        {
+
+                            //Get the Index
+                            int MyIndex4 = indexes1[IndexOccurence - 1];
+
+                            //Remove Word from String
+                            OuputString = OuputString.Remove(MyIndex4, Word.Length);
+
+                            //Log Message: Success
+                            if (displayLog == true)
+                                WriteLogMessage($"Word '{Word}' removed sucessfully");
+
+                        }
+                        else
+                        {
+                            //Log Message: Fail
+                            if (displayLog == true)
+                                WriteLogMessage($"Word '{Word}' not removed");
+                        }
+
+
+                        break;
+
+                }
+
+
+                //End For Each Word Loop
+            }
+
+
+            //Write Log
+            if (displayLog == true)
+                WriteLogMessage("Result Text:" + Environment.NewLine + OuputString);
+
+            //Return Text Variable
+            return OuputString;
+
+        }
+
+        //Replace Word from Text
+        public static string ReplaceWordsFromText(string InputString, string SearchWord, string ReplacedWord, EnumTextOccurrence eEnumTextOccurrence, int IndexOccurence, bool displayLog)
+        {
+
+            //Start Log Message
+            string LogMessage = $"Replace Words: [Search Word: '{SearchWord}' Replaced Word '{ReplacedWord}' ";
+
+            //Start Output Variable
+            string OuputString = InputString;
+            int i = 0;
+            bool bSuccess = false;
+
+            //Create Dummy Word
+            string DummyWord = CreateDummyWord(SearchWord.Length);
+
+            switch (eEnumTextOccurrence)
+            {
+                //All Occurences
+                case EnumTextOccurrence.All:
+
+                    //Update Log Message
+                    LogMessage += "Occurrence: 'All' ";
+
+                    //Find all occurences for the Word
+                    List<int> indexes = Utils.AllIndexesOf(InputString, SearchWord);
+
+                    //Case items are found
+                    if (indexes.Count > 0)
+                    {
+                        bSuccess = true;
+
+                        //Update Log Message
+                        LogMessage += $"Replaced: '{indexes.Count}' time(s)";
+                    }
+                    else
+                    {
+                        //Update Log Message
+                        LogMessage += $"No replacements ";
+                    }
+
+                    //Loop through the Indexes
+                    foreach (int MyIndex1 in indexes)
+                    {
+
+                        //Remove Word from string
+                        OuputString = OuputString.Remove(MyIndex1, SearchWord.Length);
+
+                        //Add Dummy Word
+                        OuputString = OuputString.Insert(MyIndex1, DummyWord);
+
+                        //Update the Counter
+                        i++;
+
+                    }
+
+                    break;
+
+                //First Occurence
+                case EnumTextOccurrence.First:
+
+                    //Update Log Message
+                    LogMessage += "Occurrence: 'First' ";
+
+                    //Get First Index
+                    int MyIndex2 = InputString.IndexOf(SearchWord);
+
+                    //Case it is found
+                    if (MyIndex2 != -1)
+                    {
+                        //Remove Word from String
+                        OuputString = OuputString.Remove(MyIndex2, SearchWord.Length);
+
+                        //Add Dummy
+                        OuputString = OuputString.Insert(MyIndex2, DummyWord);
+
+                        //Set TAG Sucess = True
+                        bSuccess = true;
+
+                        //Update Log Message
+                        LogMessage += $"Replaced: '1' time(s)";
+
+                    }
+                    else
+                    {
+                        //Update Log Message
+                        LogMessage += $"No replacements ";
+                    }
+
+                    break;
+
+                //Last Occurence
+                case EnumTextOccurrence.Last:
+
+                    //Update Log Message
+                    LogMessage += "Occurrence: 'Last' ";
+
+                    //Get Last Index
+                    int MyIndex3 = InputString.LastIndexOf(SearchWord);
+
+                    //Case it is found
+                    if (MyIndex3 != -1)
+                    {
+                        //Remove Word from String
+                        OuputString = OuputString.Remove(MyIndex3, SearchWord.Length);
+
+                        //Add Dummy
+                        OuputString = OuputString.Insert(MyIndex3, DummyWord);
+
+                        //Set TAG Sucess = True
+                        bSuccess = true;
+
+                        //Update Log Message
+                        LogMessage += $"Replaced: '1' time(s)";
+
+                    }
+                    else
+                    {
+                        //Update Log Message
+                        LogMessage += $"No replacements ";
+                    }
+
+
+                    break;
+
+                //Custom Occurence
+                case EnumTextOccurrence.Custom:
+
+                    //Update Log Message
+                    LogMessage += $"Custom Occurrence: '{IndexOccurence}' ";
+
+                    //Find all occurences for the Word
+                    List<int> indexes1 = Utils.AllIndexesOf(InputString, SearchWord);
+
+                    //Check if Item exists in the List
+                    if (IndexOccurence <= indexes1.Count)
+                    {
+
+                        //Get the Index
+                        int MyIndex4 = indexes1[IndexOccurence - 1];
+
+                        //Case it is found
+                        if (MyIndex4 != -1)
+                        {
+                            //Remove Word from String
+                            OuputString = OuputString.Remove(MyIndex4, SearchWord.Length);
+
+                            //Add Dummy
+                            OuputString = OuputString.Insert(MyIndex4, DummyWord);
+
+                            //Set TAG Sucess = True
+                            bSuccess = true;
+
+                            //Update Log Message
+                            LogMessage += $"Replaced: '1' time(s)";
+
+                        }
+
+                    }
+                    else
+                    {
+                        //Update Log Message
+                        LogMessage += $"No replacements ";
+                    }
+
+                    break;
+
+            }
+
+            //Replace the Dummy Word with Replace Word
+
+            //Check if change was made
+            if (bSuccess == true)
+            {
+                //Replace the Dummy Word
+                OuputString = OuputString.Replace(DummyWord, ReplacedWord);
+            }
+
+            //Finish the Message
+            LogMessage += "]";
+
+            //Log Message
+            if (displayLog == true)
+                Console.WriteLine(LogMessage);
+
+            return OuputString;
+        }
+
+
+        //Create Dummy Word
+        public static string CreateDummyWord(int Lenght)
+        {
+            string DummyWord = null;
+
+            for (int i = 1; i <= Lenght; i++)
+            {
+                DummyWord += "@";
+            }
+
+            return DummyWord;
+        }
+
+        //Text Occurence
+        public enum EnumTextOccurrence
+        {
+            Null,
+            All,
+            First,
+            Last,
+            Custom,
+        }
+
+        #endregion
+
+        //Split Text by Blank Lines
+        public static string[] SplitTextByBlankLines(string InputString)
+        {
+
+            string[] OutputArray = InputString.Split(new string[] { "\r\n\r\n" },
+                               StringSplitOptions.RemoveEmptyEntries);
+
+            return OutputArray;
+        }
 
         //Find Text Cordinates
         public static int[] FindTextCordinates(string InputString, string SearchText)
@@ -663,7 +1392,7 @@ namespace BillBlech.TextToolbox.Activities.Activities
             return OutputArraWords;
 
         }
-        
+
         //Remove Empty Rows from String
         public static string TextRemoveEmptyRows(string Text)
         {
@@ -700,7 +1429,7 @@ namespace BillBlech.TextToolbox.Activities.Activities
                 //Write Log Message
                 if (displayLog == true)
                     WriteLogMessage("'" + SearchWord + "' counter :" + Counter);
-                
+
                 if (Counter >= 1)
                 {
                     //Updgrade the Counter
@@ -713,7 +1442,7 @@ namespace BillBlech.TextToolbox.Activities.Activities
 
             //Write Log Message
             if (displayLog == true)
-                WriteLogMessage($"Percentage of words found: {SearchWordsResult}");
+                WriteLogMessage($"Percentage of words found: {SearchWordsResult.ToString("P", CultureInfo.InvariantCulture)}");
 
             return SearchWordsResult;
         }
@@ -735,7 +1464,7 @@ namespace BillBlech.TextToolbox.Activities.Activities
         public static string AdjustSpecialCharacters(string MyString)
         {
             //Adjust the Variable
-            string AdjString = MyString;
+            string AdjString = MyString.Trim();
 
             Dictionary<string, string> SpecialChars =
             new Dictionary<string, string>();
@@ -788,19 +1517,19 @@ namespace BillBlech.TextToolbox.Activities.Activities
 
             //Loop through the Dictionary
             foreach (KeyValuePair<string, string> kvp in SpecialChars)
-                {
+            {
 
-                    //Get item from the Dictionary
-                    MyChar = kvp.Key.ToString();
-
-
-                    AdjString = AdjString.Replace(MyChar, @"\" + MyChar);
+                //Get item from the Dictionary
+                MyChar = kvp.Key.ToString();
 
 
-                    //Console.WriteLine("Key = {0}, Value = {1}",
-                    //    kvp.Key, kvp.Value);
-                }
-                ////Console.WriteLine(AdjString);
+                AdjString = AdjString.Replace(MyChar, @"\" + MyChar);
+
+
+                //Console.WriteLine("Key = {0}, Value = {1}",
+                //    kvp.Key, kvp.Value);
+            }
+            ////Console.WriteLine(AdjString);
 
             //}
 
@@ -821,7 +1550,6 @@ namespace BillBlech.TextToolbox.Activities.Activities
 
         }
 
-
         //Write Log Message
         public static void WriteLogMessage(string LogMessage)
         {
@@ -837,6 +1565,47 @@ namespace BillBlech.TextToolbox.Activities.Activities
 
             return row;
         }
+
+        //Find All Word Occurrences in String
+        //https://stackoverflow.com/questions/2641326/finding-all-positions-of-substring-in-a-larger-string-in-c-sharp
+        public static List<int> AllIndexesOf(string str, string value)
+        {
+            if (String.IsNullOrEmpty(value))
+                throw new ArgumentException("the string to find may not be empty", "value");
+            List<int> indexes = new List<int>();
+            for (int index = 0; ; index += value.Length)
+            {
+                index = str.IndexOf(value, index);
+                if (index == -1)
+                    return indexes;
+                indexes.Add(index);
+            }
+        }
+
+        public static string TrimFilePath(string initialPath, string absolutePath)
+        {
+            if (initialPath.StartsWith(absolutePath))
+            {
+                return initialPath.Remove(0, absolutePath.Length).TrimStart('\\');
+            }
+
+
+            return initialPath;
+        }
+
+        //Remove Empty Rows from Text File
+        public static void TextFileRemoveEmptyRows(string FilePath)
+        {
+            //Read Text File
+            string InputText = System.IO.File.ReadAllText(FilePath);
+
+            //Remove Empty Rows
+            InputText = Utils.TextRemoveEmptyRows(InputText);
+
+            //Write New File without empty rows
+            System.IO.File.WriteAllText(FilePath, InputText);
+        }
+
 
     }
 }

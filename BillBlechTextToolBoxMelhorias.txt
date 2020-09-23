@@ -1,0 +1,22 @@
+Extract Text Between Two Anchor Words
+- Habilitar a opção Any / All para cada um dos TAGs
+- Ajustar visualizador de Preview caso não haja o segundo argumento -ok!
+
+Mostrar a Expressão Regex
+
+Tomador Demais Info Endereços: Preview não está funcionando! - ok!
+
+Split Text New Lines
+Habilitar "Preview" para a atividade
+
+Split Text Uneven Blank Spaces
+Habilitar "Preview" para a atividade
+
+Remove Words
+Habilitar "Preview" para a atividade
+
+Count Words in Text
+Habilitar "Preview" para a atividade - ok!
+
+
+

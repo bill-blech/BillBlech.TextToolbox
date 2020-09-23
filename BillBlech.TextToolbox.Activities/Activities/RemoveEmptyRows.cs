@@ -1,9 +1,9 @@
+using BillBlech.TextToolbox.Activities.Activities;
+using BillBlech.TextToolbox.Activities.Properties;
 using System;
 using System.Activities;
 using System.Threading;
 using System.Threading.Tasks;
-using BillBlech.TextToolbox.Activities.Activities;
-using BillBlech.TextToolbox.Activities.Properties;
 using UiPath.Shared.Activities;
 using UiPath.Shared.Activities.Localization;
 
@@ -66,7 +66,8 @@ namespace BillBlech.TextToolbox.Activities
             ///////////////////////////
 
             // Outputs
-            return (ctx) => {
+            return (ctx) =>
+            {
                 AdjustedTextRow.Set(ctx, OutputAdjustedTextRow);
             };
         }

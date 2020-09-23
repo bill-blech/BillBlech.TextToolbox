@@ -1,10 +1,10 @@
+using BillBlech.TextToolbox.Activities.Activities;
+using BillBlech.TextToolbox.Activities.Properties;
 using System;
 using System.Activities;
 using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
-using BillBlech.TextToolbox.Activities.Activities;
-using BillBlech.TextToolbox.Activities.Properties;
 using UiPath.Shared.Activities;
 using UiPath.Shared.Activities.Localization;
 using UiPath.Shared.Activities.Utilities;
@@ -59,9 +59,10 @@ namespace BillBlech.TextToolbox.Activities
         [LocalizedDisplayName(nameof(Resources.ExtractAllLinesBelowAnchorText_AnchorTextParam_DisplayName))]
         [LocalizedDescription(nameof(Resources.ExtractAllLinesBelowAnchorText_AnchorTextParam_Description))]
         [LocalizedCategory(nameof(Resources.Options_Category))]
-        public EnumAnchorTextParam AnchorTextParam { get; set; }
+        //public EnumAnchorTextParam AnchorTextParam { get; set; }
+        public InArgument<string> AnchorTextParam { get; set; }
 
-        // ////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////
         //Update Data Row
         // ////////////////////////////////////////////////////////////////////
         [LocalizedDisplayName("Activate")]
@@ -84,9 +85,15 @@ namespace BillBlech.TextToolbox.Activities
         [LocalizedCategory("Output Data Row")]
         public InArgument<int> MyIndex { get; set; }
 
+        [LocalizedDisplayName(nameof(Resources.IDText_DisplayName))]
+        [LocalizedDescription(nameof(Resources.IDText_Description))]
+        [LocalizedCategory(nameof(Resources.Common_Category))]
+        public InArgument<string> IDText { get; set; }
+
 
         public enum EnumAnchorTextParam
         {
+            Null,
             Any,
             All,
 
@@ -130,12 +137,15 @@ namespace BillBlech.TextToolbox.Activities
             var anchorWords = AnchorWords.Get(context);
             var displayLog = DisplayLog;
             var displayRegex = DisplayRegex;
-            var linesNumber = LinesNumber.Get(context);
-            var anchorTextParam = AnchorTextParam;
-            var numberLines = NumberLines.Get(context);
+            var LinesBelow = LinesNumber.Get(context);
+            var NumLines = NumberLines.Get(context);
+            var anchorTextParamText = AnchorTextParam.Get(context);
 
-            string[] OutputResults = null;
+            ///////////////////////////
+            // Add execution logic HERE
+            string[] OutputResults = CallExtractions.CallExtractTextBelowAnchorWords(inputText, anchorWords, anchorTextParamText, LinesBelow, NumLines, displayLog, displayRegex);
 
+ 
             //Output Data Row
             bool bUpdateDataRow = BUpdateDataRow;
             var myDataRow = MyDataRow.Get(context);
@@ -144,38 +154,7 @@ namespace BillBlech.TextToolbox.Activities
 
             string OutputString = null;
 
-            ///////////////////////////
-            // Add execution logic HERE
-            switch (anchorTextParam)
-            {
-                //Any of the Anchor Words
-                case EnumAnchorTextParam.Any:
-
-                    //Loop through the Words
-                    foreach (string Word in anchorWords)
-                    {
-                        //Loop through last words
-                        OutputResults = Utils.ExtractTextLineBelowAnchorText(inputText, Word, linesNumber, numberLines, displayLog,displayRegex);
-
-                        //Exit the Loop in case result is found
-                        if (OutputResults.Length > 0)
-                        {
-                            //Exit the Loop
-                            goto ExitLoop;
-                        }
-                    }
-
-                 break;
-                //All of the Anchor Words
-                case EnumAnchorTextParam.All:
-
-                    //Extract text Below Line Array Tag
-                    OutputResults = Utils.ExtractTextLineBelowAnchorArrayText(inputText, anchorWords, linesNumber, numberLines, displayLog, displayRegex);
-
-                    break;
-            }
-
-            ExitLoop:
+        ExitLoop:
 
             #region Update Data Row (optional)
             //Check if functionality is Activated
@@ -204,7 +183,8 @@ namespace BillBlech.TextToolbox.Activities
 
             ///////////////////////////
             // Outputs
-            return (ctx) => {
+            return (ctx) =>
+            {
                 Results.Set(ctx, OutputResults);
             };
         }

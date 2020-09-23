@@ -505,4 +505,360 @@
     <value>Number of Lines</value>
     <comment>property name</comment>
   </data>
+  <data name="ExtractTextUntilBlankLine_DisplayName" xml:space="preserve">
+    <value>Extract Text until Blank Line</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="ExtractTextUntilBlankLine_Description" xml:space="preserve">
+    <value>Extract Text Above or Below Anchor Word(s) until Blank Line is Found</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="ExtractTextUntilBlankLine_AnchorWords_DisplayName" xml:space="preserve">
+    <value>Anchor Words</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractTextUntilBlankLine_AnchorWords_Description" xml:space="preserve">
+    <value>Anchor Words to be searched in Input Text (Array of Strings)</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractTextUntilBlankLine_AnchorWordsParameter_DisplayName" xml:space="preserve">
+    <value>Anchor Words Parameter</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractTextUntilBlankLine_AnchorWordsParameter_Description" xml:space="preserve">
+    <value>Any Word or all the Words to be found in Input Text</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractTextUntilBlankLine_Direction_DisplayName" xml:space="preserve">
+    <value>Direction</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractTextUntilBlankLine_Direction_Description" xml:space="preserve">
+    <value>Above / Below Anchor Words</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractTextUntilBlankLine_IncludeAnchorWordsRow_DisplayName" xml:space="preserve">
+    <value>Include Anchor Words Row</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractTextUntilBlankLine_IncludeAnchorWordsRow_Description" xml:space="preserve">
+    <value>Include Anchor Word row info in the output?</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractTextUntilBlankLine_Results_DisplayName" xml:space="preserve">
+    <value>Results</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractTextUntilBlankLine_Results_Description" xml:space="preserve">
+    <value>Search Results</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractTextUntilBlankLine_DisplayLog_DisplayName" xml:space="preserve">
+    <value>Display Log</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractTextUntilBlankLine_DisplayLog_Description" xml:space="preserve">
+    <value>Display Activity Output in the Output Pane</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractTextUntilBlankLine_DisplayRegex_DisplayName" xml:space="preserve">
+    <value>Display Regex</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractTextUntilBlankLine_DisplayRegex_Description" xml:space="preserve">
+    <value>Display Regex Empression</value>
+    <comment>property description</comment>
+  </data>
+  <data name="RemoveWords_DisplayName" xml:space="preserve">
+    <value>Remove Words</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="RemoveWords_Description" xml:space="preserve">
+    <value>Remove Specific Words from Input Text</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="RemoveWords_Words_DisplayName" xml:space="preserve">
+    <value>Words</value>
+    <comment>property name</comment>
+  </data>
+  <data name="RemoveWords_Words_Description" xml:space="preserve">
+    <value>Words to be removed from input text, if found</value>
+    <comment>property description</comment>
+  </data>
+  <data name="RemoveWords_Occurrences_DisplayName" xml:space="preserve">
+    <value>Occurrence Parameter</value>
+    <comment>property name</comment>
+  </data>
+  <data name="RemoveWords_Occurrences_Description" xml:space="preserve">
+    <value>Remove All, First, Last or Custom Occurrence</value>
+    <comment>property description</comment>
+  </data>
+  <data name="RemoveWords_OccurrenceNumber_DisplayName" xml:space="preserve">
+    <value>Occurrence Position</value>
+    <comment>property name</comment>
+  </data>
+  <data name="RemoveWords_OccurrenceNumber_Description" xml:space="preserve">
+    <value>Required for Custom Occurrence only</value>
+    <comment>property description</comment>
+  </data>
+  <data name="RemoveWords_DisplayLog_DisplayName" xml:space="preserve">
+    <value>Display Log</value>
+    <comment>property name</comment>
+  </data>
+  <data name="RemoveWords_DisplayLog_Description" xml:space="preserve">
+    <value>Display Activity Output in the Output Pane</value>
+    <comment>property description</comment>
+  </data>
+  <data name="RemoveWords_AdjustText_Description" xml:space="preserve">
+    <value>Text withou requested words removed</value>
+    <comment>property description</comment>
+  </data>
+  <data name="RemoveWords_AdjustText_DisplayName" xml:space="preserve">
+    <value>Result Text</value>
+    <comment>property name</comment>
+  </data>
+  <data name="IDText_Description" xml:space="preserve">
+    <value>This ID is used for the Preview Functionalities</value>
+    <comment>property description</comment>
+  </data>
+  <data name="IDText_DisplayName" xml:space="preserve">
+    <value>ID</value>
+    <comment>property name</comment>
+  </data>
+  <data name="TextApplicationScope_FilePathPreview_Description" xml:space="preserve">
+    <value>Template File for Preview Functionalities</value>
+    <comment>property description</comment>
+  </data>
+  <data name="TextApplicationScope_FilePathPreview_DisplayName" xml:space="preserve">
+    <value>File Path for Preview</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="EncryptValue_DisplayName" xml:space="preserve">
+    <value>Encrypt Value</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="EncryptValue_Description" xml:space="preserve">
+    <value>Encrypt the value so that only the robot can decrypt it</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="EncryptValue_EncryptedText_DisplayName" xml:space="preserve">
+    <value>Encrypted Text</value>
+    <comment>property name</comment>
+  </data>
+  <data name="EncryptValue_EncryptedText_Description" xml:space="preserve">
+    <value>Value that can be read only by the robot</value>
+    <comment>property description</comment>
+  </data>
+  <data name="EncryptValue_EncryptionAlgorithm_DisplayName" xml:space="preserve">
+    <value>Encryption algorithm</value>
+    <comment>property name</comment>
+  </data>
+  <data name="EncryptValue_EncryptionAlgorithm_Description" xml:space="preserve">
+    <value>Select Encryption algorithm to be appplied</value>
+    <comment>property description</comment>
+  </data>
+  <data name="EncryptValue_PlainText_DisplayName" xml:space="preserve">
+    <value>Plain Text</value>
+    <comment>property name</comment>
+  </data>
+  <data name="EncryptValue_PlainText_Description" xml:space="preserve">
+    <value>Text to be encrypted</value>
+    <comment>property description</comment>
+  </data>
+  <data name="DecryptValue_DisplayName" xml:space="preserve">
+    <value>Decrypt Value</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="DecryptValue_Description" xml:space="preserve">
+    <value>Decrypted the value encrypted by the robot</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="DecryptValue_PlainText_DisplayName" xml:space="preserve">
+    <value>Plain Text</value>
+    <comment>property name</comment>
+  </data>
+  <data name="DecryptValue_PlainText_Description" xml:space="preserve">
+    <value>Decrypted value by the robot</value>
+    <comment>property description</comment>
+  </data>
+  <data name="DecryptValue_EncryptionAlgorithm_DisplayName" xml:space="preserve">
+    <value>Encryption algorithm</value>
+    <comment>property name</comment>
+  </data>
+  <data name="DecryptValue_EncryptionAlgorithm_Description" xml:space="preserve">
+    <value>Select Encryption algorithm to be appplied</value>
+    <comment>property description</comment>
+  </data>
+  <data name="DecryptValue_EncryptedText_DisplayName" xml:space="preserve">
+    <value>Encrypted Text</value>
+    <comment>property name</comment>
+  </data>
+  <data name="DecryptValue_EncryptedText_Description" xml:space="preserve">
+    <value>Decrypt the value encrypted by the robot</value>
+    <comment>property description</comment>
+  </data>
+  <data name="SplitTextByBlankLines_DisplayName" xml:space="preserve">
+    <value>Split Text By Blank Lines</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="SplitTextByBlankLines_Description" xml:space="preserve">
+    <value>Create an array of strings with pieces of text parts</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="SplitTextByBlankLines_PiecesOfText_DisplayName" xml:space="preserve">
+    <value>Pieces of Text</value>
+    <comment>property name</comment>
+  </data>
+  <data name="SplitTextByBlankLines_PiecesOfText_Description" xml:space="preserve">
+    <value>Pieces of text separated by blank lines (Array of strings)</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ReplaceWords_DisplayName" xml:space="preserve">
+    <value>Replace Words</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="ReplaceWords_Description" xml:space="preserve">
+    <value>Replace Specific Words from Input Text</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="ReplaceWords_SearchWord_DisplayName" xml:space="preserve">
+    <value>Search Word</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ReplaceWords_SearchWord_Description" xml:space="preserve">
+    <value>Word to be replaced</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ReplaceWords_ReplacedWord_DisplayName" xml:space="preserve">
+    <value>Replaced Word</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ReplaceWords_ReplacedWord_Description" xml:space="preserve">
+    <value>New Word</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ReplaceWords_TextOccurrance_DisplayName" xml:space="preserve">
+    <value>Text Occurrance</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ReplaceWords_TextOccurrance_Description" xml:space="preserve">
+    <value>Replace First, Last, All or Custom Occurance</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ReplaceWords_IndexOccurence_DisplayName" xml:space="preserve">
+    <value>Index Occurence</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ReplaceWords_IndexOccurence_Description" xml:space="preserve">
+    <value>For Custom Occurance Only</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ReplaceWords_DisplayLog_DisplayName" xml:space="preserve">
+    <value>Display Log</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ReplaceWords_DisplayLog_Description" xml:space="preserve">
+    <value>Display Activity Output in Output Pane</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ReplaceWords_AdjustedText_DisplayName" xml:space="preserve">
+    <value>Adjusted Text</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ReplaceWords_AdjustedText_Description" xml:space="preserve">
+    <value>Text after replaced words</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Authentication_Category" xml:space="preserve">
+    <value>Authentication</value>
+    <comment>category</comment>
+  </data>
+  <data name="Common_Category" xml:space="preserve">
+    <value>Common</value>
+    <comment>category</comment>
+  </data>
+  <data name="Input_Category" xml:space="preserve">
+    <value>Input</value>
+    <comment>category</comment>
+  </data>
+  <data name="Output_Category" xml:space="preserve">
+    <value>Output</value>
+    <comment>category</comment>
+  </data>
+  <data name="Options_Category" xml:space="preserve">
+    <value>Options</value>
+    <comment>category</comment>
+  </data>
+  <data name="ValidationScope_Error" xml:space="preserve">
+    <value>Cannot be used outside of a {0}.</value>
+    <comment>error message; {0} is a container activity (e.g. a scope)</comment>
+  </data>
+  <data name="ValidationValue_Error" xml:space="preserve">
+    <value>Please provide a value for {0}.</value>
+    <comment>error message; {0} is the name of a missing property</comment>
+  </data>
+  <data name="ValidationExclusiveProperties_Error" xml:space="preserve">
+    <value>Please provide a value either for {0} or {1}, but not both.</value>
+    <comment>error message; {0} &amp; {1} are mutually exclusive activities</comment>
+  </data>
+  <data name="ValidationOverloadGroup_Error" xml:space="preserve">
+    <value>Please provide values for both {0} and {1}.</value>
+    <comment>error message; {0} &amp; {1} are complementary properties</comment>
+  </data>
+  <data name="ExtractAllCharactersUntilWhiteSpace_DisplayName" xml:space="preserve">
+    <value>Extract All Characters Until White Space</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="ExtractAllCharactersUntilWhiteSpace_Description" xml:space="preserve">
+    <value>Extract Single Word Next to Anchor Text</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="ExtractAllCharactersUntilWhiteSpace_Results_DisplayName" xml:space="preserve">
+    <value>Results</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractAllCharactersUntilWhiteSpace_Results_Description" xml:space="preserve">
+    <value>Search Results</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Output_Category" xml:space="preserve">
+    <value>Output</value>
+    <comment>category</comment>
+  </data>
+  <data name="ExtractAllCharactersUntilWhiteSpace_DisplayLog_DisplayName" xml:space="preserve">
+    <value>Display Log</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractAllCharactersUntilWhiteSpace_DisplayLog_Description" xml:space="preserve">
+    <value>Display activity output in Output Pane</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Options_Category" xml:space="preserve">
+    <value>Options</value>
+    <comment>category</comment>
+  </data>
+  <data name="ExtractAllCharactersUntilWhiteSpace_DisplayRegex_DisplayName" xml:space="preserve">
+    <value>Display Regex</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractAllCharactersUntilWhiteSpace_DisplayRegex_Description" xml:space="preserve">
+    <value>Display Regex Expression</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Options_Category" xml:space="preserve">
+    <value>Options</value>
+    <comment>category</comment>
+  </data>
+  <data name="ExtractAllCharactersUntilWhiteSpace_AnchorWords_DisplayName" xml:space="preserve">
+    <value>Anchor Words</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractAllCharactersUntilWhiteSpace_AnchorWords_Description" xml:space="preserve">
+    <value>Anchor Words to be searched in Input Text (Array of Strings)</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Input_Category" xml:space="preserve">
+    <value>Input</value>
+    <comment>category</comment>
+  </data>
 </root>

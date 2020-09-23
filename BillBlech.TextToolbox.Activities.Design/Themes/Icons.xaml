@@ -610,5 +610,591 @@
     </DrawingGroup>
     <DrawingBrush x:Key="ExtractTextAboveAnchorWordsIcon" Drawing="{StaticResource notepad2db6df3270e574c55aa741ecb5c2ee501_0}" />
 
+    <!--ExtractTextUntilBlankLine Icon-->
+    <DrawingGroup x:Key="clipboardd8f4abe91ab345f58596485d618b0cf9_0">
+      <DrawingGroup.ClipGeometry>
+        <RectangleGeometry Rect="0,0,512.006,512.006" />
+      </DrawingGroup.ClipGeometry>
+      <GeometryDrawing Brush="#FFB02721">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M99.138,61.656L398.61,61.656C403.472,61.656,407.418,65.602,407.418,70.464L407.418,502.056C407.418,506.918,403.472,510.864,398.61,510.864L99.138,510.864C94.276,510.864,90.33,506.918,90.33,502.056L90.33,70.464C90.33,65.602,94.276,61.656,99.138,61.656z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFF2ECBF">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M372.186,105.696L372.186,466.824C372.186,471.686,368.24,475.632,363.378,475.632L134.37,475.632C129.508,475.632,125.562,471.686,125.562,466.824L125.562,105.696C125.562,100.834,129.508,96.888,134.37,96.888L363.378,96.888C368.248,96.888,372.186,100.834,372.186,105.696z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FF949493">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M345.762,35.232L345.762,61.656 151.986,61.656 151.986,35.232C151.986,30.37,155.932,26.424,160.794,26.424L178.41,26.424C183.272,26.424,187.218,22.478,187.218,17.616L187.218,17.616C187.218,7.883,195.101,0,204.834,0L292.914,0C302.647,0,310.53,7.883,310.53,17.616L310.53,17.616C310.53,22.478,314.476,26.424,319.338,26.424L336.954,26.424C341.824,26.424,345.762,30.37,345.762,35.232z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <DrawingGroup>
+        <GeometryDrawing Brush="#FF212F3F">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M328.146,140.928L169.602,140.928C164.74,140.928 160.794,136.982 160.794,132.12 160.794,127.258 164.74,123.312 169.602,123.312L328.146,123.312C333.008,123.312 336.954,127.258 336.954,132.12 336.954,136.982 333.016,140.928 328.146,140.928z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF212F3F">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M292.914,176.16L169.602,176.16C164.74,176.16 160.794,172.214 160.794,167.352 160.794,162.49 164.74,158.544 169.602,158.544L292.914,158.544C297.776,158.544 301.722,162.49 301.722,167.352 301.722,172.214 297.784,176.16 292.914,176.16z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF212F3F">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M257.682,211.392L169.602,211.392C164.74,211.392 160.794,207.446 160.794,202.584 160.794,197.722 164.74,193.776 169.602,193.776L257.682,193.776C262.544,193.776 266.49,197.722 266.49,202.584 266.49,207.446 262.552,211.392 257.682,211.392z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF212F3F">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M222.45,246.624L169.602,246.624C164.74,246.624 160.794,242.678 160.794,237.816 160.794,232.954 164.74,229.008 169.602,229.008L222.45,229.008C227.312,229.008 231.258,232.954 231.258,237.816 231.258,242.678 227.32,246.624 222.45,246.624z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+      </DrawingGroup>
+      <GeometryDrawing Brush="#FF21232A">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M505.274,53.376L505.274,54.081C505.248,64.483,501.064,74.445,493.647,81.738L461.234,114.504 459.472,116.266 461.234,118.38C466.166,125.347,465.383,134.851,459.384,140.928L435.955,164.357 328.674,271.727 316.167,259.308 303.748,246.625 322.421,227.952 334.84,215.533 386.103,164.27 390.947,159.426 346.907,115.386 404.159,58.134 435.868,26.425C443.83,18.524 454.594,14.094 465.815,14.094 476.693,14.006 487.104,18.48 494.529,26.425 501.408,33.717 505.248,43.353 505.274,53.376z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FF212F3F">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M464.581,128.509C464.563,133.177,462.696,137.643,459.384,140.928L435.955,164.357 328.674,271.727 316.167,259.308 303.748,246.625 386.103,164.27 390.947,159.426 421.246,129.038 434.546,115.738C441.416,108.912,452.514,108.912,459.385,115.738L459.385,115.738 461.147,117.852C463.428,120.934,464.634,124.677,464.581,128.509z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FF1F436D">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M505.274,53.376L505.274,54.081C505.248,64.483,501.064,74.445,493.647,81.738L461.234,114.504 459.472,116.266 459.472,116.266C452.602,109.44,441.504,109.44,434.633,116.266L421.333,129.566 391.034,159.954 346.994,115.914 404.246,58.662 435.955,26.953C443.917,19.052 454.681,14.622 465.902,14.622 476.665,14.419 487.032,18.691 494.528,26.425 501.408,33.717 505.248,43.353 505.274,53.376z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <DrawingGroup Transform="0.7071,-0.7071,0.7071,0.7071,-65.7353,309.8109">
+        <GeometryDrawing Brush="#FF21232A">
+          <GeometryDrawing.Geometry>
+            <RectangleGeometry RadiusX="0" RadiusY="0" Rect="332.299,216.639,17.616,35.232" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+      </DrawingGroup>
+      <GeometryDrawing Brush="#FF556080">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M390.947,159.601L386.103,164.445 386.103,164.445 350.871,199.677 303.748,246.624 316.167,259.131 112.79,457.047 70.512,481.533 38.451,500.118 19.866,510.864C15.629,513.26 10.256,511.762 7.87,507.526 6.443,504.998 6.355,501.933 7.623,499.326L56.684,401.029 82.403,375.838 82.403,375.838 261.91,199.678 333.783,129.214 347.259,116.002 390.947,159.601z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFEFCE4A">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M112.79,457.047L70.512,481.533 38.451,500.118 19.866,510.864C15.629,513.26 10.256,511.762 7.87,507.526 6.443,504.998 6.355,501.933 7.623,499.326L56.684,401.029 66.725,411.07 112.79,457.047z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingGroup>
+    <DrawingBrush x:Key="ExtractTextUntilBlankLineIcon" Drawing="{StaticResource clipboardd8f4abe91ab345f58596485d618b0cf9_0}" />
+
+    <!--RemoveWords Icon-->
+    <DrawingGroup x:Key="erase9ef70b33d826407fb146eef37b0b5ab7_0">
+      <DrawingGroup.ClipGeometry>
+        <RectangleGeometry Rect="0,0,512,512" />
+      </DrawingGroup.ClipGeometry>
+      <DrawingGroup>
+        <GeometryDrawing Brush="#FF4C4C4F">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M436.28,511.779L151.928,511.779C147.055,511.779 143.1,507.824 143.1,502.951 143.1,498.078 147.055,494.123 151.928,494.123L436.28,494.123C441.153,494.123 445.108,498.078 445.108,502.951 445.108,507.824 441.153,511.779 436.28,511.779z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF4C4C4F">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M390.286,476.467L206.662,476.467C201.789,476.467 197.834,472.512 197.834,467.639 197.834,462.766 201.789,458.811 206.662,458.811L390.286,458.811C395.159,458.811 399.114,462.766 399.114,467.639 399.114,472.512 395.158,476.467 390.286,476.467z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF4C4C4F">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M390.456,441.325L242.056,441.325C237.183,441.325 233.228,437.37 233.228,432.497 233.228,427.624 237.183,423.669 242.056,423.669L390.456,423.669C395.329,423.669 399.284,427.624 399.284,432.497 399.284,437.37 395.328,441.325 390.456,441.325z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+      </DrawingGroup>
+      <GeometryDrawing Brush="#FFDD352E">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M501.684,179.063L264.828,415.125 178.402,501.463C164.621,515.217,142.305,515.217,128.524,501.463L10.316,383.256C-3.438,369.475,-3.438,347.159,10.316,333.378L97.095,247.393 333.156,10.536C346.937,-3.218,369.253,-3.218,383.034,10.536L501.683,129.185C515.438,142.965,515.438,165.283,501.684,179.063z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFC7CAC7">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M264.828,415.125L178.402,501.463C164.621,515.217,142.305,515.217,128.524,501.463L10.316,383.256C-3.438,369.475,-3.438,347.159,10.316,333.378L97.095,247.393 264.828,415.125z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFB02721">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M467.873,159.112C465.525,159.129,463.274,158.203,461.605,156.552L355.668,50.615C352.498,46.916 352.932,41.337 356.63,38.168 359.932,35.334 364.814,35.334 368.115,38.168L474.052,144.104C477.468,147.582 477.407,153.171 473.929,156.587 472.313,158.176 470.142,159.086 467.873,159.112z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingGroup>
+    <DrawingBrush x:Key="RemoveWordsIcon" Drawing="{StaticResource erase9ef70b33d826407fb146eef37b0b5ab7_0}" />
+
+    <!--EncryptValue Icon-->
+    <DrawingGroup x:Key="lock2dfd0d30c2ed4afa90041302e4299708_0">
+      <DrawingGroup.ClipGeometry>
+        <RectangleGeometry Rect="0,0,512,512" />
+      </DrawingGroup.ClipGeometry>
+      <GeometryDrawing Brush="#FFC8C6CD">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M388.98,127.91L388.98,283.54 321.63,283.52 321.63,130.47C321.63,113.76 314.28,98.62 302.41,87.67 290.53,76.72 274.12,69.94 256,69.94 219.75,69.94 190.37,97.04 190.37,130.47L190.37,283.5 123.02,283.5 123.02,127.91C123.02,57.27 182.56,0 256,0 329.44,0 388.98,57.27 388.98,127.91z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFAEADB3">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M388.98,127.91L388.98,283.54 321.63,283.52 321.63,130.47C321.63,113.76 314.28,98.62 302.41,87.67 290.53,76.72 274.12,69.94 256,69.94L256,0C329.44,0,388.98,57.27,388.98,127.91z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFFFB74F">
+        <GeometryDrawing.Geometry>
+          <RectangleGeometry RadiusX="0" RadiusY="0" Rect="72.24,203.98,367.52,308.02" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFFF9A00">
+        <GeometryDrawing.Geometry>
+          <RectangleGeometry RadiusX="0" RadiusY="0" Rect="256,203.98,183.76,308.02" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <DrawingGroup>
+        <GeometryDrawing Brush="#FF9A4C00">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M361.47,348.25L336.71,365.2C318.44,338.5 288.27,322.56 256,322.56 223.73,322.56 193.56,338.5 175.29,365.2L150.53,348.25C174.4,313.38 213.83,292.56 256,292.56 298.17,292.56 337.6,313.38 361.47,348.25z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF9A4C00">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M318.26,378.75L293.5,395.69C285.01,383.28 270.99,375.88 256,375.88 241.01,375.88 226.99,383.28 218.5,395.69L193.74,378.75C207.83,358.16 231.1,345.88 256,345.88 280.9,345.88 304.17,358.16 318.26,378.75z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+      </DrawingGroup>
+      <GeometryDrawing Brush="#FFFF8900">
+        <GeometryDrawing.Geometry>
+          <EllipseGeometry RadiusX="16.1" RadiusY="16.1" Center="256,418.52" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFC06100">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M272.1,418.52C272.1,427.41,264.89,434.62,256,434.62L256,402.42C264.89,402.42,272.1,409.63,272.1,418.52z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <DrawingGroup>
+        <GeometryDrawing Brush="#FF703700">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M318.26,378.75L293.5,395.69C285.01,383.28,270.99,375.88,256,375.88L256,345.88C280.9,345.88,304.17,358.16,318.26,378.75z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF703700">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M361.47,348.25L336.71,365.2C318.44,338.5,288.27,322.56,256,322.56L256,292.56C298.17,292.56,337.6,313.38,361.47,348.25z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+      </DrawingGroup>
+    </DrawingGroup>
+    <DrawingBrush x:Key="EncryptValueIcon" Drawing="{StaticResource lock2dfd0d30c2ed4afa90041302e4299708_0}" />
+
+    <!--DecryptValue Icon-->
+    <DrawingGroup x:Key="key3ebc4bc491fa4a2ab6b1114d2dcb67ca_0">
+      <DrawingGroup.ClipGeometry>
+        <RectangleGeometry Rect="0,0,512,512" />
+      </DrawingGroup.ClipGeometry>
+      <GeometryDrawing Brush="#FFFFB74F">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M273.38,408.48L273.38,408.48 273.38,451.52 301.83,451.52 301.83,512 210.17,512 210.17,246.67 301.83,246.67 301.83,408.48z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFFF9A00">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M273.38,408.48L273.38,408.48 273.38,451.52 301.83,451.52 301.83,512 256,512 256,246.67 301.83,246.67 301.83,408.48z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFFFDBA9">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M374.752,118.752C374.752,152.109,360.91,183.55,336.547,206.016L336.547,256 175.453,256 175.453,206.016C151.09,183.55 137.248,152.109 137.248,118.752 137.248,53.269 190.517,0 256,0 321.483,0 374.752,53.269 374.752,118.752z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFFFC473">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M336.547,256L256,256 256,0C321.483,0 374.752,53.269 374.752,118.752 374.752,152.109 360.91,183.55 336.547,206.016L336.547,256z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFFF8900">
+        <GeometryDrawing.Geometry>
+          <RectangleGeometry RadiusX="0" RadiusY="0" Rect="208.55,208.74,30,47.26" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFC06100">
+        <GeometryDrawing.Geometry>
+          <RectangleGeometry RadiusX="0" RadiusY="0" Rect="273.45,208.74,30,47.26" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FF9A4C00">
+        <GeometryDrawing.Geometry>
+          <EllipseGeometry RadiusX="23.441" RadiusY="23.441" Center="213.49,119.67" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FF703700">
+        <GeometryDrawing.Geometry>
+          <EllipseGeometry RadiusX="23.441" RadiusY="23.441" Center="298.51,119.67" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingGroup>
+    <DrawingBrush x:Key="DecryptValueIcon" Drawing="{StaticResource key3ebc4bc491fa4a2ab6b1114d2dcb67ca_0}" />
+
+    <!--SplitTextByBlankLines Icon-->
+    <DrawingGroup x:Key="ruled888dd1259484a37b2ca63dd0a63ef2b_0">
+      <DrawingGroup.ClipGeometry>
+        <RectangleGeometry Rect="0,0,511.997,511.997" />
+      </DrawingGroup.ClipGeometry>
+      <GeometryDrawing Brush="#FFED8A19">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M423.505,0L403.3,20.205 390.771,32.734 376.831,46.674 364.302,59.203 350.362,73.143 337.833,85.672 323.893,99.612 311.364,112.141 297.424,126.081 284.895,138.61 270.955,152.55 258.426,165.079 244.486,179.019 231.957,191.548 218.017,205.488 205.488,218.017 191.548,231.957 179.019,244.486 165.079,258.426 152.55,270.955 138.61,284.895 126.081,297.424 112.141,311.364 99.6120000000001,323.893 85.6720000000001,337.833 73.1430000000001,350.362 59.2030000000001,364.302 46.6740000000001,376.831 32.7340000000001,390.771 20.205,403.3 0,423.505C115.485,540.454 303.918,541.636 420.858,426.152 421.74,425.279 422.623,424.396 423.505,423.505 540.454,308.02 541.636,119.587 426.152,2.64699999999999 425.27,1.756 424.387,0.873 423.505,0z M360.95,360.95C321.529,400.83 267.832,423.346 211.753,423.505 186.678,423.523 161.815,419.005 138.345,410.182L410.271,137.992C439.51,215.511,420.161,302.991,360.95,360.95z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <DrawingGroup>
+        <GeometryDrawing Brush="#FF6C4127">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M429.769,59.202C426.337,62.661 420.752,62.687 417.293,59.255 417.275,59.237 417.258,59.22 417.24,59.202L390.771,32.733 403.3,20.205 429.769,46.674C433.228,50.106 433.254,55.691 429.822,59.15 429.805,59.167 429.787,59.185 429.769,59.202z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF6C4127">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M403.3,85.672C399.868,89.131 394.283,89.157 390.824,85.725 390.806,85.707 390.789,85.69 390.771,85.672L364.302,59.203 376.831,46.674 403.3,73.143C406.759,76.575 406.785,82.16 403.353,85.619 403.336,85.636 403.318,85.654 403.3,85.672z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF6C4127">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M376.831,112.141C373.399,115.6 367.814,115.626 364.355,112.194 364.337,112.176 364.32,112.159 364.302,112.141L337.833,85.672 350.362,73.143 376.831,99.612C380.29,103.044 380.316,108.629 376.884,112.088 376.867,112.105 376.849,112.123 376.831,112.141z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF6C4127">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M350.362,138.61C346.93,142.069 341.345,142.095 337.886,138.663 337.868,138.645 337.851,138.628 337.833,138.61L311.364,112.141 323.893,99.612 350.362,126.081C353.821,129.513 353.847,135.098 350.415,138.557 350.398,138.574 350.38,138.592 350.362,138.61z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF6C4127">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M323.893,165.079C320.461,168.538 314.876,168.564 311.417,165.132 311.399,165.114 311.382,165.097 311.364,165.079L284.895,138.61 297.424,126.081 323.893,152.55C327.352,155.982 327.378,161.567 323.946,165.026 323.928,165.043 323.911,165.061 323.893,165.079z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF6C4127">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M270.955,218.017C267.523,221.476 261.938,221.502 258.479,218.07 258.461,218.052 258.444,218.035 258.426,218.017L231.957,191.548 244.486,179.019 270.955,205.488C274.414,208.92 274.44,214.505 271.008,217.964 270.99,217.982 270.973,217.999 270.955,218.017z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF6C4127">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M244.486,244.486C241.054,247.945 235.469,247.971 232.01,244.539 231.992,244.521 231.975,244.504 231.957,244.486L205.488,218.017 218.017,205.488 244.486,231.957C247.945,235.389 247.971,240.974 244.539,244.433 244.521,244.451 244.504,244.468 244.486,244.486z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF6C4127">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M218.017,270.955C214.585,274.414 209,274.44 205.541,271.008 205.523,270.99 205.506,270.973 205.488,270.955L179.019,244.486 191.548,231.957 218.017,258.426C221.476,261.858 221.502,267.443 218.07,270.902 218.052,270.92 218.035,270.937 218.017,270.955z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF6C4127">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M165.079,323.893C161.647,327.352 156.062,327.378 152.603,323.946 152.585,323.928 152.568,323.911 152.55,323.893L126.081,297.424 138.61,284.895 165.079,311.364C168.538,314.796 168.564,320.381 165.132,323.84 165.114,323.858 165.096,323.876 165.079,323.893z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF6C4127">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M138.61,350.362C135.178,353.821 129.593,353.847 126.134,350.415 126.116,350.397 126.099,350.38 126.081,350.362L99.612,323.893 112.141,311.364 138.61,337.833C142.069,341.265 142.095,346.85 138.663,350.309 138.645,350.327 138.627,350.345 138.61,350.362z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF6C4127">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M112.141,376.831C108.709,380.29 103.124,380.316 99.665,376.884 99.647,376.866 99.63,376.849 99.612,376.831L73.143,350.362 85.672,337.833 112.141,364.302C115.6,367.734 115.626,373.319 112.194,376.778 112.176,376.796 112.158,376.814 112.141,376.831z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF6C4127">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M85.672,403.3C82.24,406.759 76.655,406.785 73.196,403.353 73.178,403.335 73.161,403.318 73.143,403.3L46.674,376.831 59.203,364.302 85.672,390.771C89.131,394.203 89.157,399.788 85.725,403.247 85.707,403.265 85.689,403.283 85.672,403.3z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF6C4127">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M59.202,429.769C55.77,433.228 50.185,433.254 46.726,429.822 46.708,429.804 46.691,429.787 46.673,429.769L20.205,403.3 32.734,390.771 59.203,417.24C62.662,420.672 62.688,426.257 59.256,429.716 59.238,429.734 59.22,429.752 59.202,429.769z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+      </DrawingGroup>
+      <GeometryDrawing Brush="#FFEFCE4A">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M491.531,385.654L479.002,373.125 465.062,359.185 452.533,346.656 438.593,332.716 426.064,320.187 412.124,306.247 399.595,293.718 385.655,279.778 373.126,267.249 359.186,253.309 346.657,240.78 332.717,226.84 320.188,214.311 306.248,200.371 293.719,187.842 279.779,173.902 267.25,161.373 253.31,147.433 240.781,134.904 226.841,120.964 214.312,108.435 158.815,52.9380000000001C128.605,24.6780000000001 81.1990000000001,26.2570000000001 52.9390000000001,56.4670000000001 26.002,85.2650000000001 26.002,130.016 52.9390000000001,158.814L143.728,249.603 156.257,262.132 170.197,276.072 182.726,288.601 196.666,302.541 209.195,315.07 223.135,329.01 235.664,341.539 249.604,355.479 262.133,368.008 276.073,381.948 288.602,394.477 302.542,408.417 315.071,420.946 329.011,434.886 341.54,447.415 355.48,461.355 368.009,473.884 405.86,511.735 511.736,405.859 491.531,385.654z M110.288,141.168C93.233,141.168 79.407,127.342 79.407,110.287 79.407,93.232 93.233,79.406 110.288,79.406 127.343,79.406 141.169,93.232 141.169,110.287 141.169,127.342 127.343,141.168 110.288,141.168L110.288,141.168z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <DrawingGroup>
+        <GeometryDrawing Brush="#FF6C4127">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M226.84,120.964L191.548,156.256C188.116,159.715 182.531,159.741 179.072,156.309 179.054,156.291 179.037,156.274 179.019,156.256 175.56,152.824 175.534,147.239 178.966,143.78 178.984,143.762 179.001,143.745 179.019,143.727L214.311,108.435 226.84,120.964z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF6C4127">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M253.309,147.433L218.017,182.725C214.585,186.184 209,186.21 205.541,182.778 205.523,182.76 205.506,182.743 205.488,182.725 202.029,179.293 202.003,173.708 205.435,170.249 205.453,170.231 205.47,170.214 205.488,170.196L240.78,134.904 253.309,147.433z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF6C4127">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M279.778,173.902L244.486,209.194C241.054,212.653 235.469,212.679 232.01,209.247 231.992,209.229 231.975,209.212 231.957,209.194 228.498,205.762 228.472,200.177 231.904,196.718 231.922,196.7 231.939,196.683 231.957,196.665L267.249,161.373 279.778,173.902z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF6C4127">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M306.247,200.371L270.955,235.663C267.523,239.122 261.938,239.148 258.479,235.716 258.461,235.698 258.444,235.681 258.426,235.663 254.967,232.231 254.941,226.646 258.373,223.187 258.391,223.169 258.408,223.152 258.426,223.134L293.718,187.842 306.247,200.371z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF6C4127">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M332.716,226.84L297.424,262.132C293.992,265.591 288.407,265.617 284.948,262.185 284.93,262.167 284.913,262.15 284.895,262.132 281.436,258.7 281.41,253.115 284.842,249.656 284.86,249.638 284.877,249.621 284.895,249.603L320.187,214.311 332.716,226.84z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF6C4127">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M359.185,253.309L323.893,288.601C320.461,292.06 314.876,292.086 311.417,288.654 311.399,288.636 311.382,288.619 311.364,288.601 307.905,285.169 307.879,279.584 311.311,276.125 311.329,276.107 311.346,276.09 311.364,276.072L346.656,240.78 359.185,253.309z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF6C4127">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M385.654,279.778L350.362,315.07C346.93,318.529 341.345,318.555 337.886,315.123 337.868,315.105 337.851,315.088 337.833,315.07 334.374,311.638 334.348,306.053 337.78,302.594 337.798,302.576 337.815,302.559 337.833,302.541L373.125,267.249 385.654,279.778z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF6C4127">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M412.123,306.247L376.831,341.539C373.399,344.998 367.814,345.024 364.355,341.592 364.337,341.574 364.32,341.557 364.302,341.539 360.843,338.107 360.817,332.522 364.249,329.063 364.267,329.045 364.284,329.028 364.302,329.01L399.594,293.718 412.123,306.247z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF6C4127">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M438.592,332.716L403.3,368.008C399.868,371.467 394.283,371.493 390.824,368.061 390.806,368.043 390.789,368.026 390.771,368.008 387.312,364.576 387.286,358.991 390.718,355.532 390.736,355.514 390.753,355.497 390.771,355.479L426.063,320.187 438.592,332.716z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF6C4127">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M465.062,359.185L429.77,394.477C426.338,397.936 420.753,397.962 417.294,394.53 417.276,394.512 417.259,394.495 417.241,394.477 413.782,391.045 413.756,385.46 417.188,382.001 417.206,381.983 417.223,381.966 417.241,381.948L452.533,346.656 465.062,359.185z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF6C4127">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M491.531,385.654L456.239,420.946C452.807,424.405 447.222,424.431 443.763,420.999 443.745,420.981 443.728,420.964 443.71,420.946 440.251,417.514 440.225,411.929 443.657,408.47 443.675,408.452 443.692,408.435 443.71,408.417L479.002,373.125 491.531,385.654z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF6C4127">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M173.902,244.486L156.256,262.132 143.727,249.603 161.373,231.957C164.832,228.498 170.443,228.498 173.902,231.957 177.36,235.416 177.36,241.027 173.902,244.486L173.902,244.486z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF6C4127">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M200.371,270.955L182.725,288.601 170.196,276.072 187.842,258.426C191.301,254.967 196.912,254.967 200.371,258.426 203.829,261.885 203.829,267.496 200.371,270.955z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF6C4127">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M226.84,297.424L209.194,315.07 196.665,302.541 214.311,284.895C217.77,281.436 223.381,281.436 226.84,284.895 230.299,288.354 230.299,293.965 226.84,297.424z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF6C4127">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M253.309,323.893L235.663,341.539 223.134,329.01 240.78,311.364C244.239,307.905 249.85,307.905 253.309,311.364 256.768,314.823 256.768,320.435 253.309,323.893z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF6C4127">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M279.778,350.362L262.132,368.008 249.603,355.479 267.249,337.833C270.708,334.374 276.319,334.374 279.778,337.833 283.237,341.292 283.237,346.904 279.778,350.362z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF6C4127">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M306.247,376.831L288.601,394.477 276.072,381.948 293.718,364.302C297.177,360.843 302.788,360.843 306.247,364.302 309.706,367.761 309.706,373.373 306.247,376.831z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF6C4127">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M332.716,403.3L315.07,420.946 302.541,408.417 320.187,390.771C323.646,387.312 329.257,387.312 332.716,390.771 336.175,394.23 336.175,399.842 332.716,403.3z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF6C4127">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M359.185,429.769L341.539,447.415 329.01,434.886 346.656,417.24C350.115,413.781 355.726,413.781 359.185,417.24 362.644,420.699 362.644,426.311 359.185,429.769z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF6C4127">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M385.654,456.238L368.008,473.884 355.479,461.355 373.125,443.709C376.584,440.25 382.195,440.25 385.654,443.709 389.113,447.168 389.113,452.78 385.654,456.238z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+      </DrawingGroup>
+    </DrawingGroup>
+    <DrawingBrush x:Key="SplitTextByBlankLinesIcon" Drawing="{StaticResource ruled888dd1259484a37b2ca63dd0a63ef2b_0}" />
+
+    <!--ReplaceWords Icon-->
+    <DrawingGroup x:Key="phonebook6cb7b0f47b534265bea69554253d7d34_0">
+      <DrawingGroup.ClipGeometry>
+        <RectangleGeometry Rect="0,0,512,512" />
+      </DrawingGroup.ClipGeometry>
+      <GeometryDrawing Brush="#FF8FBEC9">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M494.345,0L79.448,0C74.575,0,70.62,3.955,70.62,8.828L70.62,503.173C70.62,508.046,74.575,512.001,79.448,512.001L494.345,512.001C504.099,512.001,512,504.1,512,494.346L512,17.655C512,7.901,504.099,0,494.345,0z M304.11,255.206C285.837,268.05 261.473,268.05 243.2,255.206 219.268,238.389 213.504,205.348 230.321,181.416 247.138,157.484 280.179,151.72 304.111,168.537 328.043,185.354 333.807,218.395 316.99,242.327 313.476,247.331 309.116,251.692 304.11,255.206z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFF7B563">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M70.621,26.483L70.621,123.586 35.31,123.586C15.81,123.586,0,139.396,0,158.896L0,61.793C0,42.293,15.81,26.483,35.31,26.483L70.621,26.483z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFEFCE4A">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M70.621,123.586L70.621,220.689 35.31,220.689C15.81,220.69,0,236.5,0,256L0,158.897C0,139.397,15.81,123.587,35.31,123.587L70.621,123.587z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFF7E6A1">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M70.621,220.69L70.621,317.793 35.31,317.793C15.81,317.793,0,333.603,0,353.103L0,256C0,236.5,15.81,220.69,35.31,220.69L70.621,220.69z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFF2ECBF">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M70.621,317.793L70.621,494.345 35.31,494.345C15.81,494.345,0,478.535,0,459.035L0,353.103C0,333.603,15.81,317.793,35.31,317.793L70.621,317.793z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <DrawingGroup>
+        <GeometryDrawing Brush="#FF43626D">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M476.69,0L476.69,35.31C476.69,40.183 472.735,44.138 467.862,44.138 462.989,44.138 459.034,40.183 459.034,35.31L459.034,0 476.69,0z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF43626D">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M467.862,97.103C462.989,97.103,459.034,93.148,459.034,88.275L459.034,70.621C459.034,65.748 462.989,61.793 467.862,61.793 472.735,61.793 476.69,65.748 476.69,70.621L476.69,88.276C476.69,93.149,472.735,97.103,467.862,97.103z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF43626D">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M467.862,150.069C462.989,150.069,459.034,146.114,459.034,141.241L459.034,123.586C459.034,118.713 462.989,114.758 467.862,114.758 472.735,114.758 476.69,118.713 476.69,123.586L476.69,141.241C476.69,146.114,472.735,150.069,467.862,150.069z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF43626D">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M467.862,203.034C462.989,203.034,459.034,199.079,459.034,194.206L459.034,176.551C459.034,171.678 462.989,167.723 467.862,167.723 472.735,167.723 476.69,171.678 476.69,176.551L476.69,194.206C476.69,199.08,472.735,203.034,467.862,203.034z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF43626D">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M467.862,256C462.989,256,459.034,252.045,459.034,247.172L459.034,229.517C459.034,224.644 462.989,220.689 467.862,220.689 472.735,220.689 476.69,224.644 476.69,229.517L476.69,247.172C476.69,252.045,472.735,256,467.862,256z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF43626D">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M467.862,308.966C462.989,308.966,459.034,305.011,459.034,300.138L459.034,282.483C459.034,277.61 462.989,273.655 467.862,273.655 472.735,273.655 476.69,277.61 476.69,282.483L476.69,300.138C476.69,305.011,472.735,308.966,467.862,308.966z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF43626D">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M467.862,361.931C462.989,361.931,459.034,357.976,459.034,353.103L459.034,335.448C459.034,330.575 462.989,326.62 467.862,326.62 472.735,326.62 476.69,330.575 476.69,335.448L476.69,353.103C476.69,357.976,472.735,361.931,467.862,361.931z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF43626D">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M467.862,414.897C462.989,414.897,459.034,410.942,459.034,406.069L459.034,388.414C459.034,383.541 462.989,379.586 467.862,379.586 472.735,379.586 476.69,383.541 476.69,388.414L476.69,406.069C476.69,410.942,472.735,414.897,467.862,414.897z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF43626D">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M467.862,467.862C462.989,467.862,459.034,463.907,459.034,459.034L459.034,441.379C459.034,436.506 462.989,432.551 467.862,432.551 472.735,432.551 476.69,436.506 476.69,441.379L476.69,459.034C476.69,463.907,472.735,467.862,467.862,467.862z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF43626D">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M476.69,494.345L476.69,512 459.035,512 459.035,494.345C459.035,489.472 462.99,485.517 467.863,485.517 472.736,485.517 476.69,489.472 476.69,494.345z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF43626D">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M273.655,123.586C200.527,123.586 141.241,182.872 141.241,256 141.241,329.128 200.527,388.414 273.655,388.414 346.783,388.414 406.069,329.128 406.069,256 406.069,182.872 346.783,123.586 273.655,123.586z M273.655,158.897C302.91,158.888 326.629,182.599 326.638,211.845 326.638,229.103 318.234,245.284 304.11,255.206 285.837,268.05 261.473,268.05 243.2,255.206 219.26,238.389 213.486,205.357 230.294,181.425 240.216,167.3 256.397,158.897 273.655,158.897z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+      </DrawingGroup>
+      <DrawingGroup>
+        <GeometryDrawing Brush="#FF72A6BF">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M326.621,211.862C326.621,229.111 318.226,245.283 304.111,255.205 285.838,268.049 261.474,268.049 243.201,255.205 219.269,238.388 213.505,205.347 230.322,181.415 247.139,157.483 280.18,151.719 304.112,168.536 318.217,178.45 326.621,194.613 326.621,211.862z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF72A6BF">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M335.448,308.966L335.448,326.621C335.448,331.494,331.493,335.449,326.62,335.449L220.69,335.449C215.817,335.449,211.862,331.494,211.862,326.621L211.862,308.966C211.862,286.712 223.832,266.179 243.2,255.206 261.473,268.05 285.837,268.05 304.11,255.206 323.478,266.178 335.448,286.711 335.448,308.966z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+      </DrawingGroup>
+      <GeometryDrawing Brush="#FF556080">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M385.236,158.72L385.236,158.72 380.381,163.575 380.292,163.575 345.07,198.886 297.843,246.113 310.29,258.648 106.461,456.828 60.292,410.748 50.229,400.684 76.006,375.437 76.094,375.437 256,198.886 292.017,163.575 328.033,128.265 341.539,115.023z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FF21232A">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M499.818,52.259L499.818,52.965C499.792,63.39,495.598,73.374,488.166,80.684L455.68,113.258 453.914,115.024 455.68,117.143C460.826,124.196,460.032,133.951,453.826,140.095L430.345,163.576 329.004,264.828C325.561,268.253,320,268.253,316.557,264.828L310.289,258.56 297.842,246.025 316.556,227.311 329.003,214.864 380.38,163.487 385.235,158.632 341.097,114.494 398.476,57.115 430.255,25.336C438.235,17.418 449.022,12.977 460.269,12.977 471.171,12.889 481.605,17.373 489.047,25.336 495.916,32.627 499.765,42.249 499.818,52.259z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FF212F3F">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M459.034,127.559C459.034,132.264,457.163,136.775,453.826,140.094L430.345,163.575 329.004,264.828C325.561,268.253,320,268.253,316.557,264.828L310.289,258.56 297.842,246.025 380.38,163.487 385.235,158.632 415.602,128.177 428.932,114.759C435.818,107.918,446.94,107.918,453.826,114.759L453.826,114.759 455.592,116.878C457.869,119.967,459.079,123.719,459.034,127.559z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FF1F436D">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M499.818,52.259L499.818,52.965C499.792,63.39,495.598,73.374,488.166,80.684L455.68,113.258 453.914,115.024 453.914,115.024C447.029,108.183,435.906,108.183,429.02,115.024L415.69,128.354 385.235,158.897 341.097,114.759 398.476,57.38 430.257,25.6C438.237,17.682 449.024,13.241 460.271,13.241 471.129,13.082 481.563,17.469 489.049,25.335 495.916,32.627 499.765,42.249 499.818,52.259z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <DrawingGroup Transform="0.7071,-0.7071,0.7071,0.7071,-66.9862,305.5069">
+        <GeometryDrawing Brush="#FF21232A">
+          <GeometryDrawing.Geometry>
+            <RectangleGeometry RadiusX="0" RadiusY="0" Rect="326.459,215.958,17.655,35.31" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+      </DrawingGroup>
+      <GeometryDrawing Brush="#FFEFCE4A">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M106.461,456.828L64.089,481.369 31.957,499.995 13.331,510.765C9.085,513.166 3.7,511.665 1.308,507.419 -0.122,504.886 -0.21,501.814 1.061,499.201L50.231,400.685 60.294,410.748 106.461,456.828z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingGroup>
+    <DrawingBrush x:Key="ReplaceWordsIcon" Drawing="{StaticResource phonebook6cb7b0f47b534265bea69554253d7d34_0}" />
+
+    <!--ExtractAllCharactersUntilWhiteSpace Icon-->
+    <DrawingGroup x:Key="pen245cd275bdc2945feb523c356e3e46398_0">
+      <DrawingGroup.ClipGeometry>
+        <RectangleGeometry Rect="0,0,512.004,512.004" />
+      </DrawingGroup.ClipGeometry>
+      <DrawingGroup.Transform>
+        <TranslateTransform X="0.00025000050663948059" Y="0" />
+      </DrawingGroup.Transform>
+      <GeometryDrawing Brush="#FF556080">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M310.389,234.617L310.389,234.617 322.9,247.128 145.81,419.724 89.776,363.69 354.001,103.783 397.612,147.394z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FF1F436D">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M500.43,69.51L466.157,103.783 466.157,103.783C459.294,97.008,448.263,97.008,441.4,103.783L397.348,147.835 354.001,103.783 443.074,14.798C458.994,-1.39599999999998 485.012,-1.62499999999998 501.223,14.269 515.901,29.881 515.548,54.321 500.43,69.51z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FF212F3F">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M466.069,128.804L341.578,253.295C338.142,256.713,332.591,256.713,329.155,253.295L310.477,234.617 441.312,103.694C448.175,96.919,459.206,96.919,466.069,103.694L466.069,103.694C473.003,110.522 473.082,121.676 466.254,128.61 466.192,128.672 466.131,128.734 466.069,128.804z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <DrawingGroup Transform="0.7071,-0.7071,0.7071,0.7071,-55.1927,311.073">
+        <GeometryDrawing Brush="#FF000000">
+          <GeometryDrawing.Geometry>
+            <RectangleGeometry RadiusX="0" RadiusY="0" Rect="339.092,204.539,17.621,35.241" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+      </DrawingGroup>
+      <GeometryDrawing Brush="#FFEFCE4A">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M130.392,404.306C109.265,427.134 93.468,454.367 84.137,484.04 83.247,486.859 80.992,489.044 78.146,489.855L11.275,509.15C6.605,510.516 1.716,507.828 0.35,503.159 -0.117,501.547 -0.117,499.837 0.35,498.225L19.557,430.913C20.509,428.217 22.711,426.147 25.46,425.362 55.089,416.164 82.322,400.517 105.194,379.548L130.392,404.306z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingGroup>
+    <DrawingBrush x:Key="ExtractAllCharactersUntilWhiteSpaceIcon" Drawing="{StaticResource pen245cd275bdc2945feb523c356e3e46398_0}" />
+
 
 </ResourceDictionary>
