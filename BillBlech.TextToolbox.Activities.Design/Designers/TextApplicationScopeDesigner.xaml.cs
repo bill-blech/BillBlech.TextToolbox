@@ -119,14 +119,6 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                     image_menuItem.Source = bitmap_menuItem;
                     menuItem.Icon = image_menuItem;
 
-                    //menuItem.Icon = new Image
-                    //{
-                    //    Source = new BitmapImage(
-                    //            new Uri("C:/Users/siswilli/source/repos/BillBlech.Excel/Icons/SelectExcelFileIcon.png"))
-                    //};
-
-
-                    //cm.Items.Add(menuItem);
                     //Add Sub Menu Item to Menu Item
                     SubmenuItem.Items.Add(menuItem);
 
