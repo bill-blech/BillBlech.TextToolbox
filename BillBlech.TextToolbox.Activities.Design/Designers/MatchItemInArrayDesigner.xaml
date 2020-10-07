@@ -1,0 +1,74 @@
+<sap:ActivityDesigner x:Class="BillBlech.TextToolbox.Activities.Design.Designers.MatchItemInArrayDesigner"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:activity="clr-namespace:BillBlech.TextToolbox.Activities.Properties;assembly=BillBlech.TextToolbox.Activities"
+                      xmlns:sap="clr-namespace:System.Activities.Presentation;assembly=System.Activities.Presentation"
+                      xmlns:sapv="clr-namespace:System.Activities.Presentation.View;assembly=System.Activities.Presentation"
+                      xmlns:sapc="clr-namespace:System.Activities.Presentation.Converters;assembly=System.Activities.Presentation"
+                      xmlns:converters="clr-namespace:UiPath.Shared.Activities.Design.Converters"
+                      xmlns:uip="clr-namespace:UiPath.Shared.Activities.Design.Controls">
+
+    <sap:ActivityDesigner.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="..\Themes\Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <sapc:ArgumentToExpressionConverter x:Key="ArgumentToExpressionConverter" />
+            <converters:ActivityIconConverter x:Key="ActivityIconConverter" />
+        </ResourceDictionary>
+    </sap:ActivityDesigner.Resources>
+
+    <sap:ActivityDesigner.Icon>
+        <DrawingBrush Stretch="Uniform" Drawing="{Binding Path=ModelItem, Converter={StaticResource ActivityIconConverter}, ConverterParameter=pack://application:\,\,\,/BillBlech.TextToolbox.Activities.Design;component/themes/icons.xaml}" />
+    </sap:ActivityDesigner.Icon>
+
+    <uip:ActivityDecoratorControl Style="{StaticResource ActivityDecoratorStyle}">
+        <Grid Width="300">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!--Input Array-->
+            <Label Content="{x:Static activity:Resources.MatchItemInArray_InputArray_DisplayName}" Grid.Row="0"
+                   ToolTip="{x:Static activity:Resources.MatchItemInArray_InputArray_Description}"/>
+            <sapv:ExpressionTextBox Grid.Row="1" ExpressionType="{Binding ModelItem.Properties[InputArray].PropertyType.GenericTypeArguments[0]}" OwnerActivity="{Binding Path=ModelItem}" HintText="{x:Static activity:Resources.MatchItemInArray_InputArray_Description}" UseLocationExpression="False">
+                <sapv:ExpressionTextBox.Expression>
+                    <Binding Path="ModelItem.InputArray" Converter="{StaticResource ArgumentToExpressionConverter}" Mode="TwoWay" ConverterParameter="In" UpdateSourceTrigger="PropertyChanged" />
+                </sapv:ExpressionTextBox.Expression>
+            </sapv:ExpressionTextBox>
+
+            <!--File Path Preview -->
+            <sapv:ExpressionTextBox  ExpressionType="{Binding ModelItem.Properties[FilePathPreview].PropertyType.GenericTypeArguments[0]}" OwnerActivity="{Binding ModelItem}" UseLocationExpression="False" Margin="358,0,20,0"  Expression="{Binding ModelItem.FilePathPreview, ConverterParameter=In, Converter={StaticResource ArgumentToExpressionConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HintText="{x:Static activity:Resources.TextApplicationScope_FilePathPreview_Description}" Name="FilePathPreview" Visibility="Hidden"/>
+
+            <!--ID Text -->
+            <sapv:ExpressionTextBox Grid.Row="0" ExpressionType="{Binding ModelItem.Properties[IDText].PropertyType.GenericTypeArguments[0]}" OwnerActivity="{Binding Path=ModelItem}" HintText="{x:Static activity:Resources.IDText_Description}" UseLocationExpression="False" Name="IDText" Margin="213,2,0,2" Visibility="Hidden">
+                <sapv:ExpressionTextBox.Expression>
+                    <Binding Path="ModelItem.IDText" Converter="{StaticResource ArgumentToExpressionConverter}" Mode="TwoWay" ConverterParameter="In"  UpdateSourceTrigger="PropertyChanged"/>
+                </sapv:ExpressionTextBox.Expression>
+            </sapv:ExpressionTextBox>
+
+            <!--Search Word -->
+            <Label Content="{x:Static activity:Resources.MatchItemInArray_SearchWord_DisplayName}" Grid.Row="2"
+                   ToolTip="{x:Static activity:Resources.MatchItemInArray_SearchWord_Description}"/>
+            <sapv:ExpressionTextBox Grid.Row="3" ExpressionType="{Binding ModelItem.Properties[SearchWord].PropertyType.GenericTypeArguments[0]}" OwnerActivity="{Binding Path=ModelItem}" HintText="{x:Static activity:Resources.MatchItemInArray_SearchWord_Description}" UseLocationExpression="False" Margin="0,0,27,0" Name="SearchWord">
+                <sapv:ExpressionTextBox.Expression>
+                    <Binding Path="ModelItem.SearchWord" Converter="{StaticResource ArgumentToExpressionConverter}" Mode="TwoWay" ConverterParameter="In" UpdateSourceTrigger="PropertyChanged"/>
+                </sapv:ExpressionTextBox.Expression>
+            </sapv:ExpressionTextBox>
+
+            <!-- Menu Button-->
+            <Button Content="" Height="20" Width="20" Margin="275,2,5,1" RenderTransformOrigin="0.529,-0.15" Click="CallCallButton_SetupWizard" Grid.Row="3" Name="btnEndWords" ToolTip="Access 'Wizard' and 'Preview' functionalities" Focusable="False" Visibility="Visible">
+                <Button.Background>
+                    <ImageBrush ImageSource="/BillBlech.TextToolbox.Activities.Design;component/Resources/MenuIcon.png"/>
+                </Button.Background>
+            </Button>
+
+
+
+
+        </Grid>
+    </uip:ActivityDecoratorControl>
+</sap:ActivityDesigner>

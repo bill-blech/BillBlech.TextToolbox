@@ -33,15 +33,26 @@ namespace BillBlech.TextToolbox.Activities
         [LocalizedCategory(nameof(Resources.Input_Category))]
         public InArgument<int> NullLimit { get; set; }
 
-        [LocalizedDisplayName("Suppress Null Values")]
-        [LocalizedDescription("Remove Empty words from extracted text")]
+        [LocalizedDisplayName(nameof(Resources.SuppressNulls_Description))]
+        [LocalizedDescription(nameof(Resources.SuppressNulls_DisplayName))]
         [LocalizedCategory(nameof(Resources.Input_Category))]
-        public bool bSuppressNulls { get; set; }
+        //public bool bSuppressNulls { get; set; }
+        public InArgument<bool> bSuppressNulls { get; set; }
 
         [LocalizedDisplayName(nameof(Resources.SplitTextRows_ExtractedText_DisplayName))]
         [LocalizedDescription(nameof(Resources.SplitTextRows_ExtractedText_Description))]
         [LocalizedCategory(nameof(Resources.Output_Category))]
         public OutArgument<String[]> ExtractedText { get; set; }
+
+        [LocalizedDisplayName(nameof(Resources.IDText_DisplayName))]
+        [LocalizedDescription(nameof(Resources.IDText_Description))]
+        [LocalizedCategory(nameof(Resources.Common_Category))]
+        public InArgument<string> IDText { get; set; }
+
+        [LocalizedDisplayName(nameof(Resources.TextApplicationScope_FilePathPreview_DisplayName))]
+        [LocalizedDescription(nameof(Resources.TextApplicationScope_FilePathPreview_Description))]
+        [LocalizedCategory(nameof(Resources.Common_Category))]
+        public InArgument<string> FilePathPreview { get; set; }
 
         #endregion
 
@@ -61,6 +72,7 @@ namespace BillBlech.TextToolbox.Activities
         {
             if (InputTextRow == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(InputTextRow)));
             if (NullLimit == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(NullLimit)));
+            if (bSuppressNulls == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(bSuppressNulls)));
             if (ExtractedText == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, "Extracted Words"));
 
             base.CacheMetadata(metadata);
@@ -71,7 +83,7 @@ namespace BillBlech.TextToolbox.Activities
             // Inputs
             var inputTextRow = InputTextRow.Get(context);
             var nullLimit = NullLimit.Get(context);
-            var bsuppressNulls = bSuppressNulls;
+            var bsuppressNulls = bSuppressNulls.Get(context);
 
             ///////////////////////////
             // Add execution logic HERE

@@ -1,17 +1,17 @@
-using BillBlech.TextToolbox.Activities.Activities;
-using BillBlech.TextToolbox.Activities.Properties;
 using System;
 using System.Activities;
 using System.Threading;
 using System.Threading.Tasks;
+using BillBlech.TextToolbox.Activities.Activities;
+using BillBlech.TextToolbox.Activities.Properties;
 using UiPath.Shared.Activities;
 using UiPath.Shared.Activities.Localization;
 
 namespace BillBlech.TextToolbox.Activities
 {
-    [LocalizedDisplayName(nameof(Resources.RemoveEmptyRows_DisplayName))]
-    [LocalizedDescription(nameof(Resources.RemoveEmptyRows_Description))]
-    public class RemoveEmptyRows : ContinuableAsyncCodeActivity
+    [LocalizedDisplayName(nameof(Resources.MatchItemInArray_DisplayName))]
+    [LocalizedDescription(nameof(Resources.MatchItemInArray_Description))]
+    public class MatchItemInArray : ContinuableAsyncCodeActivity
     {
         #region Properties
 
@@ -23,15 +23,20 @@ namespace BillBlech.TextToolbox.Activities
         [LocalizedDescription(nameof(Resources.ContinueOnError_Description))]
         public override InArgument<bool> ContinueOnError { get; set; }
 
-        [LocalizedDisplayName(nameof(Resources.RemoveEmptyRows_InputTextRow_DisplayName))]
-        [LocalizedDescription(nameof(Resources.RemoveEmptyRows_InputTextRow_Description))]
+        [LocalizedDisplayName(nameof(Resources.MatchItemInArray_InputArray_DisplayName))]
+        [LocalizedDescription(nameof(Resources.MatchItemInArray_InputArray_Description))]
         [LocalizedCategory(nameof(Resources.Input_Category))]
-        public InArgument<string> InputTextRow { get; set; }
+        public InArgument<String[]> InputArray { get; set; }
 
-        [LocalizedDisplayName(nameof(Resources.RemoveEmptyRows_AdjustedTextRow_DisplayName))]
-        [LocalizedDescription(nameof(Resources.RemoveEmptyRows_AdjustedTextRow_Description))]
+        [LocalizedDisplayName(nameof(Resources.MatchItemInArray_SearchWord_DisplayName))]
+        [LocalizedDescription(nameof(Resources.MatchItemInArray_SearchWord_Description))]
+        [LocalizedCategory(nameof(Resources.Input_Category))]
+        public InArgument<string[]> SearchWord { get; set; }
+
+        [LocalizedDisplayName(nameof(Resources.MatchItemInArray_IsFound_DisplayName))]
+        [LocalizedDescription(nameof(Resources.MatchItemInArray_IsFound_Description))]
         [LocalizedCategory(nameof(Resources.Output_Category))]
-        public OutArgument<string> AdjustedTextRow { get; set; }
+        public OutArgument<bool> IsFound { get; set; }
 
         [LocalizedDisplayName(nameof(Resources.IDText_DisplayName))]
         [LocalizedDescription(nameof(Resources.IDText_Description))]
@@ -48,7 +53,7 @@ namespace BillBlech.TextToolbox.Activities
 
         #region Constructors
 
-        public RemoveEmptyRows()
+        public MatchItemInArray()
         {
         }
 
@@ -59,8 +64,9 @@ namespace BillBlech.TextToolbox.Activities
 
         protected override void CacheMetadata(CodeActivityMetadata metadata)
         {
-            if (InputTextRow == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(InputTextRow)));
-            if (AdjustedTextRow == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(AdjustedTextRow)));
+            if (InputArray == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(InputArray)));
+            if (SearchWord == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(SearchWord)));
+            if (IsFound == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(IsFound)));
 
             base.CacheMetadata(metadata);
         }
@@ -68,17 +74,17 @@ namespace BillBlech.TextToolbox.Activities
         protected override async Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
             // Inputs
-            var inputTextRow = InputTextRow.Get(context);
+            var inputArray = InputArray.Get(context);
+            var searchWord = SearchWord.Get(context);
 
             ///////////////////////////
             // Add execution logic HERE
-            string OutputAdjustedTextRow = Utils.TextRemoveEmptyRows(inputTextRow);
+            bool bIsFound = Utils.MatchItemInArrayOfStrings(inputArray, searchWord);
             ///////////////////////////
 
             // Outputs
-            return (ctx) =>
-            {
-                AdjustedTextRow.Set(ctx, OutputAdjustedTextRow);
+            return (ctx) => {
+                IsFound.Set(ctx, bIsFound);
             };
         }
 

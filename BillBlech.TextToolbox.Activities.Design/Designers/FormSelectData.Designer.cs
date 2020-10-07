@@ -49,9 +49,9 @@
             this.groupBoxAvailableItems = new System.Windows.Forms.GroupBox();
             this.groupBoxSelectedItems = new System.Windows.Forms.GroupBox();
             this.groupBoxManual = new System.Windows.Forms.GroupBox();
-            this.txtManual = new System.Windows.Forms.TextBox();
-            this.btnManualAdd = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
+            this.btnManualAdd = new System.Windows.Forms.Button();
+            this.txtManual = new System.Windows.Forms.TextBox();
             this.groupLstSelectedItemsSelection.SuspendLayout();
             this.GroupLstSelectedItemsMoveItem.SuspendLayout();
             this.groupLstSelectedItemsMergeSplit.SuspendLayout();
@@ -109,7 +109,7 @@
             // 
             this.groupLstSelectedItemsSelection.Controls.Add(this.groupLstSelectedItemsSelectionMulti);
             this.groupLstSelectedItemsSelection.Controls.Add(this.groupLstSelectedItemsSelectionSingle);
-            this.groupLstSelectedItemsSelection.Location = new System.Drawing.Point(546, 89);
+            this.groupLstSelectedItemsSelection.Location = new System.Drawing.Point(536, 89);
             this.groupLstSelectedItemsSelection.Name = "groupLstSelectedItemsSelection";
             this.groupLstSelectedItemsSelection.Size = new System.Drawing.Size(76, 77);
             this.groupLstSelectedItemsSelection.TabIndex = 10;
@@ -144,7 +144,7 @@
             // 
             this.GroupLstSelectedItemsMoveItem.Controls.Add(this.btnLstSelectedItemsDown);
             this.GroupLstSelectedItemsMoveItem.Controls.Add(this.btnLstSelectedItemsUp);
-            this.GroupLstSelectedItemsMoveItem.Location = new System.Drawing.Point(546, 268);
+            this.GroupLstSelectedItemsMoveItem.Location = new System.Drawing.Point(536, 268);
             this.GroupLstSelectedItemsMoveItem.Name = "GroupLstSelectedItemsMoveItem";
             this.GroupLstSelectedItemsMoveItem.Size = new System.Drawing.Size(75, 84);
             this.GroupLstSelectedItemsMoveItem.TabIndex = 11;
@@ -185,7 +185,7 @@
             // 
             this.groupLstSelectedItemsMergeSplit.Controls.Add(this.btnSplit);
             this.groupLstSelectedItemsMergeSplit.Controls.Add(this.btnMerge);
-            this.groupLstSelectedItemsMergeSplit.Location = new System.Drawing.Point(547, 172);
+            this.groupLstSelectedItemsMergeSplit.Location = new System.Drawing.Point(537, 172);
             this.groupLstSelectedItemsMergeSplit.Name = "groupLstSelectedItemsMergeSplit";
             this.groupLstSelectedItemsMergeSplit.Size = new System.Drawing.Size(75, 84);
             this.groupLstSelectedItemsMergeSplit.TabIndex = 13;
@@ -255,7 +255,7 @@
             this.groupBoxAvailableItems.Location = new System.Drawing.Point(12, 15);
             this.groupBoxAvailableItems.Name = "groupBoxAvailableItems";
             this.groupBoxAvailableItems.Size = new System.Drawing.Size(212, 361);
-            this.groupBoxAvailableItems.TabIndex = 18;
+            this.groupBoxAvailableItems.TabIndex = 0;
             this.groupBoxAvailableItems.TabStop = false;
             this.groupBoxAvailableItems.Text = "Available Items";
             // 
@@ -284,12 +284,15 @@
             this.groupBoxManual.TabStop = false;
             this.groupBoxManual.Text = "Manual";
             // 
-            // txtManual
+            // btnEdit
             // 
-            this.txtManual.Location = new System.Drawing.Point(10, 23);
-            this.txtManual.Name = "txtManual";
-            this.txtManual.Size = new System.Drawing.Size(200, 20);
-            this.txtManual.TabIndex = 0;
+            this.btnEdit.Location = new System.Drawing.Point(79, 55);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(51, 23);
+            this.btnEdit.TabIndex = 2;
+            this.btnEdit.Text = "Edit";
+            this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnManualAdd
             // 
@@ -301,15 +304,12 @@
             this.btnManualAdd.UseVisualStyleBackColor = true;
             this.btnManualAdd.Click += new System.EventHandler(this.btnManualAdd_Click);
             // 
-            // btnEdit
+            // txtManual
             // 
-            this.btnEdit.Location = new System.Drawing.Point(79, 55);
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(51, 23);
-            this.btnEdit.TabIndex = 2;
-            this.btnEdit.Text = "Edit";
-            this.btnEdit.UseVisualStyleBackColor = true;
-            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            this.txtManual.Location = new System.Drawing.Point(10, 23);
+            this.txtManual.Name = "txtManual";
+            this.txtManual.Size = new System.Drawing.Size(200, 20);
+            this.txtManual.TabIndex = 0;
             // 
             // FormSelectData
             // 

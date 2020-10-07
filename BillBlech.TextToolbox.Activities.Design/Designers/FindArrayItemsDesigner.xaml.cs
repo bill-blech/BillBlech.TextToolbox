@@ -1,3 +1,5 @@
+using BillBlech.TextToolbox.Activities.Activities;
+using Microsoft.VisualBasic;
 using Microsoft.Win32;
 using System;
 using System.Activities;
@@ -11,18 +13,51 @@ using System.Windows.Media.Imaging;
 namespace BillBlech.TextToolbox.Activities.Design.Designers
 {
     /// <summary>
-    /// Interaction logic for RemoveEmptyRowsDesigner.xaml
+    /// Interaction logic for FindArrayItemsDesigner.xaml
     /// </summary>
-    public partial class RemoveEmptyRowsDesigner
+    public partial class FindArrayItemsDesigner
     {
+
         string MyIDText = null;
         string MyArgument = null;
 
-        public RemoveEmptyRowsDesigner()
+        public FindArrayItemsDesigner()
         {
             InitializeComponent();
         }
 
+        #region ComboBox
+        public List<string> LstAnchorTypeParam
+        {
+            get
+            {
+                return new List<string>
+                {
+                    "Any", "All"
+                };
+            }
+            set { }
+        }
+
+        #endregion
+
+        //Anchor Words Parameter Update Event
+        private void AnchorWordsParamComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            //Update IDText
+            UpdateIDText();
+
+            //Fill in Global Variable
+            MyArgument = "Anchor Words Parameter";
+
+            //Get ITem from the ComboBox
+            string MyAnchorTextParamComboBox = this.AnchorWordsParamComboBox.SelectedItem.ToString();
+
+            //Log ComboBox
+            DesignUtils.CallLogComboBox(MyIDText, MyArgument, MyAnchorTextParamComboBox);
+            
+        }
 
         #region Set IDText
         //Update IDText
@@ -64,11 +99,15 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             }
 
         }
+
         #endregion
 
         //Setup Wizard Button
         private void CallCallButton_SetupWizard(object sender, System.Windows.RoutedEventArgs e)
         {
+
+            //Fill in Global Variable
+            MyArgument = "Filter Words";
 
             //Setup Wizard Button
             CallButton_SetupWizard();
@@ -76,8 +115,7 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
         //Setup Wizard Button
         private void CallButton_SetupWizard()
-        {
-
+        { 
             //Update IDText
             UpdateIDText();
 
@@ -235,10 +273,26 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
             #endregion
 
-            if (CurrentTextFilePath!= null)
+            //Wizard & Preview
+            if (CurrentTextFilePath != null)
             {
                 //Add Separator
                 cm.Items.Add(new Separator());
+
+                //Wizard
+                System.Windows.Controls.MenuItem menuWizard = new System.Windows.Controls.MenuItem();
+
+                menuWizard.Header = "Wizard";
+                menuWizard.Click += Button_OpenFormSelectData;
+                menuWizard.ToolTip = "Select Words from Text File selected as Preview";
+                //Add Icon to the uri_menuItem
+                var uri_menuWizard = new System.Uri("https://img.icons8.com/officexs/20/000000/edit-file.png");
+                var bitmap_menuWizard = new BitmapImage(uri_menuWizard);
+                var image_menuWizard = new Image();
+                image_menuWizard.Source = bitmap_menuWizard;
+                menuWizard.Icon = image_menuWizard;
+
+                cm.Items.Add(menuWizard);
 
                 //Preview
                 System.Windows.Controls.MenuItem menuPreview = new System.Windows.Controls.MenuItem();
@@ -446,15 +500,81 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
         }
 
+        //Button Open Wizard
+        private void Button_OpenFormSelectData(object sender, RoutedEventArgs e)
+        {
+
+            //Get the File Path
+            string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
+            string Source = System.IO.File.ReadAllText(FilePath);
+
+            //Check if all Parameters are in the File
+            string[] searchWords = { "FilePathforPreview" + Utils.DefaultSeparator() };
+            double PercResults = Utils.FindWordsInString(Source, searchWords, false);
+
+            //Case it is found
+            if (PercResults == 1)
+            {
+                
+                //Get Lines from the File
+                string[] Lines = Utils.SplitTextNewLine(Source);
+
+                //Check if there is a File Path for the Preveiw
+                string[] filterWords = { "FilePathforPreview" + Utils.DefaultSeparator()};
+                string[] OutputResults = CallExtractions.CallFindArrayItems(Lines, filterWords, "Any", false);
+
+                if (OutputResults.Length > 0)
+                {
+                    FilePath = OutputResults[0];
+
+                    //Get File Path for the Preview
+                    string[] MyArray = Strings.Split(FilePath, Utils.DefaultSeparator());
+                    FilePath = MyArray[1];
+
+                    //Open Form Select Data
+                    DesignUtils.CallformSelectDataOpen(MyArgument, MyIDText, FilePath);
+                }
+
+            }
+
+        }
+
         //Button Open Preview
         private void Button_OpenPreview(object sender, RoutedEventArgs e)
-        { 
+        {
 
-            //Open Form Preview Extraction
-            DesignUtils.CallformPreviewExtraction(MyIDText, "Remove Empty Words");
+            //Get the File Path
+            string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
+
+            #region Open Preview Extraction
+
+            //Read Text File
+            string Source = System.IO.File.ReadAllText(FilePath);
+
+            //Check if all Parameters are in the File
+            string[] searchWords = { "FilePathforPreview" + Utils.DefaultSeparator(), "Filter Words" + Utils.DefaultSeparator(), "Anchor Words Parameter" + Utils.DefaultSeparator()};
+            double PercResults = Utils.FindWordsInString(Source, searchWords, false);
+
+            //Case all Parameters are found
+            if (PercResults == 1)
+            {
+                //Open Form Preview Extraction
+                DesignUtils.CallformPreviewExtraction(MyIDText, "Find Array Items");
+            }
+            else
+            {
+                //Error Message
+                MessageBox.Show("Please fill in all arguments", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            #endregion
+
 
         }
 
 
+
     }
+
+
 }

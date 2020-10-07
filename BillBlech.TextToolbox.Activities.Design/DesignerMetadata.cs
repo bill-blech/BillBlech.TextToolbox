@@ -79,6 +79,22 @@ namespace BillBlech.TextToolbox.Activities.Design
             builder.AddCustomAttributes(typeof(ExtractAllCharactersUntilWhiteSpace), new DesignerAttribute(typeof(ExtractAllCharactersUntilWhiteSpaceDesigner)));
             builder.AddCustomAttributes(typeof(ExtractAllCharactersUntilWhiteSpace), new HelpKeywordAttribute(""));
 
+            builder.AddCustomAttributes(typeof(FindArrayItems), categoryAttribute);
+            builder.AddCustomAttributes(typeof(FindArrayItems), new DesignerAttribute(typeof(FindArrayItemsDesigner)));
+            builder.AddCustomAttributes(typeof(FindArrayItems), new HelpKeywordAttribute(""));
+
+            builder.AddCustomAttributes(typeof(MatchItemInArray), categoryAttribute);
+            builder.AddCustomAttributes(typeof(MatchItemInArray), new DesignerAttribute(typeof(MatchItemInArrayDesigner)));
+            builder.AddCustomAttributes(typeof(MatchItemInArray), new HelpKeywordAttribute(""));
+
+            builder.AddCustomAttributes(typeof(ExtractAllCharactersUntilNextLetter), categoryAttribute);
+            builder.AddCustomAttributes(typeof(ExtractAllCharactersUntilNextLetter), new DesignerAttribute(typeof(ExtractAllCharactersUntilNextLetterDesigner)));
+            builder.AddCustomAttributes(typeof(ExtractAllCharactersUntilNextLetter), new HelpKeywordAttribute(""));
+
+            builder.AddCustomAttributes(typeof(ReadTextFileEncondig), categoryAttribute);
+            builder.AddCustomAttributes(typeof(ReadTextFileEncondig), new DesignerAttribute(typeof(ReadTextFileEncondigDesigner)));
+            builder.AddCustomAttributes(typeof(ReadTextFileEncondig), new HelpKeywordAttribute(""));
+
 
             MetadataStore.AddAttributeTable(builder.CreateTable());
         }

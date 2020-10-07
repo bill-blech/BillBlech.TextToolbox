@@ -1,4 +1,5 @@
 using BillBlech.TextToolbox.Activities.Activities;
+using Microsoft.VisualBasic;
 using System;
 using System.Activities;
 using System.Activities.Presentation.Model;
@@ -76,8 +77,6 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             CallButton_SetupWizard();
         }
 
-
-
         //Setup Wizard Button
         private void CallButton_SetupWizard()
         {
@@ -134,8 +133,8 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             }
             else
             {
-                //Warning Message
-                MessageBox.Show("Please click the 'Warning Button' 'Wizard' and 'Preview'", "Enable Functionalities", MessageBoxButton.OK, MessageBoxImage.Warning);
+                //Wizard Button: Warning Message: Wizard & Preview
+                DesignUtils.Wizard_WarningMessage_Wizard_Preview();
             }
 
         }
@@ -144,8 +143,11 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         private void Button_OpenFormSelectData(object sender, RoutedEventArgs e)
         {
 
+            //Get File Path
+            string FilePath = System.IO.File.ReadAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFile.txt");
+
             //Open Form Select Data
-            DesignUtils.CallformSelectDataOpen(MyArgument, MyIDText);
+            DesignUtils.CallformSelectDataOpen(MyArgument, MyIDText, FilePath);
 
         }
 
@@ -155,6 +157,7 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
             string FilePath = null;
             string Source = null;
+            double PercResults = 0;
 
             //Read Data from Current File
             FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFile.txt";
@@ -165,21 +168,43 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
             Source = System.IO.File.ReadAllText(FilePath);
 
-            //Split the Line
-            string[] MyArray = Source.Split('@');
+            //Check if all Parameters are in the File
+            string[] searchWords = { "Search Words" + Utils.DefaultSeparator()};
+            PercResults = Utils.FindWordsInString(Source, searchWords, false);
 
-            //Fill in the Variables
-            string MyArgument = MyArray[0];
-            string MyValue = MyArray[1];
+            //Case it is found
+            if (PercResults == 1)
+            {
+
+                //Split the Line
+                string[] MyArray = Strings.Split(Source, Utils.DefaultSeparator());
+
+                //Fill in the Variables
+                string MyArgument = MyArray[0];
+                string MyValue = MyArray[1];
+
+                //'Convert' Array to String
+                string[] SearchWords = DesignUtils.ConvertStringToArray(MyValue);
+
+                //Find Words in String
+                PercResults = Utils.FindWordsInString(inputText, SearchWords, false);
+
+                //Display Result
+                MessageBox.Show($"Percentage: {PercResults.ToString("P", CultureInfo.InvariantCulture)}", "Count Words in String");
+            }
+            else
+            {
+                //Delete Argument in case it is null
+                MyArgument = "Search Words";
+                DesignUtils.DeleteTextFileRowArgument(FilePath, MyArgument);
+
+                //Error Message
+                MessageBox.Show("Please fill in all arguments", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
             
-            //'Convert' Array to String
-            string[] SearchWords = DesignUtils.ConvertStringToArray(MyValue);
 
-            //Find Words in String
-            double PercResults = Utils.FindWordsInString(inputText, SearchWords, false);
-
-            //Display Result
-            MessageBox.Show($"Percentage: {PercResults.ToString("P", CultureInfo.InvariantCulture)}", "Count Words in String");
+           
 
         }
 

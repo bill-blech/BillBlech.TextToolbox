@@ -306,6 +306,96 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Anchor Words to be searched in Input Text (Array of Strings).
         /// </summary>
+        public static string ExtractAllCharactersUntilNextLetter_AnchorWords_Description {
+            get {
+                return ResourceManager.GetString("ExtractAllCharactersUntilNextLetter_AnchorWords_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Anchor Words.
+        /// </summary>
+        public static string ExtractAllCharactersUntilNextLetter_AnchorWords_DisplayName {
+            get {
+                return ResourceManager.GetString("ExtractAllCharactersUntilNextLetter_AnchorWords_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extract all text until next letter character is found.
+        /// </summary>
+        public static string ExtractAllCharactersUntilNextLetter_Description {
+            get {
+                return ResourceManager.GetString("ExtractAllCharactersUntilNextLetter_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display activity output in Output Pane.
+        /// </summary>
+        public static string ExtractAllCharactersUntilNextLetter_DisplayLog_Description {
+            get {
+                return ResourceManager.GetString("ExtractAllCharactersUntilNextLetter_DisplayLog_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display Log.
+        /// </summary>
+        public static string ExtractAllCharactersUntilNextLetter_DisplayLog_DisplayName {
+            get {
+                return ResourceManager.GetString("ExtractAllCharactersUntilNextLetter_DisplayLog_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extract Text Until Next Letter.
+        /// </summary>
+        public static string ExtractAllCharactersUntilNextLetter_DisplayName {
+            get {
+                return ResourceManager.GetString("ExtractAllCharactersUntilNextLetter_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display Regex Expression.
+        /// </summary>
+        public static string ExtractAllCharactersUntilNextLetter_DisplayRegex_Description {
+            get {
+                return ResourceManager.GetString("ExtractAllCharactersUntilNextLetter_DisplayRegex_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display Regex.
+        /// </summary>
+        public static string ExtractAllCharactersUntilNextLetter_DisplayRegex_DisplayName {
+            get {
+                return ResourceManager.GetString("ExtractAllCharactersUntilNextLetter_DisplayRegex_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search Resutls.
+        /// </summary>
+        public static string ExtractAllCharactersUntilNextLetter_Results_Description {
+            get {
+                return ResourceManager.GetString("ExtractAllCharactersUntilNextLetter_Results_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Results.
+        /// </summary>
+        public static string ExtractAllCharactersUntilNextLetter_Results_DisplayName {
+            get {
+                return ResourceManager.GetString("ExtractAllCharactersUntilNextLetter_Results_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Anchor Words to be searched in Input Text (Array of Strings).
+        /// </summary>
         public static string ExtractAllCharactersUntilWhiteSpace_AnchorWords_Description {
             get {
                 return ResourceManager.GetString("ExtractAllCharactersUntilWhiteSpace_AnchorWords_Description", resourceCulture);
@@ -349,7 +439,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Extract All Characters Until White Space.
+        ///   Looks up a localized string similar to Extract Text Until White Space.
         /// </summary>
         public static string ExtractAllCharactersUntilWhiteSpace_DisplayName {
             get {
@@ -1024,6 +1114,132 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Any Word or All the Words to be found in Array Item.
+        /// </summary>
+        public static string FindArrayItems_AnchorWordsParameters_Description {
+            get {
+                return ResourceManager.GetString("FindArrayItems_AnchorWordsParameters_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter Words Parameter.
+        /// </summary>
+        public static string FindArrayItems_AnchorWordsParameters_DisplayName {
+            get {
+                return ResourceManager.GetString("FindArrayItems_AnchorWordsParameters_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter Array items using Filter Words (Array of Strings).
+        /// </summary>
+        public static string FindArrayItems_Description {
+            get {
+                return ResourceManager.GetString("FindArrayItems_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display activity output in Output Pane.
+        /// </summary>
+        public static string FindArrayItems_DisplayLog_Description {
+            get {
+                return ResourceManager.GetString("FindArrayItems_DisplayLog_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display Log.
+        /// </summary>
+        public static string FindArrayItems_DisplayLog_DisplayName {
+            get {
+                return ResourceManager.GetString("FindArrayItems_DisplayLog_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Find Array Items.
+        /// </summary>
+        public static string FindArrayItems_DisplayName {
+            get {
+                return ResourceManager.GetString("FindArrayItems_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display Regex Expression.
+        /// </summary>
+        public static string FindArrayItems_DisplayRegex_Description {
+            get {
+                return ResourceManager.GetString("FindArrayItems_DisplayRegex_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display Regex.
+        /// </summary>
+        public static string FindArrayItems_DisplayRegex_DisplayName {
+            get {
+                return ResourceManager.GetString("FindArrayItems_DisplayRegex_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Words to be searched in Input Array (Array of Strings).
+        /// </summary>
+        public static string FindArrayItems_FilterWords_Description {
+            get {
+                return ResourceManager.GetString("FindArrayItems_FilterWords_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter Words.
+        /// </summary>
+        public static string FindArrayItems_FilterWords_DisplayName {
+            get {
+                return ResourceManager.GetString("FindArrayItems_FilterWords_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Array to be Searched.
+        /// </summary>
+        public static string FindArrayItems_InputArray_Description {
+            get {
+                return ResourceManager.GetString("FindArrayItems_InputArray_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Input Array.
+        /// </summary>
+        public static string FindArrayItems_InputArray_DisplayName {
+            get {
+                return ResourceManager.GetString("FindArrayItems_InputArray_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search Results.
+        /// </summary>
+        public static string FindArrayItems_Results_Description {
+            get {
+                return ResourceManager.GetString("FindArrayItems_Results_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Results.
+        /// </summary>
+        public static string FindArrayItems_Results_DisplayName {
+            get {
+                return ResourceManager.GetString("FindArrayItems_Results_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This ID is used for the Preview Functionalities.
         /// </summary>
         public static string IDText_Description {
@@ -1051,6 +1267,78 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check if any of the item belongs to an Array of Strings.
+        /// </summary>
+        public static string MatchItemInArray_Description {
+            get {
+                return ResourceManager.GetString("MatchItemInArray_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Match Item in Array.
+        /// </summary>
+        public static string MatchItemInArray_DisplayName {
+            get {
+                return ResourceManager.GetString("MatchItemInArray_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Array to be Searched.
+        /// </summary>
+        public static string MatchItemInArray_InputArray_Description {
+            get {
+                return ResourceManager.GetString("MatchItemInArray_InputArray_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Input Array.
+        /// </summary>
+        public static string MatchItemInArray_InputArray_DisplayName {
+            get {
+                return ResourceManager.GetString("MatchItemInArray_InputArray_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Return if item was found in the Array (boolean Variable).
+        /// </summary>
+        public static string MatchItemInArray_IsFound_Description {
+            get {
+                return ResourceManager.GetString("MatchItemInArray_IsFound_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is Found.
+        /// </summary>
+        public static string MatchItemInArray_IsFound_DisplayName {
+            get {
+                return ResourceManager.GetString("MatchItemInArray_IsFound_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Words to be searched in the Array (Array of Strings).
+        /// </summary>
+        public static string MatchItemInArray_SearchWord_Description {
+            get {
+                return ResourceManager.GetString("MatchItemInArray_SearchWord_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search Words.
+        /// </summary>
+        public static string MatchItemInArray_SearchWord_DisplayName {
+            get {
+                return ResourceManager.GetString("MatchItemInArray_SearchWord_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Options.
         /// </summary>
         public static string Options_Category {
@@ -1065,6 +1353,96 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         public static string Output_Category {
             get {
                 return ResourceManager.GetString("Output_Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The extracted text from the text file.
+        /// </summary>
+        public static string ReadTextFileEncondig_Content_Description {
+            get {
+                return ResourceManager.GetString("ReadTextFileEncondig_Content_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Content.
+        /// </summary>
+        public static string ReadTextFileEncondig_Content_DisplayName {
+            get {
+                return ResourceManager.GetString("ReadTextFileEncondig_Content_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Read text file with encoding option.
+        /// </summary>
+        public static string ReadTextFileEncondig_Description {
+            get {
+                return ResourceManager.GetString("ReadTextFileEncondig_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display Activity in Output Pane.
+        /// </summary>
+        public static string ReadTextFileEncondig_DisplayLog_Description {
+            get {
+                return ResourceManager.GetString("ReadTextFileEncondig_DisplayLog_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display Log.
+        /// </summary>
+        public static string ReadTextFileEncondig_DisplayLog_DisplayName {
+            get {
+                return ResourceManager.GetString("ReadTextFileEncondig_DisplayLog_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Read Text File Encondig.
+        /// </summary>
+        public static string ReadTextFileEncondig_DisplayName {
+            get {
+                return ResourceManager.GetString("ReadTextFileEncondig_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encoding option to be used.
+        /// </summary>
+        public static string ReadTextFileEncondig_Encoding_Description {
+            get {
+                return ResourceManager.GetString("ReadTextFileEncondig_Encoding_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encoding.
+        /// </summary>
+        public static string ReadTextFileEncondig_Encoding_DisplayName {
+            get {
+                return ResourceManager.GetString("ReadTextFileEncondig_Encoding_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Path to be read.
+        /// </summary>
+        public static string ReadTextFileEncondig_FileName_Description {
+            get {
+                return ResourceManager.GetString("ReadTextFileEncondig_FileName_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Name.
+        /// </summary>
+        public static string ReadTextFileEncondig_FileName_DisplayName {
+            get {
+                return ResourceManager.GetString("ReadTextFileEncondig_FileName_DisplayName", resourceCulture);
             }
         }
         
@@ -1294,7 +1672,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Index Occurence.
+        ///   Looks up a localized string similar to Occurence Position.
         /// </summary>
         public static string ReplaceWords_IndexOccurence_DisplayName {
             get {
@@ -1348,7 +1726,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Text Occurrance.
+        ///   Looks up a localized string similar to Occurence Parameter.
         /// </summary>
         public static string ReplaceWords_TextOccurrance_DisplayName {
             get {
@@ -1497,6 +1875,24 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         public static string SplitTextRows_NullLimit_DisplayName {
             get {
                 return ResourceManager.GetString("SplitTextRows_NullLimit_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Suppress Null Values (Boolen Variable).
+        /// </summary>
+        public static string SuppressNulls_Description {
+            get {
+                return ResourceManager.GetString("SuppressNulls_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove Empty words from extracted text.
+        /// </summary>
+        public static string SuppressNulls_DisplayName {
+            get {
+                return ResourceManager.GetString("SuppressNulls_DisplayName", resourceCulture);
             }
         }
         

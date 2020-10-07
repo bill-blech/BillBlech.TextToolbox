@@ -22,6 +22,15 @@ namespace BillBlech.TextToolbox.Activities.Activities
 
         }
 
+        public enum EnumDirection
+        {
+            Null,
+            Above,
+            Below,
+            Both,
+
+        }
+
         public static EnumAnchorTextParam ReturnAnchorTextParam(string anchorTextParamText)
         {
             //Fill in Variable anchorTextParam
@@ -317,7 +326,7 @@ namespace BillBlech.TextToolbox.Activities.Activities
             return OutputResults;
         }
 
-        //Extract all Characters until next White Space (Create Activity)
+        //Extract all Characters until next White Space
         public static string[] CallExtractAllCharactersUntilWhiteSpace(string inputText, string[] anchorWords, bool displayLog, bool displayRegex)
         {
 
@@ -340,6 +349,234 @@ namespace BillBlech.TextToolbox.Activities.Activities
         ExitLoop:
             return OutputResults;
         }
+
+        //Extract all Characters until next Letter
+        public static string[] CallExtractAllCharactersUntilLetterCharacter(string inputText, string[] anchorWords, bool displayLog, bool displayRegex)
+        {
+
+            string[] OutputResults = null;
+
+            //Loop through the Words
+            foreach (string Word in anchorWords)
+            {
+                //Extract text Below Line Text
+                OutputResults = Utils.ExtractAllCharactersUntilLetterCharacter(inputText, Word, displayLog, displayRegex);
+
+                //Exit the Loop in case result is found
+                if (OutputResults.Length > 0)
+                {
+                    //Exit the Loop
+                    goto ExitLoop;
+                }
+            }
+
+        ExitLoop:
+            return OutputResults;
+        }
+
+        //Find Array Items
+        public static string[] CallFindArrayItems(string[] InputArray, string[] FilterWords, string anchorTextParamText, bool displayLog)
+        {
+            string[] OutputResults = null;
+
+            //Get Anchor Text Parameter
+            EnumAnchorTextParam anchorTextParam = ReturnAnchorTextParam(anchorTextParamText);
+
+            switch (anchorTextParam)
+            {
+                //Any of the Anchor Words
+                case EnumAnchorTextParam.Any:
+
+                    //Loop through the Words
+                    foreach (string Word in FilterWords)
+                    {
+                        string[] SingleWord = { Word };
+
+                        //Run Extraction
+                        OutputResults = Utils.QueryArrayString(InputArray, SingleWord, displayLog);
+
+                        //Exit the Loop in case result is found
+                        if (OutputResults.Length > 0)
+                        {
+                            //Exit the Loop
+                            goto ExitLoop;
+                        }
+
+
+                    }
+
+                    break;
+
+                //All of the Anchor Words
+                case EnumAnchorTextParam.All:
+
+                    //Run Extraction
+                    OutputResults = Utils.QueryArrayString(InputArray, FilterWords, displayLog);
+
+                    break;
+            }
+
+
+        ExitLoop:
+            return OutputResults;
+
+        }
+
+        //Extract Text Until Blank Lines
+        public static string[] CallExtractTextUntilBlankLine(string inputText, string[] anchorWords, string anchorWordsParameterText, string directionText, bool includeAnchorWordsRow, bool displayLog, bool displayRegex)
+        {
+
+            string[] OutputResults = null;
+
+            //Fill in Variable anchorTextParam
+            EnumAnchorTextParam anchorTextParam = ReturnAnchorTextParam(anchorWordsParameterText);
+
+            EnumDirection DirectionParam = EnumDirection.Null;
+
+            //Fill in Variable Direction
+            switch (directionText)
+            {
+                //Above
+                case "Above":
+                    DirectionParam = EnumDirection.Above;
+                    break;
+
+                //Below
+                case "Below":
+                    DirectionParam = EnumDirection.Below;
+                    break;
+
+            }
+
+
+            //Check Direction Variable
+            switch (DirectionParam)
+            {
+                //Below
+                #region Direction: Below
+                case EnumDirection.Below:
+
+                    //Chech Anchor Words Parameter
+                    switch (anchorTextParam)
+                    {
+
+                        //Any of the Anchor Words
+                        case EnumAnchorTextParam.Any:
+
+                            //Loop through the Words
+                            foreach (string Word in anchorWords)
+                            {
+                                //Extract text Below Line Text Until Blank Line
+                                OutputResults = Utils.ExtractAllLinesBelowAnchorTextUntilBlankline(inputText, Word, displayLog, displayRegex, includeAnchorWordsRow);
+
+                                //Exit the Loop in case result is found
+                                if (OutputResults.Length > 0)
+                                {
+                                    //Exit the Loop
+                                    goto ExitLoop;
+                                }
+
+                            }
+
+                            break;
+
+                        //All of the Anchor Words
+                        case EnumAnchorTextParam.All:
+
+                            //Extract text Below Line Array Text Until Blank Line
+                            OutputResults = Utils.ExtractAllLinesBelowAnchorArrayofTextUntilBlankline(inputText, anchorWords, displayLog, displayRegex, includeAnchorWordsRow);
+
+                            break;
+
+                    }
+
+                    //End Above Code
+                    break;
+                #endregion
+
+                //Above
+                #region Direction: Above
+                case EnumDirection.Above:
+
+                    //Chech Anchor Words Parameter
+                    switch (anchorTextParam)
+                    {
+
+                        //Any of the Anchor Words
+                        case EnumAnchorTextParam.Any:
+
+                            //Loop through the Words
+                            foreach (string Word in anchorWords)
+                            {
+                                //Extract text Above Line Text Until Blank Line
+                                OutputResults = Utils.ExtractAllLinesAboveAnchorTextUntilBlankline(inputText, Word, displayLog, displayRegex, includeAnchorWordsRow);
+
+                                //Exit the Loop in case result is found
+                                if (OutputResults.Length > 0)
+                                {
+                                    //Exit the Loop
+                                    goto ExitLoop;
+                                }
+                            }
+
+                            break;
+
+
+                        //All of the Anchor Words
+                        case EnumAnchorTextParam.All:
+
+                            //Extract text Above Line Array Text Until Blank Line
+                            OutputResults = Utils.ExtractAllLinesAboveAnchorArrayofTextUntilBlankline(inputText, anchorWords, displayLog, displayRegex, includeAnchorWordsRow);
+
+                            break;
+
+                    }
+
+
+                    //End Below Code
+                    break;
+
+                #endregion
+
+                #region Direction: Both Directions
+                case EnumDirection.Both:
+
+
+                    //Chech Anchor Words Parameter
+                    switch (anchorTextParam)
+                    {
+
+                        //Any of the Anchor Words
+                        case EnumAnchorTextParam.Any:
+
+                            //Loop through the Words
+                            foreach (string Word in anchorWords)
+                            {
+                                //Extract All Lines Both Direction Anchor Text Between Blank Lines
+                                OutputResults = Utils.ExtractAllLinesBothDirectionsAnchorTextBetweenBlanklines(inputText, Word, displayLog, displayRegex);
+                            }
+
+                            break;
+
+                        //All of the Anchor Words
+                        case EnumAnchorTextParam.All:
+
+                            //Extract All Lines Both Direction Anchor Text Array Between Blank Lines
+                            OutputResults = Utils.ExtractAllLinesBothDirectionsAnchorArrayofTextBetweenBlanklines(inputText, anchorWords, displayLog, displayRegex);
+
+                            break;
+                    }
+
+                    //End Both Directions Code
+                    break;
+
+                    #endregion
+            }
+
+        ExitLoop:
+            return OutputResults;
+        }
+
 
     }
 }

@@ -1,4 +1,4 @@
-<sap:ActivityDesigner x:Class="BillBlech.TextToolbox.Activities.Design.Designers.RemoveEmptyRowsDesigner"
+<sap:ActivityDesigner x:Class="BillBlech.TextToolbox.Activities.Design.Designers.ExtractAllCharactersUntilNextLetterDesigner"
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:activity="clr-namespace:BillBlech.TextToolbox.Activities.Properties;assembly=BillBlech.TextToolbox.Activities"
@@ -29,12 +29,19 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <!-- Input Text Row-->
-            <Label Content="{x:Static activity:Resources.RemoveEmptyRows_InputTextRow_DisplayName}" Grid.Row="0"
-                   ToolTip="{x:Static activity:Resources.RemoveEmptyRows_InputTextRow_Description}"/>
-            <sapv:ExpressionTextBox Grid.Row="1" ExpressionType="{Binding ModelItem.Properties[InputTextRow].PropertyType.GenericTypeArguments[0]}" OwnerActivity="{Binding Path=ModelItem}" HintText="{x:Static activity:Resources.RemoveEmptyRows_InputTextRow_Description}" UseLocationExpression="False" Name="InputTextRow" Margin="0,0,27,0">
+            <!--Anchor Words -->
+            <Label Content="{x:Static activity:Resources.ExtractAllCharactersUntilNextLetter_AnchorWords_DisplayName}" Grid.Row="0"
+                   ToolTip="{x:Static activity:Resources.ExtractAllCharactersUntilNextLetter_AnchorWords_Description}"/>
+            <sapv:ExpressionTextBox Grid.Row="1" ExpressionType="{Binding ModelItem.Properties[AnchorWords].PropertyType.GenericTypeArguments[0]}" OwnerActivity="{Binding Path=ModelItem}" HintText="{x:Static activity:Resources.ExtractAllCharactersUntilNextLetter_AnchorWords_Description}" UseLocationExpression="False" Name="AnchorWords" Margin="0,0,27,0">
                 <sapv:ExpressionTextBox.Expression>
-                    <Binding Path="ModelItem.InputTextRow" Converter="{StaticResource ArgumentToExpressionConverter}" Mode="TwoWay" ConverterParameter="In" UpdateSourceTrigger="PropertyChanged" />
+                    <Binding Path="ModelItem.AnchorWords" Converter="{StaticResource ArgumentToExpressionConverter}" Mode="TwoWay" ConverterParameter="In" UpdateSourceTrigger="PropertyChanged" />
+                </sapv:ExpressionTextBox.Expression>
+            </sapv:ExpressionTextBox>
+
+            <!--ID Text -->
+            <sapv:ExpressionTextBox Grid.Row="0" ExpressionType="{Binding ModelItem.Properties[IDText].PropertyType.GenericTypeArguments[0]}" OwnerActivity="{Binding Path=ModelItem}" HintText="{x:Static activity:Resources.IDText_Description}" UseLocationExpression="False" Name="IDText" Margin="213,2,0,2" Visibility="Hidden">
+                <sapv:ExpressionTextBox.Expression>
+                    <Binding Path="ModelItem.IDText" Converter="{StaticResource ArgumentToExpressionConverter}" Mode="TwoWay" ConverterParameter="In"  UpdateSourceTrigger="PropertyChanged"/>
                 </sapv:ExpressionTextBox.Expression>
             </sapv:ExpressionTextBox>
             <!-- Menu Button-->
@@ -43,10 +50,7 @@
                     <ImageBrush ImageSource="/BillBlech.TextToolbox.Activities.Design;component/Resources/MenuIcon.png"/>
                 </Button.Background>
             </Button>
-            <!--File Path Preview -->
-            <sapv:ExpressionTextBox  ExpressionType="{Binding ModelItem.Properties[FilePathPreview].PropertyType.GenericTypeArguments[0]}" OwnerActivity="{Binding ModelItem}" UseLocationExpression="False" Margin="358,0,20,0"  Expression="{Binding ModelItem.FilePathPreview, ConverterParameter=In, Converter={StaticResource ArgumentToExpressionConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HintText="{x:Static activity:Resources.TextApplicationScope_FilePathPreview_Description}" Name="FilePathPreview" Visibility="Hidden"/>
-            <!--IDText -->
-            <sapv:ExpressionTextBox  ExpressionType="{Binding ModelItem.Properties[IDText].PropertyType.GenericTypeArguments[0]}" OwnerActivity="{Binding ModelItem}" UseLocationExpression="False" Margin="380,0,3,0"  Expression="{Binding ModelItem.IDText, ConverterParameter=In, Converter={StaticResource ArgumentToExpressionConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HintText="{x:Static activity:Resources.IDText_Description}" Name="IDText" Visibility="Hidden"/>
+
         </Grid>
     </uip:ActivityDecoratorControl>
 </sap:ActivityDesigner>

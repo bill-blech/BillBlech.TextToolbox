@@ -1,11 +1,13 @@
-﻿using BillBlech.TextToolbox.Activities.Activities.Encryption;
+﻿using BillBlech.TextToolbox.Activities.Activities;
+using BillBlech.TextToolbox.Activities.Activities.Encryption;
 using ExcelTut;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
-
+using System.Windows;
 
 namespace BillBlech.TextToolbox.Activities.Design
 {
@@ -26,7 +28,7 @@ namespace BillBlech.TextToolbox.Activities.Design
         public static string[] GetUniqueWordsInFile(string filePath)
         {
             //Open Text File
-            String txt = System.IO.File.ReadAllText(filePath);
+            String txt = System.IO.File.ReadAllText(filePath, Encoding.GetEncoding("iso-8859-1"));
 
             string[] words = txt.Split();
 
@@ -126,23 +128,33 @@ namespace BillBlech.TextToolbox.Activities.Design
             //Loop through the Lines
             for (int i = 0; i < linesList.Count; i++)
             {
-
+                
                 //Get Line
                 string Line = linesList[i];
 
-                //Split the Line
-                string[] MyArray = Line.Split('@');
-
-                //Look for the delete item
-                if (MyArgument == MyArray[0])
+                if (Line.Length > 0)
                 {
-                    //Delete Row
-                    linesList.RemoveAt(i);
+                    //Split the Line
+                    string[] MyArray = Line.Split('@');
 
-                    //Exit the Loop
-                    break;
+                    //Look for the delete item
+                    if (MyArgument == MyArray[0])
+                    {
+                        //Delete Row
+                        linesList.RemoveAt(i);
+
+                        //Exit the Loop
+                        break;
+                    }
                 }
+                ////Remove Blank Line
+                //else
+                //{
+                //    //Delete Row
+                //    linesList.RemoveAt(i);
+                //}
 
+               
             }
 
             //Reset the Text File
@@ -160,13 +172,13 @@ namespace BillBlech.TextToolbox.Activities.Design
         }
 
         //Open Form Select Data Open
-        public static void CallformSelectDataOpen(string Label, string MyIDText)
+        public static void CallformSelectDataOpen(string Label, string MyIDText, string FilePath)
         {
 
-            //Get File Path
-            string FilePath = System.IO.File.ReadAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFile.txt");
+            ////Get File Path
+            //string FilePath = System.IO.File.ReadAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFile.txt");
 
-            //Get Available Items
+            //Get Unique Words in File
             string[] ArrayAvailableItems = GetUniqueWordsInFile(FilePath);
 
             //Open Form
@@ -211,8 +223,12 @@ namespace BillBlech.TextToolbox.Activities.Design
             //Delete Previous Argument, in case found
             DesignUtils.DeleteTextFileRowArgument(FilePath, MyArgument);
 
+            //Get files row count
+            string inputText = System.IO.File.ReadAllText(FilePath);
+            string[] Lines = Utils.SplitTextNewLine(inputText);
+
             //Read All Lines
-            string[] Lines = System.IO.File.ReadAllLines(FilePath);
+            //string[] Lines = System.IO.File.ReadAllLines(FilePath);
 
             //Case there are lines there
             if (Lines.Length > 1)
@@ -222,7 +238,7 @@ namespace BillBlech.TextToolbox.Activities.Design
             }
 
             //Add Argument Name & Value
-            OutputText += MyArgument + "@" + MyValue + "@" + DateTime.Now.ToString();
+            OutputText += MyArgument + Utils.DefaultSeparator() + MyValue + Utils.DefaultSeparator() + DateTime.Now.ToString();
 
             //Store Info to TextFile
             System.IO.File.AppendAllText(FilePath, OutputText);
@@ -241,6 +257,20 @@ namespace BillBlech.TextToolbox.Activities.Design
 
             return ArrayOutput;
 
+        }
+
+        //Wizard Button: Warning Message: Wizard & Preview
+        public static void Wizard_WarningMessage_Wizard_Preview()
+        {
+            //Warning Message
+            MessageBox.Show("Please click the 'Warning Button' to Enable 'Wizard' and 'Preview' Functionalities", "Warning Message", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+
+        //Wizard Button: Warning Message: Preview
+        public static void Wizard_WarningMessage_Preview()
+        {
+            //Warning Message
+            MessageBox.Show("Please click the 'Warning Button' to Enable 'Preview' Functionalities", "Warning Message", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
     }

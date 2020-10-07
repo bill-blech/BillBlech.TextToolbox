@@ -1,4 +1,6 @@
-﻿using BillBlech.TextToolbox.Activities.Design;
+﻿using BillBlech.TextToolbox.Activities.Activities;
+using BillBlech.TextToolbox.Activities.Design;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -79,7 +81,7 @@ namespace ExcelTut
                 {
 
                     //Split the Line
-                    string[] MyArray = Line.Split('@');
+                    string[] MyArray = Strings.Split(Line, Utils.DefaultSeparator());
 
                     //Check if it matches Argument 
                     if (MyArgument == MyArray[0])

@@ -36,6 +36,9 @@ namespace BillBlech.TextToolbox.Activities
 
         public SplitTextByBlankLines()
         {
+
+            
+
             Constraints.Add(ActivityConstraints.HasParentType<SplitTextByBlankLines, TextApplicationScope>(string.Format(Resources.ValidationScope_Error, Resources.TextApplicationScope_DisplayName)));
         }
 
@@ -46,7 +49,6 @@ namespace BillBlech.TextToolbox.Activities
 
         protected override void CacheMetadata(CodeActivityMetadata metadata)
         {
-
             if (PiecesOfText == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(PiecesOfText)));
 
             base.CacheMetadata(metadata);

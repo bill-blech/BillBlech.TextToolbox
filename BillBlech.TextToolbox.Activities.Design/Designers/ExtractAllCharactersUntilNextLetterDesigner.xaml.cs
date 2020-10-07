@@ -11,51 +11,18 @@ using System.Windows.Media.Imaging;
 namespace BillBlech.TextToolbox.Activities.Design.Designers
 {
     /// <summary>
-    /// Interaction logic for ExtractTextAboveAnchorWordsDesigner.xaml
+    /// Interaction logic for ExtractAllCharactersUntilNextLetterDesigner.xaml
     /// </summary>
-    public partial class ExtractTextAboveAnchorWordsDesigner
+    public partial class ExtractAllCharactersUntilNextLetterDesigner
     {
-
         string MyIDText = null;
         string MyArgument = null;
 
-        #region ComboBox
-        public List<string> LstAnchorTypeParam
-        {
-            get
-            {
-                return new List<string>
-                {
-                    "Any", "All"
-                };
-            }
-            set { }
-        }
-
-        //Anchor Text After Update Event
-        private void AnchorTextParamComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-            //Update IDText
-            UpdateIDText();
-
-            //Fill in Global Variable
-            MyArgument = "Anchor Words Parameter";
-
-            //Get ITem from the ComboBox
-            string MyAnchorTextParamComboBox = this.AnchorTextParamComboBox.SelectedItem.ToString();
-
-            //Log ComboBox
-            DesignUtils.CallLogComboBox(MyIDText, MyArgument, MyAnchorTextParamComboBox);
-            
-        }
-        #endregion
-
-
-        public ExtractTextAboveAnchorWordsDesigner()
+        public ExtractAllCharactersUntilNextLetterDesigner()
         {
             InitializeComponent();
         }
+
 
         #region Set IDText
         //Update IDText
@@ -164,8 +131,11 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                 #endregion
 
             }
+
+
             else
             {
+
                 //Wizard Button: Warning Message: Wizard & Preview
                 DesignUtils.Wizard_WarningMessage_Wizard_Preview();
             }
@@ -191,52 +161,20 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             //Get the File Path
             string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
 
-            //Lines Above
-            MyArgument = "Lines Above";
-            string LinesAbove = ReturnLinesAbove();
-
-            if (LinesAbove!= null)
-            {
-                //Update Text File Row Argument
-                DesignUtils.CallUpdateTextFileRowArgument(FilePath, MyArgument, LinesAbove);
-            }
-            else
-            {
-                //Delete Argument in case it is null
-                DesignUtils.DeleteTextFileRowArgument(FilePath, MyArgument);
-            }
-
-
-            //Number of Lines
-            MyArgument = "Number of Lines";
-            string NumberofLines = ReturnNumberofLines();
-
-            if (NumberofLines != null)
-            {
-                //Update Text File Row Argument
-                DesignUtils.CallUpdateTextFileRowArgument(FilePath, MyArgument, NumberofLines);
-
-            }
-            else
-            {
-                //Delete Argument in case it is null
-                DesignUtils.DeleteTextFileRowArgument(FilePath, MyArgument);
-            }
-
             #region Open Preview Extraction
 
             //Read Text File
             string Source = System.IO.File.ReadAllText(FilePath);
 
             //Check if all Parameters are in the File
-            string[] searchWords = { "Anchor Words" + Utils.DefaultSeparator(), "Lines Above" + Utils.DefaultSeparator(), "Number of Lines" + Utils.DefaultSeparator(), "Anchor Words Parameter" + Utils.DefaultSeparator() };
+            string[] searchWords = { "Anchor Words" + Utils.DefaultSeparator() };
             double PercResults = Utils.FindWordsInString(Source, searchWords, false);
 
             //Case all Parameters are found
             if (PercResults == 1)
             {
                 //Open Form Preview Extraction
-                DesignUtils.CallformPreviewExtraction(MyIDText, "Extract Text Above Anchor Words");
+                DesignUtils.CallformPreviewExtraction(MyIDText, "Extract Text Until Next Letter");
             }
             else
             {
@@ -248,38 +186,5 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
         }
 
-        //Return Lines Above
-        private string ReturnLinesAbove()
-        {
-            try
-            {
-                //Get the FilePath
-                return this.LinesNumber.Expression.ToString();
-            }
-            catch (Exception ex)
-            {
-
-                return null;
-
-            }
-        }
-
-        //Return Number of Lines
-        private string ReturnNumberofLines()
-        {
-            try
-            {
-                //Get the FilePath
-                return this.NumberLines.Expression.ToString();
-            }
-            catch (Exception ex)
-            {
-
-                return null;
-
-            }
-        }
-
     }
-
 }

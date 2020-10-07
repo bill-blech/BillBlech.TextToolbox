@@ -6,7 +6,7 @@
                       xmlns:sapv="clr-namespace:System.Activities.Presentation.View;assembly=System.Activities.Presentation"
                       xmlns:sapc="clr-namespace:System.Activities.Presentation.Converters;assembly=System.Activities.Presentation"
                       xmlns:converters="clr-namespace:UiPath.Shared.Activities.Design.Converters"
-                      xmlns:uip="clr-namespace:UiPath.Shared.Activities.Design.Controls">
+                      xmlns:uip="clr-namespace:UiPath.Shared.Activities.Design.Controls" Width="176.896">
 
     <sap:ActivityDesigner.Resources>
         <ResourceDictionary>
@@ -21,4 +21,30 @@
     <sap:ActivityDesigner.Icon>
         <DrawingBrush Stretch="Uniform" Drawing="{Binding Path=ModelItem, Converter={StaticResource ActivityIconConverter}, ConverterParameter=pack://application:\,\,\,/BillBlech.TextToolbox.Activities.Design;component/themes/icons.xaml}" />
     </sap:ActivityDesigner.Icon>
+
+
+    <uip:ActivityDecoratorControl Style="{StaticResource ActivityDecoratorStyle}">
+        <Grid Margin="-4,0,108,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="310*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="12.963" />
+                <RowDefinition Height="10.037"/>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Button Content="" Height="20" Width="20" Margin="150,3,25,0" RenderTransformOrigin="0.529,-0.15" Click="CallCallButton_SetupWizard" Grid.Row="0" x:Name="btn" ToolTip="Access 'Wizard' and 'Preview' functionalities" Focusable="False" Visibility="Visible" Grid.RowSpan="2">
+                <Button.Background>
+                    <ImageBrush ImageSource="/BillBlech.TextToolbox.Activities.Design;component/Resources/MenuIcon.png"/>
+                </Button.Background>
+            </Button>
+
+            <!-- Menu Button-->
+            
+
+        </Grid>
+    </uip:ActivityDecoratorControl>
+
+
 </sap:ActivityDesigner>

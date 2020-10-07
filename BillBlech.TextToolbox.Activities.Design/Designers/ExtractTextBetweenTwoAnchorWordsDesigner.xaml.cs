@@ -1,3 +1,4 @@
+using BillBlech.TextToolbox.Activities.Activities;
 using System;
 using System.Activities;
 using System.Activities.Presentation.Model;
@@ -34,23 +35,18 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         //Regex Parameter Update Event
         private void MyRegexParameterComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            //Update IDText
+            UpdateIDText();
 
             //Fill in Global Variable
             MyArgument = "Regex Parameter";
 
-            //Get IDText, if there is
-            MyIDText = ReturnIDText();
+            //Get ITem from the ComboBox
+            string MyRegexParameterComboBox = this.RegexParameterComboBox.SelectedItem.ToString();
 
-            //Case it is not null
-            if (MyIDText != null)
-            {
-                //Get ITem from the ComboBox
-                string MyRegexParameterComboBox = this.RegexParameterComboBox.SelectedItem.ToString();
-
-                //Log ComboBox
-                DesignUtils.CallLogComboBox(MyIDText, MyArgument, MyRegexParameterComboBox);
-
-            }
+            //Log ComboBox
+            DesignUtils.CallLogComboBox(MyIDText, MyArgument, MyRegexParameterComboBox);
+            
         }
         #endregion
 
@@ -179,8 +175,8 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             }
             else
             {
-                //Warning Message
-                MessageBox.Show("Please click the 'Warning Button' 'Wizard' and 'Preview'", "Enable Functionalities", MessageBoxButton.OK, MessageBoxImage.Warning);
+                //Wizard Button: Warning Message: Wizard & Preview
+                DesignUtils.Wizard_WarningMessage_Wizard_Preview();
             }
 
         }
@@ -189,8 +185,11 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         private void Button_OpenFormSelectData(object sender, RoutedEventArgs e)
         {
 
+            //Get File Path
+            string FilePath = System.IO.File.ReadAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFile.txt");
+
             //Open Form Select Data
-            DesignUtils.CallformSelectDataOpen(MyArgument, MyIDText);
+            DesignUtils.CallformSelectDataOpen(MyArgument, MyIDText, FilePath);
 
         }
 
@@ -198,8 +197,29 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         private void Button_OpenPreview(object sender, RoutedEventArgs e)
         {
 
-            //Open Form Preview Extraction
-            DesignUtils.CallformPreviewExtraction(MyIDText, "Extract Text Between Two Anchor Words");
+            //Get the File Path
+            string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
+
+            //Read Text File
+            string Source = System.IO.File.ReadAllText(FilePath);
+
+            //Check if all Parameters are in the File
+            string[] searchWords = { "Beg Words" + Utils.DefaultSeparator(), "End Words" + Utils.DefaultSeparator(), "Regex Parameter" + Utils.DefaultSeparator()};
+            double PercResults = Utils.FindWordsInString(Source, searchWords, false);
+
+            //Case all Parameters are found
+            if (PercResults == 1)
+            {
+                //Open Form Preview Extraction
+                DesignUtils.CallformPreviewExtraction(MyIDText, "Extract Text Between Two Anchor Words");
+            }
+            else
+            {
+                //Error Message
+                MessageBox.Show("Please fill in all arguments", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+
         }
     }
 }

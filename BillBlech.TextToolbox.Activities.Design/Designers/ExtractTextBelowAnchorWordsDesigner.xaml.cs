@@ -1,3 +1,4 @@
+using BillBlech.TextToolbox.Activities.Activities;
 using System;
 using System.Activities;
 using System.Activities.Presentation.Model;
@@ -34,21 +35,18 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         private void AnchorTextParamComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+            //Update IDText
+            UpdateIDText();
+
             //Fill in Global Variable
             MyArgument = "Anchor Words Parameter";
 
-            //Get IDText, if there is
-            MyIDText = ReturnIDText();
+            //Get ITem from the ComboBox
+            string MyAnchorTextParamComboBox = this.AnchorTextParamComboBox.SelectedItem.ToString();
 
-            //Case it is not null
-            if (MyIDText != null)
-            {
-                //Get ITem from the ComboBox
-                string MyAnchorTextParamComboBox = this.AnchorTextParamComboBox.SelectedItem.ToString();
-
-                //Log ComboBox
-                DesignUtils.CallLogComboBox(MyIDText, MyArgument, MyAnchorTextParamComboBox);
-            }
+            //Log ComboBox
+            DesignUtils.CallLogComboBox(MyIDText, MyArgument, MyAnchorTextParamComboBox);
+            
         }
         #endregion
 
@@ -167,8 +165,8 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             }
             else
             {
-                //Warning Message
-                MessageBox.Show("Please click the 'Warning Button' 'Wizard' and 'Preview'", "Enable Functionalities", MessageBoxButton.OK, MessageBoxImage.Warning);
+                //Wizard Button: Warning Message: Wizard & Preview
+                DesignUtils.Wizard_WarningMessage_Wizard_Preview();
             }
 
         }
@@ -177,8 +175,11 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         private void Button_OpenFormSelectData(object sender, RoutedEventArgs e)
         {
 
+            //Get File Path
+            string FilePath = System.IO.File.ReadAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFile.txt");
+
             //Open Form Select Data
-            DesignUtils.CallformSelectDataOpen(MyArgument, MyIDText);
+            DesignUtils.CallformSelectDataOpen(MyArgument, MyIDText, FilePath);
 
         }
 
@@ -191,20 +192,90 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
             //Lines Below
             MyArgument = "Lines Below";
-            string LinesAbove = this.LinesNumber.Expression.ToString();
+            string LinesAbove = ReturnLinesBelow();
 
-            //Update Text File Row Argument
-            DesignUtils.CallUpdateTextFileRowArgument(FilePath, MyArgument, LinesAbove);
+            if (LinesAbove!= null)
+            {
+                //Update Text File Row Argument
+                DesignUtils.CallUpdateTextFileRowArgument(FilePath, MyArgument, LinesAbove);
+            }
+            else
+            {
+                //Delete Argument in case it is null
+                DesignUtils.DeleteTextFileRowArgument(FilePath, MyArgument);
+
+            }
 
             //Number of Lines
             MyArgument = "Number of Lines";
-            string NumberofLines = this.NumberLines.Expression.ToString();
+            string NumberofLines = ReturnNumberofLines();
 
-            //Update Text File Row Argument
-            DesignUtils.CallUpdateTextFileRowArgument(FilePath, MyArgument, NumberofLines);
+            if (NumberofLines!= null)
+            {
+                //Update Text File Row Argument
+                DesignUtils.CallUpdateTextFileRowArgument(FilePath, MyArgument, NumberofLines);
+            }
+            else
+            {
+                //Delete Argument in case it is null
+                DesignUtils.DeleteTextFileRowArgument(FilePath, MyArgument);
+            }
 
-            //Open Form Preview Extraction
-            DesignUtils.CallformPreviewExtraction(MyIDText, "Extract Text Below Anchor Words");
+            #region Open Preview Extraction
+
+            //Read Text File
+            string Source = System.IO.File.ReadAllText(FilePath);
+
+            //Check if all Parameters are in the File
+            string[] searchWords = { "Anchor Words"+ Utils.DefaultSeparator(), "Lines Below" + Utils.DefaultSeparator(), "Number of Lines" + Utils.DefaultSeparator(), "Anchor Words Parameter" + Utils.DefaultSeparator()};
+            double PercResults = Utils.FindWordsInString(Source, searchWords, false);
+
+            //Case all Parameters are found
+            if (PercResults == 1)
+            {
+                //Open Form Preview Extraction
+                DesignUtils.CallformPreviewExtraction(MyIDText, "Extract Text Below Anchor Words");
+            }
+            else
+            {
+                //Error Message
+                MessageBox.Show("Please fill in all arguments", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            #endregion
+
+        }
+
+        //Return Lines Below
+        private string ReturnLinesBelow()
+        {
+            try
+            {
+                //Get the FilePath
+                return this.LinesNumber.Expression.ToString();
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+
+            }
+        }
+
+        //Return Number of Lines
+        private string ReturnNumberofLines()
+        {
+            try
+            {
+                //Get the FilePath
+                return this.NumberLines.Expression.ToString();
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+
+            }
         }
 
     }

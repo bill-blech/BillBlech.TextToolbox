@@ -30,6 +30,8 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <!--Anchor Words -->
@@ -52,15 +54,39 @@
                     <ImageBrush ImageSource="/BillBlech.TextToolbox.Activities.Design;component/Resources/MenuIcon.png"/>
                 </Button.Background>
             </Button>
-            <!--Combo Box-->
+            <!--Combo Box Anchor Words Parameter-->
             <Label Content="{x:Static activity:Resources.ExtractTextUntilBlankLine_AnchorWordsParameter_DisplayName}" Grid.Row="2"
-                   ToolTip="{x:Static activity:Resources.ExtractTextUntilBlankLine_AnchorWordsParameter_Description}" Margin="0,0,155,10"/>
+                   ToolTip="{x:Static activity:Resources.ExtractTextUntilBlankLine_AnchorWordsParameter_Description}" Margin="0,0,155,0"/>
             <ComboBox Grid.Row="2"
                       SelectedValue="{Binding Path=ModelItem.AnchorWordsParameter, Mode=TwoWay, Converter={StaticResource comboBoxItemConverter}, ConverterParameter=In}"  
                       ItemsSource="{Binding LstAnchorTypeParam, Mode=TwoWay}"
                             Margin="141,5,74,6"
                       Name="AnchorTextParamComboBox"
                       SelectionChanged="AnchorTextParamComboBox_SelectionChanged" Height="Auto"/>
+            <!--Combo Box Direction Parameter-->
+            <Label Content="{x:Static activity:Resources.ExtractTextUntilBlankLine_Direction_DisplayName}" Grid.Row="3"
+                   ToolTip="{x:Static activity:Resources.ExtractTextUntilBlankLine_Direction_Description}" Margin="0,0,155,0"/>
+            <ComboBox Grid.Row="3"
+                      SelectedValue="{Binding Path=ModelItem.Direction, Mode=TwoWay, Converter={StaticResource comboBoxItemConverter}, ConverterParameter=In}"  
+                      ItemsSource="{Binding LstDirection, Mode=TwoWay}"
+                            Margin="141,5,74,6"
+                      Name="DirectionComboBox"
+                      SelectionChanged="DirectionComboBox_SelectionChanged" Height="Auto"/>
+            <!--Include Anchor Words Row-->
+            <Label Content="{x:Static activity:Resources.ExtractTextUntilBlankLine_IncludeAnchorWordsRow_DisplayName}" Grid.Row="4"
+                   ToolTip="{x:Static activity:Resources.ExtractTextUntilBlankLine_IncludeAnchorWordsRow_Description}" Margin="0,0,145,0"/>
+            <sapv:ExpressionTextBox Grid.Row="4" ExpressionType="{Binding ModelItem.Properties[IncludeAnchorWordsRow].PropertyType.GenericTypeArguments[0]}" OwnerActivity="{Binding Path=ModelItem}" HintText="{x:Static activity:Resources.ExtractTextUntilBlankLine_IncludeAnchorWordsRow_Description}" UseLocationExpression="False" Name="IncludeAnchorWordsRow" Margin="158,1,85,1">
+                <sapv:ExpressionTextBox.Expression>
+                    <Binding Path="ModelItem.IncludeAnchorWordsRow" Converter="{StaticResource ArgumentToExpressionConverter}" Mode="TwoWay" ConverterParameter="In" UpdateSourceTrigger="PropertyChanged" />
+                </sapv:ExpressionTextBox.Expression>
+            </sapv:ExpressionTextBox>
+           
+
+
+
         </Grid>
+        
+        
+        
     </uip:ActivityDecoratorControl>
 </sap:ActivityDesigner>

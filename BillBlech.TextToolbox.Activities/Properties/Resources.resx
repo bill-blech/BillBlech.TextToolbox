@@ -738,7 +738,7 @@
     <comment>property description</comment>
   </data>
   <data name="ReplaceWords_TextOccurrance_DisplayName" xml:space="preserve">
-    <value>Text Occurrance</value>
+    <value>Occurence Parameter</value>
     <comment>property name</comment>
   </data>
   <data name="ReplaceWords_TextOccurrance_Description" xml:space="preserve">
@@ -746,7 +746,7 @@
     <comment>property description</comment>
   </data>
   <data name="ReplaceWords_IndexOccurence_DisplayName" xml:space="preserve">
-    <value>Index Occurence</value>
+    <value>Occurence Position</value>
     <comment>property name</comment>
   </data>
   <data name="ReplaceWords_IndexOccurence_Description" xml:space="preserve">
@@ -767,6 +767,182 @@
   </data>
   <data name="ReplaceWords_AdjustedText_Description" xml:space="preserve">
     <value>Text after replaced words</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractAllCharactersUntilWhiteSpace_DisplayName" xml:space="preserve">
+    <value>Extract Text Until White Space</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="ExtractAllCharactersUntilWhiteSpace_Description" xml:space="preserve">
+    <value>Extract Single Word Next to Anchor Text</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="ExtractAllCharactersUntilWhiteSpace_Results_DisplayName" xml:space="preserve">
+    <value>Results</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractAllCharactersUntilWhiteSpace_Results_Description" xml:space="preserve">
+    <value>Search Results</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractAllCharactersUntilWhiteSpace_DisplayLog_DisplayName" xml:space="preserve">
+    <value>Display Log</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractAllCharactersUntilWhiteSpace_DisplayLog_Description" xml:space="preserve">
+    <value>Display activity output in Output Pane</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractAllCharactersUntilWhiteSpace_DisplayRegex_DisplayName" xml:space="preserve">
+    <value>Display Regex</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractAllCharactersUntilWhiteSpace_DisplayRegex_Description" xml:space="preserve">
+    <value>Display Regex Expression</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractAllCharactersUntilWhiteSpace_AnchorWords_DisplayName" xml:space="preserve">
+    <value>Anchor Words</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractAllCharactersUntilWhiteSpace_AnchorWords_Description" xml:space="preserve">
+    <value>Anchor Words to be searched in Input Text (Array of Strings)</value>
+    <comment>property description</comment>
+  </data>
+  <data name="SuppressNulls_Description" xml:space="preserve">
+    <value>Suppress Null Values (Boolen Variable)</value>
+    <comment>property description</comment>
+  </data>
+  <data name="SuppressNulls_DisplayName" xml:space="preserve">
+    <value>Remove Empty words from extracted text</value>
+    <comment>property name</comment>
+  </data>
+  <data name="FindArrayItems_DisplayName" xml:space="preserve">
+    <value>Find Array Items</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="FindArrayItems_Description" xml:space="preserve">
+    <value>Filter Array items using Filter Words (Array of Strings)</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="FindArrayItems_FilterWords_DisplayName" xml:space="preserve">
+    <value>Filter Words</value>
+    <comment>property name</comment>
+  </data>
+  <data name="FindArrayItems_FilterWords_Description" xml:space="preserve">
+    <value>Words to be searched in Input Array (Array of Strings)</value>
+    <comment>property description</comment>
+  </data>
+  <data name="FindArrayItems_DisplayLog_DisplayName" xml:space="preserve">
+    <value>Display Log</value>
+    <comment>property name</comment>
+  </data>
+  <data name="FindArrayItems_DisplayLog_Description" xml:space="preserve">
+    <value>Display activity output in Output Pane</value>
+    <comment>property description</comment>
+  </data>
+  <data name="FindArrayItems_DisplayRegex_DisplayName" xml:space="preserve">
+    <value>Display Regex</value>
+    <comment>property name</comment>
+  </data>
+  <data name="FindArrayItems_DisplayRegex_Description" xml:space="preserve">
+    <value>Display Regex Expression</value>
+    <comment>property description</comment>
+  </data>
+  <data name="FindArrayItems_Results_DisplayName" xml:space="preserve">
+    <value>Results</value>
+    <comment>property name</comment>
+  </data>
+  <data name="FindArrayItems_Results_Description" xml:space="preserve">
+    <value>Search Results</value>
+    <comment>property description</comment>
+  </data>
+  <data name="FindArrayItems_AnchorWordsParameters_DisplayName" xml:space="preserve">
+    <value>Filter Words Parameter</value>
+    <comment>property name</comment>
+  </data>
+  <data name="FindArrayItems_AnchorWordsParameters_Description" xml:space="preserve">
+    <value>Any Word or All the Words to be found in Array Item</value>
+    <comment>property description</comment>
+  </data>
+  <data name="FindArrayItems_InputArray_DisplayName" xml:space="preserve">
+    <value>Input Array</value>
+    <comment>property name</comment>
+  </data>
+  <data name="FindArrayItems_InputArray_Description" xml:space="preserve">
+    <value>Array to be Searched</value>
+    <comment>property description</comment>
+  </data>
+  <data name="MatchItemInArray_DisplayName" xml:space="preserve">
+    <value>Match Item in Array</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="MatchItemInArray_Description" xml:space="preserve">
+    <value>Check if any of the item belongs to an Array of Strings</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="MatchItemInArray_InputArray_DisplayName" xml:space="preserve">
+    <value>Input Array</value>
+    <comment>property name</comment>
+  </data>
+  <data name="MatchItemInArray_InputArray_Description" xml:space="preserve">
+    <value>Array to be Searched</value>
+    <comment>property description</comment>
+  </data>
+  <data name="MatchItemInArray_SearchWord_DisplayName" xml:space="preserve">
+    <value>Search Words</value>
+    <comment>property name</comment>
+  </data>
+  <data name="MatchItemInArray_SearchWord_Description" xml:space="preserve">
+    <value>Words to be searched in the Array (Array of Strings)</value>
+    <comment>property description</comment>
+  </data>
+  <data name="MatchItemInArray_IsFound_DisplayName" xml:space="preserve">
+    <value>Is Found</value>
+    <comment>property name</comment>
+  </data>
+  <data name="MatchItemInArray_IsFound_Description" xml:space="preserve">
+    <value>Return if item was found in the Array (boolean Variable)</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractAllCharactersUntilNextLetter_DisplayName" xml:space="preserve">
+    <value>Extract Text Until Next Letter</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="ExtractAllCharactersUntilNextLetter_Description" xml:space="preserve">
+    <value>Extract all text until next letter character is found</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="ExtractAllCharactersUntilNextLetter_AnchorWords_DisplayName" xml:space="preserve">
+    <value>Anchor Words</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractAllCharactersUntilNextLetter_AnchorWords_Description" xml:space="preserve">
+    <value>Anchor Words to be searched in Input Text (Array of Strings)</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractAllCharactersUntilNextLetter_DisplayLog_DisplayName" xml:space="preserve">
+    <value>Display Log</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractAllCharactersUntilNextLetter_DisplayLog_Description" xml:space="preserve">
+    <value>Display activity output in Output Pane</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractAllCharactersUntilNextLetter_DisplayRegex_DisplayName" xml:space="preserve">
+    <value>Display Regex</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractAllCharactersUntilNextLetter_DisplayRegex_Description" xml:space="preserve">
+    <value>Display Regex Expression</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ExtractAllCharactersUntilNextLetter_Results_DisplayName" xml:space="preserve">
+    <value>Results</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExtractAllCharactersUntilNextLetter_Results_Description" xml:space="preserve">
+    <value>Search Resutls</value>
     <comment>property description</comment>
   </data>
   <data name="Authentication_Category" xml:space="preserve">
@@ -805,60 +981,60 @@
     <value>Please provide values for both {0} and {1}.</value>
     <comment>error message; {0} &amp; {1} are complementary properties</comment>
   </data>
-  <data name="ExtractAllCharactersUntilWhiteSpace_DisplayName" xml:space="preserve">
-    <value>Extract All Characters Until White Space</value>
+  <data name="ReadTextFileEncondig_DisplayName" xml:space="preserve">
+    <value>Read Text File Encondig</value>
     <comment>activity name</comment>
   </data>
-  <data name="ExtractAllCharactersUntilWhiteSpace_Description" xml:space="preserve">
-    <value>Extract Single Word Next to Anchor Text</value>
+  <data name="ReadTextFileEncondig_Description" xml:space="preserve">
+    <value>Read text file with encoding option</value>
     <comment>activity description</comment>
   </data>
-  <data name="ExtractAllCharactersUntilWhiteSpace_Results_DisplayName" xml:space="preserve">
-    <value>Results</value>
+  <data name="ReadTextFileEncondig_FileName_DisplayName" xml:space="preserve">
+    <value>File Name</value>
     <comment>property name</comment>
   </data>
-  <data name="ExtractAllCharactersUntilWhiteSpace_Results_Description" xml:space="preserve">
-    <value>Search Results</value>
+  <data name="ReadTextFileEncondig_FileName_Description" xml:space="preserve">
+    <value>File Path to be read</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Input_Category" xml:space="preserve">
+    <value>Input</value>
+    <comment>category</comment>
+  </data>
+  <data name="ReadTextFileEncondig_Encoding_DisplayName" xml:space="preserve">
+    <value>Encoding</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ReadTextFileEncondig_Encoding_Description" xml:space="preserve">
+    <value>Encoding option to be used</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Options_Category" xml:space="preserve">
+    <value>Options</value>
+    <comment>category</comment>
+  </data>
+  <data name="ReadTextFileEncondig_Content_DisplayName" xml:space="preserve">
+    <value>Content</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ReadTextFileEncondig_Content_Description" xml:space="preserve">
+    <value>The extracted text from the text file</value>
     <comment>property description</comment>
   </data>
   <data name="Output_Category" xml:space="preserve">
     <value>Output</value>
     <comment>category</comment>
   </data>
-  <data name="ExtractAllCharactersUntilWhiteSpace_DisplayLog_DisplayName" xml:space="preserve">
+  <data name="ReadTextFileEncondig_DisplayLog_DisplayName" xml:space="preserve">
     <value>Display Log</value>
     <comment>property name</comment>
   </data>
-  <data name="ExtractAllCharactersUntilWhiteSpace_DisplayLog_Description" xml:space="preserve">
-    <value>Display activity output in Output Pane</value>
+  <data name="ReadTextFileEncondig_DisplayLog_Description" xml:space="preserve">
+    <value>Display Activity in Output Pane</value>
     <comment>property description</comment>
   </data>
   <data name="Options_Category" xml:space="preserve">
     <value>Options</value>
-    <comment>category</comment>
-  </data>
-  <data name="ExtractAllCharactersUntilWhiteSpace_DisplayRegex_DisplayName" xml:space="preserve">
-    <value>Display Regex</value>
-    <comment>property name</comment>
-  </data>
-  <data name="ExtractAllCharactersUntilWhiteSpace_DisplayRegex_Description" xml:space="preserve">
-    <value>Display Regex Expression</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Options_Category" xml:space="preserve">
-    <value>Options</value>
-    <comment>category</comment>
-  </data>
-  <data name="ExtractAllCharactersUntilWhiteSpace_AnchorWords_DisplayName" xml:space="preserve">
-    <value>Anchor Words</value>
-    <comment>property name</comment>
-  </data>
-  <data name="ExtractAllCharactersUntilWhiteSpace_AnchorWords_Description" xml:space="preserve">
-    <value>Anchor Words to be searched in Input Text (Array of Strings)</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Input_Category" xml:space="preserve">
-    <value>Input</value>
     <comment>category</comment>
   </data>
 </root>

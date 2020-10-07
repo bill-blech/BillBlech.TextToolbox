@@ -1,19 +1,18 @@
-using BillBlech.TextToolbox.Activities.Activities;
-using BillBlech.TextToolbox.Activities.Properties;
 using System;
 using System.Activities;
 using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
+using BillBlech.TextToolbox.Activities.Activities;
+using BillBlech.TextToolbox.Activities.Properties;
 using UiPath.Shared.Activities;
 using UiPath.Shared.Activities.Localization;
-using UiPath.Shared.Activities.Utilities;
 
 namespace BillBlech.TextToolbox.Activities
 {
-    [LocalizedDisplayName(nameof(Resources.ExtractTextUntilBlankLine_DisplayName))]
-    [LocalizedDescription(nameof(Resources.ExtractTextUntilBlankLine_Description))]
-    public class ExtractTextUntilBlankLine : ContinuableAsyncCodeActivity
+    [LocalizedDisplayName(nameof(Resources.FindArrayItems_DisplayName))]
+    [LocalizedDescription(nameof(Resources.FindArrayItems_Description))]
+    public class FindArrayItems : ContinuableAsyncCodeActivity
     {
         #region Properties
 
@@ -25,43 +24,30 @@ namespace BillBlech.TextToolbox.Activities
         [LocalizedDescription(nameof(Resources.ContinueOnError_Description))]
         public override InArgument<bool> ContinueOnError { get; set; }
 
-        [LocalizedDisplayName(nameof(Resources.ExtractTextUntilBlankLine_AnchorWords_DisplayName))]
-        [LocalizedDescription(nameof(Resources.ExtractTextUntilBlankLine_AnchorWords_Description))]
+        [LocalizedDisplayName(nameof(Resources.FindArrayItems_FilterWords_DisplayName))]
+        [LocalizedDescription(nameof(Resources.FindArrayItems_FilterWords_Description))]
         [LocalizedCategory(nameof(Resources.Input_Category))]
-        public InArgument<String[]> AnchorWords { get; set; }
+        public InArgument<String[]> FilterWords { get; set; }
 
-        [LocalizedDisplayName(nameof(Resources.ExtractTextUntilBlankLine_AnchorWordsParameter_DisplayName))]
-        [LocalizedDescription(nameof(Resources.ExtractTextUntilBlankLine_AnchorWordsParameter_Description))]
-        [LocalizedCategory(nameof(Resources.Options_Category))]
-        //public EnumAnchorTextParam AnchorWordsParameter { get; set; }
-        public InArgument<String> AnchorWordsParameter { get; set; }
-
-        [LocalizedDisplayName(nameof(Resources.ExtractTextUntilBlankLine_Direction_DisplayName))]
-        [LocalizedDescription(nameof(Resources.ExtractTextUntilBlankLine_Direction_Description))]
-        [LocalizedCategory(nameof(Resources.Options_Category))]
-        //public EnumDirection Direction { get; set; }
-        public InArgument<String>Direction { get; set; }
-
-        [LocalizedDisplayName(nameof(Resources.ExtractTextUntilBlankLine_IncludeAnchorWordsRow_DisplayName))]
-        [LocalizedDescription(nameof(Resources.ExtractTextUntilBlankLine_IncludeAnchorWordsRow_Description))]
-        [LocalizedCategory(nameof(Resources.Options_Category))]
-        public InArgument<bool> IncludeAnchorWordsRow { get; set; }
-
-        [LocalizedDisplayName(nameof(Resources.ExtractTextUntilBlankLine_Results_DisplayName))]
-        [LocalizedDescription(nameof(Resources.ExtractTextUntilBlankLine_Results_Description))]
-        [LocalizedCategory(nameof(Resources.Output_Category))]
-        public OutArgument<String[]> Results { get; set; }
-
-        [LocalizedDisplayName(nameof(Resources.ExtractTextUntilBlankLine_DisplayLog_DisplayName))]
-        [LocalizedDescription(nameof(Resources.ExtractTextUntilBlankLine_DisplayLog_Description))]
+        [LocalizedDisplayName(nameof(Resources.FindArrayItems_DisplayLog_DisplayName))]
+        [LocalizedDescription(nameof(Resources.FindArrayItems_DisplayLog_Description))]
         [LocalizedCategory(nameof(Resources.Options_Category))]
         public bool DisplayLog { get; set; }
 
-        [LocalizedDisplayName(nameof(Resources.ExtractTextUntilBlankLine_DisplayRegex_DisplayName))]
-        [LocalizedDescription(nameof(Resources.ExtractTextUntilBlankLine_DisplayRegex_Description))]
-        [LocalizedCategory(nameof(Resources.Options_Category))]
-        public bool DisplayRegex { get; set; }
+        [LocalizedDisplayName(nameof(Resources.FindArrayItems_Results_DisplayName))]
+        [LocalizedDescription(nameof(Resources.FindArrayItems_Results_Description))]
+        [LocalizedCategory(nameof(Resources.Output_Category))]
+        public OutArgument<String[]> Results { get; set; }
 
+        [LocalizedDisplayName(nameof(Resources.FindArrayItems_AnchorWordsParameters_DisplayName))]
+        [LocalizedDescription(nameof(Resources.FindArrayItems_AnchorWordsParameters_Description))]
+        [LocalizedCategory(nameof(Resources.Options_Category))]
+        public InArgument<string> AnchorWordsParameters { get; set; }
+
+        [LocalizedDisplayName(nameof(Resources.FindArrayItems_InputArray_DisplayName))]
+        [LocalizedDescription(nameof(Resources.FindArrayItems_InputArray_Description))]
+        [LocalizedCategory(nameof(Resources.Input_Category))]
+        public InArgument<String[]> InputArray { get; set; }
 
         //////////////////////////////////////////////////////////////////////
         //Update Data Row
@@ -91,31 +77,18 @@ namespace BillBlech.TextToolbox.Activities
         [LocalizedCategory(nameof(Resources.Common_Category))]
         public InArgument<string> IDText { get; set; }
 
-        public enum EnumAnchorTextParam
-        {
-            Null,
-            Any,
-            All,
-
-        }
-
-        public enum EnumDirection
-        {
-            Null,
-            Above,
-            Below,
-            Both,
-
-        }
+        [LocalizedDisplayName(nameof(Resources.TextApplicationScope_FilePathPreview_DisplayName))]
+        [LocalizedDescription(nameof(Resources.TextApplicationScope_FilePathPreview_Description))]
+        [LocalizedCategory(nameof(Resources.Common_Category))]
+        public InArgument<string> FilePathPreview { get; set; }
 
         #endregion
 
 
         #region Constructors
 
-        public ExtractTextUntilBlankLine()
+        public FindArrayItems()
         {
-            Constraints.Add(ActivityConstraints.HasParentType<ExtractTextUntilBlankLine, TextApplicationScope>(string.Format(Resources.ValidationScope_Error, Resources.TextApplicationScope_DisplayName)));
         }
 
         #endregion
@@ -125,8 +98,8 @@ namespace BillBlech.TextToolbox.Activities
 
         protected override void CacheMetadata(CodeActivityMetadata metadata)
         {
-            if (AnchorWords == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(AnchorWords)));
-            if (IncludeAnchorWordsRow == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(IncludeAnchorWordsRow)));
+            if (FilterWords == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(FilterWords)));
+            if (InputArray == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(InputArray)));
             if (Results == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(Results)));
 
             base.CacheMetadata(metadata);
@@ -134,20 +107,11 @@ namespace BillBlech.TextToolbox.Activities
 
         protected override async Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
-
-            // Object Container: Use objectContainer.Get<T>() to retrieve objects from the scope
-            var objectContainer = context.GetFromContext<IObjectContainer>(TextApplicationScope.ParentContainerPropertyTag);
-
             // Inputs
-            string inputText = objectContainer.Get<string>();
-
-            // Inputs
-            var anchorWords = AnchorWords.Get(context);
-            var anchorWordsParameterText = AnchorWordsParameter.Get(context);
-            var directionText = Direction.Get(context);
-            var includeAnchorWordsRow = IncludeAnchorWordsRow.Get(context);
+            var filterWords = FilterWords.Get(context);
             var displayLog = DisplayLog;
-            var displayRegex = DisplayRegex;
+            var anchorWordsText = AnchorWordsParameters.Get(context);
+            var inputArray = InputArray.Get(context);
 
             //Output Data Row
             bool bUpdateDataRow = BUpdateDataRow;
@@ -159,11 +123,7 @@ namespace BillBlech.TextToolbox.Activities
 
             ///////////////////////////
             // Add execution logic HERE
-            //Run Extraction
-            string[] OutputResults = CallExtractions.CallExtractTextUntilBlankLine(inputText, anchorWords, anchorWordsParameterText, directionText, includeAnchorWordsRow, displayLog, displayRegex);
-
-
-        ExitLoop:
+            string[] OutputResults = CallExtractions.CallFindArrayItems(inputArray, filterWords, anchorWordsText, displayLog);
 
             #region Update Data Row (optional)
             //Check if functionality is Activated
@@ -189,14 +149,10 @@ namespace BillBlech.TextToolbox.Activities
 
             }
             #endregion
-
-
-
             ///////////////////////////
 
             // Outputs
-            return (ctx) =>
-            {
+            return (ctx) => {
                 Results.Set(ctx, OutputResults);
             };
         }

@@ -33,12 +33,16 @@
     <None Remove="Designers\CountWordsInTextDesigner.xaml" />
     <None Remove="Designers\DecryptValueDesigner.xaml" />
     <None Remove="Designers\EncryptValueDesigner.xaml" />
+    <None Remove="Designers\ExtractAllCharactersUntilNextLetterDesigner.xaml" />
     <None Remove="Designers\ExtractAllCharactersUntilWhiteSpaceDesigner.xaml" />
     <None Remove="Designers\ExtractAllLinesBelowAnchorTextDesigner.xaml" />
     <None Remove="Designers\ExtractTextAboveAnchorWordsDesigner.xaml" />
     <None Remove="Designers\ExtractTextBelowAnchorWordsDesigner.xaml" />
     <None Remove="Designers\ExtractTextBetweenTwoAnchorWordsDesigner.xaml" />
     <None Remove="Designers\ExtractTextUntilBlankLineDesigner.xaml" />
+    <None Remove="Designers\FindArrayItemsDesigner.xaml" />
+    <None Remove="Designers\MatchItemInArrayDesigner.xaml" />
+    <None Remove="Designers\ReadTextFileEncondigDesigner.xaml" />
     <None Remove="Designers\RemoveEmptyRowsDesigner.xaml" />
     <None Remove="Designers\RemoveWordsDesigner.xaml" />
     <None Remove="Designers\ReplaceWordsDesigner.xaml" />
@@ -111,6 +115,9 @@
     <Page Include="Designers\EncryptValueDesigner.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </Page>
+    <Page Include="Designers\ExtractAllCharactersUntilNextLetterDesigner.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </Page>
     <Page Include="Designers\ExtractAllCharactersUntilWhiteSpaceDesigner.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </Page>
@@ -127,6 +134,15 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </Page>
     <Page Include="Designers\ExtractTextUntilBlankLineDesigner.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </Page>
+    <Page Include="Designers\FindArrayItemsDesigner.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </Page>
+    <Page Include="Designers\MatchItemInArrayDesigner.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </Page>
+    <Page Include="Designers\ReadTextFileEncondigDesigner.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </Page>
     <Page Include="Designers\RemoveEmptyRowsDesigner.xaml">

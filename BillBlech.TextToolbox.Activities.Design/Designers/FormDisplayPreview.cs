@@ -4,6 +4,7 @@ using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Windows;
 using System.Windows.Forms;
 
@@ -24,8 +25,11 @@ namespace ExcelTut
 
             this.Show();
 
-            //Load Form Arguments
-            LoadFormArguments(MyIDText);
+            if (MyIDText!= null)
+            {
+                //Load Form Arguments
+                LoadFormArguments(MyIDText);
+            }
 
             //Run Extraction
             RunExtraction(Label);
@@ -52,7 +56,7 @@ namespace ExcelTut
                 string line = lines[i];
 
                     //Split the Line
-                    string[] MyArray = line.Split('@');
+                    string[] MyArray = Strings.Split(line, Utils.DefaultSeparator());
 
                     //Fill in the Variables
                     string MyArgument = MyArray[0];
@@ -84,7 +88,7 @@ namespace ExcelTut
             //Read Data from Current File
             string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFile.txt";
             string Source = System.IO.File.ReadAllText(FilePath);
-            string inputText = System.IO.File.ReadAllText(Source);
+            string inputText = System.IO.File.ReadAllText(Source, Encoding.GetEncoding("iso-8859-1"));
 
             #region Variable Declarations
 
@@ -103,6 +107,11 @@ namespace ExcelTut
 
             string MyOccurenceParameter = null;
             int MyOccurencePosition = 0;
+
+            string FilePathforPreview = null;
+            string TextResult = null;
+
+            string[] inputArray = null;
 
             #endregion
 
@@ -192,8 +201,8 @@ namespace ExcelTut
                     break;
                 #endregion
 
-                #region Extract All Characters Until White Space Designer
-                case "Extract All Characters Until White Space Designer":
+                #region Extract Text Until White Space
+                case "Extract Text Until White Space":
 
                     //Load Arguments from Dictionary
                     ArrayText = DicArguments["Anchor Words"];
@@ -205,6 +214,21 @@ namespace ExcelTut
 
                     break;
 
+
+                #endregion
+
+                #region Extract Text Until Next Letter
+                case "Extract Text Until Next Letter":
+
+                    //Load Arguments from Dictionary
+                    ArrayText = DicArguments["Anchor Words"];
+                    //Split the Items
+                    anchorWords = DesignUtils.ConvertStringToArray(ArrayText);
+
+                    //Run Extraction
+                    OutputResults = CallExtractions.CallExtractAllCharactersUntilLetterCharacter(inputText, anchorWords, false, false);
+
+                    break;
 
                 #endregion
 
@@ -227,7 +251,7 @@ namespace ExcelTut
                     }
 
                     //Run Extraction
-                    string TextResult = Utils.RemoveWordsFromText(inputText, anchorWords,MyOccurenceParameter, MyOccurencePosition, false);
+                    TextResult = Utils.RemoveWordsFromText(inputText, anchorWords,MyOccurenceParameter, MyOccurencePosition, false);
 
                     //Display Result
                     this.DisplayResult.Text = TextResult;
@@ -239,6 +263,197 @@ namespace ExcelTut
                     SelectResult.Visible = false;
 
                     break;
+                #endregion
+
+                #region Replace Words
+                case "Replace Words":
+
+                    //Load Arguments from Dictionary
+                    ArrayText = DicArguments["Search Words"];
+
+                    //Split the Items
+                    anchorWords = DesignUtils.ConvertStringToArray(ArrayText);
+
+                    string ReplacedWords = DicArguments["Replaced Word"];
+
+                    //Occurence Parameter
+                    MyOccurenceParameter = DicArguments["Occurence Parameter"];
+
+                    //Occurence Position
+                    if (DicArguments.ContainsKey("Occurence Position") == true)
+                    {
+                        MyOccurencePosition = Convert.ToInt32(DicArguments["Occurence Position"]);
+                    }
+
+                    //Run Extraction
+                    TextResult = Utils.ReplaceWordsFromText(inputText, anchorWords, ReplacedWords, MyOccurenceParameter, MyOccurencePosition, false);
+
+                    //Display Result
+                    this.DisplayResult.Text = TextResult;
+
+                    //Hide Controls
+                    ResultsMatches_Label.Visible = false;
+                    ResultsMatches.Visible = false;
+                    SelectResult_Label.Visible = false;
+                    SelectResult.Visible = false;
+
+
+                    break;
+
+                #endregion
+
+                #region Split Text Uneven Blank Spaces
+                case "Split text Uneven Blank Spaces":
+
+                    //Load Arguments from Dictionary
+                    FilePathforPreview = DicArguments["FilePathforPreview"];
+                    inputText = System.IO.File.ReadAllText(FilePathforPreview);
+
+                    int nullLimit = Convert.ToInt32(DicArguments["Null Limit"]);
+                    string SuppressNullValues = DicArguments["Suppress Null Values"];
+                    bool bSuppressNullValues = false;
+                    if (SuppressNullValues == "True")
+                    {
+                        bSuppressNullValues = true;
+                    }
+                    else if (SuppressNullValues == "False")
+                    {
+                        bSuppressNullValues = false;
+                    }
+
+                    //Run Extraction
+                    OutputResults = Utils.SplitTextBigSpaces(inputText, nullLimit, bSuppressNullValues);
+
+                    break;
+
+                #endregion
+
+                #region Remove Empty Words
+                case "Remove Empty Words":
+
+                    FilePathforPreview = DicArguments["FilePathforPreview"];
+                    inputText = System.IO.File.ReadAllText(FilePathforPreview);
+
+                    //Run Extraction
+                    TextResult = Utils.TextRemoveEmptyRows(inputText);
+
+                    //Display Result
+                    this.DisplayResult.Text = TextResult;
+
+                    //Hide Controls
+                    ResultsMatches_Label.Visible = false;
+                    ResultsMatches.Visible = false;
+                    SelectResult_Label.Visible = false;
+                    SelectResult.Visible = false;
+
+                    break;
+
+                #endregion
+
+                #region Extract Text until Blank Line
+                case "Extract Text until Blank Line":
+
+                    //Anchor Words
+                    ArrayText = DicArguments["Anchor Words"];
+                    anchorWords = DesignUtils.ConvertStringToArray(ArrayText);
+                    
+                    //Anchor Words Parameter
+                    anchorTextParamText = DicArguments["Anchor Words Parameter"];
+
+                    //Direction
+                    string Direction = DicArguments["Direction"];
+
+                    string IncludeAnchorWordsParameter = DicArguments["Include Anchor Words Parameter"];
+                    bool bIncludeAnchorWordsParameter = false;
+
+                    if (IncludeAnchorWordsParameter == "True")
+                    {
+                        bIncludeAnchorWordsParameter = true;
+                    }
+                    else if (IncludeAnchorWordsParameter == "False")
+                    {
+                        bIncludeAnchorWordsParameter = false;
+                    }
+
+                    //Run Extraction
+                    OutputResults = CallExtractions.CallExtractTextUntilBlankLine(inputText, anchorWords, anchorTextParamText, Direction, bIncludeAnchorWordsParameter, false, false);
+
+                    break;
+
+                #endregion
+
+                #region Split Text New Lines
+                case "Split Text New Lines":
+
+                    //Run Extraction
+                    OutputResults = Utils.SplitTextNewLine(inputText);
+
+                    break;
+
+                #endregion
+
+                #region Split Text By Blank Lines
+
+                case "Split Text By Blank Lines":
+
+                    //Run Extraction
+                    OutputResults = Utils.SplitTextByBlankLines(inputText);
+
+
+                    break;
+
+                #endregion
+
+                #region Find Array Items
+                case "Find Array Items":
+
+                    //File Path for Preview
+                    FilePath = DicArguments["FilePathforPreview"];
+                    inputText = System.IO.File.ReadAllText(FilePath, Encoding.GetEncoding("iso-8859-1"));
+
+                    //Input Array
+                    inputArray = Utils.SplitTextByBlankLines(inputText);
+
+                    //Anchor Words
+                    ArrayText = DicArguments["Filter Words"];
+                    string [] filterWords = DesignUtils.ConvertStringToArray(ArrayText);
+
+                    //Anchor Words Parameter
+                    anchorTextParamText = DicArguments["Anchor Words Parameter"];
+
+                    //Run Extraction
+                    OutputResults = CallExtractions.CallFindArrayItems(inputArray, filterWords, anchorTextParamText, false);
+
+                    break;
+                #endregion
+
+                #region Match Item in Array
+                case "Match Item in Array":
+
+                    //File Path for Preview
+                    FilePath = DicArguments["FilePathforPreview"];
+                    inputText = System.IO.File.ReadAllText(FilePath, Encoding.GetEncoding("iso-8859-1"));
+
+                    //Input Array
+                    inputArray = Utils.SplitTextNewLine(inputText);
+
+                    ArrayText = DicArguments["SearchWord"];
+                    
+                    string[] searchWords = DesignUtils.ConvertStringToArray(ArrayText);
+
+                    bool isFound = Utils.MatchItemInArrayOfStrings(inputArray, searchWords);
+
+                    //Display Result
+                    this.DisplayResult.Text = isFound.ToString();
+
+                    //Hide Controls
+                    ResultsMatches_Label.Visible = false;
+                    ResultsMatches.Visible = false;
+                    SelectResult_Label.Visible = false;
+                    SelectResult.Visible = false;
+
+                    break;
+
                 #endregion
 
 

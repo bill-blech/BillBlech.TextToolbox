@@ -1,3 +1,4 @@
+using BillBlech.TextToolbox.Activities.Activities;
 using System;
 using System.Activities;
 using System.Activities.Presentation.Model;
@@ -38,32 +39,38 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         //Occurences Update Event
         private void OccurrencesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
+            //Update IDText
+            UpdateIDText();
+
+            string MyOccurenceParameter = null;
+
             //Fill in Global Variable
             MyArgument = "Occurence Parameter";
 
             //Get IDText, if there is
             MyIDText = ReturnIDText();
 
-            //Case it is not null
-            if (MyIDText != null)
-            {
-                //Get ITem from the ComboBox
-                string MyOccurenceParameter = this.OccurrencesComboBox.SelectedItem.ToString();
+            //Get item from the ComboBox
+            MyOccurenceParameter = (string)OccurrencesComboBox.SelectedValue;
 
-                //Log ComboBox
-                DesignUtils.CallLogComboBox(MyIDText, MyArgument, MyOccurenceParameter);
-            }
-
+            //Log ComboBox
+            DesignUtils.CallLogComboBox(MyIDText, MyArgument, MyOccurenceParameter);
+            
             //Hide / Display Occurence Number Control
-            var state = (string)OccurrencesComboBox.SelectedValue;
-
-            if (state == "Custom")
+            if (MyOccurenceParameter == "Custom")
             {
+                //Visible
                 this.OccurrenceNumber.Visibility = Visibility.Visible;
             }
             else
             {
+                //Hidden
                 this.OccurrenceNumber.Visibility = Visibility.Collapsed;
+
+                //Clear Field Value
+                ModelProperty property = this.ModelItem.Properties["OccurrenceNumber"];
+                property.SetValue(null);
             }
 
 
@@ -180,8 +187,8 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             }
             else
             {
-                //Warning Message
-                MessageBox.Show("Please click the 'Warning Button' 'Wizard' and 'Preview'", "Enable Functionalities", MessageBoxButton.OK, MessageBoxImage.Warning);
+                //Wizard Button: Warning Message: Wizard & Preview
+                DesignUtils.Wizard_WarningMessage_Wizard_Preview();
             }
 
         }
@@ -190,8 +197,11 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         private void Button_OpenFormSelectData(object sender, RoutedEventArgs e)
         {
 
+            //Get File Path
+            string FilePath = System.IO.File.ReadAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFile.txt");
+
             //Open Form Select Data
-            DesignUtils.CallformSelectDataOpen(MyArgument, MyIDText);
+            DesignUtils.CallformSelectDataOpen(MyArgument, MyIDText, FilePath);
 
         }
 
@@ -204,16 +214,58 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
             //Occurence Position
             MyArgument = "Occurence Position";
-            string OccurencePosition = this.OccurrenceNumber.Expression.ToString();
+            string OccurencePosition = ReturnOccurrenceNumber();
 
             if (OccurencePosition!= null)
             {
                 //Update Text File Row Argument
                 DesignUtils.CallUpdateTextFileRowArgument(FilePath, MyArgument, OccurencePosition);
             }
+            else
+            {
+                //Delete Argument in case it is null
+                DesignUtils.DeleteTextFileRowArgument(FilePath, MyArgument);
+            }
 
-            //Open Form Preview Extraction
-            DesignUtils.CallformPreviewExtraction(MyIDText, "Remove Words");
+            #region Open Preview Extraction
+
+            //Read Text File
+            string Source = System.IO.File.ReadAllText(FilePath);
+
+            //Check if all Parameters are in the File
+            string[] searchWords = { "Words" + Utils.DefaultSeparator(), "Occurence Parameter" + Utils.DefaultSeparator()};
+            double PercResults = Utils.FindWordsInString(Source, searchWords, false);
+
+            //Case all Parameters are found
+            if (PercResults == 1)
+            {
+                //Open Form Preview Extraction
+                DesignUtils.CallformPreviewExtraction(MyIDText, "Remove Words");
+            }
+            else
+            {
+                //Error Message
+                MessageBox.Show("Please fill in all arguments", "Validation Error",MessageBoxButton.OK,MessageBoxImage.Error);
+            }
+
+            #endregion
+        }
+
+        //Return Occurence Position
+        private string ReturnOccurrenceNumber()
+        {
+            try
+            {
+                //Get the FilePath
+                return this.OccurrenceNumber.Expression.ToString();
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+
+            }
+
         }
 
     }

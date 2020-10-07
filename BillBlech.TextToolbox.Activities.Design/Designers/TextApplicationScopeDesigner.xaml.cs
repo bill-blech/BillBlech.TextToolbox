@@ -298,7 +298,6 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             /////////////////////////////////////////////
         }
 
-
         private void Button_LoadDocument(object sender, RoutedEventArgs e)
         {
 

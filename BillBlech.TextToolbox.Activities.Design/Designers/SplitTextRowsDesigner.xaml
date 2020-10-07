@@ -29,23 +29,46 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
+            <!--Input Text Row-->
             <Label Content="{x:Static activity:Resources.SplitTextRows_InputTextRow_DisplayName}" Grid.Row="0"
                    ToolTip="{x:Static activity:Resources.SplitTextRows_InputTextRow_Description}"/>
-            <sapv:ExpressionTextBox Grid.Row="1" ExpressionType="{Binding ModelItem.Properties[InputTextRow].PropertyType.GenericTypeArguments[0]}" OwnerActivity="{Binding Path=ModelItem}" HintText="{x:Static activity:Resources.SplitTextRows_InputTextRow_Description}" UseLocationExpression="False">
+            <sapv:ExpressionTextBox Grid.Row="1" ExpressionType="{Binding ModelItem.Properties[InputTextRow].PropertyType.GenericTypeArguments[0]}" OwnerActivity="{Binding Path=ModelItem}" HintText="{x:Static activity:Resources.SplitTextRows_InputTextRow_Description}" UseLocationExpression="False" Name="InputTextRow" Margin="0,0,27,0">
                 <sapv:ExpressionTextBox.Expression>
                     <Binding Path="ModelItem.InputTextRow" Converter="{StaticResource ArgumentToExpressionConverter}" Mode="TwoWay" ConverterParameter="In" UpdateSourceTrigger="PropertyChanged" />
                 </sapv:ExpressionTextBox.Expression>
             </sapv:ExpressionTextBox>
-
+            <!-- Menu Button-->
+            <Button Content="" Height="20" Width="20" Margin="275,2,5,1" RenderTransformOrigin="0.529,-0.15" Click="CallCallButton_SetupWizard" Grid.Row="1" Name="btn" ToolTip="Access 'Wizard' and 'Preview' functionalities" Focusable="False" Visibility="Visible">
+                <Button.Background>
+                    <ImageBrush ImageSource="/BillBlech.TextToolbox.Activities.Design;component/Resources/MenuIcon.png"/>
+                </Button.Background>
+            </Button>
+            <!--Null Limit-->
             <Label Content="{x:Static activity:Resources.SplitTextRows_NullLimit_DisplayName}" Grid.Row="2"
-                   ToolTip="{x:Static activity:Resources.SplitTextRows_NullLimit_Description}"/>
-            <sapv:ExpressionTextBox Grid.Row="3" ExpressionType="{Binding ModelItem.Properties[NullLimit].PropertyType.GenericTypeArguments[0]}" OwnerActivity="{Binding Path=ModelItem}" HintText="{x:Static activity:Resources.SplitTextRows_NullLimit_Description}" UseLocationExpression="False">
+                   ToolTip="{x:Static activity:Resources.SplitTextRows_NullLimit_Description}" Margin="0,0,232,0"/>
+            <sapv:ExpressionTextBox Grid.Row="2" ExpressionType="{Binding ModelItem.Properties[NullLimit].PropertyType.GenericTypeArguments[0]}" OwnerActivity="{Binding Path=ModelItem}" HintText="{x:Static activity:Resources.SplitTextRows_NullLimit_Description}" UseLocationExpression="False" Margin="71,2,187,1" Height="Auto" Name="NullLimit">
                 <sapv:ExpressionTextBox.Expression>
                     <Binding Path="ModelItem.NullLimit" Converter="{StaticResource ArgumentToExpressionConverter}" Mode="TwoWay" ConverterParameter="In" UpdateSourceTrigger="PropertyChanged" />
                 </sapv:ExpressionTextBox.Expression>
             </sapv:ExpressionTextBox>
+            <!--Suppress Null Values-->
+            <Label Content="{x:Static activity:Resources.SuppressNulls_Description}" Grid.Row="2"
+                   ToolTip="{x:Static activity:Resources.SplitTextRows_NullLimit_Description}" Margin="115,0,66,0"/>
+            <sapv:ExpressionTextBox Grid.Row="2" ExpressionType="{Binding ModelItem.Properties[bSuppressNulls].PropertyType.GenericTypeArguments[0]}" OwnerActivity="{Binding Path=ModelItem}" HintText="{x:Static activity:Resources.SuppressNulls_Description}" UseLocationExpression="False" Margin="236,2,0,1" Name="bSuppressNulls">
+                <sapv:ExpressionTextBox.Expression>
+                    <Binding Path="ModelItem.bSuppressNulls" Converter="{StaticResource ArgumentToExpressionConverter}" Mode="TwoWay" ConverterParameter="In" UpdateSourceTrigger="PropertyChanged" />
+                </sapv:ExpressionTextBox.Expression>
+            </sapv:ExpressionTextBox>
+            <!--File Path Preview -->
+            <sapv:ExpressionTextBox  ExpressionType="{Binding ModelItem.Properties[FilePathPreview].PropertyType.GenericTypeArguments[0]}" OwnerActivity="{Binding ModelItem}" UseLocationExpression="False" Margin="358,0,20,0"  Expression="{Binding ModelItem.FilePathPreview, ConverterParameter=In, Converter={StaticResource ArgumentToExpressionConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HintText="{x:Static activity:Resources.TextApplicationScope_FilePathPreview_Description}" Name="FilePathPreview" Visibility="Hidden"/>
+            <!--IDText -->
+            <sapv:ExpressionTextBox  ExpressionType="{Binding ModelItem.Properties[IDText].PropertyType.GenericTypeArguments[0]}" OwnerActivity="{Binding ModelItem}" UseLocationExpression="False" Margin="380,0,3,0"  Expression="{Binding ModelItem.IDText, ConverterParameter=In, Converter={StaticResource ArgumentToExpressionConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HintText="{x:Static activity:Resources.IDText_Description}" Name="IDText" Visibility="Hidden"/>
+
+
         </Grid>
     </uip:ActivityDecoratorControl>
 </sap:ActivityDesigner>

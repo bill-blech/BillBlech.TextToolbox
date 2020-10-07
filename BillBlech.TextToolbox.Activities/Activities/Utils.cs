@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -638,8 +639,142 @@ namespace BillBlech.TextToolbox.Activities.Activities
             return null;
         }
 
-        //Extract All Lines Above Anchor Text Until Blank Line (No used)
+        //Query Array of String
+        public static string[] QueryArrayString(string[] InputArray, String[] CriteriaArray, bool displayLog)
+        {
 
+            string[] OutputArray = null;
+            int LenSourceArray = CriteriaArray.Length;
+            int FilteredCount = 0;
+
+            //Start Output variable
+            System.Collections.Generic.IEnumerable<string> filtered = null;
+
+            //Check Source Array Len
+            switch (LenSourceArray)
+            {
+
+                //One Item Criteria Array
+                case 1:
+                    filtered = from line in InputArray where line.Contains(CriteriaArray[0]) select line;
+                    break;
+                //Two Items Criteria Array
+                case 2:
+                    filtered = from line in InputArray where line.Contains(CriteriaArray[0]) && line.Contains(CriteriaArray[1]) select line;
+                    break;
+                //three Items Criteria Array
+                case 3:
+                    filtered = from line in InputArray where line.Contains(CriteriaArray[0]) && line.Contains(CriteriaArray[1]) && line.Contains(CriteriaArray[2]) select line;
+                    break;
+                //Four Items Criteria Array
+                case 4:
+                    filtered = from line in InputArray where line.Contains(CriteriaArray[0]) && line.Contains(CriteriaArray[1]) && line.Contains(CriteriaArray[2]) && line.Contains(CriteriaArray[3]) select line;
+                    break;
+                //Five Items Criteria Array
+                case 5:
+                    filtered = from line in InputArray
+                               where line.Contains(CriteriaArray[0]) && line.Contains(CriteriaArray[1]) && line.Contains(CriteriaArray[2]) && line.Contains(CriteriaArray[3])
+                                  && line.Contains(CriteriaArray[4])
+                               select line;
+                    break;
+                //Six Items Criteria Array
+                case 6:
+                    filtered = from line in InputArray
+                               where line.Contains(CriteriaArray[0]) && line.Contains(CriteriaArray[1]) && line.Contains(CriteriaArray[2]) && line.Contains(CriteriaArray[3])
+                                  && line.Contains(CriteriaArray[4]) && line.Contains(CriteriaArray[5])
+                               select line;
+                    break;
+                //Seven Items Criteria Array
+                case 7:
+                    filtered = from line in InputArray
+                               where line.Contains(CriteriaArray[0]) && line.Contains(CriteriaArray[1]) && line.Contains(CriteriaArray[2]) && line.Contains(CriteriaArray[3])
+                                  && line.Contains(CriteriaArray[4]) && line.Contains(CriteriaArray[5]) && line.Contains(CriteriaArray[6])
+                               select line;
+                    break;
+                //Eight Items Criteria Array
+                case 8:
+                    filtered = from line in InputArray
+                               where line.Contains(CriteriaArray[0]) && line.Contains(CriteriaArray[1]) && line.Contains(CriteriaArray[2]) && line.Contains(CriteriaArray[3])
+                                  && line.Contains(CriteriaArray[4]) && line.Contains(CriteriaArray[5]) && line.Contains(CriteriaArray[6]) && line.Contains(CriteriaArray[7])
+                               select line;
+                    break;
+                //Nine Items Criteria Array
+                case 9:
+                    filtered = from line in InputArray
+                               where line.Contains(CriteriaArray[0]) && line.Contains(CriteriaArray[1]) && line.Contains(CriteriaArray[2]) && line.Contains(CriteriaArray[3])
+                                  && line.Contains(CriteriaArray[4]) && line.Contains(CriteriaArray[5]) && line.Contains(CriteriaArray[6]) && line.Contains(CriteriaArray[7])
+                                  && line.Contains(CriteriaArray[8])
+                               select line;
+                    break;
+                //Ten Items Criteria Array
+                case 10:
+                    filtered = from line in InputArray
+                               where line.Contains(CriteriaArray[0]) && line.Contains(CriteriaArray[1]) && line.Contains(CriteriaArray[2]) && line.Contains(CriteriaArray[3])
+                                  && line.Contains(CriteriaArray[4]) && line.Contains(CriteriaArray[5]) && line.Contains(CriteriaArray[6]) && line.Contains(CriteriaArray[7])
+                                  && line.Contains(CriteriaArray[8]) && line.Contains(CriteriaArray[9])
+                               select line;
+                    break;
+                //Other
+                default:
+                    //Display Error Message
+                    Console.WriteLine($" '{LenSourceArray}' Words were selected. The Maximumn allowed is 10");
+
+                    //Return Empty Array as Output Criteria
+                    string[] EmptyArray = { };
+                    return EmptyArray;
+
+                    break;
+
+            }
+
+            //Get filtered items count
+            FilteredCount = filtered.Count();
+
+            //Get Output Array
+            OutputArray = new string[FilteredCount];
+
+            //Load OutputArray
+            for (int i = 0; i < filtered.Count(); i++)
+                OutputArray[i] = filtered.ElementAt(i);
+
+            return OutputArray;
+
+        }
+
+        //Match item in Array of String
+        public static bool MatchItemInArrayOfStrings(string[] SourceArray, string[] SearchWords)
+        {
+            ////Remove Empty Spaces
+            //SearchString = SearchString.Replace(" ", "");
+
+            ////Remove Empty Spaces from All Array Items
+            //for (int i = 0; i < SourceArray.Length; i++)
+            //{
+            //    SourceArray[i] = SourceArray[i].Replace(" ", "");
+
+            //}
+
+            //Start Output variable
+            System.Collections.Generic.IEnumerable<string> filtered = null;
+
+            //Loop through the Words
+            foreach(string SearchWord in SearchWords)
+            {
+                //Check if item is found in the Array
+                filtered = from line in SourceArray where line.Equals(SearchWord) select line;
+
+                if (filtered.Count() > 0)
+                {
+                    return true;
+                }
+               
+            }
+
+            return false;
+
+        }
+
+        //Extract All Lines Above Anchor Text Until Blank Line (No used)
         public static string ExtractTextAllLinesAboveUntilBlankLine(string Text)
         {
 
@@ -733,6 +868,25 @@ namespace BillBlech.TextToolbox.Activities.Activities
 
             //Run Regex Extraction
             return RunRegexExtraction(InputString, SearchCriteria, RegexOptions.Multiline, displayLog);
+
+        }
+
+        //Extract all Characters until next Letter Character
+        public static string[] ExtractAllCharactersUntilLetterCharacter(string InputString, string StartTAG, bool displayLog, bool displayRegex)
+        {
+
+            //Adjust Special Characters, if needed
+            StartTAG = AdjustSpecialCharacters(StartTAG);
+
+            //Set Search Criteria
+            string SearchCriteria = StartTAG + @"((.|\n)*?)[a-zA-Z]";
+
+            //Display Regex
+            if (displayRegex == true)
+                WriteLogMessage("Regex Expression: " + Environment.NewLine + SearchCriteria);
+
+            //Run Regex Extraction
+            return RunRegexExtraction(InputString, SearchCriteria, RegexOptions.None, displayLog);
 
         }
 
@@ -1040,153 +1194,109 @@ namespace BillBlech.TextToolbox.Activities.Activities
         }
 
         //Replace Word from Text
-        public static string ReplaceWordsFromText(string InputString, string SearchWord, string ReplacedWord, EnumTextOccurrence eEnumTextOccurrence, int IndexOccurence, bool displayLog)
+        public static string ReplaceWordsFromText(string InputString, string[] SearchWords, string ReplacedWord, string OccurrencesText, int IndexOccurence, bool displayLog)
         {
 
-            //Start Log Message
-            string LogMessage = $"Replace Words: [Search Word: '{SearchWord}' Replaced Word '{ReplacedWord}' ";
+            string LogMessage = null;
 
+            //Fill in Text Occurence Variable
+            EnumTextOccurrence eEnumTextOccurrence = CallExtractions.ReturnEnumTextOccurrence(OccurrencesText);
+
+            //Start Log Message
+            LogMessage = $"Replace Words: [Search Word: '{string.Join(";",SearchWords)}' Replaced Word '{ReplacedWord}' ";
+            
             //Start Output Variable
             string OuputString = InputString;
-            int i = 0;
-            bool bSuccess = false;
 
-            //Create Dummy Word
-            string DummyWord = CreateDummyWord(SearchWord.Length);
-
+            //Occurrence Index Validation
             switch (eEnumTextOccurrence)
             {
-                //All Occurences
-                case EnumTextOccurrence.All:
 
-                    //Update Log Message
-                    LogMessage += "Occurrence: 'All' ";
-
-                    //Find all occurences for the Word
-                    List<int> indexes = Utils.AllIndexesOf(InputString, SearchWord);
-
-                    //Case items are found
-                    if (indexes.Count > 0)
-                    {
-                        bSuccess = true;
-
-                        //Update Log Message
-                        LogMessage += $"Replaced: '{indexes.Count}' time(s)";
-                    }
-                    else
-                    {
-                        //Update Log Message
-                        LogMessage += $"No replacements ";
-                    }
-
-                    //Loop through the Indexes
-                    foreach (int MyIndex1 in indexes)
-                    {
-
-                        //Remove Word from string
-                        OuputString = OuputString.Remove(MyIndex1, SearchWord.Length);
-
-                        //Add Dummy Word
-                        OuputString = OuputString.Insert(MyIndex1, DummyWord);
-
-                        //Update the Counter
-                        i++;
-
-                    }
-
-                    break;
-
-                //First Occurence
-                case EnumTextOccurrence.First:
-
-                    //Update Log Message
-                    LogMessage += "Occurrence: 'First' ";
-
-                    //Get First Index
-                    int MyIndex2 = InputString.IndexOf(SearchWord);
-
-                    //Case it is found
-                    if (MyIndex2 != -1)
-                    {
-                        //Remove Word from String
-                        OuputString = OuputString.Remove(MyIndex2, SearchWord.Length);
-
-                        //Add Dummy
-                        OuputString = OuputString.Insert(MyIndex2, DummyWord);
-
-                        //Set TAG Sucess = True
-                        bSuccess = true;
-
-                        //Update Log Message
-                        LogMessage += $"Replaced: '1' time(s)";
-
-                    }
-                    else
-                    {
-                        //Update Log Message
-                        LogMessage += $"No replacements ";
-                    }
-
-                    break;
-
-                //Last Occurence
-                case EnumTextOccurrence.Last:
-
-                    //Update Log Message
-                    LogMessage += "Occurrence: 'Last' ";
-
-                    //Get Last Index
-                    int MyIndex3 = InputString.LastIndexOf(SearchWord);
-
-                    //Case it is found
-                    if (MyIndex3 != -1)
-                    {
-                        //Remove Word from String
-                        OuputString = OuputString.Remove(MyIndex3, SearchWord.Length);
-
-                        //Add Dummy
-                        OuputString = OuputString.Insert(MyIndex3, DummyWord);
-
-                        //Set TAG Sucess = True
-                        bSuccess = true;
-
-                        //Update Log Message
-                        LogMessage += $"Replaced: '1' time(s)";
-
-                    }
-                    else
-                    {
-                        //Update Log Message
-                        LogMessage += $"No replacements ";
-                    }
-
-
-                    break;
-
-                //Custom Occurence
+                //Custom
                 case EnumTextOccurrence.Custom:
-
-                    //Update Log Message
-                    LogMessage += $"Custom Occurrence: '{IndexOccurence}' ";
-
-                    //Find all occurences for the Word
-                    List<int> indexes1 = Utils.AllIndexesOf(InputString, SearchWord);
-
-                    //Check if Item exists in the List
-                    if (IndexOccurence <= indexes1.Count)
+                    if (IndexOccurence == 0)
                     {
 
-                        //Get the Index
-                        int MyIndex4 = indexes1[IndexOccurence - 1];
+                        //Error Message
+                        WriteLogMessage("No Occurence postion was supplied");
+
+                        //Exit the Procedure
+                        return OuputString;
+                    }
+
+
+                    break;
+            }
+
+            //Loop through Search Words
+            foreach(string SearchWord in SearchWords)
+            {
+
+                int i = 0;
+                bool bSuccess = false;
+
+                //Create Dummy Word
+                string DummyWord = CreateDummyWord(SearchWord.Length);
+
+                switch (eEnumTextOccurrence)
+                {
+                    //All Occurences
+                    case EnumTextOccurrence.All:
+
+                        //Update Log Message
+                        LogMessage += "Occurrence: 'All' ";
+
+                        //Find all occurences for the Word
+                        List<int> indexes = Utils.AllIndexesOf(InputString, SearchWord);
+
+                        //Case items are found
+                        if (indexes.Count > 0)
+                        {
+                            bSuccess = true;
+
+                            //Update Log Message
+                            LogMessage += $"Replaced: '{indexes.Count}' time(s)";
+                        }
+                        else
+                        {
+                            //Update Log Message
+                            LogMessage += $"No replacements ";
+                        }
+
+                        //Loop through the Indexes
+                        foreach (int MyIndex1 in indexes)
+                        {
+
+                            //Remove Word from string
+                            OuputString = OuputString.Remove(MyIndex1, SearchWord.Length);
+
+                            //Add Dummy Word
+                            OuputString = OuputString.Insert(MyIndex1, DummyWord);
+
+                            //Update the Counter
+                            i++;
+
+                        }
+
+                        break;
+
+                    //First Occurence
+                    case EnumTextOccurrence.First:
+
+                        //Update Log Message
+                        LogMessage += "Occurrence: 'First' ";
+
+                        //Get First Index
+                        int MyIndex2 = InputString.IndexOf(SearchWord);
 
                         //Case it is found
-                        if (MyIndex4 != -1)
+                        if (MyIndex2 != -1)
                         {
                             //Remove Word from String
-                            OuputString = OuputString.Remove(MyIndex4, SearchWord.Length);
+                            OuputString = OuputString.Remove(MyIndex2, SearchWord.Length);
 
                             //Add Dummy
-                            OuputString = OuputString.Insert(MyIndex4, DummyWord);
+                            OuputString = OuputString.Insert(MyIndex2, DummyWord);
 
                             //Set TAG Sucess = True
                             bSuccess = true;
@@ -1195,25 +1305,101 @@ namespace BillBlech.TextToolbox.Activities.Activities
                             LogMessage += $"Replaced: '1' time(s)";
 
                         }
+                        else
+                        {
+                            //Update Log Message
+                            LogMessage += $"No replacements ";
+                        }
 
-                    }
-                    else
-                    {
+                        break;
+
+                    //Last Occurence
+                    case EnumTextOccurrence.Last:
+
                         //Update Log Message
-                        LogMessage += $"No replacements ";
-                    }
+                        LogMessage += "Occurrence: 'Last' ";
 
-                    break;
+                        //Get Last Index
+                        int MyIndex3 = InputString.LastIndexOf(SearchWord);
 
-            }
+                        //Case it is found
+                        if (MyIndex3 != -1)
+                        {
+                            //Remove Word from String
+                            OuputString = OuputString.Remove(MyIndex3, SearchWord.Length);
 
-            //Replace the Dummy Word with Replace Word
+                            //Add Dummy
+                            OuputString = OuputString.Insert(MyIndex3, DummyWord);
 
-            //Check if change was made
-            if (bSuccess == true)
-            {
-                //Replace the Dummy Word
-                OuputString = OuputString.Replace(DummyWord, ReplacedWord);
+                            //Set TAG Sucess = True
+                            bSuccess = true;
+
+                            //Update Log Message
+                            LogMessage += $"Replaced: '1' time(s)";
+
+                        }
+                        else
+                        {
+                            //Update Log Message
+                            LogMessage += $"No replacements ";
+                        }
+
+
+                        break;
+
+                    //Custom Occurence
+                    case EnumTextOccurrence.Custom:
+
+                        //Update Log Message
+                        LogMessage += $"Custom Occurrence: '{IndexOccurence}' ";
+
+                        //Find all occurences for the Word
+                        List<int> indexes1 = Utils.AllIndexesOf(InputString, SearchWord);
+
+                        //Check if Item exists in the List
+                        if (IndexOccurence <= indexes1.Count)
+                        {
+
+                            //Get the Index
+                            int MyIndex4 = indexes1[IndexOccurence - 1];
+
+                            //Case it is found
+                            if (MyIndex4 != -1)
+                            {
+                                //Remove Word from String
+                                OuputString = OuputString.Remove(MyIndex4, SearchWord.Length);
+
+                                //Add Dummy
+                                OuputString = OuputString.Insert(MyIndex4, DummyWord);
+
+                                //Set TAG Sucess = True
+                                bSuccess = true;
+
+                                //Update Log Message
+                                LogMessage += $"Replaced: '1' time(s)";
+
+                            }
+
+                        }
+                        else
+                        {
+                            //Update Log Message
+                            LogMessage += $"No replacements ";
+                        }
+
+                        break;
+
+                }
+
+                //Replace the Dummy Word with Replace Word
+
+                //Check if change was made
+                if (bSuccess == true)
+                {
+                    //Replace the Dummy Word
+                    OuputString = OuputString.Replace(DummyWord, ReplacedWord);
+                }
+
             }
 
             //Finish the Message
@@ -1606,6 +1792,38 @@ namespace BillBlech.TextToolbox.Activities.Activities
             System.IO.File.WriteAllText(FilePath, InputText);
         }
 
+        //Return Default Separator
+        public static string DefaultSeparator()
+        {
+            return "@#$%";
+        }
+
+        //Read Text File with Encoding Option
+        public static string ReadTextFileEncoding(string FilePath, string strEncoding)
+        {
+
+            Encoding encoding = Encoding.Default;
+
+            //Chech Encoding Variable
+            switch (strEncoding)
+            {
+                //UTF8
+                case "UTF8":
+                    encoding = Encoding.UTF8;
+                    break;
+                //ASCII
+                case "ASCII":
+                    encoding = Encoding.ASCII;
+                    break;
+                //iso-8859-1
+                case "iso-8859-1":
+                    encoding = Encoding.GetEncoding("iso-8859-1");
+                    break;
+            }
+
+            //Read Text File
+            return System.IO.File.ReadAllText(FilePath, encoding);
+        }
 
     }
 }
