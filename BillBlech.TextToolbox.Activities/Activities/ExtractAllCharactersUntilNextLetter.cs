@@ -35,10 +35,10 @@ namespace BillBlech.TextToolbox.Activities
         [LocalizedCategory(nameof(Resources.Options_Category))]
         public bool DisplayLog { get; set; }
 
-        [LocalizedDisplayName(nameof(Resources.ExtractAllCharactersUntilNextLetter_DisplayRegex_DisplayName))]
-        [LocalizedDescription(nameof(Resources.ExtractAllCharactersUntilNextLetter_DisplayRegex_Description))]
-        [LocalizedCategory(nameof(Resources.Options_Category))]
-        public bool DisplayRegex { get; set; }
+        //[LocalizedDisplayName(nameof(Resources.ExtractAllCharactersUntilNextLetter_DisplayRegex_DisplayName))]
+        //[LocalizedDescription(nameof(Resources.ExtractAllCharactersUntilNextLetter_DisplayRegex_Description))]
+        //[LocalizedCategory(nameof(Resources.Options_Category))]
+        //public bool DisplayRegex { get; set; }
 
         [LocalizedDisplayName(nameof(Resources.ExtractAllCharactersUntilNextLetter_Results_DisplayName))]
         [LocalizedDescription(nameof(Resources.ExtractAllCharactersUntilNextLetter_Results_Description))]
@@ -108,7 +108,7 @@ namespace BillBlech.TextToolbox.Activities
             // Inputs
             var anchorWords = AnchorWords.Get(context);
             var displayLog = DisplayLog;
-            var displayRegex = DisplayRegex;
+            //var displayRegex = DisplayRegex;
 
             //Output Data Row
             bool bUpdateDataRow = BUpdateDataRow;
@@ -120,7 +120,7 @@ namespace BillBlech.TextToolbox.Activities
 
             ///////////////////////////
             // Add execution logic HERE
-            string[] OutputResults = CallExtractions.CallExtractAllCharactersUntilLetterCharacter(inputText, anchorWords, displayLog, displayRegex);
+            string[] OutputResults = CallExtractions.CallExtractAllCharactersUntilLetterCharacter(inputText, anchorWords, displayLog);
 
             #region Update Data Row (optional)
             //Check if functionality is Activated
@@ -150,7 +150,7 @@ namespace BillBlech.TextToolbox.Activities
 
             // Outputs
             return (ctx) => {
-                Results.Set(ctx, null);
+                Results.Set(ctx, OutputResults);
             };
         }
 

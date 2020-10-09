@@ -226,7 +226,7 @@ namespace ExcelTut
                     anchorWords = DesignUtils.ConvertStringToArray(ArrayText);
 
                     //Run Extraction
-                    OutputResults = CallExtractions.CallExtractAllCharactersUntilLetterCharacter(inputText, anchorWords, false, false);
+                    OutputResults = CallExtractions.CallExtractAllCharactersUntilLetterCharacter(inputText, anchorWords, false);
 
                     break;
 
@@ -350,6 +350,32 @@ namespace ExcelTut
 
                 #endregion
 
+                #region Read Text File Encoding
+                case "Read Text File Encoding":
+                    
+                    //File Name
+                    FilePath = DicArguments["FileName"];
+
+                    //Encoding
+                    string strEncoding = DicArguments["Encoding"];
+                    
+                    //Run Extraction
+                    TextResult = Utils.ReadTextFileEncoding(FilePath, strEncoding);
+
+                    //Display Result
+                    this.DisplayResult.Text = TextResult;
+
+                    //Hide Controls
+                    ResultsMatches_Label.Visible = false;
+                    ResultsMatches.Visible = false;
+                    SelectResult_Label.Visible = false;
+                    SelectResult.Visible = false;
+
+
+                    break;
+
+                #endregion
+
                 #region Extract Text until Blank Line
                 case "Extract Text until Blank Line":
 
@@ -441,7 +467,7 @@ namespace ExcelTut
                     
                     string[] searchWords = DesignUtils.ConvertStringToArray(ArrayText);
 
-                    bool isFound = Utils.MatchItemInArrayOfStrings(inputArray, searchWords);
+                    bool isFound = Utils.MatchItemInArrayOfStrings(inputArray, searchWords,false);
 
                     //Display Result
                     this.DisplayResult.Text = isFound.ToString();

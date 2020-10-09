@@ -43,6 +43,11 @@ namespace BillBlech.TextToolbox.Activities
         [LocalizedCategory(nameof(Resources.Options_Category))]
         public bool DisplayLog { get; set; }
 
+        [LocalizedDisplayName(nameof(Resources.IDText_DisplayName))]
+        [LocalizedDescription(nameof(Resources.IDText_Description))]
+        [LocalizedCategory(nameof(Resources.Common_Category))]
+        public InArgument<string> IDText { get; set; }
+
         #endregion
 
 

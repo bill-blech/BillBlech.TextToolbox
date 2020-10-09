@@ -640,11 +640,17 @@ namespace BillBlech.TextToolbox.Activities.Activities
         }
 
         //Query Array of String
-        public static string[] QueryArrayString(string[] InputArray, String[] CriteriaArray, bool displayLog)
+        public static string[] QueryArrayString(string[] InputArray, String[] SearchWords, bool displayLog)
         {
 
-            string[] OutputArray = null;
-            int LenSourceArray = CriteriaArray.Length;
+            //Log Message
+            if (displayLog == true)
+                WriteLogMessage($"Find Array Items: [Input Array: '{string.Join(";",InputArray)}' Search Words: '{string.Join(";", SearchWords)}]'");
+
+            //string.Join(";", ArrayTAG)}
+
+            string[] Results = null;
+            int LenSourceArray = SearchWords.Length;
             int FilteredCount = 0;
 
             //Start Output variable
@@ -656,62 +662,62 @@ namespace BillBlech.TextToolbox.Activities.Activities
 
                 //One Item Criteria Array
                 case 1:
-                    filtered = from line in InputArray where line.Contains(CriteriaArray[0]) select line;
+                    filtered = from line in InputArray where line.Contains(SearchWords[0]) select line;
                     break;
                 //Two Items Criteria Array
                 case 2:
-                    filtered = from line in InputArray where line.Contains(CriteriaArray[0]) && line.Contains(CriteriaArray[1]) select line;
+                    filtered = from line in InputArray where line.Contains(SearchWords[0]) && line.Contains(SearchWords[1]) select line;
                     break;
                 //three Items Criteria Array
                 case 3:
-                    filtered = from line in InputArray where line.Contains(CriteriaArray[0]) && line.Contains(CriteriaArray[1]) && line.Contains(CriteriaArray[2]) select line;
+                    filtered = from line in InputArray where line.Contains(SearchWords[0]) && line.Contains(SearchWords[1]) && line.Contains(SearchWords[2]) select line;
                     break;
                 //Four Items Criteria Array
                 case 4:
-                    filtered = from line in InputArray where line.Contains(CriteriaArray[0]) && line.Contains(CriteriaArray[1]) && line.Contains(CriteriaArray[2]) && line.Contains(CriteriaArray[3]) select line;
+                    filtered = from line in InputArray where line.Contains(SearchWords[0]) && line.Contains(SearchWords[1]) && line.Contains(SearchWords[2]) && line.Contains(SearchWords[3]) select line;
                     break;
                 //Five Items Criteria Array
                 case 5:
                     filtered = from line in InputArray
-                               where line.Contains(CriteriaArray[0]) && line.Contains(CriteriaArray[1]) && line.Contains(CriteriaArray[2]) && line.Contains(CriteriaArray[3])
-                                  && line.Contains(CriteriaArray[4])
+                               where line.Contains(SearchWords[0]) && line.Contains(SearchWords[1]) && line.Contains(SearchWords[2]) && line.Contains(SearchWords[3])
+                                  && line.Contains(SearchWords[4])
                                select line;
                     break;
                 //Six Items Criteria Array
                 case 6:
                     filtered = from line in InputArray
-                               where line.Contains(CriteriaArray[0]) && line.Contains(CriteriaArray[1]) && line.Contains(CriteriaArray[2]) && line.Contains(CriteriaArray[3])
-                                  && line.Contains(CriteriaArray[4]) && line.Contains(CriteriaArray[5])
+                               where line.Contains(SearchWords[0]) && line.Contains(SearchWords[1]) && line.Contains(SearchWords[2]) && line.Contains(SearchWords[3])
+                                  && line.Contains(SearchWords[4]) && line.Contains(SearchWords[5])
                                select line;
                     break;
                 //Seven Items Criteria Array
                 case 7:
                     filtered = from line in InputArray
-                               where line.Contains(CriteriaArray[0]) && line.Contains(CriteriaArray[1]) && line.Contains(CriteriaArray[2]) && line.Contains(CriteriaArray[3])
-                                  && line.Contains(CriteriaArray[4]) && line.Contains(CriteriaArray[5]) && line.Contains(CriteriaArray[6])
+                               where line.Contains(SearchWords[0]) && line.Contains(SearchWords[1]) && line.Contains(SearchWords[2]) && line.Contains(SearchWords[3])
+                                  && line.Contains(SearchWords[4]) && line.Contains(SearchWords[5]) && line.Contains(SearchWords[6])
                                select line;
                     break;
                 //Eight Items Criteria Array
                 case 8:
                     filtered = from line in InputArray
-                               where line.Contains(CriteriaArray[0]) && line.Contains(CriteriaArray[1]) && line.Contains(CriteriaArray[2]) && line.Contains(CriteriaArray[3])
-                                  && line.Contains(CriteriaArray[4]) && line.Contains(CriteriaArray[5]) && line.Contains(CriteriaArray[6]) && line.Contains(CriteriaArray[7])
+                               where line.Contains(SearchWords[0]) && line.Contains(SearchWords[1]) && line.Contains(SearchWords[2]) && line.Contains(SearchWords[3])
+                                  && line.Contains(SearchWords[4]) && line.Contains(SearchWords[5]) && line.Contains(SearchWords[6]) && line.Contains(SearchWords[7])
                                select line;
                     break;
                 //Nine Items Criteria Array
                 case 9:
                     filtered = from line in InputArray
-                               where line.Contains(CriteriaArray[0]) && line.Contains(CriteriaArray[1]) && line.Contains(CriteriaArray[2]) && line.Contains(CriteriaArray[3])
-                                  && line.Contains(CriteriaArray[4]) && line.Contains(CriteriaArray[5]) && line.Contains(CriteriaArray[6]) && line.Contains(CriteriaArray[7])
-                                  && line.Contains(CriteriaArray[8])
+                               where line.Contains(SearchWords[0]) && line.Contains(SearchWords[1]) && line.Contains(SearchWords[2]) && line.Contains(SearchWords[3])
+                                  && line.Contains(SearchWords[4]) && line.Contains(SearchWords[5]) && line.Contains(SearchWords[6]) && line.Contains(SearchWords[7])
+                                  && line.Contains(SearchWords[8])
                                select line;
                     break;
                 //Ten Items Criteria Array
                 case 10:
                     filtered = from line in InputArray
-                               where line.Contains(CriteriaArray[0]) && line.Contains(CriteriaArray[1]) && line.Contains(CriteriaArray[2]) && line.Contains(CriteriaArray[3])
-                                  && line.Contains(CriteriaArray[4]) && line.Contains(CriteriaArray[5]) && line.Contains(CriteriaArray[6]) && line.Contains(CriteriaArray[7])
-                                  && line.Contains(CriteriaArray[8]) && line.Contains(CriteriaArray[9])
+                               where line.Contains(SearchWords[0]) && line.Contains(SearchWords[1]) && line.Contains(SearchWords[2]) && line.Contains(SearchWords[3])
+                                  && line.Contains(SearchWords[4]) && line.Contains(SearchWords[5]) && line.Contains(SearchWords[6]) && line.Contains(SearchWords[7])
+                                  && line.Contains(SearchWords[8]) && line.Contains(SearchWords[9])
                                select line;
                     break;
                 //Other
@@ -731,28 +737,32 @@ namespace BillBlech.TextToolbox.Activities.Activities
             FilteredCount = filtered.Count();
 
             //Get Output Array
-            OutputArray = new string[FilteredCount];
+            Results = new string[FilteredCount];
 
             //Load OutputArray
             for (int i = 0; i < filtered.Count(); i++)
-                OutputArray[i] = filtered.ElementAt(i);
+                Results[i] = filtered.ElementAt(i);
 
-            return OutputArray;
+            //Write Log Message
+            if (displayLog == true)
+                WriteLogMessage("Results: " + Environment.NewLine + "-----------------------------------------------------------------------------------------------------------------------------------------------" + Environment.NewLine +
+                                  string.Join(Environment.NewLine + "-----------------------------------------------------------------------------------------------------------------------------------------------" + Environment.NewLine, Results) +
+                                              Environment.NewLine + "-----------------------------------------------------------------------------------------------------------------------------------------------");
+
+            return Results;
 
         }
 
         //Match item in Array of String
-        public static bool MatchItemInArrayOfStrings(string[] SourceArray, string[] SearchWords)
+        public static bool MatchItemInArrayOfStrings(string[] InputArray, string[] SearchWords, bool displayLog)
         {
-            ////Remove Empty Spaces
-            //SearchString = SearchString.Replace(" ", "");
 
-            ////Remove Empty Spaces from All Array Items
-            //for (int i = 0; i < SourceArray.Length; i++)
-            //{
-            //    SourceArray[i] = SourceArray[i].Replace(" ", "");
+            bool isFound = false;
 
-            //}
+            //Log Message
+            if (displayLog == true)
+                WriteLogMessage($"Match Item in Array: [Input Array : '{string.Join(";", InputArray)}' Search Words: '{string.Join(";", SearchWords)}]'");
+
 
             //Start Output variable
             System.Collections.Generic.IEnumerable<string> filtered = null;
@@ -761,17 +771,28 @@ namespace BillBlech.TextToolbox.Activities.Activities
             foreach(string SearchWord in SearchWords)
             {
                 //Check if item is found in the Array
-                filtered = from line in SourceArray where line.Equals(SearchWord) select line;
+                filtered = from line in InputArray where line.Equals(SearchWord) select line;
 
                 if (filtered.Count() > 0)
                 {
-                    return true;
+                    isFound = true;
+
+                    goto ExitLoop;
+
+
                 }
                
             }
 
-            return false;
+            isFound = false;
 
+        ExitLoop:
+
+            //Log Message
+            if (displayLog == true)
+                WriteLogMessage("Results: " + isFound.ToString());
+
+                return isFound;
         }
 
         //Extract All Lines Above Anchor Text Until Blank Line (No used)
@@ -871,25 +892,118 @@ namespace BillBlech.TextToolbox.Activities.Activities
 
         }
 
+        ////Extract all Characters until next Letter Character
+        //public static string[] ExtractAllCharactersUntilLetterCharacter(string InputString, string StartTAG, bool displayLog, bool displayRegex)
+        //{
+
+        //    //Adjust Special Characters, if needed
+        //    StartTAG = AdjustSpecialCharacters(StartTAG);
+
+        //    //Set Search Criteria
+        //    string SearchCriteria = StartTAG + @"((.|\n)*?)[a-zA-Z]";
+
+        //    //Display Regex
+        //    if (displayRegex == true)
+        //        WriteLogMessage("Regex Expression: " + Environment.NewLine + SearchCriteria);
+
+        //    //Run Regex Extraction
+        //    return RunRegexExtraction(InputString, SearchCriteria, RegexOptions.None, displayLog);
+
+        //}
+
         //Extract all Characters until next Letter Character
-        public static string[] ExtractAllCharactersUntilLetterCharacter(string InputString, string StartTAG, bool displayLog, bool displayRegex)
+        public static string[] ExtractAllCharactersUntilLetterCharacter(string InputString, string StartTAG, bool displayLog)
         {
+
+            //Log Message
+            if (displayLog == true)
+                WriteLogMessage($"Extrat Text Until Next Letter: [Input String: '{InputString}' Search Word: '{StartTAG}]'");
+
+            int StartIndex = 0;
+            int Index = 0;
+            bool isChar = false;
+            int ItemCounter = 0;
 
             //Adjust Special Characters, if needed
             StartTAG = AdjustSpecialCharacters(StartTAG);
 
-            //Set Search Criteria
-            string SearchCriteria = StartTAG + @"((.|\n)*?)[a-zA-Z]";
+            //Count Occurences in the Text
+            int Counter = Utils.CountSpecificWordInString(InputString, StartTAG);
+            //Console.WriteLine("Counter: " + Counter.ToString());
 
-            //Display Regex
-            if (displayRegex == true)
-                WriteLogMessage("Regex Expression: " + Environment.NewLine + SearchCriteria);
+            //Start Output Variable
+            string[] Results = new string[Counter];
 
-            //Run Regex Extraction
-            return RunRegexExtraction(InputString, SearchCriteria, RegexOptions.None, displayLog);
+            //Case Items are found
+            if (Counter > 0)
+            {
+
+                //Get All Occurences in the Text
+                List<int> LstPosition = AllIndexesOf(InputString, StartTAG);
+
+                //Loop through the Positions
+                foreach (int i in LstPosition)
+                {
+                    //Start the Index
+                    Index = i + StartTAG.Length;
+                    StartIndex = Index;
+
+                    //Clear TAG Variable
+                    isChar = false;
+
+                    //Console.WriteLine("Start Index: " + Index);
+
+                    //Do While Character is not a Letter
+                    while (isChar == false)
+                    {
+
+                        //Update the Counter
+                        Index++;
+
+                        //Get the Character
+                        string MyCharacter = InputString.Substring(Index, 1);
+
+                        //Console.WriteLine(MyCharacter);
+
+                        //Check if it is a Letter
+                        isChar = Regex.IsMatch(MyCharacter, @"[a-zA-Z]");
+
+                    }
+
+                    //Console.WriteLine("End Index: "+ Index);
+
+                    //Build Output String
+                    string OutputString = InputString.Substring(StartIndex + 1, Index - StartIndex - 1);
+                    //Console.WriteLine(OutputString);
+
+                    //Fill in Output Array
+                    Results[ItemCounter] = OutputString.Trim();
+
+                    //Update the Counter
+                    ItemCounter++;
+
+                }
+
+                //Write Log Message
+                if (displayLog == true)
+
+                //Counter
+                Console.WriteLine($"Matches count: {Results.Length}");
+
+                //Result
+                WriteLogMessage("Results: " + Environment.NewLine + "-----------------------------------------------------------------------------------------------------------------------------------------------" + Environment.NewLine +
+                                      string.Join(Environment.NewLine + "-----------------------------------------------------------------------------------------------------------------------------------------------" + Environment.NewLine, Results) +
+                                                  Environment.NewLine + "-----------------------------------------------------------------------------------------------------------------------------------------------");
+
+                return Results;
+
+            }
+
+            //Return Null Array
+            string[] NullArray = new string[0];
+            return NullArray;
 
         }
-
 
         //Extract Last Line Below Anchor Text Array of Strings 
         public static string[] ExtractTextLastLinesBelowArrayTAGUntilEnd(string InputString, string[] ArrayTAG, bool displayLog, bool displayRegex)
@@ -1820,6 +1934,8 @@ namespace BillBlech.TextToolbox.Activities.Activities
                     encoding = Encoding.GetEncoding("iso-8859-1");
                     break;
             }
+
+
 
             //Read Text File
             return System.IO.File.ReadAllText(FilePath, encoding);

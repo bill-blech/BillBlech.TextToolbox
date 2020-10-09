@@ -351,7 +351,7 @@ namespace BillBlech.TextToolbox.Activities.Activities
         }
 
         //Extract all Characters until next Letter
-        public static string[] CallExtractAllCharactersUntilLetterCharacter(string inputText, string[] anchorWords, bool displayLog, bool displayRegex)
+        public static string[] CallExtractAllCharactersUntilLetterCharacter(string inputText, string[] anchorWords, bool displayLog)
         {
 
             string[] OutputResults = null;
@@ -360,7 +360,7 @@ namespace BillBlech.TextToolbox.Activities.Activities
             foreach (string Word in anchorWords)
             {
                 //Extract text Below Line Text
-                OutputResults = Utils.ExtractAllCharactersUntilLetterCharacter(inputText, Word, displayLog, displayRegex);
+                OutputResults = Utils.ExtractAllCharactersUntilLetterCharacter(inputText, Word, displayLog);
 
                 //Exit the Loop in case result is found
                 if (OutputResults.Length > 0)

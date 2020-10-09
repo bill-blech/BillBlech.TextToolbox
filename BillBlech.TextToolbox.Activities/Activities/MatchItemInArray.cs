@@ -33,6 +33,11 @@ namespace BillBlech.TextToolbox.Activities
         [LocalizedCategory(nameof(Resources.Input_Category))]
         public InArgument<string[]> SearchWord { get; set; }
 
+        [LocalizedDisplayName(nameof(Resources.FindArrayItems_DisplayLog_DisplayName))]
+        [LocalizedDescription(nameof(Resources.FindArrayItems_DisplayLog_Description))]
+        [LocalizedCategory(nameof(Resources.Options_Category))]
+        public bool DisplayLog { get; set; }
+
         [LocalizedDisplayName(nameof(Resources.MatchItemInArray_IsFound_DisplayName))]
         [LocalizedDescription(nameof(Resources.MatchItemInArray_IsFound_Description))]
         [LocalizedCategory(nameof(Resources.Output_Category))]
@@ -76,10 +81,11 @@ namespace BillBlech.TextToolbox.Activities
             // Inputs
             var inputArray = InputArray.Get(context);
             var searchWord = SearchWord.Get(context);
+            var displayLog = DisplayLog;
 
             ///////////////////////////
             // Add execution logic HERE
-            bool bIsFound = Utils.MatchItemInArrayOfStrings(inputArray, searchWord);
+            bool bIsFound = Utils.MatchItemInArrayOfStrings(inputArray, searchWord,displayLog);
             ///////////////////////////
 
             // Outputs

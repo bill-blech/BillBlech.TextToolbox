@@ -1051,7 +1051,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Extract Text until Blank Line.
+        ///   Looks up a localized string similar to Extract Text Until Blank Line.
         /// </summary>
         public static string ExtractTextUntilBlankLine_DisplayName {
             get {
@@ -1195,7 +1195,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Filter Words.
+        ///   Looks up a localized string similar to Search Words.
         /// </summary>
         public static string FindArrayItems_FilterWords_DisplayName {
             get {

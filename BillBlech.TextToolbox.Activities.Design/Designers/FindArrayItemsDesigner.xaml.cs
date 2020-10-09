@@ -376,13 +376,41 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         private void Button_MenuItem_OpenFile(object sender, RoutedEventArgs e)
         {
 
-            //Get Current Excel
-            string CurrentFile = System.IO.File.ReadAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFile.txt");
+            //Get the File Path
+            string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
+            string Source = System.IO.File.ReadAllText(FilePath);
 
-            /////////////////////////////////////////////
-            ////Open File
-            System.Diagnostics.Process.Start(CurrentFile);
-            /////////////////////////////////////////////
+            //Check if all Parameters are in the File
+            string[] searchWords = { "FilePathforPreview" + Utils.DefaultSeparator() };
+            double PercResults = Utils.FindWordsInString(Source, searchWords, false);
+
+            //Case it is found
+            if (PercResults == 1)
+            {
+
+                //Get Lines from the File
+                string[] Lines = Utils.SplitTextNewLine(Source);
+
+                //Check if there is a File Path for the Preveiw
+                string[] filterWords = { "FilePathforPreview" + Utils.DefaultSeparator() };
+                string[] OutputResults = CallExtractions.CallFindArrayItems(Lines, filterWords, "Any", false);
+
+                if (OutputResults.Length > 0)
+                {
+                    FilePath = OutputResults[0];
+
+                    //Get File Path for the Preview
+                    string[] MyArray = Strings.Split(FilePath, Utils.DefaultSeparator());
+                    string CurrentFile = MyArray[1];
+
+                    /////////////////////////////////////////////
+                    ////Open File
+                    System.Diagnostics.Process.Start(CurrentFile);
+                    /////////////////////////////////////////////
+
+                }
+
+            }
         }
 
         private void Button_LoadDocument(object sender, RoutedEventArgs e)
