@@ -2,6 +2,7 @@ using BillBlech.TextToolbox.Activities.Activities;
 using BillBlech.TextToolbox.Activities.Properties;
 using System;
 using System.Activities;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -29,12 +30,14 @@ namespace BillBlech.TextToolbox.Activities
         [LocalizedDisplayName(nameof(Resources.ExtractTextBetweenTwoAnchorWords_BegWords_DisplayName))]
         [LocalizedDescription(nameof(Resources.ExtractTextBetweenTwoAnchorWords_BegWords_Description))]
         [LocalizedCategory(nameof(Resources.Input_Category))]
-        public InArgument<String[]> BegWords { get; set; }
+        //public InArgument<String[]> BegWords { get; set; }
+        public InArgument<Collection<string>> BegWords { get; set; }
 
         [LocalizedDisplayName(nameof(Resources.ExtractTextBetweenTwoAnchorWords_EndWords_DisplayName))]
         [LocalizedDescription(nameof(Resources.ExtractTextBetweenTwoAnchorWords_EndWords_Description))]
         [LocalizedCategory(nameof(Resources.Input_Category))]
-        public InArgument<String[]> EndWords { get; set; }
+        //public InArgument<String[]> EndWords { get; set; }
+        public InArgument<Collection<string>> EndWords { get; set; }
 
         [LocalizedDisplayName(nameof(Resources.ExtractTextBetweenTwoAnchorWords_RegexParameter_DisplayName))]
         [LocalizedDescription(nameof(Resources.ExtractTextBetweenTwoAnchorWords_RegexParameter_Description))]
@@ -129,12 +132,21 @@ namespace BillBlech.TextToolbox.Activities
             string inputText = objectContainer.Get<string>();
 
             // Inputs
-            var begWords = BegWords.Get(context);
-            var endWords = EndWords.Get(context);
+            var begWordsCol = BegWords.Get(context);
+            var endWordsCol = EndWords.Get(context);
             var regexParameterText = RegexParameter.Get(context);
             bool displayLog = DisplayLog;
             bool displayRegex = DisplatyRegex;
 
+            //Convert Collection to Array
+            string[] begWords = Utils.ConvertCollectionToArray(begWordsCol);
+
+            string[] endWords = null;
+            if (endWordsCol != null)
+            {
+                endWords = Utils.ConvertCollectionToArray(endWordsCol);
+            }
+   
             //Output Data Row
             bool bUpdateDataRow = BUpdateDataRow;
             var myDataRow = MyDataRow.Get(context);

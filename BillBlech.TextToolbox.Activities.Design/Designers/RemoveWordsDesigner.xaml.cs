@@ -1,8 +1,10 @@
 using BillBlech.TextToolbox.Activities.Activities;
+using Microsoft.VisualBasic.Activities;
 using System;
 using System.Activities;
 using System.Activities.Presentation.Model;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -124,11 +126,28 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         private void CallCallButton_SetupWizard(object sender, System.Windows.RoutedEventArgs e)
         {
 
-            //Fill in Global Variable
-            MyArgument = "Words";
+            string ClipBoardText = Clipboard.GetText();
 
-            //Setup Wizard Button
-            CallButton_SetupWizard();
+            if (this.UpdateCall.Visibility == Visibility.Visible)
+            {
+
+                //Update Search Words
+                UpdateControl("Words", ClipBoardText);
+
+                //Hide Update Call Control
+                this.Words.Visibility = Visibility.Visible;
+                this.UpdateCall.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+
+                //Fill in Global Variable
+                MyArgument = "Words";
+
+                //Setup Wizard Button
+                CallButton_SetupWizard();
+
+            }
         }
 
         //Setup Wizard Button
@@ -196,6 +215,10 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         //Button Open Wizard
         private void Button_OpenFormSelectData(object sender, RoutedEventArgs e)
         {
+            //Show Update Call Control
+            this.Words.Visibility = Visibility.Hidden;
+            this.UpdateCall.Visibility = Visibility.Visible;
+            this.UpdateCall.Content = Utils.DefaultUpdateControl();
 
             //Get File Path
             string FilePath = System.IO.File.ReadAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFile.txt");
@@ -264,6 +287,23 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
                 return null;
 
+            }
+
+        }
+
+        //Update Control
+        public void UpdateControl(string ControlName, string ClipBoardText)
+        {
+
+            //Case it is not a Close Click
+            if (ClipBoardText != Utils.DefaultSeparator())
+            {
+                //Reference the Control
+                ModelProperty p2 = this.ModelItem.Properties[ControlName];
+
+                string MyOutput = "New Collection(Of String) From " + ClipBoardText;
+                VisualBasicValue<Collection<string>> MyArgList = new VisualBasicValue<Collection<string>>(MyOutput);
+                p2.SetValue(new InArgument<Collection<string>>(MyArgList));
             }
 
         }

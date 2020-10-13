@@ -52,12 +52,15 @@
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnManualAdd = new System.Windows.Forms.Button();
             this.txtManual = new System.Windows.Forms.TextBox();
+            this.groupActions = new System.Windows.Forms.GroupBox();
+            this.btnPaste = new System.Windows.Forms.Button();
             this.groupLstSelectedItemsSelection.SuspendLayout();
             this.GroupLstSelectedItemsMoveItem.SuspendLayout();
             this.groupLstSelectedItemsMergeSplit.SuspendLayout();
             this.groupBoxAvailableItems.SuspendLayout();
             this.groupBoxSelectedItems.SuspendLayout();
             this.groupBoxManual.SuspendLayout();
+            this.groupActions.SuspendLayout();
             this.SuspendLayout();
             // 
             // LstAvailableItems
@@ -109,7 +112,7 @@
             // 
             this.groupLstSelectedItemsSelection.Controls.Add(this.groupLstSelectedItemsSelectionMulti);
             this.groupLstSelectedItemsSelection.Controls.Add(this.groupLstSelectedItemsSelectionSingle);
-            this.groupLstSelectedItemsSelection.Location = new System.Drawing.Point(536, 89);
+            this.groupLstSelectedItemsSelection.Location = new System.Drawing.Point(541, 15);
             this.groupLstSelectedItemsSelection.Name = "groupLstSelectedItemsSelection";
             this.groupLstSelectedItemsSelection.Size = new System.Drawing.Size(76, 77);
             this.groupLstSelectedItemsSelection.TabIndex = 10;
@@ -144,7 +147,7 @@
             // 
             this.GroupLstSelectedItemsMoveItem.Controls.Add(this.btnLstSelectedItemsDown);
             this.GroupLstSelectedItemsMoveItem.Controls.Add(this.btnLstSelectedItemsUp);
-            this.GroupLstSelectedItemsMoveItem.Location = new System.Drawing.Point(536, 268);
+            this.GroupLstSelectedItemsMoveItem.Location = new System.Drawing.Point(541, 188);
             this.GroupLstSelectedItemsMoveItem.Name = "GroupLstSelectedItemsMoveItem";
             this.GroupLstSelectedItemsMoveItem.Size = new System.Drawing.Size(75, 84);
             this.GroupLstSelectedItemsMoveItem.TabIndex = 11;
@@ -185,7 +188,7 @@
             // 
             this.groupLstSelectedItemsMergeSplit.Controls.Add(this.btnSplit);
             this.groupLstSelectedItemsMergeSplit.Controls.Add(this.btnMerge);
-            this.groupLstSelectedItemsMergeSplit.Location = new System.Drawing.Point(537, 172);
+            this.groupLstSelectedItemsMergeSplit.Location = new System.Drawing.Point(541, 98);
             this.groupLstSelectedItemsMergeSplit.Name = "groupLstSelectedItemsMergeSplit";
             this.groupLstSelectedItemsMergeSplit.Size = new System.Drawing.Size(75, 84);
             this.groupLstSelectedItemsMergeSplit.TabIndex = 13;
@@ -204,7 +207,7 @@
             // 
             // btnMerge
             // 
-            this.btnMerge.Location = new System.Drawing.Point(8, 26);
+            this.btnMerge.Location = new System.Drawing.Point(9, 26);
             this.btnMerge.Name = "btnMerge";
             this.btnMerge.Size = new System.Drawing.Size(49, 23);
             this.btnMerge.TabIndex = 11;
@@ -214,11 +217,11 @@
             // 
             // btnCopyToClipBoard
             // 
-            this.btnCopyToClipBoard.Location = new System.Drawing.Point(552, 14);
+            this.btnCopyToClipBoard.Location = new System.Drawing.Point(10, 19);
             this.btnCopyToClipBoard.Name = "btnCopyToClipBoard";
-            this.btnCopyToClipBoard.Size = new System.Drawing.Size(122, 23);
+            this.btnCopyToClipBoard.Size = new System.Drawing.Size(50, 23);
             this.btnCopyToClipBoard.TabIndex = 14;
-            this.btnCopyToClipBoard.Text = "Copy to Clipboard";
+            this.btnCopyToClipBoard.Text = "Save";
             this.btnCopyToClipBoard.UseVisualStyleBackColor = true;
             this.btnCopyToClipBoard.Click += new System.EventHandler(this.btnCopyToClipBoard_Click);
             // 
@@ -240,9 +243,9 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(574, 43);
+            this.btnClose.Location = new System.Drawing.Point(11, 77);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(75, 23);
+            this.btnClose.Size = new System.Drawing.Size(49, 23);
             this.btnClose.TabIndex = 17;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
@@ -311,16 +314,37 @@
             this.txtManual.Size = new System.Drawing.Size(200, 20);
             this.txtManual.TabIndex = 0;
             // 
+            // groupActions
+            // 
+            this.groupActions.Controls.Add(this.btnPaste);
+            this.groupActions.Controls.Add(this.btnCopyToClipBoard);
+            this.groupActions.Controls.Add(this.btnClose);
+            this.groupActions.Location = new System.Drawing.Point(541, 278);
+            this.groupActions.Name = "groupActions";
+            this.groupActions.Size = new System.Drawing.Size(75, 106);
+            this.groupActions.TabIndex = 21;
+            this.groupActions.TabStop = false;
+            this.groupActions.Text = "Actions";
+            // 
+            // btnPaste
+            // 
+            this.btnPaste.Location = new System.Drawing.Point(11, 48);
+            this.btnPaste.Name = "btnPaste";
+            this.btnPaste.Size = new System.Drawing.Size(49, 23);
+            this.btnPaste.TabIndex = 22;
+            this.btnPaste.Text = "Paste";
+            this.btnPaste.UseVisualStyleBackColor = true;
+            this.btnPaste.Click += new System.EventHandler(this.btnPaste_Click);
+            // 
             // FormSelectData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(692, 388);
+            this.ClientSize = new System.Drawing.Size(655, 478);
+            this.Controls.Add(this.groupActions);
             this.Controls.Add(this.groupBoxManual);
             this.Controls.Add(this.groupBoxSelectedItems);
             this.Controls.Add(this.groupBoxAvailableItems);
-            this.Controls.Add(this.btnClose);
-            this.Controls.Add(this.btnCopyToClipBoard);
             this.Controls.Add(this.groupLstSelectedItemsMergeSplit);
             this.Controls.Add(this.btnReset);
             this.Controls.Add(this.GroupLstSelectedItemsMoveItem);
@@ -342,6 +366,7 @@
             this.groupBoxSelectedItems.PerformLayout();
             this.groupBoxManual.ResumeLayout(false);
             this.groupBoxManual.PerformLayout();
+            this.groupActions.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -372,5 +397,7 @@
         private System.Windows.Forms.TextBox txtManual;
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnManualAdd;
+        private System.Windows.Forms.GroupBox groupActions;
+        private System.Windows.Forms.Button btnPaste;
     }
 }

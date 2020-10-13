@@ -58,7 +58,8 @@
                     <Binding Path="ModelItem.SearchWord" Converter="{StaticResource ArgumentToExpressionConverter}" Mode="TwoWay" ConverterParameter="In" UpdateSourceTrigger="PropertyChanged"/>
                 </sapv:ExpressionTextBox.Expression>
             </sapv:ExpressionTextBox>
-
+            <!-- Update Call -->
+            <Label Name="UpdateCall" Grid.Row="3" Visibility="Hidden"   />
             <!-- Menu Button-->
             <Button Content="" Height="20" Width="20" Margin="275,2,5,1" RenderTransformOrigin="0.529,-0.15" Click="CallCallButton_SetupWizard" Grid.Row="3" Name="btnEndWords" ToolTip="Access 'Wizard' and 'Preview' functionalities" Focusable="False" Visibility="Visible">
                 <Button.Background>

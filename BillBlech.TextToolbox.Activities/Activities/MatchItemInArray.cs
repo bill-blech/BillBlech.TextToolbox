@@ -1,5 +1,6 @@
 using System;
 using System.Activities;
+using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
 using BillBlech.TextToolbox.Activities.Activities;
@@ -31,7 +32,8 @@ namespace BillBlech.TextToolbox.Activities
         [LocalizedDisplayName(nameof(Resources.MatchItemInArray_SearchWord_DisplayName))]
         [LocalizedDescription(nameof(Resources.MatchItemInArray_SearchWord_Description))]
         [LocalizedCategory(nameof(Resources.Input_Category))]
-        public InArgument<string[]> SearchWord { get; set; }
+        //public InArgument<string[]> SearchWord { get; set; }
+        public InArgument<Collection<string>> SearchWord { get; set; }
 
         [LocalizedDisplayName(nameof(Resources.FindArrayItems_DisplayLog_DisplayName))]
         [LocalizedDescription(nameof(Resources.FindArrayItems_DisplayLog_Description))]
@@ -80,9 +82,11 @@ namespace BillBlech.TextToolbox.Activities
         {
             // Inputs
             var inputArray = InputArray.Get(context);
-            var searchWord = SearchWord.Get(context);
+            var searchWordCol = SearchWord.Get(context);
             var displayLog = DisplayLog;
 
+            //Convert Collection to Array
+            string[] searchWord = Utils.ConvertCollectionToArray(searchWordCol);
             ///////////////////////////
             // Add execution logic HERE
             bool bIsFound = Utils.MatchItemInArrayOfStrings(inputArray, searchWord,displayLog);

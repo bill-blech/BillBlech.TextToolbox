@@ -2,6 +2,7 @@ using BillBlech.TextToolbox.Activities.Activities;
 using BillBlech.TextToolbox.Activities.Properties;
 using System;
 using System.Activities;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
@@ -28,7 +29,8 @@ namespace BillBlech.TextToolbox.Activities
         [LocalizedDisplayName(nameof(Resources.ExtractTextUntilBlankLine_AnchorWords_DisplayName))]
         [LocalizedDescription(nameof(Resources.ExtractTextUntilBlankLine_AnchorWords_Description))]
         [LocalizedCategory(nameof(Resources.Input_Category))]
-        public InArgument<String[]> AnchorWords { get; set; }
+        //public InArgument<String[]> AnchorWords { get; set; }
+        public InArgument<Collection<string>> AnchorWords { get; set; }
 
         [LocalizedDisplayName(nameof(Resources.ExtractTextUntilBlankLine_AnchorWordsParameter_DisplayName))]
         [LocalizedDescription(nameof(Resources.ExtractTextUntilBlankLine_AnchorWordsParameter_Description))]
@@ -142,12 +144,15 @@ namespace BillBlech.TextToolbox.Activities
             string inputText = objectContainer.Get<string>();
 
             // Inputs
-            var anchorWords = AnchorWords.Get(context);
+            var anchorWordsCol = AnchorWords.Get(context);
             var anchorWordsParameterText = AnchorWordsParameter.Get(context);
             var directionText = Direction.Get(context);
             var includeAnchorWordsRow = IncludeAnchorWordsRow.Get(context);
             var displayLog = DisplayLog;
             var displayRegex = DisplayRegex;
+
+            //Convert Collection to Array
+            string[] anchorWords = Utils.ConvertCollectionToArray(anchorWordsCol);
 
             //Output Data Row
             bool bUpdateDataRow = BUpdateDataRow;

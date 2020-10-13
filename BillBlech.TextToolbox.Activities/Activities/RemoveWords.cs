@@ -2,6 +2,7 @@ using BillBlech.TextToolbox.Activities.Activities;
 using BillBlech.TextToolbox.Activities.Properties;
 using System;
 using System.Activities;
+using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
 using UiPath.Shared.Activities;
@@ -28,7 +29,8 @@ namespace BillBlech.TextToolbox.Activities
         [LocalizedDisplayName(nameof(Resources.RemoveWords_Words_DisplayName))]
         [LocalizedDescription(nameof(Resources.RemoveWords_Words_Description))]
         [LocalizedCategory(nameof(Resources.Input_Category))]
-        public InArgument<String[]> Words { get; set; }
+        //public InArgument<String[]> Words { get; set; }
+        public InArgument<Collection<string>> Words { get; set; }
 
         [LocalizedDisplayName(nameof(Resources.RemoveWords_Occurrences_DisplayName))]
         [LocalizedDescription(nameof(Resources.RemoveWords_Occurrences_Description))]
@@ -89,10 +91,13 @@ namespace BillBlech.TextToolbox.Activities
             string inputText = objectContainer.Get<string>();
 
             // Inputs
-            var words = Words.Get(context);
+            var wordsCol = Words.Get(context);
             var occurrencesText = Occurrences.Get(context);
             var occurrenceNumber = OccurrenceNumber.Get(context);
             var displayLog = DisplayLog;
+
+            //Convert Collection to Array
+            string[] words = Utils.ConvertCollectionToArray(wordsCol);
 
             ///////////////////////////
             // Add execution logic HERE

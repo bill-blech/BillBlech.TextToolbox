@@ -63,8 +63,8 @@ namespace ExcelTut
                     string MyValue = MyArray[1];
 
                     //Set the Form Controls
-                    Control ctnArgument = this.Controls["Argument" + (i + 1) + "_Label"];
-                    Control ctnValue = this.Controls["Argument" + (i + 1) + "_Text"];
+                    Control ctnArgument = this.Controls["Argument" + (i + 1) + "x_Label"];
+                    Control ctnValue = this.Controls["Argument" + (i + 1) + "x_Text"];
 
                     //Change Visibility to True
                     ctnArgument.Visible = true;

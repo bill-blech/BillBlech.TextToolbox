@@ -1,8 +1,10 @@
 using BillBlech.TextToolbox.Activities.Activities;
+using Microsoft.VisualBasic.Activities;
 using System;
 using System.Activities;
 using System.Activities.Presentation.Model;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -100,23 +102,57 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         //Setup Wizard Button: Beg Words
         private void CallCallButtonBegWords_SetupWizard(object sender, System.Windows.RoutedEventArgs e)
         {
+            string ClipBoardText = Clipboard.GetText();
 
-            //Fill in Global Variable
-            MyArgument = "Beg Words";
+            if (this.UpdateCallBegWords.Visibility == Visibility.Visible)
+            {
 
-            //Setup Wizard Button
-            CallButton_SetupWizard();
+                //Update Search Words
+                UpdateControl("BegWords", ClipBoardText);
+
+                //Hide Update Call Control
+                this.BegWords.Visibility = Visibility.Visible;
+                this.UpdateCallBegWords.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+
+                //Fill in Global Variable
+                MyArgument = "Beg Words";
+
+                //Setup Wizard Button
+                CallButton_SetupWizard();
+
+            }
         }
 
         //Setup Wizard Button: Beg Words
         private void CallCallButtonEndWords_SetupWizard(object sender, System.Windows.RoutedEventArgs e)
         {
 
-            //Fill in Global Variable
-            MyArgument = "End Words";
+            string ClipBoardText = Clipboard.GetText();
 
-            //Setup Wizard Button
-            CallButton_SetupWizard();
+            if (this.UpdateCallEndWords.Visibility == Visibility.Visible)
+            {
+
+                //Update Search Words
+                UpdateControl("EndWords", ClipBoardText);
+
+                //Hide Update Call Control
+                this.EndWords.Visibility = Visibility.Visible;
+                this.UpdateCallEndWords.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+
+
+                //Fill in Global Variable
+                MyArgument = "End Words";
+
+                //Setup Wizard Button
+                CallButton_SetupWizard();
+
+            }
         }
 
         //Setup Wizard Button
@@ -185,6 +221,31 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         private void Button_OpenFormSelectData(object sender, RoutedEventArgs e)
         {
 
+            switch (MyArgument)
+            {
+
+                //Beg Words
+                case "Beg Words":
+
+                    //Show Update Call Control
+                    this.BegWords.Visibility = Visibility.Hidden;
+                    this.UpdateCallBegWords.Visibility = Visibility.Visible;
+                    this.UpdateCallBegWords.Content = Utils.DefaultUpdateControl();
+
+                    break;
+
+                //End Words
+                case "End Words":
+
+                    //Show Update Call Control
+                    this.EndWords.Visibility = Visibility.Hidden;
+                    this.UpdateCallEndWords.Visibility = Visibility.Visible;
+                    this.UpdateCallEndWords.Content = Utils.DefaultUpdateControl();
+
+                    break;
+
+            }
+
             //Get File Path
             string FilePath = System.IO.File.ReadAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFile.txt");
 
@@ -219,6 +280,23 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                 MessageBox.Show("Please fill in all arguments", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
+
+        }
+
+        //Update Control
+        public void UpdateControl(string ControlName, string ClipBoardText)
+        {
+
+            //Case it is not a Close Click
+            if (ClipBoardText != Utils.DefaultSeparator())
+            {
+                //Reference the Control
+                ModelProperty p2 = this.ModelItem.Properties[ControlName];
+
+                string MyOutput = "New Collection(Of String) From " + ClipBoardText;
+                VisualBasicValue<Collection<string>> MyArgList = new VisualBasicValue<Collection<string>>(MyOutput);
+                p2.SetValue(new InArgument<Collection<string>>(MyArgList));
+            }
 
         }
     }

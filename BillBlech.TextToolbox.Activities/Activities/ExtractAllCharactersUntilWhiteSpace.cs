@@ -1,5 +1,6 @@
 using System;
 using System.Activities;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,6 +26,12 @@ namespace BillBlech.TextToolbox.Activities
         [LocalizedDescription(nameof(Resources.ContinueOnError_Description))]
         public override InArgument<bool> ContinueOnError { get; set; }
 
+        [LocalizedDisplayName(nameof(Resources.ExtractAllCharactersUntilWhiteSpace_AnchorWords_DisplayName))]
+        [LocalizedDescription(nameof(Resources.ExtractAllCharactersUntilWhiteSpace_AnchorWords_Description))]
+        [LocalizedCategory(nameof(Resources.Input_Category))]
+        //public InArgument<String[]> AnchorWords { get; set; }
+        public InArgument<Collection<string>> AnchorWords { get; set; }
+
         [LocalizedDisplayName(nameof(Resources.ExtractAllCharactersUntilWhiteSpace_Results_DisplayName))]
         [LocalizedDescription(nameof(Resources.ExtractAllCharactersUntilWhiteSpace_Results_Description))]
         [LocalizedCategory(nameof(Resources.Output_Category))]
@@ -40,10 +47,7 @@ namespace BillBlech.TextToolbox.Activities
         [LocalizedCategory(nameof(Resources.Options_Category))]
         public bool DisplayRegex { get; set; }
 
-        [LocalizedDisplayName(nameof(Resources.ExtractAllCharactersUntilWhiteSpace_AnchorWords_DisplayName))]
-        [LocalizedDescription(nameof(Resources.ExtractAllCharactersUntilWhiteSpace_AnchorWords_Description))]
-        [LocalizedCategory(nameof(Resources.Input_Category))]
-        public InArgument<String[]> AnchorWords { get; set; }
+
 
         //////////////////////////////////////////////////////////////////////
         //Update Data Row
@@ -109,7 +113,10 @@ namespace BillBlech.TextToolbox.Activities
             // Inputs
             var displayLog = DisplayLog;
             var displayRegex = DisplayRegex;
-            var anchorWords = AnchorWords.Get(context);
+            var anchorWordsCol = AnchorWords.Get(context);
+
+            //Convert Collection to Array
+            string[] anchorWords = Utils.ConvertCollectionToArray(anchorWordsCol);
 
             //Output Data Row
             bool bUpdateDataRow = BUpdateDataRow;

@@ -2,6 +2,7 @@ using BillBlech.TextToolbox.Activities.Activities;
 using BillBlech.TextToolbox.Activities.Properties;
 using System;
 using System.Activities;
+using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
 using UiPath.Shared.Activities;
@@ -28,7 +29,9 @@ namespace BillBlech.TextToolbox.Activities
         [LocalizedDisplayName(nameof(Resources.ReplaceWords_SearchWord_DisplayName))]
         [LocalizedDescription(nameof(Resources.ReplaceWords_SearchWord_Description))]
         [LocalizedCategory(nameof(Resources.Input_Category))]
-        public InArgument<string[]> SearchWord { get; set; }
+        //public InArgument<string[]> SearchWord { get; set; }
+        public InArgument<Collection<string>> SearchWord { get; set; }
+
 
         [LocalizedDisplayName(nameof(Resources.ReplaceWords_ReplacedWord_DisplayName))]
         [LocalizedDescription(nameof(Resources.ReplaceWords_ReplacedWord_Description))]
@@ -97,11 +100,14 @@ namespace BillBlech.TextToolbox.Activities
             string inputText = objectContainer.Get<string>();
 
             // Inputs
-            var searchWords = SearchWord.Get(context);
+            var searchWordsCol = SearchWord.Get(context);
             var replacedWord = ReplacedWord.Get(context);
             var textOccurrance = TextOccurrance.Get(context);
             var indexOccurence = IndexOccurence.Get(context);
             var displayLog = DisplayLog;
+
+            //Convert Collection to Array
+            string[] searchWords = Utils.ConvertCollectionToArray(searchWordsCol);
 
             ///////////////////////////
             // Add execution logic HERE

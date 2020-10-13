@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -1912,6 +1913,12 @@ namespace BillBlech.TextToolbox.Activities.Activities
             return "@#$%";
         }
 
+        //Return Default Update Control Text
+        public static string DefaultUpdateControl()
+        {
+            return "Click on the button to update the control>>>>>>";
+        }
+
         //Read Text File with Encoding Option
         public static string ReadTextFileEncoding(string FilePath, string strEncoding)
         {
@@ -1940,6 +1947,26 @@ namespace BillBlech.TextToolbox.Activities.Activities
             //Read Text File
             return System.IO.File.ReadAllText(FilePath, encoding);
         }
+
+        //Convert Collection to Array
+        public static string[] ConvertCollectionToArray(Collection<string> InputCollection)
+        {
+
+            string[] OutputResults = new string[InputCollection.Count()];
+
+            //Loop through the Collection
+            for (int i = 0; i < InputCollection.Count(); i++)
+            {
+
+                //Get Item from the Collection
+                OutputResults[i] = InputCollection.ElementAt(i);
+
+            }
+
+            return OutputResults;
+
+        }
+
 
     }
 }

@@ -2,6 +2,7 @@ using BillBlech.TextToolbox.Activities.Activities;
 using BillBlech.TextToolbox.Activities.Properties;
 using System;
 using System.Activities;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
@@ -28,7 +29,8 @@ namespace BillBlech.TextToolbox.Activities
         [LocalizedDisplayName(nameof(Resources.ExtractAllLinesBelowAnchorText_AnchorText_DisplayName))]
         [LocalizedDescription(nameof(Resources.ExtractAllLinesBelowAnchorText_AnchorText_Description))]
         [LocalizedCategory(nameof(Resources.Input_Category))]
-        public InArgument<String[]> AnchorText { get; set; }
+        //public InArgument<String[]> AnchorText { get; set; }
+        public InArgument<Collection<string>> AnchorText { get; set; }
 
         [LocalizedDisplayName(nameof(Resources.ExtractAllLinesBelowAnchorText_Results_DisplayName))]
         [LocalizedDescription(nameof(Resources.ExtractAllLinesBelowAnchorText_Results_Description))]
@@ -121,10 +123,13 @@ namespace BillBlech.TextToolbox.Activities
             string inputText = objectContainer.Get<string>();
 
             // Inputs
-            var anchorText = AnchorText.Get(context);
+            var anchorTextCol = AnchorText.Get(context);
             var displayLog = DisplayLog;
             var displayRegex = DisplayRegex;
             var anchorTextParamText = AnchorTextParam.Get(context);
+
+            //Convert Collection to Array
+            string[] anchorText = Utils.ConvertCollectionToArray(anchorTextCol);
 
             //Output Data Row
             bool bUpdateDataRow = BUpdateDataRow;

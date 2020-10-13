@@ -41,6 +41,8 @@
                     <Binding Path="ModelItem.AnchorWords" Converter="{StaticResource ArgumentToExpressionConverter}" Mode="TwoWay" ConverterParameter="In" UpdateSourceTrigger="PropertyChanged" />
                 </sapv:ExpressionTextBox.Expression>
             </sapv:ExpressionTextBox>
+            <!-- Update Call -->
+            <Label Name="UpdateCall" Grid.Row="1" Visibility="Hidden"   />
             <!--ID Text -->
             <sapv:ExpressionTextBox Grid.Row="0" ExpressionType="{Binding ModelItem.Properties[IDText].PropertyType.GenericTypeArguments[0]}" OwnerActivity="{Binding Path=ModelItem}" HintText="{x:Static activity:Resources.IDText_Description}" UseLocationExpression="False" Name="IDText" Margin="213,2,0,2" Visibility="Hidden">
                 <sapv:ExpressionTextBox.Expression>

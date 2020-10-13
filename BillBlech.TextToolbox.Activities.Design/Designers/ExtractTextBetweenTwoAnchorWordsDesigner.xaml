@@ -50,6 +50,8 @@
                     <Binding Path="ModelItem.BegWords" Converter="{StaticResource ArgumentToExpressionConverter}" Mode="TwoWay" ConverterParameter="In" UpdateSourceTrigger="PropertyChanged" />
                 </sapv:ExpressionTextBox.Expression>
             </sapv:ExpressionTextBox>
+            <!-- Update Call -->
+            <Label Name="UpdateCallBegWords" Grid.Row="1" Visibility="Hidden"   />
             <!-- Menu Button-->
             <Button Content="" Height="20" Width="20" Margin="275,2,5,1" RenderTransformOrigin="0.529,-0.15" Click="CallCallButtonBegWords_SetupWizard" Grid.Row="1" Name="btnBegWords" ToolTip="Access 'Wizard' and 'Preview' functionalities" Focusable="False" Visibility="Visible">
                 <Button.Background>
@@ -64,6 +66,8 @@
                     <Binding Path="ModelItem.EndWords" Converter="{StaticResource ArgumentToExpressionConverter}" Mode="TwoWay" ConverterParameter="In" UpdateSourceTrigger="PropertyChanged" />
                 </sapv:ExpressionTextBox.Expression>
             </sapv:ExpressionTextBox>
+            <!-- Update Call -->
+            <Label Name="UpdateCallEndWords" Grid.Row="3" Visibility="Hidden"   />
             <!-- Menu Button-->
             <Button Content="" Height="20" Width="20" Margin="275,2,5,1" RenderTransformOrigin="0.529,-0.15" Click="CallCallButtonEndWords_SetupWizard" Grid.Row="3" Name="btnEndWords" ToolTip="Access 'Wizard' and 'Preview' functionalities" Focusable="False" Visibility="Visible">
                 <Button.Background>

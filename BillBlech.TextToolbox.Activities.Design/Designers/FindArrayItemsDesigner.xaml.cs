@@ -1,10 +1,12 @@
 using BillBlech.TextToolbox.Activities.Activities;
 using Microsoft.VisualBasic;
+using Microsoft.VisualBasic.Activities;
 using Microsoft.Win32;
 using System;
 using System.Activities;
 using System.Activities.Presentation.Model;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -105,12 +107,28 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         //Setup Wizard Button
         private void CallCallButton_SetupWizard(object sender, System.Windows.RoutedEventArgs e)
         {
+            string ClipBoardText = Clipboard.GetText();
 
-            //Fill in Global Variable
-            MyArgument = "Filter Words";
+            if (this.UpdateCall.Visibility == Visibility.Visible)
+            {
 
-            //Setup Wizard Button
-            CallButton_SetupWizard();
+                //Update Search Words
+                UpdateControl("FilterWords", ClipBoardText);
+
+                //Hide Update Call Control
+                this.FilterWords.Visibility = Visibility.Visible;
+                this.UpdateCall.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+
+                //Fill in Global Variable
+                MyArgument = "Filter Words";
+
+                //Setup Wizard Button
+                CallButton_SetupWizard();
+
+            }
         }
 
         //Setup Wizard Button
@@ -532,6 +550,11 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         private void Button_OpenFormSelectData(object sender, RoutedEventArgs e)
         {
 
+            //Show Update Call Control
+            this.FilterWords.Visibility = Visibility.Hidden;
+            this.UpdateCall.Visibility = Visibility.Visible;
+            this.UpdateCall.Content = Utils.DefaultUpdateControl();
+
             //Get the File Path
             string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
             string Source = System.IO.File.ReadAllText(FilePath);
@@ -600,7 +623,22 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
         }
 
+        //Update Control
+        public void UpdateControl(string ControlName, string ClipBoardText)
+        {
 
+            //Case it is not a Close Click
+            if (ClipBoardText != Utils.DefaultSeparator())
+            {
+                //Reference the Control
+                ModelProperty p2 = this.ModelItem.Properties[ControlName];
+
+                string MyOutput = "New Collection(Of String) From " + ClipBoardText;
+                VisualBasicValue<Collection<string>> MyArgList = new VisualBasicValue<Collection<string>>(MyOutput);
+                p2.SetValue(new InArgument<Collection<string>>(MyArgList));
+            }
+
+        }
 
     }
 

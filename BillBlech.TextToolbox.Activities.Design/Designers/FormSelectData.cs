@@ -1,5 +1,6 @@
 ﻿using BillBlech.TextToolbox.Activities.Activities;
 using BillBlech.TextToolbox.Activities.Design;
+using BillBlech.TextToolbox.Activities.Design.Designers;
 using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
@@ -590,6 +591,10 @@ namespace ExcelTut
         //Close the Form
         private void btnClose_Click_1(object sender, EventArgs e)
         {
+
+            //Copy to Clipboard
+            Clipboard.SetText(Utils.DefaultSeparator());
+
             this.Close();
         }
 
@@ -660,6 +665,45 @@ namespace ExcelTut
             }
 
                 
+        }
+
+        //Paste Data from Clipboard
+        private void btnPaste_Click(object sender, EventArgs e)
+        {
+            string ClipboardText = Clipboard.GetText();
+
+            //Case it is not Null
+            if (ClipboardText != null)
+            {
+                //Get Data between brackets {}
+                string[] Results = Utils.ExtractTextBetweenTags(ClipboardText, "{", "}",System.Text.RegularExpressions.RegexOptions.Singleline,false,false);
+
+                if (Results.Length > 0)
+                {
+                    string Text = Results[0];
+                    string[] Words = Strings.Split(Text, ",");
+
+
+                    foreach (string Word in Words)
+                    {
+                        string WordAdj = Strings.Replace(Word, "\"", "");
+                        LstSelectedItems.Items.Add(WordAdj.Trim());
+                    }
+
+                }
+
+
+            }
+            else 
+            {
+
+                //Validation Error Message
+                System.Windows.MessageBox.Show("There is no data in the Clipboard", "Copy from Clipboard", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
+
+            }    
+
+
+
         }
     }
 }

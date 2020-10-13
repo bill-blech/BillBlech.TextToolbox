@@ -1,5 +1,6 @@
 using System;
 using System.Activities;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
@@ -27,7 +28,8 @@ namespace BillBlech.TextToolbox.Activities
         [LocalizedDisplayName(nameof(Resources.FindArrayItems_FilterWords_DisplayName))]
         [LocalizedDescription(nameof(Resources.FindArrayItems_FilterWords_Description))]
         [LocalizedCategory(nameof(Resources.Input_Category))]
-        public InArgument<String[]> FilterWords { get; set; }
+        //public InArgument<String[]> FilterWords { get; set; }
+        public InArgument<Collection<string>> FilterWords { get; set; }
 
         [LocalizedDisplayName(nameof(Resources.FindArrayItems_DisplayLog_DisplayName))]
         [LocalizedDescription(nameof(Resources.FindArrayItems_DisplayLog_Description))]
@@ -108,10 +110,13 @@ namespace BillBlech.TextToolbox.Activities
         protected override async Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
             // Inputs
-            var filterWords = FilterWords.Get(context);
+            var filterWordsCol = FilterWords.Get(context);
             var displayLog = DisplayLog;
             var anchorWordsText = AnchorWordsParameters.Get(context);
             var inputArray = InputArray.Get(context);
+
+            //Convert Collection to Array
+            string[] filterWords = Utils.ConvertCollectionToArray(filterWordsCol);
 
             //Output Data Row
             bool bUpdateDataRow = BUpdateDataRow;
