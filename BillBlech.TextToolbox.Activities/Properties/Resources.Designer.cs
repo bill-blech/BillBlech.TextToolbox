@@ -133,7 +133,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Words to be searched (Array of Strings).
+        ///   Looks up a localized string similar to Words to be searched (Collection of Strings).
         /// </summary>
         public static string CountWordsInText_SearchWords_Description {
             get {
@@ -223,6 +223,78 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Specific Config File for this activitiy, it is available in the Git link.
+        /// </summary>
+        public static string DetectLanguage_ConfigFile_Description {
+            get {
+                return ResourceManager.GetString("DetectLanguage_ConfigFile_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Config File.
+        /// </summary>
+        public static string DetectLanguage_ConfigFile_DisplayName {
+            get {
+                return ResourceManager.GetString("DetectLanguage_ConfigFile_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language detection using https://github.com/ivanakcheurov/ntextcat.
+        /// </summary>
+        public static string DetectLanguage_Description {
+            get {
+                return ResourceManager.GetString("DetectLanguage_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detect Language.
+        /// </summary>
+        public static string DetectLanguage_DisplayName {
+            get {
+                return ResourceManager.GetString("DetectLanguage_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text to be classified.
+        /// </summary>
+        public static string DetectLanguage_InputText_Description {
+            get {
+                return ResourceManager.GetString("DetectLanguage_InputText_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Input Text.
+        /// </summary>
+        public static string DetectLanguage_InputText_DisplayName {
+            get {
+                return ResourceManager.GetString("DetectLanguage_InputText_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language for the Input Text.
+        /// </summary>
+        public static string DetectLanguage_Language_Description {
+            get {
+                return ResourceManager.GetString("DetectLanguage_Language_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        public static string DetectLanguage_Language_DisplayName {
+            get {
+                return ResourceManager.GetString("DetectLanguage_Language_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do.
         /// </summary>
         public static string Do {
@@ -304,7 +376,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Anchor Words to be searched in Input Text (Array of Strings).
+        ///   Looks up a localized string similar to Anchor Words to be searched in Input Text (Collection of Strings).
         /// </summary>
         public static string ExtractAllCharactersUntilNextLetter_AnchorWords_Description {
             get {
@@ -331,7 +403,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Display activity output in Output Pane.
+        ///   Looks up a localized string similar to Display Activity Output in the Ouput Pane.
         /// </summary>
         public static string ExtractAllCharactersUntilNextLetter_DisplayLog_Description {
             get {
@@ -376,7 +448,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search Resutls.
+        ///   Looks up a localized string similar to Search Resutls (Array of Strings).
         /// </summary>
         public static string ExtractAllCharactersUntilNextLetter_Results_Description {
             get {
@@ -394,7 +466,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Anchor Words to be searched in Input Text (Array of Strings).
+        ///   Looks up a localized string similar to Anchor Words to be searched in Input Text (Collection of Strings).
         /// </summary>
         public static string ExtractAllCharactersUntilWhiteSpace_AnchorWords_Description {
             get {
@@ -421,7 +493,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Display activity output in Output Pane.
+        ///   Looks up a localized string similar to Display Activity Output in the Ouput Pane.
         /// </summary>
         public static string ExtractAllCharactersUntilWhiteSpace_DisplayLog_Description {
             get {
@@ -466,7 +538,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search Results.
+        ///   Looks up a localized string similar to Search Results (Array of Strings).
         /// </summary>
         public static string ExtractAllCharactersUntilWhiteSpace_Results_Description {
             get {
@@ -484,7 +556,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Anchor Words to be searched in Input Text (Array of Strings).
+        ///   Looks up a localized string similar to Anchor Words to be searched in Input Text (Collection of Strings).
         /// </summary>
         public static string ExtractAllLinesBelowAnchorText_AnchorText_Description {
             get {
@@ -529,7 +601,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Display activity output in Ouput Pane.
+        ///   Looks up a localized string similar to Display Activity Output in the Ouput Pane.
         /// </summary>
         public static string ExtractAllLinesBelowAnchorText_DisplayLog_Description {
             get {
@@ -574,7 +646,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search Results.
+        ///   Looks up a localized string similar to Search Results (Array of Strings).
         /// </summary>
         public static string ExtractAllLinesBelowAnchorText_Results_Description {
             get {
@@ -592,7 +664,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Anchor Words to be searched in Input Text (Array of Strings).
+        ///   Looks up a localized string similar to Anchor Words to be searched in Input Text (Collection of Strings).
         /// </summary>
         public static string ExtractTextAboveAnchorWords_AnchorWords_Description {
             get {
@@ -619,7 +691,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Display activity output in Output Pane.
+        ///   Looks up a localized string similar to Display Activity Output in the Ouput Pane.
         /// </summary>
         public static string ExtractTextAboveAnchorWords_DisplayLog_Description {
             get {
@@ -646,7 +718,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Display Regex Empression.
+        ///   Looks up a localized string similar to Display Regex Expression.
         /// </summary>
         public static string ExtractTextAboveAnchorWords_DisplayRegex_Description {
             get {
@@ -700,7 +772,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search Results.
+        ///   Looks up a localized string similar to Search Results (Array of Strings).
         /// </summary>
         public static string ExtractTextAboveAnchorWords_Results_Description {
             get {
@@ -718,7 +790,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Anchor Words to be searched in Input Text (Array of Strings).
+        ///   Looks up a localized string similar to Anchor Words to be searched in Input Text (Collection of Strings).
         /// </summary>
         public static string ExtractTextBelowAnchorWords_AnchorWords_Description {
             get {
@@ -745,7 +817,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Display activity output in Output Pane.
+        ///   Looks up a localized string similar to Display Activity Output in the Ouput Pane.
         /// </summary>
         public static string ExtractTextBelowAnchorWords_DisplayLog_Description {
             get {
@@ -772,7 +844,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Display Regex Empression.
+        ///   Looks up a localized string similar to Display Regex Expression.
         /// </summary>
         public static string ExtractTextBelowAnchorWords_DisplayRegex_Description {
             get {
@@ -826,7 +898,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search Results.
+        ///   Looks up a localized string similar to Search Results (Array of Strings).
         /// </summary>
         public static string ExtractTextBelowAnchorWords_Results_Description {
             get {
@@ -844,7 +916,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Beggining words to be searched.
+        ///   Looks up a localized string similar to Beggining words to be searched (Collection of Strings).
         /// </summary>
         public static string ExtractTextBetweenTwoAnchorWords_BegWords_Description {
             get {
@@ -889,7 +961,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Display activity output in Output Pane.
+        ///   Looks up a localized string similar to Display Activity Output in the Ouput Pane.
         /// </summary>
         public static string ExtractTextBetweenTwoAnchorWords_DisplayLog_Description {
             get {
@@ -916,7 +988,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ending words to be searched, leave it null in case it is the end of the row.
+        ///   Looks up a localized string similar to Ending words to be searched (Collection of Strings), leave it null in case it is the end of the row.
         /// </summary>
         public static string ExtractTextBetweenTwoAnchorWords_EndWords_Description {
             get {
@@ -952,7 +1024,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search Results.
+        ///   Looks up a localized string similar to Search Results (Array of Strings).
         /// </summary>
         public static string ExtractTextBetweenTwoAnchorWords_Results_Description {
             get {
@@ -970,7 +1042,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Anchor Words to be searched in Input Text (Array of Strings).
+        ///   Looks up a localized string similar to Anchor Words to be searched in Input Text (Collection of Strings).
         /// </summary>
         public static string ExtractTextUntilBlankLine_AnchorWords_Description {
             get {
@@ -1033,7 +1105,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Display Activity Output in the Output Pane.
+        ///   Looks up a localized string similar to Display Activity Output in the Ouput Pane.
         /// </summary>
         public static string ExtractTextUntilBlankLine_DisplayLog_Description {
             get {
@@ -1060,7 +1132,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Display Regex Empression.
+        ///   Looks up a localized string similar to Display Regex Expression.
         /// </summary>
         public static string ExtractTextUntilBlankLine_DisplayRegex_Description {
             get {
@@ -1078,7 +1150,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Include Anchor Word row info in the output?.
+        ///   Looks up a localized string similar to Include Anchor Word row info in the output? (Boolean Variable).
         /// </summary>
         public static string ExtractTextUntilBlankLine_IncludeAnchorWordsRow_Description {
             get {
@@ -1096,7 +1168,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search Results.
+        ///   Looks up a localized string similar to Search Results (Array of Strings).
         /// </summary>
         public static string ExtractTextUntilBlankLine_Results_Description {
             get {
@@ -1132,7 +1204,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Filter Array items using Filter Words (Array of Strings).
+        ///   Looks up a localized string similar to Filter Array items using Filter Words (Collection of Strings).
         /// </summary>
         public static string FindArrayItems_Description {
             get {
@@ -1141,7 +1213,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Display activity output in Output Pane.
+        ///   Looks up a localized string similar to Display Activity Output in the Ouput Pane.
         /// </summary>
         public static string FindArrayItems_DisplayLog_Description {
             get {
@@ -1186,7 +1258,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Words to be searched in Input Array (Array of Strings).
+        ///   Looks up a localized string similar to Words to be searched in the Input Array (Collection of Strings).
         /// </summary>
         public static string FindArrayItems_FilterWords_Description {
             get {
@@ -1222,7 +1294,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search Results.
+        ///   Looks up a localized string similar to Search Results (Array of Strings).
         /// </summary>
         public static string FindArrayItems_Results_Description {
             get {
@@ -1303,7 +1375,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Return if item was found in the Array (boolean Variable).
+        ///   Looks up a localized string similar to Return if item was found in the Array (Boolean Variable).
         /// </summary>
         public static string MatchItemInArray_IsFound_Description {
             get {
@@ -1321,7 +1393,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Words to be searched in the Array (Array of Strings).
+        ///   Looks up a localized string similar to Words to be searched in the Input Array (Collection of Strings).
         /// </summary>
         public static string MatchItemInArray_SearchWord_Description {
             get {
@@ -1528,7 +1600,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Display Activity Output in the Output Pane.
+        ///   Looks up a localized string similar to Display Activity Output in the Ouput Pane.
         /// </summary>
         public static string RemoveWords_DisplayLog_Description {
             get {
@@ -1591,7 +1663,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Words to be removed from input text, if found.
+        ///   Looks up a localized string similar to Words to be removed from input text (Collection of Strings).
         /// </summary>
         public static string RemoveWords_Words_Description {
             get {
@@ -1636,7 +1708,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Display Activity Output in Output Pane.
+        ///   Looks up a localized string similar to Display Activity Output in the Ouput Pane.
         /// </summary>
         public static string ReplaceWords_DisplayLog_Description {
             get {
@@ -1699,7 +1771,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Word to be replaced.
+        ///   Looks up a localized string similar to Words to be replaced (Collection of Strings).
         /// </summary>
         public static string ReplaceWords_SearchWord_Description {
             get {
@@ -1708,7 +1780,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search Word.
+        ///   Looks up a localized string similar to Search Words.
         /// </summary>
         public static string ReplaceWords_SearchWord_DisplayName {
             get {

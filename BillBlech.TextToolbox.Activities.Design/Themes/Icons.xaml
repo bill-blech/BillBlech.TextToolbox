@@ -1388,5 +1388,35 @@
     </DrawingGroup>
     <DrawingBrush x:Key="ReadTextFileEncondigIcon" Drawing="{StaticResource noteClean79b19f528f924c9f9dc30a04630fcfeb_0}" />
 
+    <!--DetectLanguage Icon-->
+    <DrawingGroup x:Key="searchabe3da613f3046fea8cd6fe7a8a2830f_0">
+      <DrawingGroup.ClipGeometry>
+        <RectangleGeometry Rect="0,0,511.998,511.998" />
+      </DrawingGroup.ClipGeometry>
+      <DrawingGroup>
+        <GeometryDrawing Brush="#FF949493">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M353.079,361.919C350.863,361.937,348.718,361.116,347.077,359.624L241.153,262.527C237.781,259.005 237.905,253.418 241.427,250.046 244.631,246.983 249.618,246.762 253.07,249.552L358.994,346.649C362.551,349.977 362.737,355.564 359.409,359.122 357.766,360.878 355.48,361.893 353.079,361.919z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF949493">
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="150.059" RadiusY="150.059" Center="150.059,150.063" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+      </DrawingGroup>
+      <GeometryDrawing Brush="#FFA1C8EC">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M150.059,264.823C86.681,264.823 35.308,213.45 35.308,150.072 35.308,86.694 86.681,35.321 150.059,35.321 213.437,35.321 264.81,86.694 264.81,150.072 264.81,213.45 213.436,264.823 150.059,264.823z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FF314A59">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M338.312,350.788L350.793,338.307C357.687,331.413,368.862,331.413,375.756,338.307L506.828,469.379C513.722,476.273,513.722,487.448,506.828,494.342L494.347,506.823C487.453,513.717,476.278,513.717,469.384,506.823L338.312,375.751C331.418,368.857,331.418,357.682,338.312,350.788z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingGroup>
+    <DrawingBrush x:Key="DetectLanguageIcon" Drawing="{StaticResource searchabe3da613f3046fea8cd6fe7a8a2830f_0}" />
+
 
 </ResourceDictionary>

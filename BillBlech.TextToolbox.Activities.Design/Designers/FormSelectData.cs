@@ -22,8 +22,9 @@ namespace ExcelTut
         string[] arrayAvailableItems = null;
         string MyIDText = null;
         string MyArgument = null;
+        string templateFilePath = null;
 
-        public FormSelectData(string MyArgument, string[] ArrayAvailableItems, string MyIDText)
+        public FormSelectData(string MyArgument, string TemplateFilePath, string MyIDText)
         {
             InitializeComponent();
 
@@ -34,7 +35,7 @@ namespace ExcelTut
             this.MyIDText = MyIDText;
 
             this.Show();
-            this.arrayAvailableItems = ArrayAvailableItems;
+            this.templateFilePath = TemplateFilePath;
 
             //Inicialize form procedures
             Inicialize_form_procedures();
@@ -45,23 +46,29 @@ namespace ExcelTut
         private void Inicialize_form_procedures()
         {
 
-            #region Available Items
-            //Loop throught the items
-            foreach (string str in arrayAvailableItems)
-            {
-                _itemsAvailableItems.Add(str);
-            }
+            //#region Available Items
+            ////Loop throught the items
+            //foreach (string str in arrayAvailableItems)
+            //{
+            //    _itemsAvailableItems.Add(str);
+            //}
 
-            //Update LstAvailableItems_Update
-            LstAvailableItems_Update();
-            #endregion
+            ////Update LstAvailableItems_Update
+            //LstAvailableItems_Update();
+            //#endregion
 
             #region Selected Items
 
             //Set Default
+            
+            //Selected Items
             this.groupLstSelectedItemsSelectionMulti.Checked = true;
             this.LstSelectedItems.SelectionMode = SelectionMode.MultiSimple;
             this.GroupLstSelectedItemsMoveItem.Visible = false;
+        
+            //Available Items
+            this.groupLstAvailableItemsSourceWords.Checked = true;
+
 
             //Read Text File
             string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
@@ -342,7 +349,7 @@ namespace ExcelTut
             }
 
             //Update ListBox
-            LstAvailableItems.Sorted = true;
+            //LstAvailableItems.Sorted = true;
             //LstAvailableItems.DataSource = null;
             //LstAvailableItems.DataSource = _itemsAvailableItens;
             LstAvailableItems.SelectedIndex = -1;
@@ -531,6 +538,51 @@ namespace ExcelTut
             this.GroupLstSelectedItemsMoveItem.Visible = false;
         }
 
+        //Source: Words
+        private void groupLstAvailableItemsSourceWords_CheckedChanged(object sender, EventArgs e)
+        {
+
+            //Clear Available Items
+            _itemsAvailableItems.Clear();
+
+            //Get Unique Words in File
+            arrayAvailableItems = DesignUtils.GetUniqueWordsInFile(templateFilePath);
+
+            //Sort Array
+            Array.Sort(arrayAvailableItems);
+
+            //Loop throught the items
+            foreach (string str in arrayAvailableItems)
+            {
+                _itemsAvailableItems.Add(str);
+            }
+
+            //Update LstAvailableItems_Update
+            LstAvailableItems_Update();
+
+        }
+
+        //Source: Lines
+        private void groupLstAvailableItemsSourceLines_CheckedChanged(object sender, EventArgs e)
+        {
+
+            //Clear Available Items
+            _itemsAvailableItems.Clear();
+
+            string InputText = System.IO.File.ReadAllText(templateFilePath);
+            arrayAvailableItems = Utils.SplitTextNewLine(InputText);
+
+            //Loop throught the items
+            foreach (string str in arrayAvailableItems)
+            {
+                _itemsAvailableItems.Add(str);
+            }
+
+            //Update LstAvailableItems_Update
+            LstAvailableItems_Update();
+
+        }
+
         //Copy Data to the ClipBoard
         private void btnCopyToClipBoard_Click(object sender, EventArgs e)
         {
@@ -705,5 +757,7 @@ namespace ExcelTut
 
 
         }
+
+        
     }
 }

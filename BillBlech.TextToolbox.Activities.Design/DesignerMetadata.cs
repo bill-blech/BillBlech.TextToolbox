@@ -95,6 +95,10 @@ namespace BillBlech.TextToolbox.Activities.Design
             builder.AddCustomAttributes(typeof(ReadTextFileEncondig), new DesignerAttribute(typeof(ReadTextFileEncondigDesigner)));
             builder.AddCustomAttributes(typeof(ReadTextFileEncondig), new HelpKeywordAttribute(""));
 
+            builder.AddCustomAttributes(typeof(DetectLanguage), categoryAttribute);
+            builder.AddCustomAttributes(typeof(DetectLanguage), new DesignerAttribute(typeof(DetectLanguageDesigner)));
+            builder.AddCustomAttributes(typeof(DetectLanguage), new HelpKeywordAttribute(""));
+
 
             MetadataStore.AddAttributeTable(builder.CreateTable());
         }

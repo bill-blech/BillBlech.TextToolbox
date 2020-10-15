@@ -339,7 +339,7 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             {
 
                 //Write Excel File Sheets to Text File in Storage
-                DesignUtils.WriteTextFileSingleFile(FileFullPath, MyIDText);
+                DesignUtils.WriteTextFileSingleFile(FilePath, MyIDText);
 
             }
 

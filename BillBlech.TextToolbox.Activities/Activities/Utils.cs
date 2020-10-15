@@ -1729,7 +1729,7 @@ namespace BillBlech.TextToolbox.Activities.Activities
 
                 //Write Log Message
                 if (displayLog == true)
-                    WriteLogMessage("'" + SearchWord + "' counter :" + Counter);
+                    WriteLogMessage("'" + SearchWord + "' counter: " + Counter);
 
                 if (Counter >= 1)
                 {

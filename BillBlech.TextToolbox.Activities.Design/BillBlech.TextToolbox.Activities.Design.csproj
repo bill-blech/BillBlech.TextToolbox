@@ -32,6 +32,7 @@
   <ItemGroup>
     <None Remove="Designers\CountWordsInTextDesigner.xaml" />
     <None Remove="Designers\DecryptValueDesigner.xaml" />
+    <None Remove="Designers\DetectLanguageDesigner.xaml" />
     <None Remove="Designers\EncryptValueDesigner.xaml" />
     <None Remove="Designers\ExtractAllCharactersUntilNextLetterDesigner.xaml" />
     <None Remove="Designers\ExtractAllCharactersUntilWhiteSpaceDesigner.xaml" />
@@ -61,6 +62,7 @@
 	<Resource Include="Resources\SelectText.png" Pack="true" PackagePath="/Resource/SelectText.png" />
 	<Resource Include="Resources\report2.png" Pack="true" PackagePath="/Resource/report2.png" />
 	<Resource Include="Resources\MenuIcon.png" Pack="true" PackagePath="/Resource/MenuIcon.png" />
+	  
 	  
   </ItemGroup>
   <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="BuildOnlySettings;ResolveReferences">
@@ -110,6 +112,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </Page>
     <Page Include="Designers\DecryptValueDesigner.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </Page>
+    <Page Include="Designers\DetectLanguageDesigner.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </Page>
     <Page Include="Designers\EncryptValueDesigner.xaml">

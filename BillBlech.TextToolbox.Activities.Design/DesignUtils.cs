@@ -62,21 +62,20 @@ namespace BillBlech.TextToolbox.Activities.Design
 
             return MyIDText;
 
-
         }
 
         //Write Text Files
-        public static void WriteTextFileSingleFile(string FileFullPath, string MyIDText)
+        public static void WriteTextFileSingleFile(string FilePath, string MyIDText)
         {
 
             //Get the File Name
-            string fileName = Path.GetFileNameWithoutExtension(FileFullPath);
+            string fileName = Path.GetFileNameWithoutExtension(FilePath);
 
             //File Path
-            System.IO.File.WriteAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/FileNames/" + fileName + ".txt", FileFullPath);
+            System.IO.File.WriteAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/FileNames/" + fileName + ".txt", FilePath);
 
             //File Path for Preview
-            System.IO.File.WriteAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/FilePathPreview/" + MyIDText + ".txt", FileFullPath);
+            System.IO.File.WriteAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/FilePathPreview/" + MyIDText + ".txt", FilePath);
 
         }
 
@@ -172,18 +171,18 @@ namespace BillBlech.TextToolbox.Activities.Design
         }
 
         //Open Form Select Data Open
-        public static void CallformSelectDataOpen(string Label, string MyIDText, string FilePath)
+        public static void CallformSelectDataOpen(string Label, string MyIDText, string TemplateFilePath)
         {
 
-            ////Get File Path
-            //string FilePath = System.IO.File.ReadAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFile.txt");
-
             //Get Unique Words in File
-            string[] ArrayAvailableItems = GetUniqueWordsInFile(FilePath);
+            //string[] ArrayAvailableItems = GetUniqueWordsInFile(FilePath);
+
+            //string InputText = System.IO.File.ReadAllText(FilePath);
+            //string[] ArrayAvailableItems = Utils.SplitTextNewLine(InputText);
 
             //Open Form
             FormSelectData formSelectData;
-            formSelectData = new FormSelectData(Label, ArrayAvailableItems, MyIDText);
+            formSelectData = new FormSelectData(Label, TemplateFilePath, MyIDText);
             formSelectData.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             formSelectData.ControlBox = false;
             formSelectData.Show();

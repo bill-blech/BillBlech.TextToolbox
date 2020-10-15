@@ -222,7 +222,7 @@
     <comment>property name</comment>
   </data>
   <data name="CountWordsInText_SearchWords_Description" xml:space="preserve">
-    <value>Words to be searched (Array of Strings)</value>
+    <value>Words to be searched (Collection of Strings)</value>
     <comment>property description</comment>
   </data>
   <data name="CountWordsInText_Percentage_DisplayName" xml:space="preserve">
@@ -302,7 +302,7 @@
     <comment>property name</comment>
   </data>
   <data name="ExtractAllLinesBelowAnchorText_AnchorText_Description" xml:space="preserve">
-    <value>Anchor Words to be searched in Input Text (Array of Strings)</value>
+    <value>Anchor Words to be searched in Input Text (Collection of Strings)</value>
     <comment>property description</comment>
   </data>
   <data name="ExtractAllLinesBelowAnchorText_Results_DisplayName" xml:space="preserve">
@@ -310,7 +310,7 @@
     <comment>property name</comment>
   </data>
   <data name="ExtractAllLinesBelowAnchorText_Results_Description" xml:space="preserve">
-    <value>Search Results</value>
+    <value>Search Results (Array of Strings)</value>
     <comment>property description</comment>
   </data>
   <data name="ExtractAllLinesBelowAnchorText_DisplayLog_DisplayName" xml:space="preserve">
@@ -318,7 +318,7 @@
     <comment>property name</comment>
   </data>
   <data name="ExtractAllLinesBelowAnchorText_DisplayLog_Description" xml:space="preserve">
-    <value>Display activity output in Ouput Pane</value>
+    <value>Display Activity Output in the Ouput Pane</value>
     <comment>property description</comment>
   </data>
   <data name="ExtractAllLinesBelowAnchorText_DisplayRegex_DisplayName" xml:space="preserve">
@@ -350,7 +350,7 @@
     <comment>property name</comment>
   </data>
   <data name="ExtractTextBelowAnchorWords_AnchorWords_Description" xml:space="preserve">
-    <value>Anchor Words to be searched in Input Text (Array of Strings)</value>
+    <value>Anchor Words to be searched in Input Text (Collection of Strings)</value>
     <comment>property description</comment>
   </data>
   <data name="ExtractTextBelowAnchorWords_Results_DisplayName" xml:space="preserve">
@@ -358,7 +358,7 @@
     <comment>property name</comment>
   </data>
   <data name="ExtractTextBelowAnchorWords_Results_Description" xml:space="preserve">
-    <value>Search Results</value>
+    <value>Search Results (Array of Strings)</value>
     <comment>property description</comment>
   </data>
   <data name="ExtractTextBelowAnchorWords_DisplayLog_DisplayName" xml:space="preserve">
@@ -366,7 +366,7 @@
     <comment>property name</comment>
   </data>
   <data name="ExtractTextBelowAnchorWords_DisplayLog_Description" xml:space="preserve">
-    <value>Display activity output in Output Pane</value>
+    <value>Display Activity Output in the Ouput Pane</value>
     <comment>property description</comment>
   </data>
   <data name="ExtractTextBelowAnchorWords_DisplayRegex_DisplayName" xml:space="preserve">
@@ -374,7 +374,7 @@
     <comment>property name</comment>
   </data>
   <data name="ExtractTextBelowAnchorWords_DisplayRegex_Description" xml:space="preserve">
-    <value>Display Regex Empression</value>
+    <value>Display Regex Expression</value>
     <comment>property description</comment>
   </data>
   <data name="ExtractTextBelowAnchorWords_LinesNumber_DisplayName" xml:space="preserve">
@@ -398,7 +398,7 @@
     <comment>property name</comment>
   </data>
   <data name="ExtractTextBetweenTwoAnchorWords_BegWords_Description" xml:space="preserve">
-    <value>Beggining words to be searched</value>
+    <value>Beggining words to be searched (Collection of Strings)</value>
     <comment>property description</comment>
   </data>
   <data name="ExtractTextBetweenTwoAnchorWords_EndWords_DisplayName" xml:space="preserve">
@@ -406,7 +406,7 @@
     <comment>property name</comment>
   </data>
   <data name="ExtractTextBetweenTwoAnchorWords_EndWords_Description" xml:space="preserve">
-    <value>Ending words to be searched, leave it null in case it is the end of the row</value>
+    <value>Ending words to be searched (Collection of Strings), leave it null in case it is the end of the row</value>
     <comment>property description</comment>
   </data>
   <data name="ExtractTextBetweenTwoAnchorWords_RegexParameter_DisplayName" xml:space="preserve">
@@ -422,7 +422,7 @@
     <comment>property name</comment>
   </data>
   <data name="ExtractTextBetweenTwoAnchorWords_DisplayLog_Description" xml:space="preserve">
-    <value>Display activity output in Output Pane</value>
+    <value>Display Activity Output in the Ouput Pane</value>
     <comment>property description</comment>
   </data>
   <data name="ExtractTextBetweenTwoAnchorWords_DisplatyRegex_DisplayName" xml:space="preserve">
@@ -438,7 +438,7 @@
     <comment>property name</comment>
   </data>
   <data name="ExtractTextBetweenTwoAnchorWords_Results_Description" xml:space="preserve">
-    <value>Search Results</value>
+    <value>Search Results (Array of Strings)</value>
     <comment>property description</comment>
   </data>
   <data name="ExtractTextAboveAnchorWords_DisplayName" xml:space="preserve">
@@ -454,7 +454,7 @@
     <comment>property name</comment>
   </data>
   <data name="ExtractTextAboveAnchorWords_AnchorWords_Description" xml:space="preserve">
-    <value>Anchor Words to be searched in Input Text (Array of Strings)</value>
+    <value>Anchor Words to be searched in Input Text (Collection of Strings)</value>
     <comment>property description</comment>
   </data>
   <data name="ExtractTextAboveAnchorWords_Results_DisplayName" xml:space="preserve">
@@ -462,7 +462,7 @@
     <comment>property name</comment>
   </data>
   <data name="ExtractTextAboveAnchorWords_Results_Description" xml:space="preserve">
-    <value>Search Results</value>
+    <value>Search Results (Array of Strings)</value>
     <comment>property description</comment>
   </data>
   <data name="ExtractTextAboveAnchorWords_DisplayLog_DisplayName" xml:space="preserve">
@@ -470,7 +470,7 @@
     <comment>property name</comment>
   </data>
   <data name="ExtractTextAboveAnchorWords_DisplayLog_Description" xml:space="preserve">
-    <value>Display activity output in Output Pane</value>
+    <value>Display Activity Output in the Ouput Pane</value>
     <comment>property description</comment>
   </data>
   <data name="ExtractTextAboveAnchorWords_DisplayRegex_DisplayName" xml:space="preserve">
@@ -478,7 +478,7 @@
     <comment>property name</comment>
   </data>
   <data name="ExtractTextAboveAnchorWords_DisplayRegex_Description" xml:space="preserve">
-    <value>Display Regex Empression</value>
+    <value>Display Regex Expression</value>
     <comment>property description</comment>
   </data>
   <data name="ExtractTextAboveAnchorWords_LinesNumber_DisplayName" xml:space="preserve">
@@ -518,7 +518,7 @@
     <comment>property name</comment>
   </data>
   <data name="ExtractTextUntilBlankLine_AnchorWords_Description" xml:space="preserve">
-    <value>Anchor Words to be searched in Input Text (Array of Strings)</value>
+    <value>Anchor Words to be searched in Input Text (Collection of Strings)</value>
     <comment>property description</comment>
   </data>
   <data name="ExtractTextUntilBlankLine_AnchorWordsParameter_DisplayName" xml:space="preserve">
@@ -542,7 +542,7 @@
     <comment>property name</comment>
   </data>
   <data name="ExtractTextUntilBlankLine_IncludeAnchorWordsRow_Description" xml:space="preserve">
-    <value>Include Anchor Word row info in the output?</value>
+    <value>Include Anchor Word row info in the output? (Boolean Variable)</value>
     <comment>property description</comment>
   </data>
   <data name="ExtractTextUntilBlankLine_Results_DisplayName" xml:space="preserve">
@@ -550,7 +550,7 @@
     <comment>property name</comment>
   </data>
   <data name="ExtractTextUntilBlankLine_Results_Description" xml:space="preserve">
-    <value>Search Results</value>
+    <value>Search Results (Array of Strings)</value>
     <comment>property description</comment>
   </data>
   <data name="ExtractTextUntilBlankLine_DisplayLog_DisplayName" xml:space="preserve">
@@ -558,7 +558,7 @@
     <comment>property name</comment>
   </data>
   <data name="ExtractTextUntilBlankLine_DisplayLog_Description" xml:space="preserve">
-    <value>Display Activity Output in the Output Pane</value>
+    <value>Display Activity Output in the Ouput Pane</value>
     <comment>property description</comment>
   </data>
   <data name="ExtractTextUntilBlankLine_DisplayRegex_DisplayName" xml:space="preserve">
@@ -566,7 +566,7 @@
     <comment>property name</comment>
   </data>
   <data name="ExtractTextUntilBlankLine_DisplayRegex_Description" xml:space="preserve">
-    <value>Display Regex Empression</value>
+    <value>Display Regex Expression</value>
     <comment>property description</comment>
   </data>
   <data name="RemoveWords_DisplayName" xml:space="preserve">
@@ -582,7 +582,7 @@
     <comment>property name</comment>
   </data>
   <data name="RemoveWords_Words_Description" xml:space="preserve">
-    <value>Words to be removed from input text, if found</value>
+    <value>Words to be removed from input text (Collection of Strings)</value>
     <comment>property description</comment>
   </data>
   <data name="RemoveWords_Occurrences_DisplayName" xml:space="preserve">
@@ -606,7 +606,7 @@
     <comment>property name</comment>
   </data>
   <data name="RemoveWords_DisplayLog_Description" xml:space="preserve">
-    <value>Display Activity Output in the Output Pane</value>
+    <value>Display Activity Output in the Ouput Pane</value>
     <comment>property description</comment>
   </data>
   <data name="RemoveWords_AdjustText_Description" xml:space="preserve">
@@ -722,11 +722,11 @@
     <comment>activity description</comment>
   </data>
   <data name="ReplaceWords_SearchWord_DisplayName" xml:space="preserve">
-    <value>Search Word</value>
+    <value>Search Words</value>
     <comment>property name</comment>
   </data>
   <data name="ReplaceWords_SearchWord_Description" xml:space="preserve">
-    <value>Word to be replaced</value>
+    <value>Words to be replaced (Collection of Strings)</value>
     <comment>property description</comment>
   </data>
   <data name="ReplaceWords_ReplacedWord_DisplayName" xml:space="preserve">
@@ -758,7 +758,7 @@
     <comment>property name</comment>
   </data>
   <data name="ReplaceWords_DisplayLog_Description" xml:space="preserve">
-    <value>Display Activity Output in Output Pane</value>
+    <value>Display Activity Output in the Ouput Pane</value>
     <comment>property description</comment>
   </data>
   <data name="ReplaceWords_AdjustedText_DisplayName" xml:space="preserve">
@@ -782,7 +782,7 @@
     <comment>property name</comment>
   </data>
   <data name="ExtractAllCharactersUntilWhiteSpace_Results_Description" xml:space="preserve">
-    <value>Search Results</value>
+    <value>Search Results (Array of Strings)</value>
     <comment>property description</comment>
   </data>
   <data name="ExtractAllCharactersUntilWhiteSpace_DisplayLog_DisplayName" xml:space="preserve">
@@ -790,7 +790,7 @@
     <comment>property name</comment>
   </data>
   <data name="ExtractAllCharactersUntilWhiteSpace_DisplayLog_Description" xml:space="preserve">
-    <value>Display activity output in Output Pane</value>
+    <value>Display Activity Output in the Ouput Pane</value>
     <comment>property description</comment>
   </data>
   <data name="ExtractAllCharactersUntilWhiteSpace_DisplayRegex_DisplayName" xml:space="preserve">
@@ -806,7 +806,7 @@
     <comment>property name</comment>
   </data>
   <data name="ExtractAllCharactersUntilWhiteSpace_AnchorWords_Description" xml:space="preserve">
-    <value>Anchor Words to be searched in Input Text (Array of Strings)</value>
+    <value>Anchor Words to be searched in Input Text (Collection of Strings)</value>
     <comment>property description</comment>
   </data>
   <data name="SuppressNulls_Description" xml:space="preserve">
@@ -822,7 +822,7 @@
     <comment>activity name</comment>
   </data>
   <data name="FindArrayItems_Description" xml:space="preserve">
-    <value>Filter Array items using Filter Words (Array of Strings)</value>
+    <value>Filter Array items using Filter Words (Collection of Strings)</value>
     <comment>activity description</comment>
   </data>
   <data name="FindArrayItems_FilterWords_DisplayName" xml:space="preserve">
@@ -830,7 +830,7 @@
     <comment>property name</comment>
   </data>
   <data name="FindArrayItems_FilterWords_Description" xml:space="preserve">
-    <value>Words to be searched in Input Array (Array of Strings)</value>
+    <value>Words to be searched in the Input Array (Collection of Strings)</value>
     <comment>property description</comment>
   </data>
   <data name="FindArrayItems_DisplayLog_DisplayName" xml:space="preserve">
@@ -838,7 +838,7 @@
     <comment>property name</comment>
   </data>
   <data name="FindArrayItems_DisplayLog_Description" xml:space="preserve">
-    <value>Display activity output in Output Pane</value>
+    <value>Display Activity Output in the Ouput Pane</value>
     <comment>property description</comment>
   </data>
   <data name="FindArrayItems_DisplayRegex_DisplayName" xml:space="preserve">
@@ -854,7 +854,7 @@
     <comment>property name</comment>
   </data>
   <data name="FindArrayItems_Results_Description" xml:space="preserve">
-    <value>Search Results</value>
+    <value>Search Results (Array of Strings)</value>
     <comment>property description</comment>
   </data>
   <data name="FindArrayItems_AnchorWordsParameters_DisplayName" xml:space="preserve">
@@ -894,7 +894,7 @@
     <comment>property name</comment>
   </data>
   <data name="MatchItemInArray_SearchWord_Description" xml:space="preserve">
-    <value>Words to be searched in the Array (Array of Strings)</value>
+    <value>Words to be searched in the Input Array (Collection of Strings)</value>
     <comment>property description</comment>
   </data>
   <data name="MatchItemInArray_IsFound_DisplayName" xml:space="preserve">
@@ -902,7 +902,7 @@
     <comment>property name</comment>
   </data>
   <data name="MatchItemInArray_IsFound_Description" xml:space="preserve">
-    <value>Return if item was found in the Array (boolean Variable)</value>
+    <value>Return if item was found in the Array (Boolean Variable)</value>
     <comment>property description</comment>
   </data>
   <data name="ExtractAllCharactersUntilNextLetter_DisplayName" xml:space="preserve">
@@ -918,7 +918,7 @@
     <comment>property name</comment>
   </data>
   <data name="ExtractAllCharactersUntilNextLetter_AnchorWords_Description" xml:space="preserve">
-    <value>Anchor Words to be searched in Input Text (Array of Strings)</value>
+    <value>Anchor Words to be searched in Input Text (Collection of Strings)</value>
     <comment>property description</comment>
   </data>
   <data name="ExtractAllCharactersUntilNextLetter_DisplayLog_DisplayName" xml:space="preserve">
@@ -926,7 +926,7 @@
     <comment>property name</comment>
   </data>
   <data name="ExtractAllCharactersUntilNextLetter_DisplayLog_Description" xml:space="preserve">
-    <value>Display activity output in Output Pane</value>
+    <value>Display Activity Output in the Ouput Pane</value>
     <comment>property description</comment>
   </data>
   <data name="ExtractAllCharactersUntilNextLetter_DisplayRegex_DisplayName" xml:space="preserve">
@@ -942,7 +942,7 @@
     <comment>property name</comment>
   </data>
   <data name="ExtractAllCharactersUntilNextLetter_Results_Description" xml:space="preserve">
-    <value>Search Resutls</value>
+    <value>Search Resutls (Array of Strings)</value>
     <comment>property description</comment>
   </data>
   <data name="ReadTextFileEncondig_DisplayName" xml:space="preserve">
@@ -984,5 +984,85 @@
   <data name="ReadTextFileEncondig_DisplayLog_Description" xml:space="preserve">
     <value>Display Activity in Output Pane</value>
     <comment>property description</comment>
+  </data>
+  <data name="Authentication_Category" xml:space="preserve">
+    <value>Authentication</value>
+    <comment>category</comment>
+  </data>
+  <data name="Common_Category" xml:space="preserve">
+    <value>Common</value>
+    <comment>category</comment>
+  </data>
+  <data name="Input_Category" xml:space="preserve">
+    <value>Input</value>
+    <comment>category</comment>
+  </data>
+  <data name="Output_Category" xml:space="preserve">
+    <value>Output</value>
+    <comment>category</comment>
+  </data>
+  <data name="Options_Category" xml:space="preserve">
+    <value>Options</value>
+    <comment>category</comment>
+  </data>
+  <data name="ValidationScope_Error" xml:space="preserve">
+    <value>Cannot be used outside of a {0}.</value>
+    <comment>error message; {0} is a container activity (e.g. a scope)</comment>
+  </data>
+  <data name="ValidationValue_Error" xml:space="preserve">
+    <value>Please provide a value for {0}.</value>
+    <comment>error message; {0} is the name of a missing property</comment>
+  </data>
+  <data name="ValidationExclusiveProperties_Error" xml:space="preserve">
+    <value>Please provide a value either for {0} or {1}, but not both.</value>
+    <comment>error message; {0} &amp; {1} are mutually exclusive activities</comment>
+  </data>
+  <data name="ValidationOverloadGroup_Error" xml:space="preserve">
+    <value>Please provide values for both {0} and {1}.</value>
+    <comment>error message; {0} &amp; {1} are complementary properties</comment>
+  </data>
+  <data name="DetectLanguage_DisplayName" xml:space="preserve">
+    <value>Detect Language</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="DetectLanguage_Description" xml:space="preserve">
+    <value>Language detection using https://github.com/ivanakcheurov/ntextcat</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="DetectLanguage_InputText_DisplayName" xml:space="preserve">
+    <value>Input Text</value>
+    <comment>property name</comment>
+  </data>
+  <data name="DetectLanguage_InputText_Description" xml:space="preserve">
+    <value>Text to be classified</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Input_Category" xml:space="preserve">
+    <value>Input</value>
+    <comment>category</comment>
+  </data>
+  <data name="DetectLanguage_ConfigFile_DisplayName" xml:space="preserve">
+    <value>Config File</value>
+    <comment>property name</comment>
+  </data>
+  <data name="DetectLanguage_ConfigFile_Description" xml:space="preserve">
+    <value>Specific Config File for this activitiy, it is available in the Git link</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Input_Category" xml:space="preserve">
+    <value>Input</value>
+    <comment>category</comment>
+  </data>
+  <data name="DetectLanguage_Language_DisplayName" xml:space="preserve">
+    <value>Language</value>
+    <comment>property name</comment>
+  </data>
+  <data name="DetectLanguage_Language_Description" xml:space="preserve">
+    <value>Language for the Input Text</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Output_Category" xml:space="preserve">
+    <value>Output</value>
+    <comment>category</comment>
   </data>
 </root>

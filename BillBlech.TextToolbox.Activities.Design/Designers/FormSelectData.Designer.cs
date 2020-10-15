@@ -54,6 +54,9 @@
             this.txtManual = new System.Windows.Forms.TextBox();
             this.groupActions = new System.Windows.Forms.GroupBox();
             this.btnPaste = new System.Windows.Forms.Button();
+            this.groupLstAvailableItemsSource = new System.Windows.Forms.GroupBox();
+            this.groupLstAvailableItemsSourceLines = new System.Windows.Forms.RadioButton();
+            this.groupLstAvailableItemsSourceWords = new System.Windows.Forms.RadioButton();
             this.groupLstSelectedItemsSelection.SuspendLayout();
             this.GroupLstSelectedItemsMoveItem.SuspendLayout();
             this.groupLstSelectedItemsMergeSplit.SuspendLayout();
@@ -61,6 +64,7 @@
             this.groupBoxSelectedItems.SuspendLayout();
             this.groupBoxManual.SuspendLayout();
             this.groupActions.SuspendLayout();
+            this.groupLstAvailableItemsSource.SuspendLayout();
             this.SuspendLayout();
             // 
             // LstAvailableItems
@@ -88,7 +92,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(241, 123);
+            this.btnAdd.Location = new System.Drawing.Point(230, 174);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(64, 23);
             this.btnAdd.TabIndex = 2;
@@ -99,7 +103,7 @@
             // 
             // btnRemove
             // 
-            this.btnRemove.Location = new System.Drawing.Point(241, 157);
+            this.btnRemove.Location = new System.Drawing.Point(230, 208);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(64, 23);
             this.btnRemove.TabIndex = 3;
@@ -176,7 +180,7 @@
             // 
             // btnReset
             // 
-            this.btnReset.Location = new System.Drawing.Point(241, 89);
+            this.btnReset.Location = new System.Drawing.Point(230, 140);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(64, 23);
             this.btnReset.TabIndex = 12;
@@ -336,11 +340,47 @@
             this.btnPaste.UseVisualStyleBackColor = true;
             this.btnPaste.Click += new System.EventHandler(this.btnPaste_Click);
             // 
+            // groupLstAvailableItemsSource
+            // 
+            this.groupLstAvailableItemsSource.Controls.Add(this.groupLstAvailableItemsSourceLines);
+            this.groupLstAvailableItemsSource.Controls.Add(this.groupLstAvailableItemsSourceWords);
+            this.groupLstAvailableItemsSource.Location = new System.Drawing.Point(230, 15);
+            this.groupLstAvailableItemsSource.Name = "groupLstAvailableItemsSource";
+            this.groupLstAvailableItemsSource.Size = new System.Drawing.Size(76, 77);
+            this.groupLstAvailableItemsSource.TabIndex = 22;
+            this.groupLstAvailableItemsSource.TabStop = false;
+            this.groupLstAvailableItemsSource.Text = "Source";
+            // 
+            // groupLstAvailableItemsSourceLines
+            // 
+            this.groupLstAvailableItemsSourceLines.AutoSize = true;
+            this.groupLstAvailableItemsSourceLines.Location = new System.Drawing.Point(6, 47);
+            this.groupLstAvailableItemsSourceLines.Name = "groupLstAvailableItemsSourceLines";
+            this.groupLstAvailableItemsSourceLines.Size = new System.Drawing.Size(50, 17);
+            this.groupLstAvailableItemsSourceLines.TabIndex = 3;
+            this.groupLstAvailableItemsSourceLines.TabStop = true;
+            this.groupLstAvailableItemsSourceLines.Text = "Lines";
+            this.groupLstAvailableItemsSourceLines.UseVisualStyleBackColor = true;
+            this.groupLstAvailableItemsSourceLines.CheckedChanged += new System.EventHandler(this.groupLstAvailableItemsSourceLines_CheckedChanged);
+            // 
+            // groupLstAvailableItemsSourceWords
+            // 
+            this.groupLstAvailableItemsSourceWords.AutoSize = true;
+            this.groupLstAvailableItemsSourceWords.Location = new System.Drawing.Point(6, 24);
+            this.groupLstAvailableItemsSourceWords.Name = "groupLstAvailableItemsSourceWords";
+            this.groupLstAvailableItemsSourceWords.Size = new System.Drawing.Size(56, 17);
+            this.groupLstAvailableItemsSourceWords.TabIndex = 2;
+            this.groupLstAvailableItemsSourceWords.TabStop = true;
+            this.groupLstAvailableItemsSourceWords.Text = "Words";
+            this.groupLstAvailableItemsSourceWords.UseVisualStyleBackColor = true;
+            this.groupLstAvailableItemsSourceWords.CheckedChanged += new System.EventHandler(this.groupLstAvailableItemsSourceWords_CheckedChanged);
+            // 
             // FormSelectData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(655, 478);
+            this.ClientSize = new System.Drawing.Size(655, 391);
+            this.Controls.Add(this.groupLstAvailableItemsSource);
             this.Controls.Add(this.groupActions);
             this.Controls.Add(this.groupBoxManual);
             this.Controls.Add(this.groupBoxSelectedItems);
@@ -367,6 +407,8 @@
             this.groupBoxManual.ResumeLayout(false);
             this.groupBoxManual.PerformLayout();
             this.groupActions.ResumeLayout(false);
+            this.groupLstAvailableItemsSource.ResumeLayout(false);
+            this.groupLstAvailableItemsSource.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -399,5 +441,8 @@
         private System.Windows.Forms.Button btnManualAdd;
         private System.Windows.Forms.GroupBox groupActions;
         private System.Windows.Forms.Button btnPaste;
+        private System.Windows.Forms.GroupBox groupLstAvailableItemsSource;
+        private System.Windows.Forms.RadioButton groupLstAvailableItemsSourceLines;
+        private System.Windows.Forms.RadioButton groupLstAvailableItemsSourceWords;
     }
 }
