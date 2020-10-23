@@ -80,7 +80,7 @@ namespace BillBlech.TextToolbox.Activities
 
             ///////////////////////////
             // Add execution logic HERE
-            String OutputString = Utils.ReadTextFileEncoding(fileName, Strencoding);
+            String OutputString = Utils.ReadTextFileEncoding(fileName, Strencoding, displayLog);
             ///////////////////////////
 
             // Outputs

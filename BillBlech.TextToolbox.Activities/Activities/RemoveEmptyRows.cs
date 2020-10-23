@@ -28,6 +28,11 @@ namespace BillBlech.TextToolbox.Activities
         [LocalizedCategory(nameof(Resources.Input_Category))]
         public InArgument<string> InputTextRow { get; set; }
 
+        [LocalizedDisplayName(nameof(Resources.ReadTextFileEncondig_Encoding_DisplayName))]
+        [LocalizedDescription(nameof(Resources.ReadTextFileEncondig_Encoding_Description))]
+        [LocalizedCategory(nameof(Resources.Options_Category))]
+        public InArgument<string> Encoding { get; set; }
+
         [LocalizedDisplayName(nameof(Resources.RemoveEmptyRows_AdjustedTextRow_DisplayName))]
         [LocalizedDescription(nameof(Resources.RemoveEmptyRows_AdjustedTextRow_Description))]
         [LocalizedCategory(nameof(Resources.Output_Category))]
@@ -60,6 +65,7 @@ namespace BillBlech.TextToolbox.Activities
         protected override void CacheMetadata(CodeActivityMetadata metadata)
         {
             if (InputTextRow == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(InputTextRow)));
+            if (Encoding == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(Encoding)));
             if (AdjustedTextRow == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(AdjustedTextRow)));
 
             base.CacheMetadata(metadata);

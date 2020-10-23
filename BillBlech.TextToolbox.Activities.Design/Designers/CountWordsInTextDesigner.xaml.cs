@@ -7,6 +7,7 @@ using System.Activities.Presentation.Model;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -112,6 +113,39 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                 //Start Context Menu
                 ContextMenu cm = new ContextMenu();
 
+                //Create New IDText
+                System.Windows.Controls.MenuItem menuCreateNewIDText = new System.Windows.Controls.MenuItem();
+
+                menuCreateNewIDText.Header = "Create New ID";
+                menuCreateNewIDText.Click += CreateNewIDText;
+                menuCreateNewIDText.ToolTip = "Create New IDText";
+                //Add Icon to the uri_menuItem
+                var uri_CreateNewIDText = new System.Uri("https://img.icons8.com/officexs/20/000000/add-file.png");
+                var bitmap_CreateNewIDText = new BitmapImage(uri_CreateNewIDText);
+                var image_CreateNewIDText = new Image();
+                image_CreateNewIDText.Source = bitmap_CreateNewIDText;
+                menuCreateNewIDText.Icon = image_CreateNewIDText;
+
+                cm.Items.Add(menuCreateNewIDText);
+
+                //Add Separator
+                cm.Items.Add(new Separator());
+
+                //Paste from the CLipboard
+                System.Windows.Controls.MenuItem menuPaste = new System.Windows.Controls.MenuItem();
+
+                menuPaste.Header = "Paste";
+                menuPaste.Click += Button_PasteFromClipboard;
+                menuPaste.ToolTip = "Paste from the Clipboard";
+                //Add Icon to the uri_menuItem
+                var uri_menuPaste = new System.Uri("https://img.icons8.com/cotton/20/000000/clipboard--v5.png");
+                var bitmap_menuPaste = new BitmapImage(uri_menuPaste);
+                var image_menuPaste = new Image();
+                image_menuPaste.Source = bitmap_menuPaste;
+                menuPaste.Icon = image_menuPaste;
+
+                cm.Items.Add(menuPaste);
+
                 //Wizard
                 System.Windows.Controls.MenuItem menuWizard = new System.Windows.Controls.MenuItem();
 
@@ -169,8 +203,14 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             //Get File Path
             string FilePath = System.IO.File.ReadAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFile.txt");
 
+            //Return IDText Parent
+            string MyIDTextParent = DesignUtils.ReturnCurrentFileIDText();
+
+            //Get Encoding
+            Encoding encoding = DesignUtils.GetEncodingIDText(MyIDTextParent);
+
             //Open Form Select Data
-            DesignUtils.CallformSelectDataOpen(MyArgument, MyIDText, FilePath);
+            DesignUtils.CallformSelectDataOpen(MyArgument, MyIDText, FilePath, MyIDTextParent, encoding);
 
         }
 
@@ -181,15 +221,22 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             string FilePath = null;
             string Source = null;
             double PercResults = 0;
+            Encoding encoding = Encoding.Default;
 
-            //Read Data from Current File
+            //Return IDText Parent
+            string MyIDTextParent = DesignUtils.ReturnCurrentFileIDText();
+
+            //Get Encoding
+            encoding = DesignUtils.GetEncodingIDText(MyIDTextParent);
+
+            //Get the Current File
             FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFile.txt";
             Source = System.IO.File.ReadAllText(FilePath);
-            string inputText = System.IO.File.ReadAllText(Source);
+            string inputText = System.IO.File.ReadAllText(Source,encoding);
 
             //Get File Path
             FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
-            Source = System.IO.File.ReadAllText(FilePath);
+            Source = System.IO.File.ReadAllText(FilePath, encoding);
 
             //Check if all Parameters are in the File
             string[] searchWords = { "Search Words" + Utils.DefaultSeparator()};
@@ -219,13 +266,54 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             {
                 //Delete Argument in case it is null
                 MyArgument = "Search Words";
-                DesignUtils.DeleteTextFileRowArgument(FilePath, MyArgument);
+                DesignUtils.DeleteTextFileRowArgument(FilePath, MyArgument,encoding);
 
                 //Error Message
                 MessageBox.Show("Please fill in all arguments", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
             }
             
+        }
+
+        //Create New TextID
+        private void CreateNewIDText(object sender, RoutedEventArgs e)
+        {
+            //Get the File Path
+            string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
+
+            //Clear the Current IDText
+            ModelProperty property = this.ModelItem.Properties["IDText"];
+            property.SetValue(null);
+
+            //Update IDText
+            UpdateIDText();
+
+        }
+
+        //Paste to from the Clipboard
+        private void Button_PasteFromClipboard(object sender, RoutedEventArgs e)
+        {
+
+            Encoding encoding = Encoding.Default;
+
+            //Return IDText Parent
+            string MyIDTextParent = DesignUtils.ReturnCurrentFileIDText();
+
+            //Get Encoding
+            encoding = DesignUtils.GetEncodingIDText(MyIDTextParent);
+
+            //Get the File Path
+            string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
+
+            //Paste Argument from the Clipboard
+            string OutputText = DesignUtils.PasteArgumentFromClipboard();
+
+            //Update Control
+            UpdateControl(MyArgument.Replace(" ", ""), OutputText);
+
+            //Update Text File Row Argument
+            DesignUtils.CallUpdateTextFileRowArgument(FilePath, MyArgument, OutputText, encoding);
+
         }
 
         //Update Control

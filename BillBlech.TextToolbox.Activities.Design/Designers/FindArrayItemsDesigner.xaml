@@ -7,7 +7,8 @@
                       xmlns:sapc="clr-namespace:System.Activities.Presentation.Converters;assembly=System.Activities.Presentation"
                       xmlns:converters="clr-namespace:UiPath.Shared.Activities.Design.Converters"
                       xmlns:uip="clr-namespace:UiPath.Shared.Activities.Design.Controls"
-                      xmlns:c="clr-namespace:BillBlech.TextToolbox.Activities.Design">
+                      xmlns:c="clr-namespace:BillBlech.TextToolbox.Activities.Design"
+                      >
 
     <sap:ActivityDesigner.Resources>
         <ResourceDictionary>
@@ -27,6 +28,7 @@
     <uip:ActivityDecoratorControl Style="{StaticResource ActivityDecoratorStyle}">
         <Grid Width="300">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -70,7 +72,7 @@
                     <ImageBrush ImageSource="/BillBlech.TextToolbox.Activities.Design;component/Resources/MenuIcon.png"/>
                 </Button.Background>
             </Button>
-            <!--Combo Box-->
+            <!--Filter Words Parameter-->
             <Label Content="{x:Static activity:Resources.FindArrayItems_AnchorWordsParameters_DisplayName}" Grid.Row="4"
                    ToolTip="{x:Static activity:Resources.FindArrayItems_AnchorWordsParameters_Description}"/>
             <ComboBox Grid.Row="4"
@@ -79,6 +81,17 @@
                             Margin="141,5,74,6"
                       Name="AnchorWordsParamComboBox"
                       SelectionChanged="AnchorWordsParamComboBox_SelectionChanged" Height="Auto"/>
+            <!--Encoding-->
+            <Label Content="{x:Static activity:Resources.ReadTextFileEncondig_Encoding_DisplayName}" Grid.Row="5"
+                   ToolTip="{x:Static activity:Resources.ReadTextFileEncondig_Encoding_Description}"/>
+            <ComboBox Grid.Row="5"
+                      SelectedValue="{Binding Path=ModelItem.Encoding, Mode=TwoWay, Converter={StaticResource comboBoxItemConverter}, ConverterParameter=In}"  
+                      ItemsSource="{Binding LstEncoding, Mode=TwoWay}"
+                            Margin="141,5,74,6"
+                      Name="EncodingComboBox"
+                      SelectionChanged="EncodingComboBox_SelectionChanged" Height="Auto"/>
+            
+            
         </Grid>
 
     </uip:ActivityDecoratorControl>

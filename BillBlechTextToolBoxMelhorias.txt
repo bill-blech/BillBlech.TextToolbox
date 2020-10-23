@@ -19,4 +19,15 @@ Count Words in Text
 Habilitar "Preview" para a atividade - ok!
 
 
+Ajustes pré-publicação
 
+Inserir "Encoding" no Text Application Scope, para ser utilizado no Preview
+Extract Text Between two Tags: Inserir opção para "Clear" no segundo TAG - ok!
+Wizard: Inserir opção para colar direto do clipboard, sem a necessidade de abrir o formulário - ok!
+IDText:
+	caso haja um IDText porém não haja arquivo, criar arquivo
+	Inserir opção para criar um novo IDText - Desenvolvido em "Read Text File Encoding", replicar
+
+Button_RemoveEndWordsArgument
+
+CreateNewIDText

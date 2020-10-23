@@ -6,6 +6,7 @@ using System.Activities.Presentation.Model;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -43,6 +44,14 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         private void OccurrencesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+            Encoding encoding = Encoding.Default;
+
+            //Return IDText Parent
+            string MyIDTextParent = DesignUtils.ReturnCurrentFileIDText();
+
+            //Get Encoding
+            encoding = DesignUtils.GetEncodingIDText(MyIDTextParent);
+
             string MyOccurenceParameter = null;
 
             //Update IDText
@@ -55,7 +64,7 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             MyOccurenceParameter = (string)OccurrencesComboBox.SelectedValue;
 
             //Log ComboBox
-            DesignUtils.CallLogComboBox(MyIDText, MyArgument, MyOccurenceParameter);
+            DesignUtils.CallLogComboBox(MyIDText, MyArgument, MyOccurenceParameter, encoding);
             
             //Hide / Display Occurence Number Control
             if (MyOccurenceParameter == "Custom")
@@ -162,6 +171,21 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                 //Start Context Menu
                 ContextMenu cm = new ContextMenu();
 
+                //Paste from the CLipboard
+                System.Windows.Controls.MenuItem menuPaste = new System.Windows.Controls.MenuItem();
+
+                menuPaste.Header = "Paste";
+                menuPaste.Click += Button_PasteFromClipboard;
+                menuPaste.ToolTip = "Paste from the Clipboard";
+                //Add Icon to the uri_menuItem
+                var uri_menuPaste = new System.Uri("https://img.icons8.com/cotton/20/000000/clipboard--v5.png");
+                var bitmap_menuPaste = new BitmapImage(uri_menuPaste);
+                var image_menuPaste = new Image();
+                image_menuPaste.Source = bitmap_menuPaste;
+                menuPaste.Icon = image_menuPaste;
+
+                cm.Items.Add(menuPaste);
+
                 //Wizard
                 System.Windows.Controls.MenuItem menuWizard = new System.Windows.Controls.MenuItem();
 
@@ -220,14 +244,27 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             //Get File Path
             string FilePath = System.IO.File.ReadAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFile.txt");
 
+            //Return IDText Parent
+            string MyIDTextParent = DesignUtils.ReturnCurrentFileIDText();
+
+            //Get Encoding
+            Encoding encoding = DesignUtils.GetEncodingIDText(MyIDTextParent);
+
             //Open Form Select Data
-            DesignUtils.CallformSelectDataOpen(MyArgument, MyIDText, FilePath);
+            DesignUtils.CallformSelectDataOpen(MyArgument, MyIDText, FilePath, MyIDTextParent, encoding);
 
         }
 
         //Button Open Preview
         private void Button_OpenPreview(object sender, RoutedEventArgs e)
         {
+            Encoding encoding = Encoding.Default;
+
+            //Return IDText Parent
+            string MyIDTextParent = DesignUtils.ReturnCurrentFileIDText();
+
+            //Get Encoding
+            encoding = DesignUtils.GetEncodingIDText(MyIDTextParent);
 
             //Get the File Path
             string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
@@ -239,12 +276,12 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             if (OccurencePosition != null)
             {
                 //Update Text File Row Argument
-                DesignUtils.CallUpdateTextFileRowArgument(FilePath, MyArgument, OccurencePosition);
+                DesignUtils.CallUpdateTextFileRowArgument(FilePath, MyArgument, OccurencePosition, encoding);
             }
             else
             {
                 //Delete Argument in case it is null
-                DesignUtils.DeleteTextFileRowArgument(FilePath, MyArgument);
+                DesignUtils.DeleteTextFileRowArgument(FilePath, MyArgument, encoding);
             }
 
             //ReplacedWord
@@ -256,18 +293,18 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             if (MyReplacedWord!= null)
             {
                 //Update Text File Row Argument
-                DesignUtils.CallUpdateTextFileRowArgument(FilePath, MyArgument, MyReplacedWord);
+                DesignUtils.CallUpdateTextFileRowArgument(FilePath, MyArgument, MyReplacedWord, encoding);
             }
             else
             {
                 //Delete Argument in case it is null
-                DesignUtils.DeleteTextFileRowArgument(FilePath, MyArgument);
+                DesignUtils.DeleteTextFileRowArgument(FilePath, MyArgument, encoding);
             }
 
             #region Open Preview Extraction
 
             //Read Text File
-            string Source = System.IO.File.ReadAllText(FilePath);
+            string Source = System.IO.File.ReadAllText(FilePath, encoding);
 
             //Check if all Parameters are in the File
             string[] searchWords = { "Search Words"+ Utils.DefaultSeparator(), "Replaced Word"+ Utils.DefaultSeparator(), "Occurence Parameter" + Utils.DefaultSeparator()};
@@ -276,8 +313,9 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             //Case all Parameters are found
             if (PercResults == 1)
             {
+
                 //Open Form Preview Extraction
-                DesignUtils.CallformPreviewExtraction(MyIDText, "Replace Words");
+                DesignUtils.CallformPreviewExtraction(MyIDText, "Replace Words", MyIDTextParent, encoding);
             }
             else
             {
@@ -320,6 +358,32 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                 return null;
 
             }
+        }
+
+        //Paste to from the Clipboard
+        private void Button_PasteFromClipboard(object sender, RoutedEventArgs e)
+        {
+
+            Encoding encoding = Encoding.Default;
+
+            //Return IDText Parent
+            string MyIDTextParent = DesignUtils.ReturnCurrentFileIDText();
+
+            //Get Encoding
+            encoding = DesignUtils.GetEncodingIDText(MyIDTextParent);
+
+            //Get the File Path
+            string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
+
+            //Paste Argument from the Clipboard
+            string OutputText = DesignUtils.PasteArgumentFromClipboard();
+
+            //Update Control
+            UpdateControl("SearchWord", OutputText);
+
+            //Update Text File Row Argument
+            DesignUtils.CallUpdateTextFileRowArgument(FilePath, MyArgument, OutputText, encoding);
+
         }
 
         //Update Control

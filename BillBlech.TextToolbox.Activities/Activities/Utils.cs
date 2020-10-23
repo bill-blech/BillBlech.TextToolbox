@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -1705,7 +1706,7 @@ namespace BillBlech.TextToolbox.Activities.Activities
         //Count Specific Word Occurences in a String
         public static int CountSpecificWordInString(string InputText, string Word)
         {
-            return Regex.Matches(InputText, Regex.Escape(Word)).Count;
+            return Regex.Matches(InputText, Regex.Escape(Word),RegexOptions.IgnoreCase).Count;
         }
 
         //Find Words in String
@@ -1894,17 +1895,43 @@ namespace BillBlech.TextToolbox.Activities.Activities
             return initialPath;
         }
 
-        //Remove Empty Rows from Text File
-        public static void TextFileRemoveEmptyRows(string FilePath)
-        {
+        //Remove Empty Rows from Text File (Create Activity)
+        public static void TextFileRemoveEmptyRows(string FilePath, Encoding encoding)
+        { 
+            string InputText = null;
+
             //Read Text File
-            string InputText = System.IO.File.ReadAllText(FilePath);
+
+            if (encoding== Encoding.Default)
+            {
+                InputText = System.IO.File.ReadAllText(FilePath);
+            }
+            else
+            {
+                InputText = System.IO.File.ReadAllText(FilePath, encoding);
+            }
+
+            //MessageBox.Show(InputText);
 
             //Remove Empty Rows
             InputText = Utils.TextRemoveEmptyRows(InputText);
 
-            //Write New File without empty rows
-            System.IO.File.WriteAllText(FilePath, InputText);
+            if (encoding == Encoding.Default)
+            {
+                //Write New File without empty rows
+                System.IO.File.WriteAllText(FilePath, InputText);
+            }
+            else
+            {
+                //Write New File without empty rows
+                System.IO.File.WriteAllText(FilePath, InputText, encoding);
+            }
+                
+            //Read Text File
+            InputText = System.IO.File.ReadAllText(FilePath, encoding);
+
+            //MessageBox.Show(InputText);
+
         }
 
         //Return Default Separator
@@ -1920,14 +1947,27 @@ namespace BillBlech.TextToolbox.Activities.Activities
         }
 
         //Read Text File with Encoding Option
-        public static string ReadTextFileEncoding(string FilePath, string strEncoding)
+        public static string ReadTextFileEncoding(string FilePath, string strEncoding, bool displayLog)
         {
+            //Get Encoding
+            Encoding encoding = ConvertStringToEncoding(strEncoding);
 
+            //Read Text File
+            return System.IO.File.ReadAllText(FilePath, encoding);
+        }
+
+        public static Encoding ConvertStringToEncoding(string strEncoding)
+        {
             Encoding encoding = Encoding.Default;
 
             //Chech Encoding Variable
             switch (strEncoding)
             {
+
+                //Default
+                case "Default":
+                    encoding = Encoding.Default;
+                    break;
                 //UTF8
                 case "UTF8":
                     encoding = Encoding.UTF8;
@@ -1942,10 +1982,8 @@ namespace BillBlech.TextToolbox.Activities.Activities
                     break;
             }
 
+            return encoding;
 
-
-            //Read Text File
-            return System.IO.File.ReadAllText(FilePath, encoding);
         }
 
         //Convert Collection to Array
@@ -1966,6 +2004,30 @@ namespace BillBlech.TextToolbox.Activities.Activities
             return OutputResults;
 
         }
+
+        ////https://stackoverflow.com/questions/3825390/effective-way-to-find-any-files-encoding
+        ////Read Text File Using File Stream
+        //public static string ReadTextFileStream(string FilePath)
+        //{
+        //    using (StreamReader sr = new StreamReader(FilePath, true))
+        //    {
+        //        while (sr.Peek() >= 0)
+        //        {
+        //            sr.Read();
+
+        //        }
+
+        //        //Get Encoding
+        //        Encoding encoding = sr.CurrentEncoding;
+
+        //        //Read Text File
+        //        string source = System.IO.File.ReadAllText(FilePath, encoding);
+
+        //        return source;
+
+        //    }
+
+        //}
 
 
     }

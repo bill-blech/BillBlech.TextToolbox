@@ -6,6 +6,7 @@ using System.Activities;
 using System.Activities.Presentation.Model;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -28,7 +29,7 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             {
                 return new List<string>
                 {
-                    "UTF8", "ASCII", "iso-8859-1"
+                    "Default", "UTF8", "ASCII", "iso-8859-1"
                 };
             }
             set { }
@@ -38,25 +39,27 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         private void EncodingComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-            //Update IDText
-            UpdateIDText();
+            //Get IDText, if there is
+            MyIDText = ReturnIDText();
 
-            //Fill in Global Variable
-            MyArgument = "Encoding";
-
-            //Get ITem from the ComboBox
-            string MyAnchorTextParamComboBox = this.EncodingComboBox.SelectedItem.ToString();
-
-            //Log ComboBox
-            DesignUtils.CallLogComboBox(MyIDText, MyArgument, MyAnchorTextParamComboBox);
+            //Case there is an IDText
+            if (MyIDText != null)
+            {
+                //Auto Fill Controls
+                AutoFillControls();
+            }
 
         }
-        #endregion
 
+        #endregion
 
         public ReadTextFileEncondigDesigner()
         {
             InitializeComponent();
+
+            //Create Default Storage Folders (if needed)
+            DesignUtils.CreateStorageTextToolboxFolders();
+
         }
 
         #region Set IDText
@@ -78,8 +81,8 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                 //Write data to the Form
                 ModelProperty property = this.ModelItem.Properties["IDText"];
                 property.SetValue(new InArgument<string>(MyIDText));
-            }
 
+            }
 
         }
 
@@ -105,25 +108,40 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         private void CallCallButton_SetupWizard(object sender, System.Windows.RoutedEventArgs e)
         {
 
-            //Fill in Global Variable
-            MyArgument = "Encoding";
+            //Update IDText
+            UpdateIDText();
 
             //Setup Wizard Button
             CallButton_SetupWizard();
         }
 
-
         //Setup Wizard Button
         private void CallButton_SetupWizard()
         {
-            //Update IDText
-            UpdateIDText();
 
             string CurrentTextFilePath = null;
 
             #region Build Context Menu
             //Start Context Menu
             ContextMenu cm = new ContextMenu();
+
+            //Create New IDText
+            System.Windows.Controls.MenuItem menuCreateNewIDText = new System.Windows.Controls.MenuItem();
+
+            menuCreateNewIDText.Header = "Create New ID";
+            menuCreateNewIDText.Click += CreateNewIDText;
+            menuCreateNewIDText.ToolTip = "Create New IDText";
+            //Add Icon to the uri_menuItem
+            var uri_CreateNewIDText = new System.Uri("https://img.icons8.com/officexs/20/000000/add-file.png");
+            var bitmap_CreateNewIDText = new BitmapImage(uri_CreateNewIDText);
+            var image_CreateNewIDText = new Image();
+            image_CreateNewIDText.Source = bitmap_CreateNewIDText;
+            menuCreateNewIDText.Icon = image_CreateNewIDText;
+
+            cm.Items.Add(menuCreateNewIDText);
+
+            //Add Separator
+            cm.Items.Add(new Separator());
 
             //Get all StorageFiles
             string[] StorageFilesList = Directory.GetFiles(Directory.GetCurrentDirectory() + "/StorageTextToolbox/FileNames");
@@ -302,7 +320,6 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
         }
 
-
         //Return Current File
         private string ReturnCurrentFile()
         {
@@ -310,6 +327,7 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             {
                 //Get the FilePath
                 return this.FileName.Expression.ToString();
+                
             }
             catch (Exception ex)
             {
@@ -317,10 +335,24 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                 return null;
             }
 
-
-
         }
 
+        //Return Encoding
+        private string ReturnEncoding()
+        {
+            try
+            {
+                //Get Encoding
+                return this.EncodingComboBox.SelectedItem.ToString();
+
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
+
+        }
 
         //Select File Name
         private void Button_MenuItem_fileName_Click(object sender, RoutedEventArgs e)
@@ -365,36 +397,43 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
             //Get the File Path
             string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
-            string Source = System.IO.File.ReadAllText(FilePath);
 
-            //Check if all Parameters are in the File
-            string[] searchWords = { "FileName" + Utils.DefaultSeparator() };
-            double PercResults = Utils.FindWordsInString(Source, searchWords, false);
+            //Check if file exists
+            bool bExists = File.Exists(FilePath);
 
-            //Case it is found
-            if (PercResults == 1)
+            if (bExists == true)
             {
+                string Source = System.IO.File.ReadAllText(FilePath);
 
-                //Get Lines from the File
-                string[] Lines = Utils.SplitTextNewLine(Source);
+                //Check if all Parameters are in the File
+                string[] searchWords = { "FileName" + Utils.DefaultSeparator() };
+                double PercResults = Utils.FindWordsInString(Source, searchWords, false);
 
-                //Check if there is a File Path for the Preveiw
-                string[] filterWords = { "FileName" + Utils.DefaultSeparator() };
-                string[] OutputResults = CallExtractions.CallFindArrayItems(Lines, filterWords, "Any", false);
-
-                if (OutputResults.Length > 0)
+                //Case it is found
+                if (PercResults == 1)
                 {
-                    FilePath = OutputResults[0];
 
-                    //Get File Path for the Preview
-                    string[] MyArray = Strings.Split(FilePath, Utils.DefaultSeparator());
-                    string CurrentFile = MyArray[1];
+                    //Get Lines from the File
+                    string[] Lines = Utils.SplitTextNewLine(Source);
 
-                    /////////////////////////////////////////////
-                    ////Open File
-                    System.Diagnostics.Process.Start(CurrentFile);
-                    /////////////////////////////////////////////
+                    //Check if there is a File Path for the Preveiw
+                    string[] filterWords = { "FileName" + Utils.DefaultSeparator() };
+                    string[] OutputResults = CallExtractions.CallFindArrayItems(Lines, filterWords, "Any", false);
 
+                    if (OutputResults.Length > 0)
+                    {
+                        FilePath = OutputResults[0];
+
+                        //Get File Path for the Preview
+                        string[] MyArray = Strings.Split(FilePath, Utils.DefaultSeparator());
+                        string CurrentFile = MyArray[1];
+
+                        /////////////////////////////////////////////
+                        ////Open File
+                        System.Diagnostics.Process.Start(CurrentFile);
+                        /////////////////////////////////////////////
+
+                    }
                 }
 
             }
@@ -490,10 +529,18 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                         //Get Current File
                         string CurrentFile = System.IO.File.ReadAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/FileNames/" + Path.GetFileNameWithoutExtension(CurrentTextFilePath) + ".txt");
 
+                        //Get Item from the ComboBox
+                        string MyEncoding = ReturnEncoding();
 
-                        //Update Text File Row Argument
-                        MyArgument = "FileName";
-                        DesignUtils.CallUpdateTextFileRowArgument(FilePath, MyArgument, CurrentFile);
+                        if (MyEncoding != null)
+                        {
+                            Encoding encoding = Utils.ConvertStringToEncoding(MyEncoding);
+
+                            //Update Text File Row Argument
+                            MyArgument = "FileName";
+                            DesignUtils.CallUpdateTextFileRowArgument(FilePath, MyArgument, CurrentFile, encoding);
+
+                        }
 
                         break;
 
@@ -515,50 +562,129 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
         }
 
-        //Button Open Wizard
-        private void Button_OpenFormSelectData(object sender, RoutedEventArgs e)
-        {
-
-            //Get File Path
-            string FilePath = System.IO.File.ReadAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFile.txt");
-
-            //Open Form Select Data
-            DesignUtils.CallformSelectDataOpen(MyArgument, MyIDText, FilePath);
-
-        }
-
         //Button Open Preview
         private void Button_OpenPreview(object sender, RoutedEventArgs e)
         {
             //Get the File Path
             string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
 
-            #region Open Preview Extraction
+            //Check if file exists
+            bool bExists = File.Exists(FilePath);
 
-            //Read Text File
-            string Source = System.IO.File.ReadAllText(FilePath);
-
-            //Check if all Parameters are in the File
-            string[] searchWords = { "FileName" + Utils.DefaultSeparator(), "Encoding" + Utils.DefaultSeparator() };
-            double PercResults = Utils.FindWordsInString(Source, searchWords, false);
-
-            //Case all Parameters are found
-            if (PercResults == 1)
+            if (bExists == true)
             {
-                //Open Form Preview Extraction
-                DesignUtils.CallformPreviewExtraction(MyIDText, "Read Text File Encoding");
+                #region Open Preview Extraction
+
+                //Auto Fill Controls
+                AutoFillControls();
+
+                //Get Item from the ComboBox
+                string MyEncoding = ReturnEncoding();
+
+                if (MyEncoding != null)
+                {
+                    Encoding encoding = Utils.ConvertStringToEncoding(MyEncoding);
+
+                    //Read Text File
+                    string Source = System.IO.File.ReadAllText(FilePath, encoding);
+
+                    //Check if all Parameters are in the File
+                    string[] searchWords = { "FileName" + Utils.DefaultSeparator(), "Encoding" + Utils.DefaultSeparator() };
+                    double PercResults = Utils.FindWordsInString(Source, searchWords, false);
+
+                    //Case all Parameters are found
+                    if (PercResults == 1)
+                    {
+
+                        //Open Form Preview Extraction
+                        DesignUtils.CallformPreviewExtraction(MyIDText, "Read Text File Encoding", MyIDText, encoding);
+                    }
+                    else
+                    {
+                        //Error Message
+                        MessageBox.Show("Please fill in all arguments", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
+                }
+                else
+                {
+                    //Error Message
+                    MessageBox.Show("Please fill in all arguments", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+                #endregion
             }
-            else
+
+        }
+
+        //Create New TextID
+        private void CreateNewIDText(object sender, RoutedEventArgs e)
+        {
+            //Get the File Path
+            string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
+
+            //Clear the Current IDText
+            ModelProperty property = this.ModelItem.Properties["IDText"];
+            property.SetValue(null);
+
+            //Update IDText
+            UpdateIDText();
+
+            //Auto Fill Controls
+            AutoFillControls();
+
+        }
+
+        //Auto Fill Controls
+        public void AutoFillControls()
+        {
+            //Check if File Exists, if not create it
+
+            //Get the File Path
+            string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
+
+            //If false create it
+            if (File.Exists(FilePath) == false)
             {
-                //Error Message
-                MessageBox.Show("Please fill in all arguments", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                //Create File
+                System.IO.File.WriteAllText(FilePath, "");
             }
+
+            #region Encoding
+
+            string MyArgument = "Encoding";
+
+            //Get Item from the ComboBox
+            string MyEncoding = ReturnEncoding();
+
+            if (MyEncoding != null)
+            {
+                Encoding encoding = Utils.ConvertStringToEncoding(MyEncoding);
+
+                //Log ComboBox
+                DesignUtils.CallLogComboBox(MyIDText, MyArgument, MyEncoding, encoding);
+
+                #region File Name
+
+                //Copy the Arguments, in case there is
+                string FilePathPreview = ReturnCurrentFile();
+
+                if (FilePathPreview != null)
+                {
+                    //Update Text File Row Argument
+                    DesignUtils.CallUpdateTextFileRowArgument(FilePath, "FileName", FilePathPreview, encoding);
+                }
+
+                #endregion
+
+
+            }
+
 
             #endregion
 
 
         }
-
 
 
     }

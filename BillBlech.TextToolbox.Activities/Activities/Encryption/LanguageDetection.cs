@@ -20,7 +20,7 @@ namespace BillBlech.TextToolbox.Activities.Activities.Encryption
             // Don't forget to deploy a language profile (e.g. Core14.profile.xml) with your application.
             // (take a look at "content" folder inside of NTextCat nupkg and here: https://github.com/ivanakcheurov/ntextcat/tree/master/src/LanguageModels).
             var factory = new RankedLanguageIdentifierFactory();
-            var identifier = factory.Load(ConfigFile); // can be an absolute or relative path. Beware of 260 chars limitation of the path length in Windows. Linux allows 4096 chars.
+            var identifier = factory.Load(ConfigFile.Replace("\\","/")); // can be an absolute or relative path. Beware of 260 chars limitation of the path length in Windows. Linux allows 4096 chars.
             var languages = identifier.Identify(InputText);
             var mostCertainLanguage = languages.FirstOrDefault();
             if (mostCertainLanguage != null)

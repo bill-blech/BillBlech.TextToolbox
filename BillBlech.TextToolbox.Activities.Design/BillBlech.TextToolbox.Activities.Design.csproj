@@ -55,6 +55,7 @@
   <!-- Package Icon -->
   <ItemGroup>
     <None Include="packageIcon.png" Pack="true" Visible="false" PackagePath="" />
+    <PackageReference Include="NTextCat" Version="0.3.65" />
 	<Resource Include="Resources\Excel-icon_Small.png" />
 	<Resource Include="Resources\SelectExcelSheetIcon.png" Pack="true" PackagePath="/Resource/SelectExcelSheetIcon.png" />
 	<Resource Include="Resources\Warning.png" />

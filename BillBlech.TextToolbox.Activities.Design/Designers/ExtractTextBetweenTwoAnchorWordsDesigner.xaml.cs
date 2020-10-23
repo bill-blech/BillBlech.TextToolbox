@@ -1,4 +1,5 @@
 using BillBlech.TextToolbox.Activities.Activities;
+using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.Activities;
 using System;
 using System.Activities;
@@ -6,6 +7,7 @@ using System.Activities.Presentation.Model;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -37,6 +39,14 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         //Regex Parameter Update Event
         private void MyRegexParameterComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            Encoding encoding = Encoding.Default;
+
+            //Return IDText Parent
+            string MyIDTextParent = DesignUtils.ReturnCurrentFileIDText();
+
+            //Get Encoding
+            encoding = DesignUtils.GetEncodingIDText(MyIDTextParent);
+
             //Update IDText
             UpdateIDText();
 
@@ -47,7 +57,7 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             string MyRegexParameterComboBox = this.RegexParameterComboBox.SelectedItem.ToString();
 
             //Log ComboBox
-            DesignUtils.CallLogComboBox(MyIDText, MyArgument, MyRegexParameterComboBox);
+            DesignUtils.CallLogComboBox(MyIDText, MyArgument, MyRegexParameterComboBox, encoding);
             
         }
         #endregion
@@ -152,6 +162,8 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                 //Setup Wizard Button
                 CallButton_SetupWizard();
 
+
+
             }
         }
 
@@ -171,6 +183,44 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                 #region Build Context Menu
                 //Start Context Menu
                 ContextMenu cm = new ContextMenu();
+
+
+                //Clear Component
+                if (MyArgument == "End Words")
+                {
+                    //ClearComponent
+                    System.Windows.Controls.MenuItem menuClearComponent = new System.Windows.Controls.MenuItem();
+
+                    menuClearComponent.Header = "Clear";
+                    menuClearComponent.Click += Button_RemoveEndWordsArgument;
+                    menuClearComponent.ToolTip = "Remove 'End Words' Argument";
+                    //Add Icon to the uri_menuItem
+                    var uri_menuClearComponent = new System.Uri("https://img.icons8.com/officexs/20/000000/delete-file.png");
+                    var bitmap_menuClearComponent = new BitmapImage(uri_menuClearComponent);
+                    var image_menuClearComponent = new Image();
+                    image_menuClearComponent.Source = bitmap_menuClearComponent;
+                    menuClearComponent.Icon = image_menuClearComponent;
+
+                    cm.Items.Add(menuClearComponent);
+
+                    //Add Separator
+                    cm.Items.Add(new Separator());
+                }
+
+                //Paste from the CLipboard
+                System.Windows.Controls.MenuItem menuPaste = new System.Windows.Controls.MenuItem();
+
+                menuPaste.Header = "Paste";
+                menuPaste.Click += Button_PasteFromClipboard;
+                menuPaste.ToolTip = "Paste from the Clipboard";
+                //Add Icon to the uri_menuItem
+                var uri_menuPaste = new System.Uri("https://img.icons8.com/cotton/20/000000/clipboard--v5.png");
+                var bitmap_menuPaste = new BitmapImage(uri_menuPaste);
+                var image_menuPaste = new Image();
+                image_menuPaste.Source = bitmap_menuPaste;
+                menuPaste.Icon = image_menuPaste;
+
+                cm.Items.Add(menuPaste);
 
                 //Wizard
                 System.Windows.Controls.MenuItem menuWizard = new System.Windows.Controls.MenuItem();
@@ -249,8 +299,14 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             //Get File Path
             string FilePath = System.IO.File.ReadAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFile.txt");
 
+            //Return IDText Parent
+            string MyIDTextParent = DesignUtils.ReturnCurrentFileIDText();
+
+            //Get Encoding
+            Encoding encoding = DesignUtils.GetEncodingIDText(MyIDTextParent);
+
             //Open Form Select Data
-            DesignUtils.CallformSelectDataOpen(MyArgument, MyIDText, FilePath);
+            DesignUtils.CallformSelectDataOpen(MyArgument, MyIDText, FilePath, MyIDTextParent, encoding);
 
         }
 
@@ -258,21 +314,32 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         private void Button_OpenPreview(object sender, RoutedEventArgs e)
         {
 
+            Encoding encoding = Encoding.Default;
+
+            //Return IDText Parent
+            string MyIDTextParent = DesignUtils.ReturnCurrentFileIDText();
+
+            //Get Encoding
+            encoding = DesignUtils.GetEncodingIDText(MyIDTextParent);
+
             //Get the File Path
             string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
 
+            #region Open Preview Extraction
+
             //Read Text File
-            string Source = System.IO.File.ReadAllText(FilePath);
+            string Source = System.IO.File.ReadAllText(FilePath, encoding);
 
             //Check if all Parameters are in the File
-            string[] searchWords = { "Beg Words" + Utils.DefaultSeparator(), "End Words" + Utils.DefaultSeparator(), "Regex Parameter" + Utils.DefaultSeparator()};
+            string[] searchWords = { "Beg Words" + Utils.DefaultSeparator(), "Regex Parameter" + Utils.DefaultSeparator() };
             double PercResults = Utils.FindWordsInString(Source, searchWords, false);
 
             //Case all Parameters are found
             if (PercResults == 1)
             {
+
                 //Open Form Preview Extraction
-                DesignUtils.CallformPreviewExtraction(MyIDText, "Extract Text Between Two Anchor Words");
+                DesignUtils.CallformPreviewExtraction(MyIDText, "Extract Text Between Two Anchor Words", MyIDTextParent, encoding);
             }
             else
             {
@@ -280,7 +347,57 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                 MessageBox.Show("Please fill in all arguments", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
+            #endregion
 
+        }
+
+        //Remove End Words Argument
+        private void Button_RemoveEndWordsArgument(object sender, RoutedEventArgs e)
+        {
+            Encoding encoding = Encoding.Default;
+
+            //Return IDText Parent
+            string MyIDTextParent = DesignUtils.ReturnCurrentFileIDText();
+
+            //Get Encoding
+            encoding = DesignUtils.GetEncodingIDText(MyIDTextParent);
+
+            //Clear the Control
+            ModelProperty p2 = this.ModelItem.Properties["EndWords"];
+            p2.SetValue(null);
+
+            //Get the File Path
+            string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
+
+            //Delete Argument in case it is null
+            DesignUtils.DeleteTextFileRowArgument(FilePath, MyArgument, encoding);
+
+        }
+
+        //Paste to from the Clipboard
+        private void Button_PasteFromClipboard(object sender, RoutedEventArgs e)
+        {
+
+            Encoding encoding = Encoding.Default;
+
+            //Return IDText Parent
+            string MyIDTextParent = DesignUtils.ReturnCurrentFileIDText();
+
+            //Get Encoding
+            encoding = DesignUtils.GetEncodingIDText(MyIDTextParent);
+
+            //Get the File Path
+            string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
+
+            //Paste Argument from the Clipboard
+            string OutputText = DesignUtils.PasteArgumentFromClipboard();
+
+            //Update Control
+            UpdateControl(MyArgument.Replace(" ",""), OutputText);
+
+            //Update Text File Row Argument
+            DesignUtils.CallUpdateTextFileRowArgument(FilePath, MyArgument, OutputText, encoding);
+            
         }
 
         //Update Control

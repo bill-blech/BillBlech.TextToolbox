@@ -5,6 +5,7 @@ using System.Activities;
 using System.Activities.Presentation.Model;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -388,6 +389,14 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         public void Button_RefreshCurrentFile()
         {
 
+            Encoding encoding = Encoding.Default;
+
+            //Return IDText Parent
+            string MyIDTextParent = DesignUtils.ReturnCurrentFileIDText();
+
+            //Get Encoding
+            encoding = DesignUtils.GetEncodingIDText(MyIDTextParent);
+
             //Get Data from Control
             //string CurrentExcelFilePath = this.FilePath.Expression.ToString();
             string CurrentTextFilePath = ReturnCurrentFile();
@@ -429,7 +438,7 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
                         //Update Text File Row Argument
                         MyArgument = "FilePathforPreview";
-                        DesignUtils.CallUpdateTextFileRowArgument(FilePath, MyArgument, CurrentFile);
+                        DesignUtils.CallUpdateTextFileRowArgument(FilePath, MyArgument, CurrentFile, encoding);
 
                         break;
 
@@ -454,6 +463,13 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         //Button Open Preview
         private void Button_OpenPreview(object sender, RoutedEventArgs e)
         {
+            Encoding encoding = Encoding.Default;
+
+            //Return IDText Parent
+            string MyIDTextParent = DesignUtils.ReturnCurrentFileIDText();
+
+            //Get Encoding
+            encoding = DesignUtils.GetEncodingIDText(MyIDTextParent);
 
             //Get the File Path
             string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
@@ -465,12 +481,12 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             if (NullLimit != null)
             {
                 //Update Text File Row Argument
-                DesignUtils.CallUpdateTextFileRowArgument(FilePath, MyArgument, NullLimit);
+                DesignUtils.CallUpdateTextFileRowArgument(FilePath, MyArgument, NullLimit, encoding);
             }
             else
             {
                 //Delete Argument in case it is null
-                DesignUtils.DeleteTextFileRowArgument(FilePath, MyArgument);
+                DesignUtils.DeleteTextFileRowArgument(FilePath, MyArgument, encoding);
             }
 
             //Suppress Null Values
@@ -480,18 +496,18 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             if (MybSuppressNullValues != null)
             {
                 //Update Text File Row Argument
-                DesignUtils.CallUpdateTextFileRowArgument(FilePath, MyArgument, MybSuppressNullValues);
+                DesignUtils.CallUpdateTextFileRowArgument(FilePath, MyArgument, MybSuppressNullValues, encoding);
             }
             else
             {
                 //Delete Argument in case it is null
-                DesignUtils.DeleteTextFileRowArgument(FilePath, MyArgument);
+                DesignUtils.DeleteTextFileRowArgument(FilePath, MyArgument, encoding);
             }
 
             #region Open Preview Extraction
 
             //Read Text File
-            string Source = System.IO.File.ReadAllText(FilePath);
+            string Source = System.IO.File.ReadAllText(FilePath, encoding);
 
             //Check if all Parameters are in the File
             string[] searchWords = { "FilePathforPreview" + Utils.DefaultSeparator(), "Null Limit" + Utils.DefaultSeparator(), "Suppress Null Values" + Utils.DefaultSeparator()};
@@ -500,8 +516,9 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             //Case all Parameters are found
             if (PercResults == 1)
             {
+
                 //Open Form Preview Extraction
-                DesignUtils.CallformPreviewExtraction(MyIDText, "Split text Uneven Blank Spaces");
+                DesignUtils.CallformPreviewExtraction(MyIDText, "Split text Uneven Blank Spaces", MyIDTextParent, encoding);
             }
             else
             {

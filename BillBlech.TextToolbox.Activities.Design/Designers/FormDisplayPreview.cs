@@ -13,22 +13,30 @@ namespace ExcelTut
     public partial class FormDisplayPreview : Form
     {
         Dictionary<string, string> DicArguments = new Dictionary<string, string>();
+        Dictionary<string, string> DicArgumentsParent = new Dictionary<string, string>();
         Dictionary<int, string> DicResults = new Dictionary<int, string>();
+        Encoding encoding = Encoding.Default;
 
-        public FormDisplayPreview(string MyIDText, string Label)
+        public FormDisplayPreview(string MyIDText, string Label, string MyIDTextParent, Encoding encoding)
         {
             InitializeComponent();
 
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.ControlBox = false;
             this.Text = Label;
+            this.encoding = encoding;
 
             this.Show();
 
+            //Parent Arguments
+            DicArgumentsParent = LoadFormArguments(MyIDTextParent, false, encoding);
+
             if (MyIDText!= null)
             {
+
                 //Load Form Arguments
-                LoadFormArguments(MyIDText);
+                DicArguments = LoadFormArguments(MyIDText, true, encoding);
+            
             }
 
             //Run Extraction
@@ -37,16 +45,20 @@ namespace ExcelTut
         }
 
         //Load Form Arguments
-        private void LoadFormArguments(string MyIDText)
+        //private void LoadFormArguments(string MyIDText)
+        private Dictionary<string, string> LoadFormArguments(string MyIDText, bool bUpdateFormControls, Encoding encoding)
         {
+
+            Dictionary<string, string> MyDic = new Dictionary<string, string>();
+
             //Get File Path
             string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
 
             //Remove Empty Rows from Text File
-            Utils.TextFileRemoveEmptyRows(FilePath);
+            Utils.TextFileRemoveEmptyRows(FilePath, encoding);
 
             //Read Text File and Split by new line
-            string[] lines = System.IO.File.ReadAllLines(FilePath);
+            string[] lines = System.IO.File.ReadAllLines(FilePath, encoding);
 
             //Loop through the Lines
             for (int i = 0; i < lines.Length; i++)
@@ -62,22 +74,28 @@ namespace ExcelTut
                     string MyArgument = MyArray[0];
                     string MyValue = MyArray[1];
 
-                    //Set the Form Controls
-                    Control ctnArgument = this.Controls["Argument" + (i + 1) + "x_Label"];
-                    Control ctnValue = this.Controls["Argument" + (i + 1) + "x_Text"];
+                    if (bUpdateFormControls == true)
+                    {
+                        //Set the Form Controls
+                        Control ctnArgument = this.Controls["Argument" + (i + 1) + "x_Label"];
+                        Control ctnValue = this.Controls["Argument" + (i + 1) + "x_Text"];
 
-                    //Change Visibility to True
-                    ctnArgument.Visible = true;
-                    ctnValue.Visible = true;
+                        //Change Visibility to True
+                        ctnArgument.Visible = true;
+                        ctnValue.Visible = true;
+
+                        //Fill in the Controls
+                        ctnArgument.Text = MyArgument;
+                        ctnValue.Text = MyValue;
+                    }
 
                     //Add to the Dictionary
-                    DicArguments.Add(MyArgument, MyValue);
-
-                    //Fill in the Controls
-                    ctnArgument.Text = MyArgument;
-                    ctnValue.Text = MyValue;
-                
+                    MyDic.Add(MyArgument, MyValue);
+                                   
             }
+
+            //Return the Dictionary
+            return MyDic;
 
         }
 
@@ -85,10 +103,21 @@ namespace ExcelTut
         private void RunExtraction(string Label)
         {
 
-            //Read Data from Current File
-            string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFile.txt";
-            string Source = System.IO.File.ReadAllText(FilePath);
-            string inputText = System.IO.File.ReadAllText(Source, Encoding.GetEncoding("iso-8859-1"));
+            string Source = null;
+            string inputText = null;
+            
+            //Read Data from IDTextFile
+
+            //string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFile.txt";
+            string FilePath = DicArgumentsParent["FileName"];
+
+            if (File.Exists(FilePath)==true)
+            {
+                //Source = System.IO.File.ReadAllText(FilePath);
+             
+                //Get Data from the Text File
+                inputText = System.IO.File.ReadAllText(FilePath, encoding);
+            }
 
             #region Variable Declarations
 
@@ -132,8 +161,15 @@ namespace ExcelTut
                     if (DicArguments.ContainsKey("End Words") == true)
                     {
                         ArrayText = DicArguments["End Words"];
+
                         //DicArguments.TryGetValue("End Words", out ArrayText);
                         endWords = DesignUtils.ConvertStringToArray(ArrayText);
+                    }
+                    else
+                    {
+
+                        //Null Array
+                        endWords = null;
                     }
                     
                     //Regex Parameter               
@@ -328,11 +364,11 @@ namespace ExcelTut
 
                 #endregion
 
-                #region Remove Empty Words
-                case "Remove Empty Words":
+                #region Remove Empty Rows
+                case "Remove Empty Rows":
 
-                    FilePathforPreview = DicArguments["FilePathforPreview"];
-                    inputText = System.IO.File.ReadAllText(FilePathforPreview);
+                    FilePathforPreview = DicArguments["FileName"];
+                    inputText = System.IO.File.ReadAllText(FilePathforPreview, encoding);
 
                     //Run Extraction
                     TextResult = Utils.TextRemoveEmptyRows(inputText);
@@ -360,7 +396,7 @@ namespace ExcelTut
                     string strEncoding = DicArguments["Encoding"];
                     
                     //Run Extraction
-                    TextResult = Utils.ReadTextFileEncoding(FilePath, strEncoding);
+                    TextResult = Utils.ReadTextFileEncoding(FilePath, strEncoding,false);
 
                     //Display Result
                     this.DisplayResult.Text = TextResult;
@@ -434,8 +470,8 @@ namespace ExcelTut
                 case "Find Array Items":
 
                     //File Path for Preview
-                    FilePath = DicArguments["FilePathforPreview"];
-                    inputText = System.IO.File.ReadAllText(FilePath, Encoding.GetEncoding("iso-8859-1"));
+                    FilePath = DicArguments["FileName"];
+                    inputText = System.IO.File.ReadAllText(FilePath, encoding);
 
                     //Input Array
                     inputArray = Utils.SplitTextByBlankLines(inputText);
@@ -457,8 +493,8 @@ namespace ExcelTut
                 case "Match Item in Array":
 
                     //File Path for Preview
-                    FilePath = DicArguments["FilePathforPreview"];
-                    inputText = System.IO.File.ReadAllText(FilePath, Encoding.GetEncoding("iso-8859-1"));
+                    FilePath = DicArguments["FileName"];
+                    inputText = System.IO.File.ReadAllText(FilePath, encoding);
 
                     //Input Array
                     inputArray = Utils.SplitTextNewLine(inputText);
@@ -580,7 +616,7 @@ namespace ExcelTut
                             string filePath = selectedFolder + "/" + NewFileName + ".txt";
 
                             //Write Text File
-                            System.IO.File.WriteAllText(filePath, DisplayResult.Text);
+                            System.IO.File.WriteAllText(filePath, DisplayResult.Text, encoding);
                         }
 
                     }

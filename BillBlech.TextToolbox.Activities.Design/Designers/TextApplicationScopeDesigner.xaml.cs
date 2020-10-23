@@ -1,8 +1,11 @@
+using BillBlech.TextToolbox.Activities.Activities;
 using Microsoft.Win32;
 using System;
 using System.Activities;
 using System.Activities.Presentation.Model;
+using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -15,35 +18,46 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
     public partial class TextApplicationScopeDesigner
     {
 
+        string MyArgument = null;
         string MyIDText = null;
+
+        #region ComboBox
+        public List<string> LstEncoding
+        {
+            get
+            {
+                return new List<string>
+                {
+                    "Default", "UTF8", "ASCII", "iso-8859-1"
+                };
+            }
+            set { }
+        }
+
+        //Anchor Words Parameter Update Event
+        private void EncodingComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            //Get IDText, if there is
+            MyIDText = ReturnIDText();
+
+            //Case there is an IDText
+            if (MyIDText != null)
+            {
+                //Auto Fill Controls
+                AutoFillControls();
+            }
+
+        }
+        #endregion
 
         public TextApplicationScopeDesigner()
         {
             InitializeComponent();
 
-            #region Create StorageTextToolbox Folders
-            //Check if folder "StorageTextToolbox" exists
-            bool bExists = Directory.Exists(Directory.GetCurrentDirectory() + "/StorageTextToolbox");
-
-            //Create folders in case it is not found
-            if (bExists == false)
-            {
-
-                //Main Folder
-                Directory.CreateDirectory(Directory.GetCurrentDirectory() + "/StorageTextToolbox");
-
-                //File Names
-                Directory.CreateDirectory(Directory.GetCurrentDirectory() + "/StorageTextToolbox/FileNames");
-
-                //File Path for Preview
-                Directory.CreateDirectory(Directory.GetCurrentDirectory() + "/StorageTextToolbox/FilePathPreview");
-
-                //Infos
-                Directory.CreateDirectory(Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos");
-
-            }
-            #endregion
-
+            //Create Default Storage Folders (if needed)
+            DesignUtils.CreateStorageTextToolboxFolders();
+            
             //Write to Text File: Updated Neeeded
             System.IO.File.WriteAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFileUpdated.txt", "0");
             //Set Warning Button Visible
@@ -57,6 +71,9 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             //Update IDText
             UpdateIDText();
 
+            //Auto Fill Controls
+            AutoFillControls();
+
             //View Recent File (Standard)
             Button_BlechTextAppScope();
         }
@@ -67,6 +84,28 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
             //ExcelClass excel;
             ContextMenu cm = new ContextMenu();
+
+            #region Create New ID
+
+            //Create New IDText
+            System.Windows.Controls.MenuItem menuCreateNewIDText = new System.Windows.Controls.MenuItem();
+
+            menuCreateNewIDText.Header = "Create New ID";
+            menuCreateNewIDText.Click += CreateNewIDText;
+            menuCreateNewIDText.ToolTip = "Create New IDText";
+            //Add Icon to the uri_menuItem
+            var uri_CreateNewIDText = new System.Uri("https://img.icons8.com/officexs/20/000000/add-file.png");
+            var bitmap_CreateNewIDText = new BitmapImage(uri_CreateNewIDText);
+            var image_CreateNewIDText = new Image();
+            image_CreateNewIDText.Source = bitmap_CreateNewIDText;
+            menuCreateNewIDText.Icon = image_CreateNewIDText;
+
+            cm.Items.Add(menuCreateNewIDText);
+
+            //Add Separator
+            cm.Items.Add(new Separator());
+
+            #endregion
 
             //Get all StorageFiles
             string[] StorageFilesList = Directory.GetFiles(Directory.GetCurrentDirectory() + "/StorageTextToolbox/FileNames");
@@ -183,7 +222,7 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
             }
 
-        #region Select File
+                #region Select File
         selectfile:
             //Select File
             System.Windows.Controls.MenuItem MenuItemSelectFile = new System.Windows.Controls.MenuItem();
@@ -224,9 +263,9 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
             #endregion
 
+
             //Open the Menu
             cm.IsOpen = true;
-
 
         }
 
@@ -245,6 +284,23 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             }
 
 
+
+        }
+
+        //Return Encoding
+        private string ReturnEncoding()
+        {
+            try
+            {
+                //Get Encoding
+                return this.EncodingComboBox.SelectedItem.ToString();
+
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
 
         }
 
@@ -349,7 +405,6 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
         public void Button_RefreshCurrentFile()
         {
-
             //Get Data from Control
             //string CurrentExcelFilePath = this.FilePath.Expression.ToString();
             string CurrentTextFilePath = ReturnCurrentFile();
@@ -381,13 +436,21 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
                     //File Exists
                     case true:
+
+                        #region Update CurrentFile.txt
+
                         //Open File
                         string CurrentFile = System.IO.File.ReadAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/FileNames/" + Path.GetFileNameWithoutExtension(CurrentTextFilePath) + ".txt");
 
-                        //Write Text File
+                        //Write Text File: Current File
                         System.IO.File.WriteAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFile.txt", CurrentFile);
 
-                        //Get Current Excel
+                        //Write Text File: IDText
+                        System.IO.File.WriteAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFileIDText.txt", MyIDText);
+
+                        #endregion
+
+                        //Get Current Text File
                         CurrentFile = System.IO.File.ReadAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFile.txt");
 
                         if (CurrentTextFilePath == DesignUtils.TrimFilePath(CurrentFile, Directory.GetCurrentDirectory()))
@@ -396,6 +459,30 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
                             //Write to Text File: Updated done!
                             System.IO.File.WriteAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFileUpdated.txt", "-1");
+
+                            //Get the File Path
+                            string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
+
+                            //If false create it
+                            if (File.Exists(FilePath) == false)
+                            {
+                                //Create File
+                                System.IO.File.WriteAllText(FilePath, "");
+                            }
+
+                            //Update Text File Row Argument
+
+                            //Get Item from the ComboBox
+                            string MyEncoding = ReturnEncoding();
+
+                            if (MyEncoding != null)
+                            {
+                                Encoding encoding = Utils.ConvertStringToEncoding(MyEncoding);
+
+                                MyArgument = "FileName";
+                                DesignUtils.CallUpdateTextFileRowArgument(FilePath, MyArgument, CurrentFile, encoding);
+
+                            }
 
                             //Hide the Button
                             btnWarning.Visibility = Visibility.Hidden;
@@ -428,11 +515,58 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
         private void CallButton_CurrentFile(object sender, RoutedEventArgs e)
         {
+
+            //Update IDText
+            UpdateIDText();
+
             //Button Refresh Current File
             Button_RefreshCurrentFile();
-
         }
 
+        private void UpdateIDTextFile()
+        {
+
+            //Check if File Exists, if not create it
+
+            //Get the File Path
+            string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
+
+            //If false create it
+            if (File.Exists(FilePath) == false)
+            {
+                //Create File
+                System.IO.File.WriteAllText(FilePath, "");
+            }
+
+            #region Encoding
+
+            string MyArgument = "Encoding";
+
+            //Get Item from the ComboBox
+            string MyEncoding = ReturnEncoding();
+
+            if (MyEncoding != null)
+            {
+
+                Encoding encoding = Utils.ConvertStringToEncoding(MyEncoding);
+
+                //Log ComboBox
+                DesignUtils.CallLogComboBox(MyIDText, MyArgument, MyEncoding, encoding);
+
+                #endregion
+
+                #region File Name
+
+                //Copy the Arguments, in case there is
+                string FilePathPreview = ReturnCurrentFile();
+
+                //Update Text File Row Argument
+                DesignUtils.CallUpdateTextFileRowArgument(FilePath, "FileName", FilePathPreview, encoding);
+
+            }
+
+            #endregion
+        }
 
         #region Set IDText
         //Update IDText
@@ -445,6 +579,9 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             {
                 //Generate IDText
                 MyIDText = DesignUtils.GenerateIDText();
+
+                //Create Blank Text File
+                System.IO.File.WriteAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt", "");
 
                 //Print Data to the Form
                 ModelProperty property = this.ModelItem.Properties["IDText"];
@@ -471,6 +608,92 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
         }
         #endregion
+
+        //Create New TextID
+        private void CreateNewIDText(object sender, RoutedEventArgs e)
+        {
+            //Get the File Path
+            string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
+
+            //Clear the Current IDText
+            ModelProperty property = this.ModelItem.Properties["IDText"];
+            property.SetValue(null);
+
+            //Update IDText
+            UpdateIDText();
+
+            //Copy the Arguments, in case there is
+            string FilePathPreview = ReturnCurrentFile();
+
+            //Encoding
+            string MyEncoding = ReturnEncoding();
+
+            if (MyEncoding != null)
+            {
+                Encoding encoding = Utils.ConvertStringToEncoding(MyEncoding);
+
+                //Update Text File Row Argument
+                DesignUtils.CallUpdateTextFileRowArgument(FilePath, "Encoding", MyEncoding, encoding);
+
+                //File Name
+                if (FilePath != null)
+                {
+                    //Update Text File Row Argument
+                    DesignUtils.CallUpdateTextFileRowArgument(FilePath, "FileName", FilePathPreview, encoding);
+                }
+
+            }
+
+        }
+
+        //Auto Fill Controls
+        public void AutoFillControls()
+        {
+            //Check if File Exists, if not create it
+
+            //Get the File Path
+            string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
+
+            //If false create it
+            if (File.Exists(FilePath) == false)
+            {
+                //Create File
+                System.IO.File.WriteAllText(FilePath, "");
+            }
+
+            #region Encoding
+
+            string MyArgument = "Encoding";
+
+            //Get Item from the ComboBox
+            string MyEncoding = ReturnEncoding();
+
+            if (MyEncoding != null)
+            {
+                Encoding encoding = Utils.ConvertStringToEncoding(MyEncoding);
+
+                //Log ComboBox
+                DesignUtils.CallLogComboBox(MyIDText, MyArgument, MyEncoding, encoding);
+
+                #region File Name
+
+                //Copy the Arguments, in case there is
+                string FilePathPreview = ReturnCurrentFile();
+
+                if (FilePathPreview != null)
+                {
+                    //Update Text File Row Argument
+                    DesignUtils.CallUpdateTextFileRowArgument(FilePath, "FileName", FilePathPreview, encoding);
+                }
+
+                #endregion
+
+            }
+
+            #endregion
+
+
+        }
 
     }
 }

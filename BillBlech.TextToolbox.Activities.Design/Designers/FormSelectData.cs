@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 
 //https://stackoverflow.com/questions/4796109/how-to-move-item-in-listbox-up-and-down
@@ -21,10 +22,13 @@ namespace ExcelTut
         List<string> _itemsTemp = new List<string>();
         string[] arrayAvailableItems = null;
         string MyIDText = null;
+        string MyIDTextParent = null;
         string MyArgument = null;
         string templateFilePath = null;
+        Dictionary<string, string> DicArgumentsParent = new Dictionary<string, string>();
+        Encoding encoding = Encoding.Default;
 
-        public FormSelectData(string MyArgument, string TemplateFilePath, string MyIDText)
+        public FormSelectData(string MyArgument, string TemplateFilePath, string MyIDText, string MyIDTextParent, Encoding encoding)
         {
             InitializeComponent();
 
@@ -33,6 +37,8 @@ namespace ExcelTut
             this.Text = MyArgument;
             this.MyArgument = MyArgument;
             this.MyIDText = MyIDText;
+            this.MyIDTextParent = MyIDTextParent;
+            this.encoding = encoding;
 
             this.Show();
             this.templateFilePath = TemplateFilePath;
@@ -57,10 +63,18 @@ namespace ExcelTut
             //LstAvailableItems_Update();
             //#endregion
 
+            //Parent Arguments
+            DicArgumentsParent = LoadFormArguments(MyIDTextParent, encoding);
+
+            ////get Encoding
+            //string strEncoding = DicArgumentsParent["Encoding"];
+
+            //encoding = Utils.ConvertStringToEncoding(strEncoding);
+
             #region Selected Items
 
             //Set Default
-            
+
             //Selected Items
             this.groupLstSelectedItemsSelectionMulti.Checked = true;
             this.LstSelectedItems.SelectionMode = SelectionMode.MultiSimple;
@@ -68,7 +82,6 @@ namespace ExcelTut
         
             //Available Items
             this.groupLstAvailableItemsSourceWords.Checked = true;
-
 
             //Read Text File
             string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
@@ -80,13 +93,18 @@ namespace ExcelTut
             if (bExists == true)
             {
 
-                //Get all lines
-                string[] Lines = System.IO.File.ReadAllLines(FilePath);
+                string source = System.IO.File.ReadAllText(FilePath, encoding);
+                //string source = Utils.ReadTextFileStream(FilePath);
+                //MessageBox.Show(source);
 
+                //Get all lines
+                string[] Lines = System.IO.File.ReadAllLines(FilePath, encoding);
 
                 //Loop through the lines: Search for the Argument
                 foreach (string Line in Lines)
                 {
+
+                    //MessageBox.Show(Line);
 
                     //Split the Line
                     string[] MyArray = Strings.Split(Line, Utils.DefaultSeparator());
@@ -137,6 +155,45 @@ namespace ExcelTut
             }
 
             #endregion
+
+        }
+
+        //Load Form Arguments
+        private Dictionary<string, string> LoadFormArguments(string MyIDText, Encoding encoding)
+        {
+
+            Dictionary<string, string> MyDic = new Dictionary<string, string>();
+
+            //Get File Path
+            string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
+
+            //Remove Empty Rows from Text File
+            Utils.TextFileRemoveEmptyRows(FilePath, encoding);
+
+            //Read Text File and Split by new line
+            string[] lines = System.IO.File.ReadAllLines(FilePath, encoding);
+
+            //Loop through the Lines
+            for (int i = 0; i < lines.Length; i++)
+            {
+
+                //Get the Line
+                string line = lines[i];
+
+                //Split the Line
+                string[] MyArray = Strings.Split(line, Utils.DefaultSeparator());
+
+                //Fill in the Variables
+                string MyArgument = MyArray[0];
+                string MyValue = MyArray[1];
+
+                //Add to the Dictionary
+                MyDic.Add(MyArgument, MyValue);
+
+            }
+
+            //Return the Dictionary
+            return MyDic;
 
         }
 
@@ -239,8 +296,6 @@ namespace ExcelTut
             //Add Item to LstAvailableItems => Remove Item to LstSelectedItems
             Remove_btnClickRun();
         }
-
-        
 
         //Reset Form
         private void btnReset_Click(object sender, EventArgs e)
@@ -546,7 +601,7 @@ namespace ExcelTut
             _itemsAvailableItems.Clear();
 
             //Get Unique Words in File
-            arrayAvailableItems = DesignUtils.GetUniqueWordsInFile(templateFilePath);
+            arrayAvailableItems = DesignUtils.GetUniqueWordsInFile(templateFilePath, encoding);
 
             //Sort Array
             Array.Sort(arrayAvailableItems);
@@ -569,7 +624,8 @@ namespace ExcelTut
             //Clear Available Items
             _itemsAvailableItems.Clear();
 
-            string InputText = System.IO.File.ReadAllText(templateFilePath);
+            string InputText = System.IO.File.ReadAllText(templateFilePath, encoding);
+            //string InputText = Utils.ReadTextFileStream(templateFilePath);
             arrayAvailableItems = Utils.SplitTextNewLine(InputText);
 
             //Loop throught the items
@@ -629,7 +685,7 @@ namespace ExcelTut
             #endregion
 
             //Update Text File Row Argument
-            DesignUtils.CallUpdateTextFileRowArgument(FilePath, MyArgument, OutputString);
+            DesignUtils.CallUpdateTextFileRowArgument(FilePath, MyArgument, OutputString, encoding);
 
             //Copy to Clipboard
             Clipboard.SetText(OutputString);
@@ -722,6 +778,8 @@ namespace ExcelTut
         //Paste Data from Clipboard
         private void btnPaste_Click(object sender, EventArgs e)
         {
+
+            //Get Text from the Clipboard
             string ClipboardText = Clipboard.GetText();
 
             //Case it is not Null
@@ -730,12 +788,15 @@ namespace ExcelTut
                 //Get Data between brackets {}
                 string[] Results = Utils.ExtractTextBetweenTags(ClipboardText, "{", "}",System.Text.RegularExpressions.RegexOptions.Singleline,false,false);
 
+                //Case Items are found
                 if (Results.Length > 0)
                 {
+
+                    //Get Words from the Text
                     string Text = Results[0];
                     string[] Words = Strings.Split(Text, ",");
 
-
+                    //Loop through the Words
                     foreach (string Word in Words)
                     {
                         string WordAdj = Strings.Replace(Word, "\"", "");

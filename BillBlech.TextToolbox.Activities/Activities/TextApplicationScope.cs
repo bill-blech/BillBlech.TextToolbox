@@ -42,6 +42,11 @@ namespace BillBlech.TextToolbox.Activities
         [LocalizedCategory(nameof(Resources.Common_Category))]
         public InArgument<string> FilePathPreview { get; set; }
 
+        [LocalizedDisplayName(nameof(Resources.ReadTextFileEncondig_Encoding_DisplayName))]
+        [LocalizedDescription(nameof(Resources.ReadTextFileEncondig_Encoding_Description))]
+        [LocalizedCategory(nameof(Resources.Options_Category))]
+        public InArgument<string> Encoding { get; set; }
+
         // A tag used to identify the scope in the activity context
         internal static string ParentContainerPropertyTag => "ScopeActivity";
 

@@ -31,6 +31,11 @@ namespace BillBlech.TextToolbox.Activities
         //public InArgument<String[]> FilterWords { get; set; }
         public InArgument<Collection<string>> FilterWords { get; set; }
 
+        [LocalizedDisplayName(nameof(Resources.ReadTextFileEncondig_Encoding_DisplayName))]
+        [LocalizedDescription(nameof(Resources.ReadTextFileEncondig_Encoding_Description))]
+        [LocalizedCategory(nameof(Resources.Options_Category))]
+        public InArgument<string> Encoding { get; set; }
+
         [LocalizedDisplayName(nameof(Resources.FindArrayItems_DisplayLog_DisplayName))]
         [LocalizedDescription(nameof(Resources.FindArrayItems_DisplayLog_Description))]
         [LocalizedCategory(nameof(Resources.Options_Category))]

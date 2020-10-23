@@ -6,7 +6,8 @@
                       xmlns:sapv="clr-namespace:System.Activities.Presentation.View;assembly=System.Activities.Presentation"
                       xmlns:sapc="clr-namespace:System.Activities.Presentation.Converters;assembly=System.Activities.Presentation"
                       xmlns:converters="clr-namespace:UiPath.Shared.Activities.Design.Converters"
-                      xmlns:uip="clr-namespace:UiPath.Shared.Activities.Design.Controls">
+                      xmlns:uip="clr-namespace:UiPath.Shared.Activities.Design.Controls"
+                      xmlns:c="clr-namespace:BillBlech.TextToolbox.Activities.Design">
 
     <sap:ActivityDesigner.Resources>
         <ResourceDictionary>
@@ -14,6 +15,7 @@
                 <ResourceDictionary Source="..\Themes\Generic.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <sapc:ArgumentToExpressionConverter x:Key="ArgumentToExpressionConverter" />
+            <c:ComboBoxConverter x:Key="comboBoxItemConverter"/>
             <converters:ActivityIconConverter x:Key="ActivityIconConverter" />
         </ResourceDictionary>
     </sap:ActivityDesigner.Resources>
@@ -25,6 +27,7 @@
     <uip:ActivityDecoratorControl Style="{StaticResource ActivityDecoratorStyle}">
         <Grid Width="300">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
@@ -47,6 +50,15 @@
             <sapv:ExpressionTextBox  ExpressionType="{Binding ModelItem.Properties[FilePathPreview].PropertyType.GenericTypeArguments[0]}" OwnerActivity="{Binding ModelItem}" UseLocationExpression="False" Margin="358,0,20,0"  Expression="{Binding ModelItem.FilePathPreview, ConverterParameter=In, Converter={StaticResource ArgumentToExpressionConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HintText="{x:Static activity:Resources.TextApplicationScope_FilePathPreview_Description}" Name="FilePathPreview" Visibility="Hidden"/>
             <!--IDText -->
             <sapv:ExpressionTextBox  ExpressionType="{Binding ModelItem.Properties[IDText].PropertyType.GenericTypeArguments[0]}" OwnerActivity="{Binding ModelItem}" UseLocationExpression="False" Margin="380,0,3,0"  Expression="{Binding ModelItem.IDText, ConverterParameter=In, Converter={StaticResource ArgumentToExpressionConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HintText="{x:Static activity:Resources.IDText_Description}" Name="IDText" Visibility="Hidden"/>
+            <!--Encoding-->
+            <Label Content="{x:Static activity:Resources.ReadTextFileEncondig_Encoding_DisplayName}" Grid.Row="2"
+                   ToolTip="{x:Static activity:Resources.ReadTextFileEncondig_Encoding_Description}"/>
+            <ComboBox Grid.Row="2"
+                      SelectedValue="{Binding Path=ModelItem.Encoding, Mode=TwoWay, Converter={StaticResource comboBoxItemConverter}, ConverterParameter=In}"  
+                      ItemsSource="{Binding LstEncoding, Mode=TwoWay}"
+                            Margin="141,5,74,6"
+                      Name="EncodingComboBox"
+                      SelectionChanged="EncodingComboBox_SelectionChanged" Height="Auto"/>
         </Grid>
     </uip:ActivityDecoratorControl>
 </sap:ActivityDesigner>

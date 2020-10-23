@@ -4,6 +4,7 @@ using System.Activities;
 using System.Activities.Presentation.Model;
 using System.Globalization;
 using System.IO;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -29,7 +30,6 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             //Setup Wizard Button
             CallButton_SetupWizard();
         }
-
 
 
         //Setup Wizard Button
@@ -79,9 +79,14 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         //Button Open Preview
         private void Button_OpenPreview(object sender, RoutedEventArgs e)
         {
+            //Return IDText Parent
+            string MyIDTextParent = DesignUtils.ReturnCurrentFileIDText();
+
+            //Get Encoding
+            Encoding encoding = DesignUtils.GetEncodingIDText(MyIDTextParent);
 
             //Open Form Preview Extraction
-            DesignUtils.CallformPreviewExtraction(null, "Split Text New Lines");
+            DesignUtils.CallformPreviewExtraction(null, "Split Text New Lines", MyIDTextParent, encoding);
 
         }
 
