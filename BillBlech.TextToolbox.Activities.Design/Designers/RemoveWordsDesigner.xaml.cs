@@ -89,12 +89,25 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         }
         #endregion
 
-            #region Set IDText
-            //Update IDText
-            private void UpdateIDText()
+        #region Set IDText
+        //Update IDText
+        private void UpdateIDText()
         {
             //Get IDText, if there is
             MyIDText = ReturnIDText();
+
+            if (MyIDText != null)
+            {
+                string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
+
+                //Case there is no file, create it!
+                if (File.Exists(FilePath) == false)
+                {
+                    //Create Blank Text File
+                    System.IO.File.WriteAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt", "");
+                }
+            }
+
 
             if (MyIDText == null)
             {
@@ -109,8 +122,6 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                 ModelProperty property = this.ModelItem.Properties["IDText"];
                 property.SetValue(new InArgument<string>(MyIDText));
             }
-
-
         }
 
         //Get ID Text
@@ -150,6 +161,9 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             else
             {
 
+                //Update IDText
+                UpdateIDText();
+
                 //Fill in Global Variable
                 MyArgument = "Words";
 
@@ -163,9 +177,6 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         private void CallButton_SetupWizard()
         {
 
-            //Update IDText
-            UpdateIDText();
-
             //Check if Current File is Updated
             string bUpdated = System.IO.File.ReadAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFileUpdated.txt");
 
@@ -175,6 +186,24 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                 #region Build Context Menu
                 //Start Context Menu
                 ContextMenu cm = new ContextMenu();
+
+                //Create New IDText
+                System.Windows.Controls.MenuItem menuCreateNewIDText = new System.Windows.Controls.MenuItem();
+
+                menuCreateNewIDText.Header = "Create New ID";
+                menuCreateNewIDText.Click += CreateNewIDText;
+                menuCreateNewIDText.ToolTip = "Create New IDText";
+                //Add Icon to the uri_menuItem
+                var uri_CreateNewIDText = new System.Uri("https://img.icons8.com/officexs/20/000000/add-file.png");
+                var bitmap_CreateNewIDText = new BitmapImage(uri_CreateNewIDText);
+                var image_CreateNewIDText = new Image();
+                image_CreateNewIDText.Source = bitmap_CreateNewIDText;
+                menuCreateNewIDText.Icon = image_CreateNewIDText;
+
+                cm.Items.Add(menuCreateNewIDText);
+
+                //Add Separator
+                cm.Items.Add(new Separator());
 
                 //Paste from the CLipboard
                 System.Windows.Controls.MenuItem menuPaste = new System.Windows.Controls.MenuItem();
@@ -312,6 +341,51 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             #endregion
         }
 
+        //Create New TextID
+        private void CreateNewIDText(object sender, RoutedEventArgs e)
+        {
+
+            string FilePath = null;
+
+            //Get Encoding Parent
+
+            //Return IDText Parent
+            string MyIDTextParent = DesignUtils.ReturnCurrentFileIDText();
+
+            //Get Encoding
+            Encoding encoding = DesignUtils.GetEncodingIDText(MyIDTextParent);
+
+            //Get Data from Current Text File
+
+            MyIDText = ReturnIDText();
+
+            //Get the File Path
+            FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
+
+            //Check if file exists
+            if (File.Exists(FilePath) == true)
+            {
+                //Get Data from Text File
+                string Source = System.IO.File.ReadAllText(FilePath, encoding);
+
+                //New IDText
+
+                //Clear the Current IDText
+                ModelProperty property = this.ModelItem.Properties["IDText"];
+                property.SetValue(null);
+
+                //Update IDText
+                UpdateIDText();
+
+                //Set the New File Path
+                FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
+
+                //Write New Text File
+                System.IO.File.WriteAllText(FilePath, Source);
+            }
+
+        }
+
         //Return Occurence Position
         private string ReturnOccurrenceNumber()
         {
@@ -358,16 +432,25 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         //Update Control
         public void UpdateControl(string ControlName, string ClipBoardText)
         {
-
             //Case it is not a Close Click
             if (ClipBoardText != Utils.DefaultSeparator())
             {
                 //Reference the Control
                 ModelProperty p2 = this.ModelItem.Properties[ControlName];
 
-                string MyOutput = "New Collection(Of String) From " + ClipBoardText;
-                VisualBasicValue<Collection<string>> MyArgList = new VisualBasicValue<Collection<string>>(MyOutput);
-                p2.SetValue(new InArgument<Collection<string>>(MyArgList));
+                //Case it is not null
+                if (ClipBoardText.Length > 0)
+                {
+                    string MyOutput = "New Collection(Of String) From " + ClipBoardText;
+                    VisualBasicValue<Collection<string>> MyArgList = new VisualBasicValue<Collection<string>>(MyOutput);
+                    p2.SetValue(new InArgument<Collection<string>>(MyArgList));
+                }
+                else
+                {
+                    //Case it is null
+                    p2.SetValue(null);
+                }
+
             }
 
         }

@@ -45,9 +45,16 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             //Case there is an IDText
             if (MyIDText != null)
             {
-                //Auto Fill Controls
-                AutoFillControls();
+
             }
+            else
+            {
+                //UpdateIDText
+                UpdateIDText();
+            }
+
+            //Auto Fill Controls
+            AutoFillControls();
 
         }
 
@@ -125,6 +132,8 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             //Start Context Menu
             ContextMenu cm = new ContextMenu();
 
+            #region Create New IDText
+
             //Create New IDText
             System.Windows.Controls.MenuItem menuCreateNewIDText = new System.Windows.Controls.MenuItem();
 
@@ -139,6 +148,8 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             menuCreateNewIDText.Icon = image_CreateNewIDText;
 
             cm.Items.Add(menuCreateNewIDText);
+
+            #endregion
 
             //Add Separator
             cm.Items.Add(new Separator());
@@ -291,6 +302,8 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
             #endregion
 
+            #region Preview
+
             //Preview
             if (CurrentTextFilePath != null)
             {
@@ -312,6 +325,8 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
                 cm.Items.Add(menuPreview);
             }
+
+            #endregion
 
             //Open the Menu
             cm.IsOpen = true;
@@ -445,7 +460,8 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             OpenFileDialog _openFileDialog = new OpenFileDialog
             {
                 Title = "Select Text File",
-                InitialDirectory = Directory.GetCurrentDirectory()
+                InitialDirectory = Directory.GetCurrentDirectory(),
+                Filter = "Text Files (*.txt)|*.txt"
             };
 
             if (_openFileDialog.ShowDialog() == true)
@@ -620,19 +636,45 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         //Create New TextID
         private void CreateNewIDText(object sender, RoutedEventArgs e)
         {
-            //Get the File Path
-            string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
+            string FilePath = null;
 
-            //Clear the Current IDText
-            ModelProperty property = this.ModelItem.Properties["IDText"];
-            property.SetValue(null);
+            //Get Item from the ComboBox
+            string MyEncoding = ReturnEncoding();
 
-            //Update IDText
-            UpdateIDText();
+            if (MyEncoding != null)
+            {
+         
+                //Get Encoding
+                Encoding encoding = Utils.ConvertStringToEncoding(MyEncoding);
 
-            //Auto Fill Controls
-            AutoFillControls();
+                //Get Data from Current Text File
+                MyIDText = ReturnIDText();
 
+                //Get the File Path
+                FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
+
+                //Check if file exists
+                if (File.Exists(FilePath) == true)
+                {
+                    //Get Data from Text File
+                    string Source = System.IO.File.ReadAllText(FilePath, encoding);
+
+                    //New IDText
+
+                    //Clear the Current IDText
+                    ModelProperty property = this.ModelItem.Properties["IDText"];
+                    property.SetValue(null);
+
+                    //Update IDText
+                    UpdateIDText();
+
+                    //Set the New File Path
+                    FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
+
+                    //Write New Text File
+                    System.IO.File.WriteAllText(FilePath, Source);
+                }
+            }
         }
 
         //Auto Fill Controls

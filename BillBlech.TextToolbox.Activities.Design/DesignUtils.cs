@@ -356,9 +356,18 @@ namespace BillBlech.TextToolbox.Activities.Design
         {
             //Get the File Path
             string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFileIDText.txt";
-            string IDText = System.IO.File.ReadAllText(FilePath);
 
-            return IDText;
+            if (File.Exists(FilePath) == true)
+            {
+                string IDText = System.IO.File.ReadAllText(FilePath);
+
+                return IDText;
+            }
+            else
+            {
+                return null;
+            }
+
         }
 
         //Get Encoding Argument from IDText
@@ -368,6 +377,7 @@ namespace BillBlech.TextToolbox.Activities.Design
             Encoding encoding = Encoding.Default;
 
             string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDTextParent + ".txt";
+
             string[] lines = System.IO.File.ReadAllLines(FilePath);
 
             //Loop through the Lines

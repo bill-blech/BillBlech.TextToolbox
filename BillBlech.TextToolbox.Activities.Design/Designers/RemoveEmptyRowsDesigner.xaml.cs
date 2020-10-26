@@ -27,7 +27,7 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             {
                 return new List<string>
                 {
-                    "UTF8", "ASCII", "iso-8859-1"
+                    "Default", "UTF8", "ASCII", "iso-8859-1"
                 };
             }
             set { }
@@ -67,6 +67,19 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             //Get IDText, if there is
             MyIDText = ReturnIDText();
 
+            if (MyIDText != null)
+            {
+                string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
+
+                //Case there is no file, create it!
+                if (File.Exists(FilePath) == false)
+                {
+                    //Create Blank Text File
+                    System.IO.File.WriteAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt", "");
+                }
+            }
+
+
             if (MyIDText == null)
             {
 
@@ -80,7 +93,6 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                 ModelProperty property = this.ModelItem.Properties["IDText"];
                 property.SetValue(new InArgument<string>(MyIDText));
             }
-
 
         }
 
@@ -410,7 +422,9 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             OpenFileDialog _openFileDialog = new OpenFileDialog
             {
                 Title = "Select Text File",
-                InitialDirectory = Directory.GetCurrentDirectory()
+                InitialDirectory = Directory.GetCurrentDirectory(),
+                Filter = "Text Files (*.txt)|*.txt"
+
             };
 
             if (_openFileDialog.ShowDialog() == true)

@@ -30,7 +30,7 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             {
                 return new List<string>
                 {
-                    "UTF8", "ASCII", "iso-8859-1"
+                    "Default", "UTF8", "ASCII", "iso-8859-1"
                 };
             }
             set { }
@@ -39,6 +39,9 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         //Anchor Words Parameter Update Event
         private void EncodingComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
+            //Update IDText
+            UpdateIDText();
 
             //Get IDText, if there is
             MyIDText = ReturnIDText();
@@ -70,6 +73,19 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             //Get IDText, if there is
             MyIDText = ReturnIDText();
 
+            if (MyIDText != null)
+            {
+                string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
+
+                //Case there is no file, create it!
+                if (File.Exists(FilePath) == false)
+                {
+                    //Create Blank Text File
+                    System.IO.File.WriteAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt", "");
+                }
+            }
+
+
             if (MyIDText == null)
             {
 
@@ -83,7 +99,6 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                 ModelProperty property = this.ModelItem.Properties["IDText"];
                 property.SetValue(new InArgument<string>(MyIDText));
             }
-
 
         }
 
@@ -147,6 +162,8 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             //Start Context Menu
             ContextMenu cm = new ContextMenu();
 
+            #region Create New ID
+
             //Create New IDText
             System.Windows.Controls.MenuItem menuCreateNewIDText = new System.Windows.Controls.MenuItem();
 
@@ -161,6 +178,8 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             menuCreateNewIDText.Icon = image_CreateNewIDText;
 
             cm.Items.Add(menuCreateNewIDText);
+
+            #endregion
 
             //Add Separator
             cm.Items.Add(new Separator());
@@ -352,6 +371,8 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
                 cm.Items.Add(menuWizard);
 
+                #region Preview
+
                 //Preview
                 System.Windows.Controls.MenuItem menuPreview = new System.Windows.Controls.MenuItem();
 
@@ -366,6 +387,8 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                 menuPreview.Icon = image_menuPreview;
 
                 cm.Items.Add(menuPreview);
+
+                #endregion
             }
 
             //Open the Menu
@@ -494,7 +517,8 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             OpenFileDialog _openFileDialog = new OpenFileDialog
             {
                 Title = "Select Text File",
-                InitialDirectory = Directory.GetCurrentDirectory()
+                InitialDirectory = Directory.GetCurrentDirectory(),
+                Filter = "Text Files (*.txt)|*.txt"
             };
 
             if (_openFileDialog.ShowDialog() == true)
@@ -708,7 +732,6 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
             #endregion
 
-
         }
 
         //Paste to from the Clipboard
@@ -744,16 +767,25 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         //Update Control
         public void UpdateControl(string ControlName, string ClipBoardText)
         {
-
             //Case it is not a Close Click
             if (ClipBoardText != Utils.DefaultSeparator())
             {
                 //Reference the Control
                 ModelProperty p2 = this.ModelItem.Properties[ControlName];
 
-                string MyOutput = "New Collection(Of String) From " + ClipBoardText;
-                VisualBasicValue<Collection<string>> MyArgList = new VisualBasicValue<Collection<string>>(MyOutput);
-                p2.SetValue(new InArgument<Collection<string>>(MyArgList));
+                //Case it is not null
+                if (ClipBoardText.Length > 0)
+                {
+                    string MyOutput = "New Collection(Of String) From " + ClipBoardText;
+                    VisualBasicValue<Collection<string>> MyArgList = new VisualBasicValue<Collection<string>>(MyOutput);
+                    p2.SetValue(new InArgument<Collection<string>>(MyArgList));
+                }
+                else
+                {
+                    //Case it is null
+                    p2.SetValue(null);
+                }
+
             }
 
         }
@@ -761,41 +793,45 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         //Create New TextID
         private void CreateNewIDText(object sender, RoutedEventArgs e)
         {
-            //Get the File Path
-            string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
+            string FilePath = null;
 
-            Encoding encoding = Encoding.Default;
-
-            //Clear the Current IDText
-            ModelProperty property = this.ModelItem.Properties["IDText"];
-            property.SetValue(null);
-
-            //Update IDText
-            UpdateIDText();
-
-            //Encoding
+            //Get Item from the ComboBox
             string MyEncoding = ReturnEncoding();
 
             if (MyEncoding != null)
             {
+
                 //Get Encoding
-                encoding = Utils.ConvertStringToEncoding(MyEncoding);
+                Encoding encoding = Utils.ConvertStringToEncoding(MyEncoding);
 
-                //Update Text File Row Argument
-                DesignUtils.CallUpdateTextFileRowArgument(FilePath, "Encoding", MyEncoding, encoding);
+                //Get Data from Current Text File
+                MyIDText = ReturnIDText();
 
-                //Copy the Arguments, in case there is
-                string FilePathPreview = ReturnCurrentFile();
+                //Get the File Path
+                FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
 
-                //File Name
-                if (FilePath != null)
+                //Check if file exists
+                if (File.Exists(FilePath) == true)
                 {
-                    //Update Text File Row Argument
-                    DesignUtils.CallUpdateTextFileRowArgument(FilePath, "FileName", FilePathPreview, encoding);
+                    //Get Data from Text File
+                    string Source = System.IO.File.ReadAllText(FilePath, encoding);
+
+                    //New IDText
+
+                    //Clear the Current IDText
+                    ModelProperty property = this.ModelItem.Properties["IDText"];
+                    property.SetValue(null);
+
+                    //Update IDText
+                    UpdateIDText();
+
+                    //Set the New File Path
+                    FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
+
+                    //Write New Text File
+                    System.IO.File.WriteAllText(FilePath, Source);
                 }
             }
-
-           
         }
 
         //Auto Fill Controls

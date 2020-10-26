@@ -78,10 +78,6 @@
                             Margin="141,5,74,6"
                       Name="EncodingComboBox"
                       SelectionChanged="EncodingComboBox_SelectionChanged" Height="Auto"/>
-
-
-
-
         </Grid>
     </uip:ActivityDecoratorControl>
 </sap:ActivityDesigner>

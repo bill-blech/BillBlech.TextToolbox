@@ -20,6 +20,40 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         string MyIDText = null;
         string MyArgument = null;
 
+        #region ComboBox
+        public List<string> LstEncoding
+        {
+            get
+            {
+                return new List<string>
+                {
+                    "Default", "UTF8", "ASCII", "iso-8859-1"
+                };
+            }
+            set { }
+        }
+
+        //Anchor Words Parameter Update Event
+        private void EncodingComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            //Update IDText
+            UpdateIDText();
+
+            //Get IDText, if there is
+            MyIDText = ReturnIDText();
+
+            //Case there is an IDText
+            if (MyIDText != null)
+            {
+                //Auto Fill Controls
+                AutoFillControls();
+            }
+
+        }
+
+        #endregion
+
         public SplitTextRowsDesigner()
         {
             InitializeComponent();
@@ -32,6 +66,19 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         {
             //Get IDText, if there is
             MyIDText = ReturnIDText();
+
+            if (MyIDText != null)
+            {
+                string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
+
+                //Case there is no file, create it!
+                if (File.Exists(FilePath) == false)
+                {
+                    //Create Blank Text File
+                    System.IO.File.WriteAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt", "");
+                }
+            }
+
 
             if (MyIDText == null)
             {
@@ -46,7 +93,6 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                 ModelProperty property = this.ModelItem.Properties["IDText"];
                 property.SetValue(new InArgument<string>(MyIDText));
             }
-
 
         }
 
@@ -72,6 +118,9 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         private void CallCallButton_SetupWizard(object sender, System.Windows.RoutedEventArgs e)
         {
 
+            //Update IDText
+            UpdateIDText();
+
             //Setup Wizard Button
             CallButton_SetupWizard();
         }
@@ -80,15 +129,31 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         private void CallButton_SetupWizard()
         {
 
-            //Update IDText
-            UpdateIDText();
-
             string CurrentTextFilePath = null;
 
             #region Build Context Menu
 
             //Start Context Menu
             ContextMenu cm = new ContextMenu();
+
+            #region Create New ID
+
+            //Create New IDText
+            System.Windows.Controls.MenuItem menuCreateNewIDText = new System.Windows.Controls.MenuItem();
+
+            menuCreateNewIDText.Header = "Create New ID";
+            menuCreateNewIDText.Click += CreateNewIDText;
+            menuCreateNewIDText.ToolTip = "Create New IDText";
+            //Add Icon to the uri_menuItem
+            var uri_CreateNewIDText = new System.Uri("https://img.icons8.com/officexs/20/000000/add-file.png");
+            var bitmap_CreateNewIDText = new BitmapImage(uri_CreateNewIDText);
+            var image_CreateNewIDText = new Image();
+            image_CreateNewIDText.Source = bitmap_CreateNewIDText;
+            menuCreateNewIDText.Icon = image_CreateNewIDText;
+
+            cm.Items.Add(menuCreateNewIDText);
+
+            #endregion
 
             //Get all StorageFiles
             string[] StorageFilesList = Directory.GetFiles(Directory.GetCurrentDirectory() + "/StorageTextToolbox/FileNames");
@@ -238,6 +303,7 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
             #endregion
 
+            #region Preview
             if (CurrentTextFilePath!= null)
             {
 
@@ -260,6 +326,7 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                 cm.Items.Add(menuPreview);
 
             }
+            #endregion
 
             //Open the Menu
             cm.IsOpen = true;
@@ -284,6 +351,23 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             }
 
 
+
+        }
+
+        //Return Encoding
+        private string ReturnEncoding()
+        {
+            try
+            {
+                //Get Encoding
+                return this.EncodingComboBox.SelectedItem.ToString();
+
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
 
         }
 
@@ -343,7 +427,9 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             OpenFileDialog _openFileDialog = new OpenFileDialog
             {
                 Title = "Select Text File",
-                InitialDirectory = Directory.GetCurrentDirectory()
+                InitialDirectory = Directory.GetCurrentDirectory(),
+                Filter = "Text Files (*.txt)|*.txt"
+
             };
 
             if (_openFileDialog.ShowDialog() == true)
@@ -389,14 +475,6 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         public void Button_RefreshCurrentFile()
         {
 
-            Encoding encoding = Encoding.Default;
-
-            //Return IDText Parent
-            string MyIDTextParent = DesignUtils.ReturnCurrentFileIDText();
-
-            //Get Encoding
-            encoding = DesignUtils.GetEncodingIDText(MyIDTextParent);
-
             //Get Data from Control
             //string CurrentExcelFilePath = this.FilePath.Expression.ToString();
             string CurrentTextFilePath = ReturnCurrentFile();
@@ -435,10 +513,18 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                         //Get Current File
                         string CurrentFile = System.IO.File.ReadAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/FileNames/" + Path.GetFileNameWithoutExtension(CurrentTextFilePath) + ".txt");
 
+                        //Get Item from the ComboBox
+                        string MyEncoding = ReturnEncoding();
 
-                        //Update Text File Row Argument
-                        MyArgument = "FilePathforPreview";
-                        DesignUtils.CallUpdateTextFileRowArgument(FilePath, MyArgument, CurrentFile, encoding);
+                        if (MyEncoding != null)
+                        {
+                            Encoding encoding = Utils.ConvertStringToEncoding(MyEncoding);
+
+                            //Update Text File Row Argument
+                            MyArgument = "FileName";
+                            DesignUtils.CallUpdateTextFileRowArgument(FilePath, MyArgument, CurrentFile, encoding);
+
+                        }
 
                         break;
 
@@ -463,67 +549,43 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         //Button Open Preview
         private void Button_OpenPreview(object sender, RoutedEventArgs e)
         {
-            Encoding encoding = Encoding.Default;
 
-            //Return IDText Parent
-            string MyIDTextParent = DesignUtils.ReturnCurrentFileIDText();
-
-            //Get Encoding
-            encoding = DesignUtils.GetEncodingIDText(MyIDTextParent);
 
             //Get the File Path
             string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
 
-            //Null Limit
-            MyArgument = "Null Limit";
-            string NullLimit = ReturnNullLimit();
+            //Auto Fill Controls
+            AutoFillControls();
 
-            if (NullLimit != null)
+            //Get Item from the ComboBox
+            string MyEncoding = ReturnEncoding();
+
+            if (MyEncoding != null)
             {
-                //Update Text File Row Argument
-                DesignUtils.CallUpdateTextFileRowArgument(FilePath, MyArgument, NullLimit, encoding);
-            }
-            else
-            {
-                //Delete Argument in case it is null
-                DesignUtils.DeleteTextFileRowArgument(FilePath, MyArgument, encoding);
-            }
+                Encoding encoding = Utils.ConvertStringToEncoding(MyEncoding);
 
-            //Suppress Null Values
-            MyArgument = "Suppress Null Values";
-            string MybSuppressNullValues = ReturnSuppressNullValues();
+                #region Open Preview Extraction
 
-            if (MybSuppressNullValues != null)
-            {
-                //Update Text File Row Argument
-                DesignUtils.CallUpdateTextFileRowArgument(FilePath, MyArgument, MybSuppressNullValues, encoding);
-            }
-            else
-            {
-                //Delete Argument in case it is null
-                DesignUtils.DeleteTextFileRowArgument(FilePath, MyArgument, encoding);
-            }
+                //Read Text File
+                string Source = System.IO.File.ReadAllText(FilePath, encoding);
 
-            #region Open Preview Extraction
+                //Check if all Parameters are in the File
+                string[] searchWords = { "FileName" + Utils.DefaultSeparator(), "Null Limit" + Utils.DefaultSeparator(), "Suppress Null Values" + Utils.DefaultSeparator() };
+                double PercResults = Utils.FindWordsInString(Source, searchWords, false);
 
-            //Read Text File
-            string Source = System.IO.File.ReadAllText(FilePath, encoding);
+                //Case all Parameters are found
+                if (PercResults == 1)
+                {
 
-            //Check if all Parameters are in the File
-            string[] searchWords = { "FilePathforPreview" + Utils.DefaultSeparator(), "Null Limit" + Utils.DefaultSeparator(), "Suppress Null Values" + Utils.DefaultSeparator()};
-            double PercResults = Utils.FindWordsInString(Source, searchWords, false);
+                    //Open Form Preview Extraction
+                    DesignUtils.CallformPreviewExtraction(MyIDText, "Split text Uneven Blank Spaces", MyIDText, encoding);
+                }
+                else
+                {
+                    //Error Message
+                    MessageBox.Show("Please fill in all arguments", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
 
-            //Case all Parameters are found
-            if (PercResults == 1)
-            {
-
-                //Open Form Preview Extraction
-                DesignUtils.CallformPreviewExtraction(MyIDText, "Split text Uneven Blank Spaces", MyIDTextParent, encoding);
-            }
-            else
-            {
-                //Error Message
-                MessageBox.Show("Please fill in all arguments", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             #endregion
@@ -564,6 +626,126 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
         }
 
+        //Create New TextID
+        private void CreateNewIDText(object sender, RoutedEventArgs e)
+        {
+            string FilePath = null;
+
+            //Get Item from the ComboBox
+            string MyEncoding = ReturnEncoding();
+
+            if (MyEncoding != null)
+            {
+
+                //Get Encoding
+                Encoding encoding = Utils.ConvertStringToEncoding(MyEncoding);
+
+                //Get Data from Current Text File
+                MyIDText = ReturnIDText();
+
+                //Get the File Path
+                FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
+
+                //Check if file exists
+                if (File.Exists(FilePath) == true)
+                {
+                    //Get Data from Text File
+                    string Source = System.IO.File.ReadAllText(FilePath, encoding);
+
+                    //New IDText
+
+                    //Clear the Current IDText
+                    ModelProperty property = this.ModelItem.Properties["IDText"];
+                    property.SetValue(null);
+
+                    //Update IDText
+                    UpdateIDText();
+
+                    //Set the New File Path
+                    FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
+
+                    //Write New Text File
+                    System.IO.File.WriteAllText(FilePath, Source);
+                }
+            }
+        }
+
+        //Auto Fill Controls
+        public void AutoFillControls()
+        {
+            //Check if File Exists, if not create it
+
+            //Get the File Path
+            string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
+
+            //If false create it
+            if (File.Exists(FilePath) == false)
+            {
+                //Create File
+                System.IO.File.WriteAllText(FilePath, "");
+            }
+
+            #region Encoding
+
+            string MyArgument = "Encoding";
+
+            //Get Item from the ComboBox
+            string MyEncoding = ReturnEncoding();
+
+            if (MyEncoding != null)
+            {
+                Encoding encoding = Utils.ConvertStringToEncoding(MyEncoding);
+
+                //Log ComboBox
+                DesignUtils.CallLogComboBox(MyIDText, MyArgument, MyEncoding, encoding);
+
+                #region File Name
+
+                //Copy the Arguments, in case there is
+                string FilePathPreview = ReturnCurrentFile();
+
+                if (FilePathPreview != null)
+                {
+                    //Update Text File Row Argument
+                    DesignUtils.CallUpdateTextFileRowArgument(FilePath, "FileName", FilePathPreview, encoding);
+
+                    //Null Limit
+                    MyArgument = "Null Limit";
+                    string NullLimit = ReturnNullLimit();
+
+                    if (NullLimit != null)
+                    {
+                        //Update Text File Row Argument
+                        DesignUtils.CallUpdateTextFileRowArgument(FilePath, MyArgument, NullLimit, encoding);
+                    }
+                    else
+                    {
+                        //Delete Argument in case it is null
+                        DesignUtils.DeleteTextFileRowArgument(FilePath, MyArgument, encoding);
+                    }
+
+                    //Suppress Null Values
+                    MyArgument = "Suppress Null Values";
+                    string MybSuppressNullValues = ReturnSuppressNullValues();
+
+                    if (MybSuppressNullValues != null)
+                    {
+                        //Update Text File Row Argument
+                        DesignUtils.CallUpdateTextFileRowArgument(FilePath, MyArgument, MybSuppressNullValues, encoding);
+                    }
+                    else
+                    {
+                        //Delete Argument in case it is null
+                        DesignUtils.DeleteTextFileRowArgument(FilePath, MyArgument, encoding);
+                    }
+
+                }
+
+                #endregion
+            }
+
+            #endregion
+        }
 
     }
 }

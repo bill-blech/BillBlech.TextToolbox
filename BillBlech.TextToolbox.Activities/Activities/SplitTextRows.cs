@@ -39,10 +39,20 @@ namespace BillBlech.TextToolbox.Activities
         //public bool bSuppressNulls { get; set; }
         public InArgument<bool> bSuppressNulls { get; set; }
 
+        [LocalizedDisplayName(nameof(Resources.ReadTextFileEncondig_Encoding_DisplayName))]
+        [LocalizedDescription(nameof(Resources.ReadTextFileEncondig_Encoding_Description))]
+        [LocalizedCategory(nameof(Resources.Options_Category))]
+        public InArgument<string> Encoding { get; set; }
+
         [LocalizedDisplayName(nameof(Resources.SplitTextRows_ExtractedText_DisplayName))]
         [LocalizedDescription(nameof(Resources.SplitTextRows_ExtractedText_Description))]
         [LocalizedCategory(nameof(Resources.Output_Category))]
         public OutArgument<String[]> ExtractedText { get; set; }
+
+        [LocalizedDisplayName(nameof(Resources.ExtractTextBetweenTwoAnchorWords_DisplayLog_DisplayName))]
+        [LocalizedDescription(nameof(Resources.ExtractTextBetweenTwoAnchorWords_DisplayLog_Description))]
+        [LocalizedCategory(nameof(Resources.Options_Category))]
+        public bool DisplayLog { get; set; }
 
         [LocalizedDisplayName(nameof(Resources.IDText_DisplayName))]
         [LocalizedDescription(nameof(Resources.IDText_Description))]
@@ -84,12 +94,13 @@ namespace BillBlech.TextToolbox.Activities
             var inputTextRow = InputTextRow.Get(context);
             var nullLimit = NullLimit.Get(context);
             var bsuppressNulls = bSuppressNulls.Get(context);
+            var displayLog = DisplayLog;
 
             ///////////////////////////
             // Add execution logic HERE
 
             //Fill in Array of Words
-            string[] ArrayWordsExtractedText = Utils.SplitTextBigSpaces(inputTextRow, nullLimit, bsuppressNulls);
+            string[] ArrayWordsExtractedText = Utils.SplitTextBigSpaces(inputTextRow, nullLimit, bsuppressNulls, displayLog);
             ///////////////////////////
 
             // Outputs

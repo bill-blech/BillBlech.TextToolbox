@@ -43,9 +43,15 @@ namespace ExcelTut
             this.Show();
             this.templateFilePath = TemplateFilePath;
 
+            //Split Controls
+            this.txtSplitSeparator.Enabled = false;
+            this.cbSplitSide.Enabled = false;
+
+            string[] ArraySplitItems = {"Left", "Right" };
+            cbSplitSide.Items.AddRange(ArraySplitItems);
+
             //Inicialize form procedures
             Inicialize_form_procedures();
-
         }
 
         //Inicialize form procedures
@@ -76,12 +82,15 @@ namespace ExcelTut
             //Set Default
 
             //Selected Items
-            this.groupLstSelectedItemsSelectionMulti.Checked = true;
-            this.LstSelectedItems.SelectionMode = SelectionMode.MultiSimple;
-            this.GroupLstSelectedItemsMoveItem.Visible = false;
-        
+            //this.groupLstSelectedItemsSelectionMulti.Checked = true;
+            this.groupLstSelectedItemsSelectionSingle.Checked = true;
+            this.LstSelectedItems.SelectionMode = SelectionMode.One;
+            //this.LstSelectedItems.SelectionMode = SelectionMode.MultiSimple;
+            //this.GroupLstSelectedItemsMoveItem.Visible = false;
+            this.GroupLstSelectedItemsMoveItem.Visible = true;
+
             //Available Items
-            this.groupLstAvailableItemsSourceWords.Checked = true;
+            this.groupLstAvailableItemsSourceLines.Checked = true;
 
             //Read Text File
             string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
@@ -236,9 +245,56 @@ namespace ExcelTut
         private void btnAdd_Click(object sender, EventArgs e)
         {
 
-            //Add Item to LstSelectedItems => Remove Item from LstAvailableItems
-            Add_btnClickRun();
+            //Split Activated
+            if (cbSplitActivate.Checked == true)
+            {
 
+                #region Split
+                string str = null;
+                string txtSelectedItem = this.LstAvailableItems.SelectedItem.ToString();
+
+                string txtSeparator = this.txtSplitSeparator.Text;
+                string txtSide = this.cbSplitSide.SelectedItem.ToString();
+
+
+                if (txtSelectedItem != null && txtSeparator != null && txtSide != null)
+                {
+                    string[] TextArray = Strings.Split(txtSelectedItem, txtSeparator);
+
+                    switch (txtSide)
+                    {
+                        //Left
+                        case "Left":
+                            str = TextArray[0];
+                            break;
+
+
+                        //Right
+                        case "Right":
+                            str = TextArray[1];
+                            break;
+
+                    }
+
+                    //Add Item to the ListBox
+                    str += txtSeparator;
+                    LstSelectedItems.Items.Add(str);
+                }
+                else
+                {
+                    //Error Message
+                    MessageBox.Show("Please fill in all arguments", "Validation Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                }
+                #endregion
+
+
+            }
+            else
+            {
+                //Add Item to LstSelectedItems => Remove Item from LstAvailableItems
+                Add_btnClickRun();
+            }
+           
         }
 
         //Call Add Item to LstSelectedItems => Remove Item from LstAvailableItems
@@ -637,24 +693,25 @@ namespace ExcelTut
             //Update LstAvailableItems_Update
             LstAvailableItems_Update();
 
+            //Clear Search Box
+            SearchLstAvailableItems.Text = "";
+            SearchLstAvailableItems.Focus();
+
         }
 
-        //Copy Data to the ClipBoard
+        //Copy Data to the ClipBoard: Save
         private void btnCopyToClipBoard_Click(object sender, EventArgs e)
         {
 
             string OutputString = null;
-            string OutputText = null;
             int i = 0;
             string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
             bool bNoItems = false;
 
             #region OutputString
-
             //Fill in Variable OutputString
             foreach (string SelectedItem in LstSelectedItems.Items)
             {
-
                 if (i == 0)
                 {
                     OutputString = "\"" + SelectedItem + "\"";
@@ -666,13 +723,11 @@ namespace ExcelTut
 
                 //Update the Counter
                 i++;
-
             }
 
             //Fnish the Clause
             if (OutputString != null)
             {
-
                 //Case items are found
                 OutputString = "{" + OutputString + "}";
             }
@@ -685,10 +740,25 @@ namespace ExcelTut
             #endregion
 
             //Update Text File Row Argument
-            DesignUtils.CallUpdateTextFileRowArgument(FilePath, MyArgument, OutputString, encoding);
+            if (bNoItems == false)
+            {
 
-            //Copy to Clipboard
-            Clipboard.SetText(OutputString);
+                //Update Argument
+                DesignUtils.CallUpdateTextFileRowArgument(FilePath, MyArgument, OutputString, encoding);
+
+                //Copy to Clipboard
+                Clipboard.SetText(OutputString);
+            }
+            else
+            {
+                //Delete Argument
+                DesignUtils.DeleteTextFileRowArgument(FilePath, MyArgument, encoding);
+
+                //Clear the Clipboard
+                Clipboard.Clear();
+            }
+
+            
 
         CloseForm:
             //Close the Form
@@ -816,9 +886,25 @@ namespace ExcelTut
             }    
 
 
-
         }
 
-        
+        //Split Activate
+        private void cbSplitActivate_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbSplitActivate.Checked == true)
+            {
+                //Split Controls
+                this.txtSplitSeparator.Enabled = true;
+                this.cbSplitSide.Enabled = true;
+            }
+            else
+            {
+                //Split Controls
+                this.txtSplitSeparator.Enabled = false;
+                this.cbSplitSide.Enabled = false;
+            }
+
+
+        }
     }
 }

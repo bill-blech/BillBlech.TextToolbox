@@ -55,7 +55,7 @@ namespace BillBlech.TextToolbox.Activities.Activities
 
             //Log Message
             if (displayLog == true)
-                WriteLogMessage($"Extract Text Between Tags: [Beg Word: '{StartTAG.Trim()}' End Word: '{EndTAG.Trim()}]'");
+                WriteLogMessage($"Extract Text Between Tags: [Beg Word: '{StartTAG.Trim()}' End Word: '{EndTAG.Trim()}']");
 
             //Set the Search Criteria
             string SearchCriteria = null;
@@ -314,7 +314,7 @@ namespace BillBlech.TextToolbox.Activities.Activities
         {
             //Log Message
             if (displayLog == true)
-                WriteLogMessage($"Extract All Line(s) Below Anchor Words: [Anchor Words: '{string.Join(";", ArrayTAG)}]'");
+                WriteLogMessage($"Extract All Line(s) Below Anchor Words: [Anchor Words: '{string.Join(";", ArrayTAG)}']");
 
             //Build Regex Clause
             string SearchCriteria = null;
@@ -437,6 +437,10 @@ namespace BillBlech.TextToolbox.Activities.Activities
             //Adjust Special Characters, if needed
             StartTAG = AdjustSpecialCharacters(StartTAG);
 
+            //Log Message
+            if (displayLog == true)
+                WriteLogMessage($"Extract Text until Blank Line: [Anchor Word: '{StartTAG.Trim()}' Anchor Words Parameter: 'Any' Direction: 'Below' Include Anchor Words Row: '{includeAnchorWordsRow.ToString()}']");
+
             string SearchCriteria = null;
 
             //Set Search Criteria
@@ -463,6 +467,11 @@ namespace BillBlech.TextToolbox.Activities.Activities
         //Extract All Lines Below Anchor Text Array of Strings Until Blank line 
         public static string[] ExtractAllLinesBelowAnchorArrayofTextUntilBlankline(string InputString, string[] ArrayTAG, bool displayLog, bool displayRegex, bool includeAnchorWordsRow)
         {
+
+            //Log Message
+            if (displayLog == true)
+                WriteLogMessage($"Extract Text until Blank Line: [Anchor Words: '{String.Join(";", ArrayTAG)}' Anchor Words Parameter: 'All' Direction: 'Below' Include Anchor Words Row: '{includeAnchorWordsRow.ToString()}']");
+
 
             string SearchCriteria = null;
 
@@ -491,7 +500,7 @@ namespace BillBlech.TextToolbox.Activities.Activities
 
             //Display Regex
             if (displayRegex == true)
-                Console.WriteLine($"Search Criteria {SearchCriteria}");
+                Console.WriteLine($"Search Criteria: {SearchCriteria}");
 
             //Run Regex Extraction
             return RunRegexExtraction(InputString, SearchCriteria, RegexOptions.None, displayLog);
@@ -503,6 +512,11 @@ namespace BillBlech.TextToolbox.Activities.Activities
         {
             //Adjust Special Characters, if needed
             StartTAG = AdjustSpecialCharacters(StartTAG);
+
+            //Log Message
+            if (displayLog == true)
+                WriteLogMessage($"Extract Text until Blank Line: [Anchor Word: '{StartTAG.Trim()}' Anchor Words Parameter: 'Any' Direction: 'Above' Include Anchor Words Row: '{includeAnchorWordsRow.ToString()}']");
+
 
             string SearchCriteria = null;
 
@@ -527,6 +541,10 @@ namespace BillBlech.TextToolbox.Activities.Activities
         //Extract All Lines Above Anchor Text Array of Strings Until Blank line
         public static string[] ExtractAllLinesAboveAnchorArrayofTextUntilBlankline(string InputString, string[] ArrayTAG, bool displayLog, bool displayRegex, bool includeAnchorWordsRow)
         {
+
+            //Log Message
+            if (displayLog == true)
+                WriteLogMessage($"Extract Text until Blank Line: [Anchor Words: '{String.Join(";", ArrayTAG)}' Anchor Words Parameter: 'All' Direction: 'Above' Include Anchor Words Row: '{includeAnchorWordsRow.ToString()}']");
 
             string SearchCriteria = null;
 
@@ -879,8 +897,13 @@ namespace BillBlech.TextToolbox.Activities.Activities
         //Extract all Characters until next White Space
         public static string[] ExtractAllCharactersUntilWhiteSpace(string InputString, string StartTAG, bool displayLog, bool displayRegex)
         {
+
             //Adjust Special Characters, if needed
             StartTAG = AdjustSpecialCharacters(StartTAG);
+
+            //Log Message
+            if (displayLog == true)
+                WriteLogMessage($"Extract Text Until White Space Tags: [Anchor Words: '{StartTAG.Trim()}']");
 
             //Set Search Criteria
             string SearchCriteria = StartTAG + @"(.\S*)";
@@ -919,7 +942,7 @@ namespace BillBlech.TextToolbox.Activities.Activities
 
             //Log Message
             if (displayLog == true)
-                WriteLogMessage($"Extrat Text Until Next Letter: [Input String: '{InputString}' Search Word: '{StartTAG}]'");
+                WriteLogMessage($"Extrat Text Until Next Letter: [Search Word: '{StartTAG}']");
 
             int StartIndex = 0;
             int Index = 0;
@@ -1160,7 +1183,7 @@ namespace BillBlech.TextToolbox.Activities.Activities
 
             //Log Message
             if (displayLog == true)
-                WriteLogMessage($"Remove Words: [Words: '{string.Join(";", RemoveWords)}]'");
+                WriteLogMessage($"Remove Words: [Words: '{string.Join(";", RemoveWords)}']");
 
             //Start Output Variable
             string OuputString = InputString;
@@ -1528,7 +1551,6 @@ namespace BillBlech.TextToolbox.Activities.Activities
             return OuputString;
         }
 
-
         //Create Dummy Word
         public static string CreateDummyWord(int Lenght)
         {
@@ -1606,8 +1628,12 @@ namespace BillBlech.TextToolbox.Activities.Activities
         }
 
         //Split Text using 'Big Spaces'
-        public static string[] SplitTextBigSpaces(string InputRowText, int NullValLimit, bool bSupressNulls)
+        public static string[] SplitTextBigSpaces(string InputRowText, int NullValLimit, bool bSupressNulls, bool displayLog)
         {
+
+            //Log Message
+            if (displayLog == true)
+                WriteLogMessage($"Split Text Uneven Blank Spaces: [Null Limit: '{NullValLimit.ToString()}' bSupressNulls: '{bSupressNulls.ToString()}']");
 
             //Declare Variables
             string MyWord = null;
@@ -1690,6 +1716,12 @@ namespace BillBlech.TextToolbox.Activities.Activities
                 //Update the Counter
                 i++;
             }
+
+            //Write Log Message
+            if (displayLog == true)
+                WriteLogMessage("Results: " + Environment.NewLine + "-----------------------------------------------------------------------------------------------------------------------------------------------" + Environment.NewLine +
+                                  string.Join(Environment.NewLine + "-----------------------------------------------------------------------------------------------------------------------------------------------" + Environment.NewLine, OutputArraWords) +
+                                              Environment.NewLine + "-----------------------------------------------------------------------------------------------------------------------------------------------");
 
             return OutputArraWords;
 
@@ -1949,11 +1981,22 @@ namespace BillBlech.TextToolbox.Activities.Activities
         //Read Text File with Encoding Option
         public static string ReadTextFileEncoding(string FilePath, string strEncoding, bool displayLog)
         {
+            //Log Message
+            if (displayLog == true)
+                WriteLogMessage($"Read Text File Encoding: [File Path: '{FilePath.Trim()}' Encoding: '{strEncoding}]'");
+
             //Get Encoding
             Encoding encoding = ConvertStringToEncoding(strEncoding);
 
+            string InputText = System.IO.File.ReadAllText(FilePath, encoding);
+
+            //Log Message
+            if (displayLog == true)
+                WriteLogMessage("Result Text: " + Environment.NewLine + InputText);
+
             //Read Text File
-            return System.IO.File.ReadAllText(FilePath, encoding);
+            return InputText;
+
         }
 
         public static Encoding ConvertStringToEncoding(string strEncoding)

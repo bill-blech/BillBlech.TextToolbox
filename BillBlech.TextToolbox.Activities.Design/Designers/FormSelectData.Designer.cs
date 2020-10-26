@@ -57,6 +57,12 @@
             this.groupLstAvailableItemsSource = new System.Windows.Forms.GroupBox();
             this.groupLstAvailableItemsSourceLines = new System.Windows.Forms.RadioButton();
             this.groupLstAvailableItemsSourceWords = new System.Windows.Forms.RadioButton();
+            this.groupBoxSplit = new System.Windows.Forms.GroupBox();
+            this.txtSplitSeparator = new System.Windows.Forms.TextBox();
+            this.lblSplitSide = new System.Windows.Forms.Label();
+            this.lblSplitSeparator = new System.Windows.Forms.Label();
+            this.cbSplitSide = new System.Windows.Forms.ComboBox();
+            this.cbSplitActivate = new System.Windows.Forms.CheckBox();
             this.groupLstSelectedItemsSelection.SuspendLayout();
             this.GroupLstSelectedItemsMoveItem.SuspendLayout();
             this.groupLstSelectedItemsMergeSplit.SuspendLayout();
@@ -65,6 +71,7 @@
             this.groupBoxManual.SuspendLayout();
             this.groupActions.SuspendLayout();
             this.groupLstAvailableItemsSource.SuspendLayout();
+            this.groupBoxSplit.SuspendLayout();
             this.SuspendLayout();
             // 
             // LstAvailableItems
@@ -92,7 +99,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(230, 174);
+            this.btnAdd.Location = new System.Drawing.Point(236, 128);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(64, 23);
             this.btnAdd.TabIndex = 2;
@@ -103,7 +110,7 @@
             // 
             // btnRemove
             // 
-            this.btnRemove.Location = new System.Drawing.Point(230, 208);
+            this.btnRemove.Location = new System.Drawing.Point(236, 307);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(64, 23);
             this.btnRemove.TabIndex = 3;
@@ -116,7 +123,7 @@
             // 
             this.groupLstSelectedItemsSelection.Controls.Add(this.groupLstSelectedItemsSelectionMulti);
             this.groupLstSelectedItemsSelection.Controls.Add(this.groupLstSelectedItemsSelectionSingle);
-            this.groupLstSelectedItemsSelection.Location = new System.Drawing.Point(541, 15);
+            this.groupLstSelectedItemsSelection.Location = new System.Drawing.Point(542, 15);
             this.groupLstSelectedItemsSelection.Name = "groupLstSelectedItemsSelection";
             this.groupLstSelectedItemsSelection.Size = new System.Drawing.Size(76, 77);
             this.groupLstSelectedItemsSelection.TabIndex = 10;
@@ -151,7 +158,7 @@
             // 
             this.GroupLstSelectedItemsMoveItem.Controls.Add(this.btnLstSelectedItemsDown);
             this.GroupLstSelectedItemsMoveItem.Controls.Add(this.btnLstSelectedItemsUp);
-            this.GroupLstSelectedItemsMoveItem.Location = new System.Drawing.Point(541, 188);
+            this.GroupLstSelectedItemsMoveItem.Location = new System.Drawing.Point(542, 188);
             this.GroupLstSelectedItemsMoveItem.Name = "GroupLstSelectedItemsMoveItem";
             this.GroupLstSelectedItemsMoveItem.Size = new System.Drawing.Size(75, 84);
             this.GroupLstSelectedItemsMoveItem.TabIndex = 11;
@@ -180,7 +187,7 @@
             // 
             // btnReset
             // 
-            this.btnReset.Location = new System.Drawing.Point(230, 140);
+            this.btnReset.Location = new System.Drawing.Point(236, 98);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(64, 23);
             this.btnReset.TabIndex = 12;
@@ -192,7 +199,7 @@
             // 
             this.groupLstSelectedItemsMergeSplit.Controls.Add(this.btnSplit);
             this.groupLstSelectedItemsMergeSplit.Controls.Add(this.btnMerge);
-            this.groupLstSelectedItemsMergeSplit.Location = new System.Drawing.Point(541, 98);
+            this.groupLstSelectedItemsMergeSplit.Location = new System.Drawing.Point(542, 98);
             this.groupLstSelectedItemsMergeSplit.Name = "groupLstSelectedItemsMergeSplit";
             this.groupLstSelectedItemsMergeSplit.Size = new System.Drawing.Size(75, 84);
             this.groupLstSelectedItemsMergeSplit.TabIndex = 13;
@@ -261,7 +268,7 @@
             this.groupBoxAvailableItems.Controls.Add(this.LstAvailableItems);
             this.groupBoxAvailableItems.Location = new System.Drawing.Point(12, 15);
             this.groupBoxAvailableItems.Name = "groupBoxAvailableItems";
-            this.groupBoxAvailableItems.Size = new System.Drawing.Size(212, 361);
+            this.groupBoxAvailableItems.Size = new System.Drawing.Size(216, 361);
             this.groupBoxAvailableItems.TabIndex = 0;
             this.groupBoxAvailableItems.TabStop = false;
             this.groupBoxAvailableItems.Text = "Available Items";
@@ -271,7 +278,7 @@
             this.groupBoxSelectedItems.Controls.Add(this.SearchLstSelectedItems);
             this.groupBoxSelectedItems.Controls.Add(this.LstSelectedItems);
             this.groupBoxSelectedItems.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.groupBoxSelectedItems.Location = new System.Drawing.Point(311, 15);
+            this.groupBoxSelectedItems.Location = new System.Drawing.Point(318, 15);
             this.groupBoxSelectedItems.Name = "groupBoxSelectedItems";
             this.groupBoxSelectedItems.Size = new System.Drawing.Size(216, 268);
             this.groupBoxSelectedItems.TabIndex = 19;
@@ -284,7 +291,7 @@
             this.groupBoxManual.Controls.Add(this.btnManualAdd);
             this.groupBoxManual.Controls.Add(this.txtManual);
             this.groupBoxManual.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.groupBoxManual.Location = new System.Drawing.Point(311, 289);
+            this.groupBoxManual.Location = new System.Drawing.Point(318, 289);
             this.groupBoxManual.Name = "groupBoxManual";
             this.groupBoxManual.Size = new System.Drawing.Size(216, 87);
             this.groupBoxManual.TabIndex = 20;
@@ -323,7 +330,7 @@
             this.groupActions.Controls.Add(this.btnPaste);
             this.groupActions.Controls.Add(this.btnCopyToClipBoard);
             this.groupActions.Controls.Add(this.btnClose);
-            this.groupActions.Location = new System.Drawing.Point(541, 278);
+            this.groupActions.Location = new System.Drawing.Point(542, 278);
             this.groupActions.Name = "groupActions";
             this.groupActions.Size = new System.Drawing.Size(75, 106);
             this.groupActions.TabIndex = 21;
@@ -344,7 +351,7 @@
             // 
             this.groupLstAvailableItemsSource.Controls.Add(this.groupLstAvailableItemsSourceLines);
             this.groupLstAvailableItemsSource.Controls.Add(this.groupLstAvailableItemsSourceWords);
-            this.groupLstAvailableItemsSource.Location = new System.Drawing.Point(230, 15);
+            this.groupLstAvailableItemsSource.Location = new System.Drawing.Point(236, 15);
             this.groupLstAvailableItemsSource.Name = "groupLstAvailableItemsSource";
             this.groupLstAvailableItemsSource.Size = new System.Drawing.Size(76, 77);
             this.groupLstAvailableItemsSource.TabIndex = 22;
@@ -375,22 +382,83 @@
             this.groupLstAvailableItemsSourceWords.UseVisualStyleBackColor = true;
             this.groupLstAvailableItemsSourceWords.CheckedChanged += new System.EventHandler(this.groupLstAvailableItemsSourceWords_CheckedChanged);
             // 
+            // groupBoxSplit
+            // 
+            this.groupBoxSplit.Controls.Add(this.txtSplitSeparator);
+            this.groupBoxSplit.Controls.Add(this.lblSplitSide);
+            this.groupBoxSplit.Controls.Add(this.lblSplitSeparator);
+            this.groupBoxSplit.Controls.Add(this.cbSplitSide);
+            this.groupBoxSplit.Controls.Add(this.cbSplitActivate);
+            this.groupBoxSplit.Location = new System.Drawing.Point(236, 157);
+            this.groupBoxSplit.Name = "groupBoxSplit";
+            this.groupBoxSplit.Size = new System.Drawing.Size(76, 141);
+            this.groupBoxSplit.TabIndex = 23;
+            this.groupBoxSplit.TabStop = false;
+            this.groupBoxSplit.Text = "Split";
+            // 
+            // txtSplitSeparator
+            // 
+            this.txtSplitSeparator.Location = new System.Drawing.Point(4, 59);
+            this.txtSplitSeparator.Name = "txtSplitSeparator";
+            this.txtSplitSeparator.Size = new System.Drawing.Size(66, 20);
+            this.txtSplitSeparator.TabIndex = 25;
+            // 
+            // lblSplitSide
+            // 
+            this.lblSplitSide.AutoSize = true;
+            this.lblSplitSide.Location = new System.Drawing.Point(7, 87);
+            this.lblSplitSide.Name = "lblSplitSide";
+            this.lblSplitSide.Size = new System.Drawing.Size(28, 13);
+            this.lblSplitSide.TabIndex = 25;
+            this.lblSplitSide.Text = "Side";
+            // 
+            // lblSplitSeparator
+            // 
+            this.lblSplitSeparator.AutoSize = true;
+            this.lblSplitSeparator.Location = new System.Drawing.Point(6, 39);
+            this.lblSplitSeparator.Name = "lblSplitSeparator";
+            this.lblSplitSeparator.Size = new System.Drawing.Size(53, 13);
+            this.lblSplitSeparator.TabIndex = 24;
+            this.lblSplitSeparator.Text = "Separator";
+            // 
+            // cbSplitSide
+            // 
+            this.cbSplitSide.FormattingEnabled = true;
+            this.cbSplitSide.Location = new System.Drawing.Point(4, 107);
+            this.cbSplitSide.Name = "cbSplitSide";
+            this.cbSplitSide.Size = new System.Drawing.Size(64, 21);
+            this.cbSplitSide.TabIndex = 26;
+            this.cbSplitSide.TabStop = false;
+            // 
+            // cbSplitActivate
+            // 
+            this.cbSplitActivate.AutoSize = true;
+            this.cbSplitActivate.Location = new System.Drawing.Point(5, 19);
+            this.cbSplitActivate.Name = "cbSplitActivate";
+            this.cbSplitActivate.Size = new System.Drawing.Size(65, 17);
+            this.cbSplitActivate.TabIndex = 24;
+            this.cbSplitActivate.TabStop = false;
+            this.cbSplitActivate.Text = "Activate";
+            this.cbSplitActivate.UseVisualStyleBackColor = true;
+            this.cbSplitActivate.CheckedChanged += new System.EventHandler(this.cbSplitActivate_CheckedChanged);
+            // 
             // FormSelectData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(655, 391);
+            this.ClientSize = new System.Drawing.Size(622, 389);
+            this.Controls.Add(this.groupBoxSplit);
             this.Controls.Add(this.groupLstAvailableItemsSource);
             this.Controls.Add(this.groupActions);
             this.Controls.Add(this.groupBoxManual);
+            this.Controls.Add(this.btnReset);
             this.Controls.Add(this.groupBoxSelectedItems);
+            this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.groupBoxAvailableItems);
             this.Controls.Add(this.groupLstSelectedItemsMergeSplit);
-            this.Controls.Add(this.btnReset);
             this.Controls.Add(this.GroupLstSelectedItemsMoveItem);
             this.Controls.Add(this.groupLstSelectedItemsSelection);
             this.Controls.Add(this.btnRemove);
-            this.Controls.Add(this.btnAdd);
             this.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.Name = "FormSelectData";
             this.ShowIcon = false;
@@ -409,6 +477,8 @@
             this.groupActions.ResumeLayout(false);
             this.groupLstAvailableItemsSource.ResumeLayout(false);
             this.groupLstAvailableItemsSource.PerformLayout();
+            this.groupBoxSplit.ResumeLayout(false);
+            this.groupBoxSplit.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -444,5 +514,11 @@
         private System.Windows.Forms.GroupBox groupLstAvailableItemsSource;
         private System.Windows.Forms.RadioButton groupLstAvailableItemsSourceLines;
         private System.Windows.Forms.RadioButton groupLstAvailableItemsSourceWords;
+        private System.Windows.Forms.GroupBox groupBoxSplit;
+        private System.Windows.Forms.CheckBox cbSplitActivate;
+        private System.Windows.Forms.ComboBox cbSplitSide;
+        private System.Windows.Forms.Label lblSplitSide;
+        private System.Windows.Forms.TextBox txtSplitSeparator;
+        private System.Windows.Forms.Label lblSplitSeparator;
     }
 }

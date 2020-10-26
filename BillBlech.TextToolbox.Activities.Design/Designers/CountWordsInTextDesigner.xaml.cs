@@ -75,10 +75,11 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
             string ClipBoardText = Clipboard.GetText();
 
-            if (this.UpdateCall.Visibility == Visibility.Visible){
+            if (this.UpdateCall.Visibility == Visibility.Visible)
+            {
 
                 //Update Search Words
-                UpdateControl("SearchWords",ClipBoardText);
+                UpdateControl("SearchWords", ClipBoardText);
 
                 //Hide Update Call Control
                 this.SearchWords.Visibility = Visibility.Visible;
@@ -86,12 +87,14 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             }
             else
             {
+                //Update IDText
+                UpdateIDText();
+
                 //Fill in Global Variable
                 MyArgument = "Search Words";
 
                 //Setup Wizard Button
                 CallButton_SetupWizard();
-
 
             }
         }
@@ -99,9 +102,6 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         //Setup Wizard Button
         private void CallButton_SetupWizard()
         {
-
-            //Update IDText
-            UpdateIDText();
 
             //Check if Current File is Updated
             string bUpdated = System.IO.File.ReadAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFileUpdated.txt");
@@ -232,14 +232,14 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             //Get the Current File
             FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFile.txt";
             Source = System.IO.File.ReadAllText(FilePath);
-            string inputText = System.IO.File.ReadAllText(Source,encoding);
+            string inputText = System.IO.File.ReadAllText(Source, encoding);
 
             //Get File Path
             FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
             Source = System.IO.File.ReadAllText(FilePath, encoding);
 
             //Check if all Parameters are in the File
-            string[] searchWords = { "Search Words" + Utils.DefaultSeparator()};
+            string[] searchWords = { "Search Words" + Utils.DefaultSeparator() };
             PercResults = Utils.FindWordsInString(Source, searchWords, false);
 
             //Case it is found
@@ -266,27 +266,57 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             {
                 //Delete Argument in case it is null
                 MyArgument = "Search Words";
-                DesignUtils.DeleteTextFileRowArgument(FilePath, MyArgument,encoding);
+                DesignUtils.DeleteTextFileRowArgument(FilePath, MyArgument, encoding);
 
                 //Error Message
                 MessageBox.Show("Please fill in all arguments", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
             }
-            
+
         }
 
         //Create New TextID
         private void CreateNewIDText(object sender, RoutedEventArgs e)
         {
+
+            string FilePath = null;
+
+            //Get Encoding Parent
+
+            //Return IDText Parent
+            string MyIDTextParent = DesignUtils.ReturnCurrentFileIDText();
+
+            //Get Encoding
+            Encoding encoding = DesignUtils.GetEncodingIDText(MyIDTextParent);
+
+            //Get Data from Current Text File
+
+            MyIDText = ReturnIDText();
+
             //Get the File Path
-            string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
+            FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
 
-            //Clear the Current IDText
-            ModelProperty property = this.ModelItem.Properties["IDText"];
-            property.SetValue(null);
+            //Check if file exists
+            if (File.Exists(FilePath) == true)
+            {
+                //Get Data from Text File
+                string Source = System.IO.File.ReadAllText(FilePath, encoding);
 
-            //Update IDText
-            UpdateIDText();
+                //New IDText
+
+                //Clear the Current IDText
+                ModelProperty property = this.ModelItem.Properties["IDText"];
+                property.SetValue(null);
+
+                //Update IDText
+                UpdateIDText();
+
+                //Set the New File Path
+                FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
+
+                //Write New Text File
+                System.IO.File.WriteAllText(FilePath, Source);
+            }
 
         }
 
@@ -319,18 +349,26 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         //Update Control
         public void UpdateControl(string ControlName, string ClipBoardText)
         {
-
             //Case it is not a Close Click
             if (ClipBoardText != Utils.DefaultSeparator())
             {
                 //Reference the Control
                 ModelProperty p2 = this.ModelItem.Properties[ControlName];
 
-                string MyOutput = "New Collection(Of String) From " + ClipBoardText;
-                VisualBasicValue<Collection<string>> MyArgList = new VisualBasicValue<Collection<string>>(MyOutput);
-                p2.SetValue(new InArgument<Collection<string>>(MyArgList));
-            }
+                //Case it is not null
+                if (ClipBoardText.Length > 0)
+                {
+                    string MyOutput = "New Collection(Of String) From " + ClipBoardText;
+                    VisualBasicValue<Collection<string>> MyArgList = new VisualBasicValue<Collection<string>>(MyOutput);
+                    p2.SetValue(new InArgument<Collection<string>>(MyArgList));
+                }
+                else
+                {
+                    //Case it is null
+                    p2.SetValue(null);
+                }
 
+            }
         }
 
     }

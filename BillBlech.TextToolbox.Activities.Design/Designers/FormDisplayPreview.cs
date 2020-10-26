@@ -117,6 +117,13 @@ namespace ExcelTut
              
                 //Get Data from the Text File
                 inputText = System.IO.File.ReadAllText(FilePath, encoding);
+
+                //Display Result
+                this.DisplaySource.Text = inputText;
+
+                //Add Dummy last line to InputText
+                inputText += Environment.NewLine;
+
             }
 
             #region Variable Declarations
@@ -342,10 +349,13 @@ namespace ExcelTut
                 case "Split text Uneven Blank Spaces":
 
                     //Load Arguments from Dictionary
-                    FilePathforPreview = DicArguments["FilePathforPreview"];
-                    inputText = System.IO.File.ReadAllText(FilePathforPreview);
+                    FilePathforPreview = DicArguments["FileName"];
+                    inputText = System.IO.File.ReadAllText(FilePathforPreview, encoding);
 
+                    //Null Limit
                     int nullLimit = Convert.ToInt32(DicArguments["Null Limit"]);
+
+                    //Suppress Null Values
                     string SuppressNullValues = DicArguments["Suppress Null Values"];
                     bool bSuppressNullValues = false;
                     if (SuppressNullValues == "True")
@@ -358,7 +368,7 @@ namespace ExcelTut
                     }
 
                     //Run Extraction
-                    OutputResults = Utils.SplitTextBigSpaces(inputText, nullLimit, bSuppressNullValues);
+                    OutputResults = Utils.SplitTextBigSpaces(inputText, nullLimit, bSuppressNullValues, false);
 
                     break;
 
@@ -388,7 +398,8 @@ namespace ExcelTut
 
                 #region Read Text File Encoding
                 case "Read Text File Encoding":
-                    
+                case "Text Application Scope":
+
                     //File Name
                     FilePath = DicArguments["FileName"];
 
@@ -400,6 +411,9 @@ namespace ExcelTut
 
                     //Display Result
                     this.DisplayResult.Text = TextResult;
+
+                    //Remove TAG Source
+                    this.tabText.TabPages.Remove(tabSource);
 
                     //Hide Controls
                     ResultsMatches_Label.Visible = false;
@@ -523,35 +537,44 @@ namespace ExcelTut
             #endregion
 
             #region Display Results
+            //Get Results Counter
+            int ResultsCounter = OutputResults.Length;
 
-            if (OutputResults!= null)
+            //Case Items are found
+            if (ResultsCounter > 0)
             {
-                //Get Results Counter
-                int ResultsMatches = OutputResults.Length;
+                //Results Counter
+                this.ResultsMatches.Text = ResultsCounter.ToString();
 
-                //Case Items are found
-                if (ResultsMatches > 0)
+                //Load the ComboBox
+                for (int i = 0; i < ResultsCounter; i++)
                 {
-                    //Results Counter
-                    this.ResultsMatches.Text = ResultsMatches.ToString();
 
-                    //Load the ComboBox
-                    for (int i = 0; i < ResultsMatches; i++)
-                    {
+                    //Add to the ComboBox
+                    SelectResult.Items.Add(i + 1);
 
-                        //Add to the ComboBox
-                        SelectResult.Items.Add(i + 1);
-
-                        //Add to the Dic Results
-                        DicResults.Add((i + 1), OutputResults[i]);
-
-                    }
-
-                    //Set Default value case item is found
-                    this.SelectResult.SelectedItem = 1;
+                    //Add to the Dic Results
+                    DicResults.Add((i + 1), OutputResults[i]);
 
                 }
+
+                //Set Default value case item is found
+                this.SelectResult.SelectedItem = 1;
+
             }
+            //Case items are not found
+            else
+            {
+
+                //Matches
+                this.ResultsMatches.Text = "0";
+
+                //Hide Select Result
+                SelectResult_Label.Visible = false;
+                SelectResult.Visible = false;
+
+            }
+            
 
             #endregion
 
@@ -593,40 +616,51 @@ namespace ExcelTut
             //Prompt Save
             string NewFileName = Interaction.InputBox("Set the file Name", "Save Text File", FileName);
 
+            //Case there is a file
             if (FileName != null)
             {
-                string selectedFolder = null;
 
-                //Open File Picker
-                using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
-                {
-                    dialog.Description = "Select Folder to Save Text File  (Current Template File Location is Default)";
-                    //dialog.SelectedPath = Directory.GetCurrentDirectory();
-                    dialog.SelectedPath = FileDirectory;
+                //Set File Path
+                string filePath = FileDirectory + "/" + NewFileName + ".txt";
 
-                    System.Windows.Forms.DialogResult result = dialog.ShowDialog();
+                //Write Text File
+                System.IO.File.WriteAllText(filePath, DisplayResult.Text, encoding);
 
-                    if (result == System.Windows.Forms.DialogResult.OK)
-                    {
-                        selectedFolder = dialog.SelectedPath;
+                //#region Folder Picker
+                //string selectedFolder = null;
 
-                        if (selectedFolder != null)
-                        {
-                            //Set File Path
-                            string filePath = selectedFolder + "/" + NewFileName + ".txt";
+                ////Open File Picker
+                //using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+                //{
+                //    dialog.Description = "Select Folder to Save Text File  (Current Template File Location is Default)";
+                //    //dialog.SelectedPath = Directory.GetCurrentDirectory();
+                //    dialog.SelectedPath = FileDirectory;
 
-                            //Write Text File
-                            System.IO.File.WriteAllText(filePath, DisplayResult.Text, encoding);
-                        }
+                //    System.Windows.Forms.DialogResult result = dialog.ShowDialog();
 
-                    }
+                //    if (result == System.Windows.Forms.DialogResult.OK)
+                //    {
+                //        selectedFolder = dialog.SelectedPath;
 
-                }
+                //        if (selectedFolder != null)
+                //        {
+                //            //Set File Path
+                //            string filePath = selectedFolder + "/" + NewFileName + ".txt";
+
+                //            //Write Text File
+                //            System.IO.File.WriteAllText(filePath, DisplayResult.Text, encoding);
+                //        }
+
+                //    }
+
+                //}
+
+                //#endregion
             }
 
-          
 
-            
+
+
         }
     }
 }
