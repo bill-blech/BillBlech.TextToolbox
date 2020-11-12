@@ -162,7 +162,7 @@ namespace ExcelTut
                     
                     //Beg Words
                     ArrayText = DicArguments["Beg Words"];
-                    begWords = DesignUtils.ConvertStringToArray(ArrayText);
+                    begWords = DesignUtils.ConvertStringToArray(ArrayText, false);
 
                     //End Words
                     if (DicArguments.ContainsKey("End Words") == true)
@@ -170,7 +170,7 @@ namespace ExcelTut
                         ArrayText = DicArguments["End Words"];
 
                         //DicArguments.TryGetValue("End Words", out ArrayText);
-                        endWords = DesignUtils.ConvertStringToArray(ArrayText);
+                        endWords = DesignUtils.ConvertStringToArray(ArrayText,false);
                     }
                     else
                     {
@@ -197,7 +197,7 @@ namespace ExcelTut
                     ArrayText = DicArguments["Anchor Words"];
 
                     //Split the Items
-                    anchorText = DesignUtils.ConvertStringToArray(ArrayText);
+                    anchorText = DesignUtils.ConvertStringToArray(ArrayText,false);
 
                     //Run Extraction
                     OutputResults = CallExtractions.CallExtractAllLinesBelowAnchorText(inputText, anchorText, anchorTextParamText, false, false);
@@ -212,7 +212,7 @@ namespace ExcelTut
                     anchorTextParamText = DicArguments["Anchor Words Parameter"];
                     ArrayText = DicArguments["Anchor Words"];
                     //Split the Items
-                    anchorWords = DesignUtils.ConvertStringToArray(ArrayText);
+                    anchorWords = DesignUtils.ConvertStringToArray(ArrayText, false);
 
                     LinesAbove = Convert.ToInt32(DicArguments["Lines Above"]);
                     NumLines = Convert.ToInt32(DicArguments["Number of Lines"]);
@@ -232,7 +232,7 @@ namespace ExcelTut
 
                     ArrayText = DicArguments["Anchor Words"];
                     //Split the Items
-                    anchorWords = DesignUtils.ConvertStringToArray(ArrayText);
+                    anchorWords = DesignUtils.ConvertStringToArray(ArrayText, false);
 
                     LinesBelow = Convert.ToInt32(DicArguments["Lines Below"]);
                     NumLines = Convert.ToInt32(DicArguments["Number of Lines"]);
@@ -250,7 +250,7 @@ namespace ExcelTut
                     //Load Arguments from Dictionary
                     ArrayText = DicArguments["Anchor Words"];
                     //Split the Items
-                    anchorWords = DesignUtils.ConvertStringToArray(ArrayText);
+                    anchorWords = DesignUtils.ConvertStringToArray(ArrayText, false);
 
                     //Run Extraction
                     OutputResults = CallExtractions.CallExtractAllCharactersUntilWhiteSpace(inputText, anchorWords, false, false);
@@ -266,7 +266,7 @@ namespace ExcelTut
                     //Load Arguments from Dictionary
                     ArrayText = DicArguments["Anchor Words"];
                     //Split the Items
-                    anchorWords = DesignUtils.ConvertStringToArray(ArrayText);
+                    anchorWords = DesignUtils.ConvertStringToArray(ArrayText, false);
 
                     //Run Extraction
                     OutputResults = CallExtractions.CallExtractAllCharactersUntilLetterCharacter(inputText, anchorWords, false);
@@ -282,7 +282,7 @@ namespace ExcelTut
                     ArrayText = DicArguments["Words"];
 
                     //Split the Items
-                    anchorWords = DesignUtils.ConvertStringToArray(ArrayText);
+                    anchorWords = DesignUtils.ConvertStringToArray(ArrayText, false);
 
                     //Occurence Parameter
                     MyOccurenceParameter = DicArguments["Occurence Parameter"];
@@ -315,7 +315,7 @@ namespace ExcelTut
                     ArrayText = DicArguments["Search Words"];
 
                     //Split the Items
-                    anchorWords = DesignUtils.ConvertStringToArray(ArrayText);
+                    anchorWords = DesignUtils.ConvertStringToArray(ArrayText, false);
 
                     string ReplacedWords = DicArguments["Replaced Word"];
 
@@ -339,7 +339,6 @@ namespace ExcelTut
                     ResultsMatches.Visible = false;
                     SelectResult_Label.Visible = false;
                     SelectResult.Visible = false;
-
 
                     break;
 
@@ -400,27 +399,26 @@ namespace ExcelTut
                 case "Read Text File Encoding":
                 case "Text Application Scope":
 
-                    //File Name
-                    FilePath = DicArguments["FileName"];
+                    ////File Name
+                    //FilePath = DicArguments["FileName"];
 
-                    //Encoding
-                    string strEncoding = DicArguments["Encoding"];
-                    
-                    //Run Extraction
-                    TextResult = Utils.ReadTextFileEncoding(FilePath, strEncoding,false);
+                    ////Encoding
+                    //string strEncoding = DicArguments["Encoding"];
 
-                    //Display Result
-                    this.DisplayResult.Text = TextResult;
+                    ////Run Extraction
+                    //TextResult = Utils.ReadTextFileEncoding(FilePath, strEncoding,false);
+
+                    ////Display Result
+                    //this.DisplayResult.Text = TextResult;
 
                     //Remove TAG Source
-                    this.tabText.TabPages.Remove(tabSource);
+                    this.tabText.TabPages.Remove(tabResults);                  
 
                     //Hide Controls
                     ResultsMatches_Label.Visible = false;
                     ResultsMatches.Visible = false;
                     SelectResult_Label.Visible = false;
                     SelectResult.Visible = false;
-
 
                     break;
 
@@ -431,7 +429,7 @@ namespace ExcelTut
 
                     //Anchor Words
                     ArrayText = DicArguments["Anchor Words"];
-                    anchorWords = DesignUtils.ConvertStringToArray(ArrayText);
+                    anchorWords = DesignUtils.ConvertStringToArray(ArrayText, false);
                     
                     //Anchor Words Parameter
                     anchorTextParamText = DicArguments["Anchor Words Parameter"];
@@ -492,7 +490,7 @@ namespace ExcelTut
 
                     //Anchor Words
                     ArrayText = DicArguments["Filter Words"];
-                    string [] filterWords = DesignUtils.ConvertStringToArray(ArrayText);
+                    string [] filterWords = DesignUtils.ConvertStringToArray(ArrayText, false);
 
                     //Anchor Words Parameter
                     anchorTextParamText = DicArguments["Anchor Words Parameter"];
@@ -515,7 +513,7 @@ namespace ExcelTut
 
                     ArrayText = DicArguments["SearchWord"];
                     
-                    string[] searchWords = DesignUtils.ConvertStringToArray(ArrayText);
+                    string[] searchWords = DesignUtils.ConvertStringToArray(ArrayText, false);
 
                     bool isFound = Utils.MatchItemInArrayOfStrings(inputArray, searchWords,false);
 
@@ -537,44 +535,47 @@ namespace ExcelTut
             #endregion
 
             #region Display Results
-            //Get Results Counter
-            int ResultsCounter = OutputResults.Length;
-
-            //Case Items are found
-            if (ResultsCounter > 0)
+            if (OutputResults!= null)
             {
-                //Results Counter
-                this.ResultsMatches.Text = ResultsCounter.ToString();
+                //Get Results Counter
+                int ResultsCounter = OutputResults.Length;
 
-                //Load the ComboBox
-                for (int i = 0; i < ResultsCounter; i++)
+                //Case Items are found
+                if (ResultsCounter > 0)
+                {
+                    //Results Counter
+                    this.ResultsMatches.Text = ResultsCounter.ToString();
+
+                    //Load the ComboBox
+                    for (int i = 0; i < ResultsCounter; i++)
+                    {
+
+                        //Add to the ComboBox
+                        SelectResult.Items.Add(i + 1);
+
+                        //Add to the Dic Results
+                        DicResults.Add((i + 1), OutputResults[i]);
+
+                    }
+
+                    //Set Default value case item is found
+                    this.SelectResult.SelectedItem = 1;
+
+                }
+                //Case items are not found
+                else
                 {
 
-                    //Add to the ComboBox
-                    SelectResult.Items.Add(i + 1);
+                    //Matches
+                    this.ResultsMatches.Text = "0";
 
-                    //Add to the Dic Results
-                    DicResults.Add((i + 1), OutputResults[i]);
+                    //Hide Select Result
+                    SelectResult_Label.Visible = false;
+                    SelectResult.Visible = false;
 
                 }
 
-                //Set Default value case item is found
-                this.SelectResult.SelectedItem = 1;
-
             }
-            //Case items are not found
-            else
-            {
-
-                //Matches
-                this.ResultsMatches.Text = "0";
-
-                //Hide Select Result
-                SelectResult_Label.Visible = false;
-                SelectResult.Visible = false;
-
-            }
-            
 
             #endregion
 

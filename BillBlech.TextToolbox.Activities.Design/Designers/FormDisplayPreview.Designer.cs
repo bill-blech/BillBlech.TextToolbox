@@ -217,6 +217,7 @@
             this.DisplayResult.Name = "DisplayResult";
             this.DisplayResult.Size = new System.Drawing.Size(407, 352);
             this.DisplayResult.TabIndex = 29;
+            this.DisplayResult.TabStop = false;
             // 
             // btnSaveText
             // 
@@ -288,6 +289,7 @@
             this.DisplaySource.Name = "DisplaySource";
             this.DisplaySource.Size = new System.Drawing.Size(405, 352);
             this.DisplaySource.TabIndex = 30;
+            this.DisplaySource.TabStop = false;
             // 
             // Arguments_Label
             // 

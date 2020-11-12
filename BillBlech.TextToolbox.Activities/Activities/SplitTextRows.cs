@@ -84,6 +84,7 @@ namespace BillBlech.TextToolbox.Activities
             if (NullLimit == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(NullLimit)));
             if (bSuppressNulls == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(bSuppressNulls)));
             if (ExtractedText == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, "Extracted Words"));
+            if (Encoding == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(Encoding)));
 
             base.CacheMetadata(metadata);
         }

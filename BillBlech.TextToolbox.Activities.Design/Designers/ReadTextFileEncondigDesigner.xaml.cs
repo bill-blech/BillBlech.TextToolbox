@@ -45,17 +45,10 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             //Case there is an IDText
             if (MyIDText != null)
             {
-
+                //Auto Fill Controls
+                AutoFillControls();
             }
-            else
-            {
-                //UpdateIDText
-                UpdateIDText();
-            }
-
-            //Auto Fill Controls
-            AutoFillControls();
-
+            
         }
 
         #endregion
@@ -126,7 +119,8 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         private void CallButton_SetupWizard()
         {
 
-            string CurrentTextFilePath = null;
+            //Get Data from Control
+            string CurrentTextFilePath = ReturnCurrentFile();
 
             #region Build Context Menu
             //Start Context Menu
@@ -221,20 +215,31 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
                 #region Open File
                 //Get Current Excel File Name
-
-                //Get Data from Control
-                CurrentTextFilePath = ReturnCurrentFile();
+                string SelectedfileName = null;
 
                 //Case it is a Variable
-                if (CurrentTextFilePath == "1.5: VisualBasicValue<String>")
+                //if (CurrentTextFilePath == "1.5: VisualBasicValue<String>")
+                if (String.IsNullOrWhiteSpace(CurrentTextFilePath)==false)
                 {
+                    if (CurrentTextFilePath.Contains("VisualBasicValue") == true)
+                    {
 
-                    //Go
-                    goto selectfile;
+                        //MessageBox.Show("True");
+                        SelectedfileName = null;
+
+                        //Go
+                        goto selectfile;
+
+                    }
+                 
                 }
 
-                //Get the File Name
-                string SelectedfileName = Path.GetFileNameWithoutExtension(CurrentTextFilePath);
+                else
+                {
+
+                    //Get the File Name
+                    SelectedfileName = Path.GetFileNameWithoutExtension(CurrentTextFilePath);
+                }
 
 
                 //Case there is file
@@ -263,7 +268,10 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             }
 
         #region Select File
+            
         selectfile:
+ 
+
             //Select File
             System.Windows.Controls.MenuItem MenuItemSelectFile = new System.Windows.Controls.MenuItem();
 
@@ -304,26 +312,36 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
             #region Preview
 
-            //Preview
-            if (CurrentTextFilePath != null)
+            //Preview: Case not null and not a variable
+            if (CurrentTextFilePath != null && CurrentTextFilePath.Contains("VisualBasicValue") == false)
             {
-                //Add Separator
-                cm.Items.Add(new Separator());
 
-                //Preview
-                System.Windows.Controls.MenuItem menuPreview = new System.Windows.Controls.MenuItem();
+                //Case file is found
+                if (File.Exists(CurrentTextFilePath) == true)
+                {
 
-                menuPreview.Header = "Preview";
-                menuPreview.Click += Button_OpenPreview;
-                menuPreview.ToolTip = "Preview Data Extraction With Current Activity Arguments";
-                //Add Icon to the uri_menuItem
-                var uri_menuPreview = new System.Uri("https://img.icons8.com/officexs/20/000000/new-file.png");
-                var bitmap_menuPreview = new BitmapImage(uri_menuPreview);
-                var image_menuPreview = new Image();
-                image_menuPreview.Source = bitmap_menuPreview;
-                menuPreview.Icon = image_menuPreview;
+                    //Add Separator
+                    cm.Items.Add(new Separator());
 
-                cm.Items.Add(menuPreview);
+                    //Preview
+                    System.Windows.Controls.MenuItem menuPreview = new System.Windows.Controls.MenuItem();
+
+                    //CurrentFile
+                    string FilePeview = ReturnCurrentFile();
+
+                    menuPreview.Header = "Preview";
+                    menuPreview.Click += Button_OpenPreview;
+                    menuPreview.ToolTip = "View Text from Text File '" + FilePeview + "'";
+                    //Add Icon to the uri_menuItem
+                    var uri_menuPreview = new System.Uri("https://img.icons8.com/officexs/20/000000/new-file.png");
+                    var bitmap_menuPreview = new BitmapImage(uri_menuPreview);
+                    var image_menuPreview = new Image();
+                    image_menuPreview.Source = bitmap_menuPreview;
+                    menuPreview.Icon = image_menuPreview;
+
+                    cm.Items.Add(menuPreview);
+
+                }
             }
 
             #endregion
@@ -516,6 +534,17 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             {
 
                 MessageBox.Show("File Path as Variable" + Environment.NewLine + "Please select Text file to use functionality ", "Select Text File", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                //Exit the Procedure
+                return;
+            }
+
+            //If Current File is not found, exit the procedure
+            if (File.Exists(CurrentTextFilePath) == false)
+            {
+
+                //Error Message
+                MessageBox.Show("The Preview file cannt be found:" + Environment.NewLine + CurrentTextFilePath, "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
 
                 //Exit the Procedure
                 return;

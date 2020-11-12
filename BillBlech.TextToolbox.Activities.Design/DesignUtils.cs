@@ -249,25 +249,31 @@ namespace BillBlech.TextToolbox.Activities.Design
         }
 
         //'Convert' String to Array
-        public static string[] ConvertStringToArray(string ArrayText)
+        public static string[] ConvertStringToArray(string ArrayText, bool bReplaceAllDoubleQuotes)
         {
             //Remove Braces {} and "
             ArrayText = ArrayText.Replace("{", "");
             ArrayText = ArrayText.Replace("}", "");
-            ArrayText = ArrayText.Replace("\"", "");
 
             //Split the Items
             string[] ArrayOutput = ArrayText.Split(',');
 
-            return ArrayOutput;
+            //Loop through the Array
+            for (int i = 0; i<ArrayOutput.Length; i++)
+            {
+                ArrayOutput[i] = TextAdjustDoubleQuotes(ArrayOutput[i], bReplaceAllDoubleQuotes);
+            }
 
+            //ArrayText = TextAdjustDoubleQuotes(ArrayText, bReplaceAllDoubleQuotes);
+
+            return ArrayOutput;
         }
 
         //Wizard Button: Warning Message: Wizard & Preview
         public static void Wizard_WarningMessage_Wizard_Preview()
         {
             //Warning Message
-            MessageBox.Show("Please click the 'Warning Button' to Enable 'Wizard' and 'Preview' Functionalities", "Warning Message", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show("Please click the 'Warning Button' to Enable 'Wizard' and 'Preview' Functionalities" + Environment.NewLine + "Case you cannot see button, go to Text Application Scope and Preview the Text", "Warning Message", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         //Wizard Button: Warning Message: Preview
@@ -322,7 +328,8 @@ namespace BillBlech.TextToolbox.Activities.Design
                 {
 
                     //Remove ", in case there is
-                    string WordAdj = Word.Replace("\"", "");
+                    //string WordAdj = Word.Replace("\"", "");
+                    string WordAdj = TextAdjustDoubleQuotes(Word, true);
 
                     //First Word
                     if (OutputText == null)
@@ -349,6 +356,55 @@ namespace BillBlech.TextToolbox.Activities.Design
                 return null;
             }
 
+        }
+
+        //Remove First and Last Characters if they are "
+        public static string TextAdjustDoubleQuotes(string InputString, bool bReplaceAllDoubleQuotes)
+        {
+            string OutputText = null;
+            int MyLen = 0;
+
+            //Start the Variable
+            OutputText = InputString.Trim();
+
+            Console.WriteLine(OutputText);
+            MyLen = OutputText.Length;
+
+            //Get FirstChar
+            String FirstChar = Strings.Left(OutputText, 1);
+
+            if (FirstChar == "\"")
+            {
+                OutputText = OutputText.Remove(0, 1);
+            }
+
+            //Get Last Char
+            String LastChar = Strings.Right(OutputText, 1);
+            
+            if (LastChar == "\"")
+            {
+                MyLen = OutputText.Length;   
+                OutputText = OutputText.Remove(MyLen - 1, 1);
+            }
+
+            if (bReplaceAllDoubleQuotes == true)
+            {
+                //Replace one Double Quote with two double quotes
+                OutputText = OutputText.Replace("\"", "\"\"");
+            }
+            else
+            {
+                //Replace Pair of Double Quotes for only one Double Quote
+                OutputText = OutputText.Replace("\"\"", "\"");
+            }
+
+            return OutputText;
+        }
+
+        //Replace Pair of Double Quotes for only one Double Quote
+        public static string TextAdjustRemovePairDoubleQuotes(string InputString)
+        {
+            return InputString.Replace("\"\"", "\"");
         }
 
         //Return CurrentFileIDText

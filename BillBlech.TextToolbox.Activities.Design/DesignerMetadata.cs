@@ -99,6 +99,10 @@ namespace BillBlech.TextToolbox.Activities.Design
             builder.AddCustomAttributes(typeof(DetectLanguage), new DesignerAttribute(typeof(DetectLanguageDesigner)));
             builder.AddCustomAttributes(typeof(DetectLanguage), new HelpKeywordAttribute(""));
 
+            builder.AddCustomAttributes(typeof(DetectSentiment), categoryAttribute);
+            builder.AddCustomAttributes(typeof(DetectSentiment), new DesignerAttribute(typeof(DetectSentimentDesigner)));
+            builder.AddCustomAttributes(typeof(DetectSentiment), new HelpKeywordAttribute(""));
+
 
             MetadataStore.AddAttributeTable(builder.CreateTable());
         }

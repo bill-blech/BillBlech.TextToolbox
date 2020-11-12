@@ -11,6 +11,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="NTextCat" Version="0.3.65" />
+    <PackageReference Include="RestSharp" Version="106.11.7" />
   </ItemGroup>
 	<ItemGroup>
 		<Reference Include="System" />

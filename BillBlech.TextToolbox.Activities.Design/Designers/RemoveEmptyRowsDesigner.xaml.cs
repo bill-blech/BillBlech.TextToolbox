@@ -128,10 +128,8 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         private void CallButton_SetupWizard()
         {
 
-            //Update IDText
-            UpdateIDText();
-
-            string CurrentTextFilePath = null;
+            //Get Data from Control
+            string CurrentTextFilePath = ReturnCurrentFile();
 
             #region Build Context Menu
             //Start Context Menu
@@ -139,6 +137,8 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
             //Create New IDText
             System.Windows.Controls.MenuItem menuCreateNewIDText = new System.Windows.Controls.MenuItem();
+
+            #region Create New ID
 
             menuCreateNewIDText.Header = "Create New ID";
             menuCreateNewIDText.Click += CreateNewIDText;
@@ -151,6 +151,8 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             menuCreateNewIDText.Icon = image_CreateNewIDText;
 
             cm.Items.Add(menuCreateNewIDText);
+
+            #endregion
 
             //Add Separator
             cm.Items.Add(new Separator());
@@ -222,9 +224,6 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
                 #region Open File
                 //Get Current Excel File Name
-
-                //Get Data from Control
-                CurrentTextFilePath = ReturnCurrentFile();
 
                 //Case it is a Variable
                 if (CurrentTextFilePath == "1.5: VisualBasicValue<String>")
@@ -305,29 +304,38 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
             if (CurrentTextFilePath!= null)
             {
-                //Add Separator
-                cm.Items.Add(new Separator());
 
-                //Preview
-                System.Windows.Controls.MenuItem menuPreview = new System.Windows.Controls.MenuItem();
+                if (File.Exists(CurrentTextFilePath) == true)
+                {
+                    #region Preview
 
-                menuPreview.Header = "Preview";
-                menuPreview.Click += Button_OpenPreview;
-                menuPreview.ToolTip = "Preview Data Extraction With Current Activity Arguments";
-                //Add Icon to the uri_menuItem
-                var uri_menuPreview = new System.Uri("https://img.icons8.com/officexs/20/000000/new-file.png");
-                var bitmap_menuPreview = new BitmapImage(uri_menuPreview);
-                var image_menuPreview = new Image();
-                image_menuPreview.Source = bitmap_menuPreview;
-                menuPreview.Icon = image_menuPreview;
+                    //Add Separator
+                    cm.Items.Add(new Separator());
 
-                cm.Items.Add(menuPreview);
+                    //Preview
+                    System.Windows.Controls.MenuItem menuPreview = new System.Windows.Controls.MenuItem();
+
+                    menuPreview.Header = "Preview";
+                    menuPreview.Click += Button_OpenPreview;
+                    menuPreview.ToolTip = "Preview Data Extraction With Current Activity Arguments";
+                    //Add Icon to the uri_menuItem
+                    var uri_menuPreview = new System.Uri("https://img.icons8.com/officexs/20/000000/new-file.png");
+                    var bitmap_menuPreview = new BitmapImage(uri_menuPreview);
+                    var image_menuPreview = new Image();
+                    image_menuPreview.Source = bitmap_menuPreview;
+                    menuPreview.Icon = image_menuPreview;
+
+                    cm.Items.Add(menuPreview);
+
+                    #endregion
+                }
+
             }
 
             //Open the Menu
             cm.IsOpen = true;
 
-            #endregion
+        #endregion
 
         }
 
@@ -479,6 +487,17 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             {
 
                 MessageBox.Show("File Path as Variable" + Environment.NewLine + "Please select Text file to use functionality ", "Select Text File", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                //Exit the Procedure
+                return;
+            }
+
+            //If Current File is not found, exit the procedure
+            if (File.Exists(CurrentTextFilePath) == false)
+            {
+
+                //Error Message
+                MessageBox.Show("The Preview file cannt be found:" + Environment.NewLine + CurrentTextFilePath, "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
 
                 //Exit the Procedure
                 return;

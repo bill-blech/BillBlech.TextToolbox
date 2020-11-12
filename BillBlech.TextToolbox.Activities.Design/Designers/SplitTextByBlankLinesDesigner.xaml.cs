@@ -44,6 +44,7 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                 //Start Context Menu
                 ContextMenu cm = new ContextMenu();
 
+                #region Preview
                 //Preview
                 System.Windows.Controls.MenuItem menuPreview = new System.Windows.Controls.MenuItem();
 
@@ -58,6 +59,7 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                 menuPreview.Icon = image_menuPreview;
 
                 cm.Items.Add(menuPreview);
+                #endregion
 
                 //Open the Menu
                 cm.IsOpen = true;

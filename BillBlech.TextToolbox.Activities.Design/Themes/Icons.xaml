@@ -1418,5 +1418,70 @@
     </DrawingGroup>
     <DrawingBrush x:Key="DetectLanguageIcon" Drawing="{StaticResource searchabe3da613f3046fea8cd6fe7a8a2830f_0}" />
 
+    <!--DetectSentiment Icon-->
+    <DrawingGroup x:Key="presentationa55464d798334379bafa745142a7a6e0_0">
+      <DrawingGroup.ClipGeometry>
+        <RectangleGeometry Rect="0,0,512,512" />
+      </DrawingGroup.ClipGeometry>
+      <GeometryDrawing Brush="#FF6B5B4B">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M344.276,0L167.724,0C143.351,0,123.586,19.765,123.586,44.138L123.586,61.793 388.414,61.793 388.414,44.138C388.414,19.765,368.649,0,344.276,0z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFC7CAC7">
+        <GeometryDrawing.Geometry>
+          <RectangleGeometry RadiusX="0" RadiusY="0" Rect="35.31,88.276,441.379,282.483" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFFFFFFF">
+        <GeometryDrawing.Geometry>
+          <EllipseGeometry RadiusX="70.621" RadiusY="70.621" Center="370.759,203.034" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FF6B5B4B">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M256,450.207C251.127,450.207,247.172,446.252,247.172,441.379L247.172,397.241C247.172,392.368 251.127,388.413 256,388.413 260.873,388.413 264.828,392.368 264.828,397.241L264.828,441.379C264.828,446.252,260.873,450.207,256,450.207z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <DrawingGroup>
+        <GeometryDrawing Brush="#FFBFA380">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M8.828,44.138L503.173,44.138C508.046,44.138,512.001,48.093,512.001,52.966L512.001,88.276C512.001,93.149,508.046,97.104,503.173,97.104L8.828,97.104C3.955,97.103,0,93.149,0,88.276L0,52.966C0,48.093,3.955,44.138,8.828,44.138z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFBFA380">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M17.655,361.931L494.345,361.931C504.099,361.931,512,369.832,512,379.586L512,379.586C512,389.34,504.099,397.241,494.345,397.241L17.655,397.241C7.901,397.241,0,389.341,0,379.586L0,379.586C0,369.832,7.901,361.931,17.655,361.931z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+      </DrawingGroup>
+      <GeometryDrawing Brush="#FF6B5B4B">
+        <GeometryDrawing.Geometry>
+          <EllipseGeometry RadiusX="35.31" RadiusY="35.31" Center="256,476.69" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FF226BAC">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M79.448,132.414L97.103,132.414C101.976,132.414,105.931,136.369,105.931,141.242L105.931,317.794C105.931,322.667,101.976,326.622,97.103,326.622L79.448,326.622C74.575,326.622,70.62,322.667,70.62,317.794L70.62,141.241C70.621,136.369,74.575,132.414,79.448,132.414z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFB02721">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M150.069,211.862L167.724,211.862C172.597,211.862,176.552,215.817,176.552,220.69L176.552,317.793C176.552,322.666,172.597,326.621,167.724,326.621L150.069,326.621C145.196,326.621,141.241,322.666,141.241,317.793L141.241,220.69C141.241,215.817,145.196,211.862,150.069,211.862z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFEBBA16">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M220.69,273.655L238.345,273.655C243.218,273.655,247.173,277.61,247.173,282.483L247.173,317.793C247.173,322.666,243.218,326.621,238.345,326.621L220.69,326.621C215.817,326.621,211.862,322.666,211.862,317.793L211.862,282.483C211.862,277.61,215.817,273.655,220.69,273.655z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFB02721">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M441.379,203.034L370.758,203.034 370.758,132.413C409.759,132.414,441.379,164.034,441.379,203.034z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingGroup>
+    <DrawingBrush x:Key="DetectSentimentIcon" Drawing="{StaticResource presentationa55464d798334379bafa745142a7a6e0_0}" />
+
 
 </ResourceDictionary>

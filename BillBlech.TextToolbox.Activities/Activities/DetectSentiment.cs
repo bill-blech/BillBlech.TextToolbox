@@ -2,16 +2,16 @@ using System;
 using System.Activities;
 using System.Threading;
 using System.Threading.Tasks;
-using BillBlech.TextToolbox.Activities.Activities.Encryption;
+using BillBlech.TextToolbox.Activities.Activities;
 using BillBlech.TextToolbox.Activities.Properties;
 using UiPath.Shared.Activities;
 using UiPath.Shared.Activities.Localization;
 
 namespace BillBlech.TextToolbox.Activities
 {
-    [LocalizedDisplayName(nameof(Resources.DetectLanguage_DisplayName))]
-    [LocalizedDescription(nameof(Resources.DetectLanguage_Description))]
-    public class DetectLanguage : ContinuableAsyncCodeActivity
+    [LocalizedDisplayName(nameof(Resources.DetectSentiment_DisplayName))]
+    [LocalizedDescription(nameof(Resources.DetectSentiment_Description))]
+    public class DetectSentiment : ContinuableAsyncCodeActivity
     {
         #region Properties
 
@@ -23,27 +23,22 @@ namespace BillBlech.TextToolbox.Activities
         [LocalizedDescription(nameof(Resources.ContinueOnError_Description))]
         public override InArgument<bool> ContinueOnError { get; set; }
 
-        [LocalizedDisplayName(nameof(Resources.DetectLanguage_InputText_DisplayName))]
-        [LocalizedDescription(nameof(Resources.DetectLanguage_InputText_Description))]
+        [LocalizedDisplayName(nameof(Resources.DetectSentiment_InputText_DisplayName))]
+        [LocalizedDescription(nameof(Resources.DetectSentiment_InputText_Description))]
         [LocalizedCategory(nameof(Resources.Input_Category))]
         public InArgument<string> InputText { get; set; }
 
-        [LocalizedDisplayName(nameof(Resources.DetectLanguage_ConfigFile_DisplayName))]
-        [LocalizedDescription(nameof(Resources.DetectLanguage_ConfigFile_Description))]
-        [LocalizedCategory(nameof(Resources.Options_Category))]
-        public InArgument<string> ConfigFile { get; set; }
-
-        [LocalizedDisplayName(nameof(Resources.DetectLanguage_Language_DisplayName))]
-        [LocalizedDescription(nameof(Resources.DetectLanguage_Language_Description))]
+        [LocalizedDisplayName(nameof(Resources.DetectSentiment_SentimentAnalysis_DisplayName))]
+        [LocalizedDescription(nameof(Resources.DetectSentiment_SentimentAnalysis_Description))]
         [LocalizedCategory(nameof(Resources.Output_Category))]
-        public OutArgument<string> Language { get; set; }
+        public OutArgument<string> SentimentAnalysis { get; set; }
 
         #endregion
 
 
         #region Constructors
 
-        public DetectLanguage()
+        public DetectSentiment()
         {
         }
 
@@ -55,8 +50,7 @@ namespace BillBlech.TextToolbox.Activities
         protected override void CacheMetadata(CodeActivityMetadata metadata)
         {
             if (InputText == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(InputText)));
-            if (ConfigFile == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(ConfigFile)));
-            if (Language == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(Language)));
+            if (SentimentAnalysis == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(SentimentAnalysis)));
 
             base.CacheMetadata(metadata);
         }
@@ -65,16 +59,17 @@ namespace BillBlech.TextToolbox.Activities
         {
             // Inputs
             var inputText = InputText.Get(context);
-            var configFile = ConfigFile.Get(context);
+            var sentimentAnalysis = SentimentAnalysis.Get(context);
 
             ///////////////////////////
             // Add execution logic HERE
-            string OutputLanguage = LanguageDetection.RunDetectLanguage(inputText, configFile);
+            string SentimentResult = textApiSentiment.ReturnTextSentiment(inputText);
             ///////////////////////////
 
             // Outputs
-            return (ctx) => {
-                Language.Set(ctx, OutputLanguage);
+            return (ctx) =>
+            {
+                SentimentAnalysis.Set(ctx, SentimentResult);
             };
         }
 

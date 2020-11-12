@@ -83,6 +83,7 @@
             this.LstAvailableItems.Size = new System.Drawing.Size(196, 290);
             this.LstAvailableItems.TabIndex = 0;
             this.LstAvailableItems.TabStop = false;
+            this.LstAvailableItems.SelectedIndexChanged += new System.EventHandler(this.LstAvailableItems_SelectedIndexChanged);
             this.LstAvailableItems.DoubleClick += new System.EventHandler(this.LstAvailableItems_DoubleClick);
             // 
             // LstSelectedItems
@@ -99,24 +100,26 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(236, 128);
+            this.btnAdd.Location = new System.Drawing.Point(271, 97);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(64, 23);
+            this.btnAdd.Size = new System.Drawing.Size(35, 23);
             this.btnAdd.TabIndex = 2;
             this.btnAdd.TabStop = false;
-            this.btnAdd.Text = "Add";
+            this.btnAdd.Text = ">>";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Visible = false;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnRemove
             // 
-            this.btnRemove.Location = new System.Drawing.Point(236, 307);
+            this.btnRemove.Location = new System.Drawing.Point(237, 97);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(64, 23);
+            this.btnRemove.Size = new System.Drawing.Size(35, 23);
             this.btnRemove.TabIndex = 3;
             this.btnRemove.TabStop = false;
-            this.btnRemove.Text = "Remove";
+            this.btnRemove.Text = "<<";
             this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Visible = false;
             this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
             // groupLstSelectedItemsSelection
@@ -163,7 +166,7 @@
             this.GroupLstSelectedItemsMoveItem.Size = new System.Drawing.Size(75, 84);
             this.GroupLstSelectedItemsMoveItem.TabIndex = 11;
             this.GroupLstSelectedItemsMoveItem.TabStop = false;
-            this.GroupLstSelectedItemsMoveItem.Text = "MoveItem";
+            this.GroupLstSelectedItemsMoveItem.Text = "Move Item";
             // 
             // btnLstSelectedItemsDown
             // 
@@ -187,12 +190,13 @@
             // 
             // btnReset
             // 
-            this.btnReset.Location = new System.Drawing.Point(236, 98);
+            this.btnReset.Location = new System.Drawing.Point(240, 345);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(64, 23);
             this.btnReset.TabIndex = 12;
             this.btnReset.Text = "Reset";
             this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Visible = false;
             this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // groupLstSelectedItemsMergeSplit
@@ -208,7 +212,7 @@
             // 
             // btnSplit
             // 
-            this.btnSplit.Location = new System.Drawing.Point(9, 53);
+            this.btnSplit.Location = new System.Drawing.Point(9, 50);
             this.btnSplit.Name = "btnSplit";
             this.btnSplit.Size = new System.Drawing.Size(49, 23);
             this.btnSplit.TabIndex = 12;
@@ -218,7 +222,7 @@
             // 
             // btnMerge
             // 
-            this.btnMerge.Location = new System.Drawing.Point(9, 26);
+            this.btnMerge.Location = new System.Drawing.Point(9, 22);
             this.btnMerge.Name = "btnMerge";
             this.btnMerge.Size = new System.Drawing.Size(49, 23);
             this.btnMerge.TabIndex = 11;
@@ -300,7 +304,7 @@
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(79, 55);
+            this.btnEdit.Location = new System.Drawing.Point(61, 55);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(51, 23);
             this.btnEdit.TabIndex = 2;
@@ -310,7 +314,7 @@
             // 
             // btnManualAdd
             // 
-            this.btnManualAdd.Location = new System.Drawing.Point(16, 55);
+            this.btnManualAdd.Location = new System.Drawing.Point(10, 55);
             this.btnManualAdd.Name = "btnManualAdd";
             this.btnManualAdd.Size = new System.Drawing.Size(51, 23);
             this.btnManualAdd.TabIndex = 1;
@@ -324,6 +328,7 @@
             this.txtManual.Name = "txtManual";
             this.txtManual.Size = new System.Drawing.Size(200, 20);
             this.txtManual.TabIndex = 0;
+            this.txtManual.TextChanged += new System.EventHandler(this.txtManual_TextChanged);
             // 
             // groupActions
             // 
@@ -389,7 +394,7 @@
             this.groupBoxSplit.Controls.Add(this.lblSplitSeparator);
             this.groupBoxSplit.Controls.Add(this.cbSplitSide);
             this.groupBoxSplit.Controls.Add(this.cbSplitActivate);
-            this.groupBoxSplit.Location = new System.Drawing.Point(236, 157);
+            this.groupBoxSplit.Location = new System.Drawing.Point(236, 126);
             this.groupBoxSplit.Name = "groupBoxSplit";
             this.groupBoxSplit.Size = new System.Drawing.Size(76, 141);
             this.groupBoxSplit.TabIndex = 23;

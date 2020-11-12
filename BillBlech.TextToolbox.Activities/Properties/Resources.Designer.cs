@@ -223,7 +223,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Specific Config File for this activitiy, it is available in the Git link.
+        ///   Looks up a localized string similar to Specific Config File for this activity, it is available in the Project URL, section Resources.
         /// </summary>
         public static string DetectLanguage_ConfigFile_Description {
             get {
@@ -291,6 +291,60 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         public static string DetectLanguage_Language_DisplayName {
             get {
                 return ResourceManager.GetString("DetectLanguage_Language_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sentiment Analysis using https://text-processing.com/docs/sentiment.html (english, french or dutch languages only).
+        /// </summary>
+        public static string DetectSentiment_Description {
+            get {
+                return ResourceManager.GetString("DetectSentiment_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detect Sentiment.
+        /// </summary>
+        public static string DetectSentiment_DisplayName {
+            get {
+                return ResourceManager.GetString("DetectSentiment_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text to be analysed.
+        /// </summary>
+        public static string DetectSentiment_InputText_Description {
+            get {
+                return ResourceManager.GetString("DetectSentiment_InputText_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Input Text.
+        /// </summary>
+        public static string DetectSentiment_InputText_DisplayName {
+            get {
+                return ResourceManager.GetString("DetectSentiment_InputText_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Returns &apos;neg&apos;, &apos;neutral&apos; or &apos;pos&apos;.
+        /// </summary>
+        public static string DetectSentiment_SentimentAnalysis_Description {
+            get {
+                return ResourceManager.GetString("DetectSentiment_SentimentAnalysis_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sentiment Analysis.
+        /// </summary>
+        public static string DetectSentiment_SentimentAnalysis_DisplayName {
+            get {
+                return ResourceManager.GetString("DetectSentiment_SentimentAnalysis_DisplayName", resourceCulture);
             }
         }
         
@@ -1276,7 +1330,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Array to be Searched.
+        ///   Looks up a localized string similar to Array to be Searched (Array of Strings).
         /// </summary>
         public static string FindArrayItems_InputArray_Description {
             get {
@@ -1357,7 +1411,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Array to be Searched.
+        ///   Looks up a localized string similar to Array to be Searched (Array of Strings).
         /// </summary>
         public static string MatchItemInArray_InputArray_Description {
             get {
@@ -1456,7 +1510,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Display Activity in Output Pane.
+        ///   Looks up a localized string similar to Display Activity Output in the Ouput Pane.
         /// </summary>
         public static string ReadTextFileEncondig_DisplayLog_Description {
             get {
@@ -1528,7 +1582,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adjusted Text Row.
+        ///   Looks up a localized string similar to Adjusted Text.
         /// </summary>
         public static string RemoveEmptyRows_AdjustedTextRow_DisplayName {
             get {
@@ -1564,7 +1618,7 @@ namespace BillBlech.TextToolbox.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Input Text Row.
+        ///   Looks up a localized string similar to Input Text.
         /// </summary>
         public static string RemoveEmptyRows_InputTextRow_DisplayName {
             get {

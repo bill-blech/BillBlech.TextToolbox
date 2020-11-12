@@ -31,11 +31,9 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             CallButton_SetupWizard();
         }
 
-
         //Setup Wizard Button
         private void CallButton_SetupWizard()
         {
-
             //Check if Current File is Updated
             string bUpdated = System.IO.File.ReadAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFileUpdated.txt");
 
@@ -46,6 +44,7 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                 //Start Context Menu
                 ContextMenu cm = new ContextMenu();
 
+                #region Preview
                 //Preview
                 System.Windows.Controls.MenuItem menuPreview = new System.Windows.Controls.MenuItem();
 
@@ -60,6 +59,7 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                 menuPreview.Icon = image_menuPreview;
 
                 cm.Items.Add(menuPreview);
+                #endregion
 
                 //Open the Menu
                 cm.IsOpen = true;

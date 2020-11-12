@@ -98,7 +98,7 @@ namespace BillBlech.TextToolbox.Activities
                     break;
                 //ASCIII
                 case enumEncryptType.ASCIII:
-                    plainText = ASCIII.Decrypt(plainText);
+                    plainText = ASCIII.Decrypt(encryptedText);
                     break;
 
             }

@@ -242,7 +242,7 @@
     <comment>activity description</comment>
   </data>
   <data name="RemoveEmptyRows_InputTextRow_DisplayName" xml:space="preserve">
-    <value>Input Text Row</value>
+    <value>Input Text</value>
     <comment>property name</comment>
   </data>
   <data name="RemoveEmptyRows_InputTextRow_Description" xml:space="preserve">
@@ -250,7 +250,7 @@
     <comment>property description</comment>
   </data>
   <data name="RemoveEmptyRows_AdjustedTextRow_DisplayName" xml:space="preserve">
-    <value>Adjusted Text Row</value>
+    <value>Adjusted Text</value>
     <comment>property name</comment>
   </data>
   <data name="RemoveEmptyRows_AdjustedTextRow_Description" xml:space="preserve">
@@ -870,7 +870,7 @@
     <comment>property name</comment>
   </data>
   <data name="FindArrayItems_InputArray_Description" xml:space="preserve">
-    <value>Array to be Searched</value>
+    <value>Array to be Searched (Array of Strings)</value>
     <comment>property description</comment>
   </data>
   <data name="MatchItemInArray_DisplayName" xml:space="preserve">
@@ -886,7 +886,7 @@
     <comment>property name</comment>
   </data>
   <data name="MatchItemInArray_InputArray_Description" xml:space="preserve">
-    <value>Array to be Searched</value>
+    <value>Array to be Searched (Array of Strings)</value>
     <comment>property description</comment>
   </data>
   <data name="MatchItemInArray_SearchWord_DisplayName" xml:space="preserve">
@@ -982,7 +982,39 @@
     <comment>property name</comment>
   </data>
   <data name="ReadTextFileEncondig_DisplayLog_Description" xml:space="preserve">
-    <value>Display Activity in Output Pane</value>
+    <value>Display Activity Output in the Ouput Pane</value>
+    <comment>property description</comment>
+  </data>
+  <data name="DetectLanguage_DisplayName" xml:space="preserve">
+    <value>Detect Language</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="DetectLanguage_Description" xml:space="preserve">
+    <value>Language detection using https://github.com/ivanakcheurov/ntextcat</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="DetectLanguage_InputText_DisplayName" xml:space="preserve">
+    <value>Input Text</value>
+    <comment>property name</comment>
+  </data>
+  <data name="DetectLanguage_InputText_Description" xml:space="preserve">
+    <value>Text to be classified</value>
+    <comment>property description</comment>
+  </data>
+  <data name="DetectLanguage_ConfigFile_DisplayName" xml:space="preserve">
+    <value>Config File</value>
+    <comment>property name</comment>
+  </data>
+  <data name="DetectLanguage_ConfigFile_Description" xml:space="preserve">
+    <value>Specific Config File for this activity, it is available in the Project URL, section Resources</value>
+    <comment>property description</comment>
+  </data>
+  <data name="DetectLanguage_Language_DisplayName" xml:space="preserve">
+    <value>Language</value>
+    <comment>property name</comment>
+  </data>
+  <data name="DetectLanguage_Language_Description" xml:space="preserve">
+    <value>Language for the Input Text</value>
     <comment>property description</comment>
   </data>
   <data name="Authentication_Category" xml:space="preserve">
@@ -1021,48 +1053,36 @@
     <value>Please provide values for both {0} and {1}.</value>
     <comment>error message; {0} &amp; {1} are complementary properties</comment>
   </data>
-  <data name="DetectLanguage_DisplayName" xml:space="preserve">
-    <value>Detect Language</value>
+  <data name="DetectSentiment_DisplayName" xml:space="preserve">
+    <value>Detect Sentiment</value>
     <comment>activity name</comment>
   </data>
-  <data name="DetectLanguage_Description" xml:space="preserve">
-    <value>Language detection using https://github.com/ivanakcheurov/ntextcat</value>
+  <data name="DetectSentiment_Description" xml:space="preserve">
+    <value>Sentiment Analysis using https://text-processing.com/docs/sentiment.html (english, french or dutch languages only)</value>
     <comment>activity description</comment>
   </data>
-  <data name="DetectLanguage_InputText_DisplayName" xml:space="preserve">
+  <data name="DetectSentiment_InputText_DisplayName" xml:space="preserve">
     <value>Input Text</value>
     <comment>property name</comment>
   </data>
-  <data name="DetectLanguage_InputText_Description" xml:space="preserve">
-    <value>Text to be classified</value>
+  <data name="DetectSentiment_InputText_Description" xml:space="preserve">
+    <value>Text to be analysed</value>
     <comment>property description</comment>
   </data>
   <data name="Input_Category" xml:space="preserve">
     <value>Input</value>
     <comment>category</comment>
   </data>
-  <data name="DetectLanguage_ConfigFile_DisplayName" xml:space="preserve">
-    <value>Config File</value>
+  <data name="DetectSentiment_SentimentAnalysis_DisplayName" xml:space="preserve">
+    <value>Sentiment Analysis</value>
     <comment>property name</comment>
   </data>
-  <data name="DetectLanguage_ConfigFile_Description" xml:space="preserve">
-    <value>Specific Config File for this activitiy, it is available in the Git link</value>
+  <data name="DetectSentiment_SentimentAnalysis_Description" xml:space="preserve">
+    <value>Returns 'neg', 'neutral' or 'pos'</value>
     <comment>property description</comment>
   </data>
   <data name="Input_Category" xml:space="preserve">
     <value>Input</value>
-    <comment>category</comment>
-  </data>
-  <data name="DetectLanguage_Language_DisplayName" xml:space="preserve">
-    <value>Language</value>
-    <comment>property name</comment>
-  </data>
-  <data name="DetectLanguage_Language_Description" xml:space="preserve">
-    <value>Language for the Input Text</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Output_Category" xml:space="preserve">
-    <value>Output</value>
     <comment>category</comment>
   </data>
 </root>

@@ -172,7 +172,6 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         //Setup Wizard Button
         private void CallButton_SetupWizard()
         {
-
             //Check if Current File is Updated
             string bUpdated = System.IO.File.ReadAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFileUpdated.txt");
 
@@ -183,6 +182,7 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                 //Start Context Menu
                 ContextMenu cm = new ContextMenu();
 
+                #region Create New IDText
                 //Create New IDText
                 System.Windows.Controls.MenuItem menuCreateNewIDText = new System.Windows.Controls.MenuItem();
 
@@ -197,25 +197,37 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                 menuCreateNewIDText.Icon = image_CreateNewIDText;
 
                 cm.Items.Add(menuCreateNewIDText);
+                #endregion
 
                 //Add Separator
                 cm.Items.Add(new Separator());
 
-                //Paste from the CLipboard
-                System.Windows.Controls.MenuItem menuPaste = new System.Windows.Controls.MenuItem();
+                #region Paste from the Clipboard
+                //Paste from the Clipboard
 
-                menuPaste.Header = "Paste";
-                menuPaste.Click += Button_PasteFromClipboard;
-                menuPaste.ToolTip = "Paste from the Clipboard";
-                //Add Icon to the uri_menuItem
-                var uri_menuPaste = new System.Uri("https://img.icons8.com/cotton/20/000000/clipboard--v5.png");
-                var bitmap_menuPaste = new BitmapImage(uri_menuPaste);
-                var image_menuPaste = new Image();
-                image_menuPaste.Source = bitmap_menuPaste;
-                menuPaste.Icon = image_menuPaste;
+                //Get Text from the Clipboard
+                string ClipboardText = Clipboard.GetText();
 
-                cm.Items.Add(menuPaste);
+                if (ClipboardText != null)
+                {
+                    System.Windows.Controls.MenuItem menuPaste = new System.Windows.Controls.MenuItem();
 
+                    menuPaste.Header = "Paste";
+                    menuPaste.Click += Button_PasteFromClipboard;
+                    menuPaste.ToolTip = $"Paste '{ClipboardText}' from the Clipboard to the Control";
+                    //Add Icon to the uri_menuItem
+                    var uri_menuPaste = new System.Uri("https://img.icons8.com/cotton/20/000000/clipboard--v5.png");
+                    var bitmap_menuPaste = new BitmapImage(uri_menuPaste);
+                    var image_menuPaste = new Image();
+                    image_menuPaste.Source = bitmap_menuPaste;
+                    menuPaste.Icon = image_menuPaste;
+
+                    cm.Items.Add(menuPaste);
+                }
+
+                #endregion
+
+                #region Wizard
                 //Wizard
                 System.Windows.Controls.MenuItem menuWizard = new System.Windows.Controls.MenuItem();
 
@@ -230,7 +242,9 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                 menuWizard.Icon = image_menuWizard;
 
                 cm.Items.Add(menuWizard);
+                #endregion
 
+                #region Preview
                 //Preview
                 System.Windows.Controls.MenuItem menuPreview = new System.Windows.Controls.MenuItem();
 
@@ -245,10 +259,10 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                 menuPreview.Icon = image_menuPreview;
 
                 cm.Items.Add(menuPreview);
+                #endregion
 
                 //Open the Menu
                 cm.IsOpen = true;
-
 
                 #endregion
 

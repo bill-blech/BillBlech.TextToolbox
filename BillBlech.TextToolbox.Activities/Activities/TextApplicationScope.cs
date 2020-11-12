@@ -82,6 +82,7 @@ namespace BillBlech.TextToolbox.Activities
         protected override void CacheMetadata(NativeActivityMetadata metadata)
         {
             if (InputText == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(InputText)));
+            if (Encoding == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(Encoding)));
 
             base.CacheMetadata(metadata);
         }

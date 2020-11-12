@@ -8,6 +8,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 //https://stackoverflow.com/questions/4796109/how-to-move-item-in-listbox-up-and-down
@@ -27,7 +28,15 @@ namespace ExcelTut
         string templateFilePath = null;
         Dictionary<string, string> DicArgumentsParent = new Dictionary<string, string>();
         Encoding encoding = Encoding.Default;
+        SourceWordsLines sourceWordsLines;
+        bool bDisableFlexEvents;
 
+        enum SourceWordsLines
+        {
+            Words,
+            Lines
+        }
+  
         public FormSelectData(string MyArgument, string TemplateFilePath, string MyIDText, string MyIDTextParent, Encoding encoding)
         {
             InitializeComponent();
@@ -43,12 +52,7 @@ namespace ExcelTut
             this.Show();
             this.templateFilePath = TemplateFilePath;
 
-            //Split Controls
-            this.txtSplitSeparator.Enabled = false;
-            this.cbSplitSide.Enabled = false;
-
-            string[] ArraySplitItems = {"Left", "Right" };
-            cbSplitSide.Items.AddRange(ArraySplitItems);
+       
 
             //Inicialize form procedures
             Inicialize_form_procedures();
@@ -101,7 +105,6 @@ namespace ExcelTut
             //Case it is found
             if (bExists == true)
             {
-
                 string source = System.IO.File.ReadAllText(FilePath, encoding);
                 //string source = Utils.ReadTextFileStream(FilePath);
                 //MessageBox.Show(source);
@@ -112,9 +115,6 @@ namespace ExcelTut
                 //Loop through the lines: Search for the Argument
                 foreach (string Line in Lines)
                 {
-
-                    //MessageBox.Show(Line);
-
                     //Split the Line
                     string[] MyArray = Strings.Split(Line, Utils.DefaultSeparator());
 
@@ -125,13 +125,8 @@ namespace ExcelTut
                         //Get the Argument
                         string MyArgument = MyArray[1];
 
-                        //Remove Braces {} and "
-                        MyArgument = MyArgument.Replace("{", "");
-                        MyArgument = MyArgument.Replace("}", "");
-                        MyArgument = MyArgument.Replace("\"", "");
-
-                        //Split the Items
-                        string[] MyItems = MyArgument.Split(',');
+                        //'Convert' Array to String
+                        string[] MyItems = DesignUtils.ConvertStringToArray(MyArgument, false);
 
                         //Case there are multiple items
                         if (MyItems.Length > 0)
@@ -164,6 +159,32 @@ namespace ExcelTut
             }
 
             #endregion
+
+            //Move Item Group
+            GroupLstSelectedItemsMoveItem.Visible = false;
+
+            //Merge Split Group
+            groupLstSelectedItemsMergeSplit.Visible = false;
+
+            //Split Controls
+
+            //Visible
+            groupBoxSplit.Visible = false;
+
+            this.txtSplitSeparator.Enabled = false;
+            this.cbSplitSide.Enabled = false;
+
+            string[] ArraySplitItems = { "Left", "Right" };
+            cbSplitSide.Items.AddRange(ArraySplitItems);
+
+            //btnManualAdd = False
+            btnManualAdd.Visible = false;
+
+            //btnEdit = False
+            btnEdit.Visible = false;
+
+            //Start the Variable as False
+            bDisableFlexEvents = false;
 
         }
 
@@ -244,11 +265,9 @@ namespace ExcelTut
         //Call Add Item to LstSelectedItems => Remove Item from LstAvailableItems
         private void btnAdd_Click(object sender, EventArgs e)
         {
-
             //Split Activated
             if (cbSplitActivate.Checked == true)
             {
-
                 #region Split
                 string str = null;
                 string txtSelectedItem = this.LstAvailableItems.SelectedItem.ToString();
@@ -286,23 +305,281 @@ namespace ExcelTut
                     MessageBox.Show("Please fill in all arguments", "Validation Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
                 }
                 #endregion
-
-
             }
             else
             {
                 //Add Item to LstSelectedItems => Remove Item from LstAvailableItems
                 Add_btnClickRun();
+
             }
-           
+
+            //Unselect Items
+            LstAvailableItems.SelectedIndex = -1;
+
+            //btnAdd Visible: True / False
+            btnAdd_visible();         
+        }
+
+        //Call Add Item to LstAvailableItems => Remove Item to LstSelectedItems
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+
+            //Add Item to LstAvailableItems => Remove Item to LstSelectedItems
+            Remove_btnClickRun();
+
+            //Unselect Items
+            LstSelectedItems.SelectedIndex = -1;
+
+            //btnRemove Visible: True / False
+            btnRemove_visible();
+
+            //btnEdit Visible = false
+            btnEdit.Visible = false;
+
+        }
+
+        //LstAvailableItems selected items
+        private void LstAvailableItems_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            //MessageBox.Show("4: " + bDisableFlexEvents.ToString());
+
+            //btnAdd Visible: True / False
+            btnAdd_visible();
+
+            //MessageBox.Show("5: " + bDisableFlexEvents.ToString());
+
+            //Check if Flex Events are disabled
+            if (bDisableFlexEvents == false)
+            {
+                //Disable Flex Events
+                bDisableFlexEvents = true;
+
+                //Clear Selected Items item, if there is
+                LstSelectedItems.SelectedIndex = -1;
+
+                //Enable Flex Events
+                bDisableFlexEvents = false;
+
+                //Clear Text Box
+                this.txtManual.Text = null;
+
+                //btnEdit Visible = false
+                btnEdit.Visible = false;
+
+            }
+         
+        }
+
+        //LstSelectedItems selected items
+        private void LstSelectedItems_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            //MessageBox.Show("1: "+ bDisableFlexEvents.ToString());
+
+            //btnRemove Visible: True / False
+            btnRemove_visible();
+
+            //MessageBox.Show("2: " + bDisableFlexEvents.ToString());
+
+            //Case item is selected
+            if (LstSelectedItems.SelectedIndex != -1)
+            {
+                string strSelectedItemText = this.LstSelectedItems.SelectedItem.ToString();
+
+                this.txtManual.Text = strSelectedItemText;
+
+                //btnEdit = true
+                btnEdit.Visible = true;
+
+                //Check if item is already in the list
+                int index = LstSelectedItems.FindString(strSelectedItemText);
+
+                //MessageBox.Show(index.ToString());
+
+                //Case item is not found
+                if (index == -1)
+                {
+                    btnManualAdd.Visible = true;
+
+                }
+                //Case item is found
+                else
+                {
+                    btnManualAdd.Visible = false;
+                }
+
+            }
+            else
+            {
+                //Clear Text Box
+                this.txtManual.Text = null;  
+            }
+
+            //btnEdit = false
+            btnEdit.Visible = false;
+
+            //MessageBox.Show("3: " + bDisableFlexEvents.ToString());
+
+            //Check if Flex Events are disabled
+            if (bDisableFlexEvents == false)
+            {
+
+                //Disable Flex Events
+                bDisableFlexEvents = true;
+
+                //Clear Available Items item, if there is
+                LstAvailableItems.SelectedIndex = -1;
+
+                //Enable Flex Events
+                bDisableFlexEvents = false;
+            }
+
+        }
+
+        //btnAdd Visible: True / False
+        private void btnAdd_visible()
+        {
+            //Count Selected Items
+            int Counter = LstAvailableItems.SelectedItems.Count;
+
+            if (Counter == 0)
+            {
+                //Hide Add Button
+                btnAdd.Visible = false;
+
+                //Set Visible: False
+                groupBoxSplit.Visible = false;
+            }
+            //Check for Selected Items
+            else
+            {
+                //Display Add Button
+                btnAdd.Visible = true;
+
+                //Loop through the Selected Items
+                var lst = LstAvailableItems.SelectedItems.Cast<string>();
+
+                //Set Visible: False
+                groupBoxSplit.Visible = false;
+
+                //Update LstSelectedItems
+                foreach (string SelectedItem in lst)
+                {
+                    //Search for separators
+                    Match Results = Regex.Match(SelectedItem, @"[:-]");
+
+                    //Case items are found
+                    if (Results.Length > 0)
+                    {
+                        //Set Visible: True
+                        groupBoxSplit.Visible = true;
+
+                        //Print to Control First Match
+                        this.txtSplitSeparator.Text = Results.Groups[0].ToString() ;
+
+                        //Exit the Loop
+                        break;
+                    }
+                }
+            }
+        }
+
+        //btnRemove Visible: True / False
+        private void btnRemove_visible()
+        {
+            //Count Selected Items
+            int SelectedCounter = LstSelectedItems.SelectedItems.Count;
+
+            //Case there are no items in the List
+            if (SelectedCounter == 0)
+            {
+                //Hide Add Button
+                btnRemove.Visible = false;
+
+                //Group Merge Split
+                groupLstSelectedItemsMergeSplit.Visible = false;
+
+                //Group Move Item
+                GroupLstSelectedItemsMoveItem.Visible = false;
+            }
+            //Case there are items in the Lsit
+            else
+            {
+                //Display Add Button
+                btnRemove.Visible = true;
+
+
+                #region Group Move Items
+
+                //Count List Items
+                int ListCounter = LstSelectedItems.Items.Count;
+
+                //Group Move Item
+                if(ListCounter > 1)
+                {
+                    //Group Move Item
+                    GroupLstSelectedItemsMoveItem.Visible = true;
+                }
+
+                #endregion
+
+                #region Group Move Split 
+
+                //Check if Source is Words
+                if (sourceWordsLines == SourceWordsLines.Words)
+                {
+                    //Loop through the Selected Items
+                    var lst = LstSelectedItems.SelectedItems.Cast<string>();
+
+                    //Update LstSelectedItems
+                    foreach (string SelectedItem in lst)
+                    {
+                        //Get Words from a String
+                        string[] Words = Strings.Split(SelectedItem);
+
+                        //Case there are multiple words
+                        if (Words.Length > 0)
+                        {
+                            //Group Merge Split
+                            groupLstSelectedItemsMergeSplit.Visible = true;
+
+                            //Exit the Loop
+                            break;
+                        }
+
+                    }
+                }
+
+                #endregion
+
+            }
         }
 
         //Call Add Item to LstSelectedItems => Remove Item from LstAvailableItems
         private void LstAvailableItems_DoubleClick(object sender, EventArgs e)
         {
+            ////Add Item to LstSelectedItems => Remove Item from LstAvailableItems
+            //Add_btnClickRun();
 
-            //Add Item to LstSelectedItems => Remove Item from LstAvailableItems
-            Add_btnClickRun();
+            ////Unselect Items
+            //LstAvailableItems.SelectedIndex = -1;
+
+            ////btnAdd Visible: True / False
+            //btnAdd_visible();
+        }
+
+        //Call Add Item to LstAvailableItems => Remove Item to LstSelectedItems
+        private void LstSelectedItems_DoubleClick(object sender, EventArgs e)
+        {
+            ////Add Item to LstAvailableItems => Remove Item to LstSelectedItems
+            //Remove_btnClickRun();
+
+            ////Unselect Items
+            //LstSelectedItems.SelectedIndex = -1;
+
+            ////btnRemove Visible: True / False
+            //btnRemove_visible();
         }
 
         //Add Item to LstAvailableItems => Remove Item to LstSelectedItems
@@ -314,8 +591,15 @@ namespace ExcelTut
             //Update LstAvailableItems
             foreach (string SelectedItem in lst)
             {
-                //Add Item to LstAvailableItems
-                _itemsAvailableItems.Add(SelectedItem);
+                //Search if the item is already in LstAvailable Items
+                int index = LstAvailableItems.FindString(SelectedItem);
+
+                //Case item is not found
+                if (index == -1)
+                {
+                    //Add Item to LstAvailableItems
+                    _itemsAvailableItems.Add(SelectedItem);
+                }
 
             }
 
@@ -338,21 +622,6 @@ namespace ExcelTut
             SearchLstSelectedItems.Focus();
         }
 
-        //Call Add Item to LstAvailableItems => Remove Item to LstSelectedItems
-        private void btnRemove_Click(object sender, EventArgs e)
-        {
-
-            //Add Item to LstAvailableItems => Remove Item to LstSelectedItems
-            Remove_btnClickRun();
-        }
-
-        //Call Add Item to LstAvailableItems => Remove Item to LstSelectedItems
-        private void LstSelectedItems_DoubleClick(object sender, EventArgs e)
-        {
-            //Add Item to LstAvailableItems => Remove Item to LstSelectedItems
-            Remove_btnClickRun();
-        }
-
         //Reset Form
         private void btnReset_Click(object sender, EventArgs e)
         {
@@ -371,7 +640,22 @@ namespace ExcelTut
             //Inicialize form procedures
             Inicialize_form_procedures();
 
+            //Disable Flex Events
+            bDisableFlexEvents = true;
 
+            //Unselect all items
+            LstAvailableItems.SelectedIndex = -1;
+            LstSelectedItems.SelectedIndex = -1;
+
+            //Enable Flex Events
+            bDisableFlexEvents = false;
+
+            //btnAdd Visible: True / False
+            btnAdd_visible();
+
+            //btnRemove Visible: True / False
+            btnRemove_visible();
+           
         }
 
         //Merge Items
@@ -588,6 +872,25 @@ namespace ExcelTut
             }
         }
 
+        //Text Manual: Change
+        private void txtManual_TextChanged(object sender, EventArgs e)
+        {
+            //Case it is filled
+            if (string.IsNullOrEmpty(txtManual.Text) == false)
+            {
+
+                //Display Add Manual Button
+                btnManualAdd.Visible = true;
+
+                //Case there is a selected item
+                if (LstSelectedItems.SelectedIndex != -1)
+                {
+                    //Display Edit Button
+                    btnEdit.Visible = true;
+                }
+            }
+        }
+
         //LstSelectedItems: Move Down
         private void btnLstSelectedItemsDown_Click(object sender, EventArgs e)
         {
@@ -636,22 +939,36 @@ namespace ExcelTut
         //LstSelectedItems: Selection Single
         private void groupLstSelectedItemsSelectionSingle_CheckedChanged(object sender, EventArgs e)
         {
+            //Available Items
+            LstAvailableItems.SelectionMode = SelectionMode.One;
+           
+            //Selected Items
             LstSelectedItems.SelectionMode = SelectionMode.One;
             LstSelectedItems.SelectedIndex = -1;
+
+            //Group Move Item
             this.GroupLstSelectedItemsMoveItem.Visible = true;
         }
 
         //LstSelectedItems: Selection Multi
         private void groupLstSelectedItemsSelectionMulti_CheckedChanged(object sender, EventArgs e)
         {
+            //Available Items
+            LstAvailableItems.SelectionMode = SelectionMode.MultiSimple;
+            
+            //Selected Items
             LstSelectedItems.SelectionMode = SelectionMode.MultiSimple;
             LstSelectedItems.SelectedIndex = -1;
+
+            //Group Move Item
             this.GroupLstSelectedItemsMoveItem.Visible = false;
         }
 
         //Source: Words
         private void groupLstAvailableItemsSourceWords_CheckedChanged(object sender, EventArgs e)
         {
+            //Fill in the Variable
+            sourceWordsLines = SourceWordsLines.Words;
 
             //Clear Available Items
             _itemsAvailableItems.Clear();
@@ -671,11 +988,31 @@ namespace ExcelTut
             //Update LstAvailableItems_Update
             LstAvailableItems_Update();
 
+            //Disable Flex Events
+            bDisableFlexEvents = true;
+
+            //Clear Available Items item, if there is
+            LstAvailableItems.SelectedIndex = -1;
+
+            //Clear Selected Items item, if there is
+            LstSelectedItems.SelectedIndex = -1;
+
+            //Enable Flex Events
+            bDisableFlexEvents = false;
+
+            //btnAdd Visible: True / False
+            btnAdd_visible();
+
+            //btnRemove Visible: True / False
+            btnRemove_visible();
+
         }
 
         //Source: Lines
         private void groupLstAvailableItemsSourceLines_CheckedChanged(object sender, EventArgs e)
         {
+            //Fill in the Variable
+            sourceWordsLines = SourceWordsLines.Lines;
 
             //Clear Available Items
             _itemsAvailableItems.Clear();
@@ -687,7 +1024,7 @@ namespace ExcelTut
             //Loop throught the items
             foreach (string str in arrayAvailableItems)
             {
-                _itemsAvailableItems.Add(str);
+                _itemsAvailableItems.Add(str.Trim());
             }
 
             //Update LstAvailableItems_Update
@@ -696,6 +1033,24 @@ namespace ExcelTut
             //Clear Search Box
             SearchLstAvailableItems.Text = "";
             SearchLstAvailableItems.Focus();
+
+            //Disable Flex Events
+            bDisableFlexEvents = true;
+
+            //Clear Available Items item, if there is
+            LstAvailableItems.SelectedIndex = -1;
+
+            //Clear Selected Items item, if there is
+            LstSelectedItems.SelectedIndex = -1;
+
+            //Enable Flex Events
+            bDisableFlexEvents = false;
+
+            //btnAdd Visible: True / False
+            btnAdd_visible();
+
+            //btnRemove Visible: True / False
+            btnRemove_visible();
 
         }
 
@@ -776,24 +1131,7 @@ namespace ExcelTut
             this.Close();
         }
 
-
         #region Manual
-
-        //Load TextBox Manual
-        private void LstSelectedItems_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-            //Case item is found
-            if (LstSelectedItems.SelectedIndex != -1)
-            {
-                this.txtManual.Text = this.LstSelectedItems.SelectedItem.ToString();
-            }
-            else
-            {
-                this.txtManual.Text = null;
-            }
-
-        }
 
         //Add Manual Item
         private void btnManualAdd_Click(object sender, EventArgs e)
@@ -841,50 +1179,44 @@ namespace ExcelTut
                 LstSelectedItems_Update();
 
             }
-
-                
+    
         }
 
         //Paste Data from Clipboard
         private void btnPaste_Click(object sender, EventArgs e)
         {
-
             //Get Text from the Clipboard
             string ClipboardText = Clipboard.GetText();
 
             //Case it is not Null
             if (ClipboardText != null)
             {
-                //Get Data between brackets {}
-                string[] Results = Utils.ExtractTextBetweenTags(ClipboardText, "{", "}",System.Text.RegularExpressions.RegexOptions.Singleline,false,false);
+                ////Get Data between brackets {}
+                //string[] Results = Utils.ExtractTextBetweenTags(ClipboardText, "{", "}",System.Text.RegularExpressions.RegexOptions.Singleline,false,false);
 
-                //Case Items are found
-                if (Results.Length > 0)
-                {
+                ////Case Items are found
+                //if (Results.Length > 0)
+                //{
+                //Get Words from the Text
+                //string Text = Results[0];
+                //string[] Words = Strings.Split(Text, ",");
+                string[] Words = Strings.Split(ClipboardText, ",");
 
-                    //Get Words from the Text
-                    string Text = Results[0];
-                    string[] Words = Strings.Split(Text, ",");
-
-                    //Loop through the Words
-                    foreach (string Word in Words)
+                //Loop through the Words
+                foreach (string Word in Words)
                     {
-                        string WordAdj = Strings.Replace(Word, "\"", "");
+                        //string WordAdj = Strings.Replace(Word, "\"", "");
+                        string WordAdj = DesignUtils.TextAdjustDoubleQuotes(Word, true);
                         LstSelectedItems.Items.Add(WordAdj.Trim());
                     }
-
-                }
-
+                //}
 
             }
             else 
             {
-
                 //Validation Error Message
                 System.Windows.MessageBox.Show("There is no data in the Clipboard", "Copy from Clipboard", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-
             }    
-
 
         }
 
@@ -906,5 +1238,6 @@ namespace ExcelTut
 
 
         }
+
     }
 }

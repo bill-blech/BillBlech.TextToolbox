@@ -79,6 +79,7 @@ namespace BillBlech.TextToolbox.Activities
             if (InputArray == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(InputArray)));
             if (SearchWord == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(SearchWord)));
             if (IsFound == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(IsFound)));
+            if (Encoding == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(Encoding)));
 
             base.CacheMetadata(metadata);
         }

@@ -155,8 +155,8 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         //Setup Wizard Button
         private void CallButton_SetupWizard()
         {
-
-            string CurrentTextFilePath = null;
+            //Get Data from Control
+            string CurrentTextFilePath = ReturnCurrentFile();
 
             #region Build Context Menu
             //Start Context Menu
@@ -252,8 +252,6 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                 #region Open File
                 //Get Current Excel File Name
 
-                //Get Data from Control
-                CurrentTextFilePath = ReturnCurrentFile();
 
                 //Case it is a Variable
                 if (CurrentTextFilePath == "1.5: VisualBasicValue<String>")
@@ -335,60 +333,81 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             //Add Separator
             cm.Items.Add(new Separator());
 
-            //Paste from the CLipboard
-            System.Windows.Controls.MenuItem menuPaste = new System.Windows.Controls.MenuItem();
+            #region Paste from the Clipboard
+            //Paste from the Clipboard
 
-            menuPaste.Header = "Paste";
-            menuPaste.Click += Button_PasteFromClipboard;
-            menuPaste.ToolTip = "Paste from the Clipboard";
-            //Add Icon to the uri_menuItem
-            var uri_menuPaste = new System.Uri("https://img.icons8.com/cotton/20/000000/clipboard--v5.png");
-            var bitmap_menuPaste = new BitmapImage(uri_menuPaste);
-            var image_menuPaste = new Image();
-            image_menuPaste.Source = bitmap_menuPaste;
-            menuPaste.Icon = image_menuPaste;
+            //Get Text from the Clipboard
+            string ClipboardText = Clipboard.GetText();
 
-            cm.Items.Add(menuPaste);
+            if (ClipboardText != null)
+            {
+                System.Windows.Controls.MenuItem menuPaste = new System.Windows.Controls.MenuItem();
+
+                menuPaste.Header = "Paste";
+                menuPaste.Click += Button_PasteFromClipboard;
+                menuPaste.ToolTip = $"Paste '{ClipboardText}' from the Clipboard to the Control";
+                //Add Icon to the uri_menuItem
+                var uri_menuPaste = new System.Uri("https://img.icons8.com/cotton/20/000000/clipboard--v5.png");
+                var bitmap_menuPaste = new BitmapImage(uri_menuPaste);
+                var image_menuPaste = new Image();
+                image_menuPaste.Source = bitmap_menuPaste;
+                menuPaste.Icon = image_menuPaste;
+
+                cm.Items.Add(menuPaste);
+            }
+
+            #endregion
 
             //Wizard & Preview
             if (CurrentTextFilePath != null)
             {
-                //Add Separator
-                cm.Items.Add(new Separator());
 
-                //Wizard
-                System.Windows.Controls.MenuItem menuWizard = new System.Windows.Controls.MenuItem();
+                if (File.Exists(CurrentTextFilePath) == true)
+                {
 
-                menuWizard.Header = "Wizard";
-                menuWizard.Click += Button_OpenFormSelectData;
-                menuWizard.ToolTip = "Select Words from Text File selected as Preview";
-                //Add Icon to the uri_menuItem
-                var uri_menuWizard = new System.Uri("https://img.icons8.com/officexs/20/000000/edit-file.png");
-                var bitmap_menuWizard = new BitmapImage(uri_menuWizard);
-                var image_menuWizard = new Image();
-                image_menuWizard.Source = bitmap_menuWizard;
-                menuWizard.Icon = image_menuWizard;
+                    //Add Separator
+                    cm.Items.Add(new Separator());
 
-                cm.Items.Add(menuWizard);
+                    #region Wizard
+                    //Wizard
+                    System.Windows.Controls.MenuItem menuWizard = new System.Windows.Controls.MenuItem();
 
-                #region Preview
+                    //CurrentFile
+                    string FilePeview = ReturnCurrentFile();
 
-                //Preview
-                System.Windows.Controls.MenuItem menuPreview = new System.Windows.Controls.MenuItem();
+                    menuWizard.Header = "Wizard";
+                    menuWizard.Click += Button_OpenFormSelectData;
+                    menuWizard.ToolTip = "Select Words from Preview Text File '" + FilePeview + "'";
+                    //Add Icon to the uri_menuItem
+                    var uri_menuWizard = new System.Uri("https://img.icons8.com/officexs/20/000000/edit-file.png");
+                    var bitmap_menuWizard = new BitmapImage(uri_menuWizard);
+                    var image_menuWizard = new Image();
+                    image_menuWizard.Source = bitmap_menuWizard;
+                    menuWizard.Icon = image_menuWizard;
 
-                menuPreview.Header = "Preview";
-                menuPreview.Click += Button_OpenPreview;
-                menuPreview.ToolTip = "Preview Data Extraction With Current Activity Arguments";
-                //Add Icon to the uri_menuItem
-                var uri_menuPreview = new System.Uri("https://img.icons8.com/officexs/20/000000/new-file.png");
-                var bitmap_menuPreview = new BitmapImage(uri_menuPreview);
-                var image_menuPreview = new Image();
-                image_menuPreview.Source = bitmap_menuPreview;
-                menuPreview.Icon = image_menuPreview;
+                    cm.Items.Add(menuWizard);
+                    #endregion
 
-                cm.Items.Add(menuPreview);
+                    #region Preview
 
-                #endregion
+                    //Preview
+                    System.Windows.Controls.MenuItem menuPreview = new System.Windows.Controls.MenuItem();
+
+                    menuPreview.Header = "Preview";
+                    menuPreview.Click += Button_OpenPreview;
+                    menuPreview.ToolTip = "Preview Data Extraction With Current Activity Arguments";
+                    //Add Icon to the uri_menuItem
+                    var uri_menuPreview = new System.Uri("https://img.icons8.com/officexs/20/000000/new-file.png");
+                    var bitmap_menuPreview = new BitmapImage(uri_menuPreview);
+                    var image_menuPreview = new Image();
+                    image_menuPreview.Source = bitmap_menuPreview;
+                    menuPreview.Icon = image_menuPreview;
+
+                    cm.Items.Add(menuPreview);
+
+                    #endregion
+
+                }
             }
 
             //Open the Menu
@@ -578,6 +597,17 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                 return;
             }
 
+            //If Current File is not found, exit the procedure
+            if (File.Exists(CurrentTextFilePath) == false)
+            {
+
+                //Error Message
+                MessageBox.Show("The Preview file cannt be found:" + Environment.NewLine + CurrentTextFilePath, "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                //Exit the Procedure
+                return;
+            }
+
             //In case file is found
             if (CurrentTextFilePath != null)
             {
@@ -657,7 +687,7 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                 string Source = System.IO.File.ReadAllText(FilePath, encoding);
 
                 //Check if all Parameters are in the File
-                string[] searchWords = { "FileName" + Utils.DefaultSeparator(), "SearchWord" + Utils.DefaultSeparator() };
+                string[] searchWords = { "FileName" + Utils.DefaultSeparator()};
                 double PercResults = Utils.FindWordsInString(Source, searchWords, false);
 
                 //Case it is found

@@ -1,4 +1,4 @@
-<sap:ActivityDesigner x:Class="BillBlech.TextToolbox.Activities.Design.Designers.DetectLanguageDesigner"
+<sap:ActivityDesigner x:Class="BillBlech.TextToolbox.Activities.Design.Designers.DetectSentimentDesigner"
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:activity="clr-namespace:BillBlech.TextToolbox.Activities.Properties;assembly=BillBlech.TextToolbox.Activities"
@@ -32,29 +32,21 @@
             </Grid.RowDefinitions>
 
             <!--Input Text-->
-            <Label Content="{x:Static activity:Resources.DetectLanguage_InputText_DisplayName}" Grid.Row="0"
-                   ToolTip="{x:Static activity:Resources.DetectLanguage_InputText_Description}"/>
-            <sapv:ExpressionTextBox Grid.Row="1" ExpressionType="{Binding ModelItem.Properties[InputText].PropertyType.GenericTypeArguments[0]}" OwnerActivity="{Binding Path=ModelItem}" HintText="{x:Static activity:Resources.DetectLanguage_InputText_Description}" UseLocationExpression="False" Margin="0,0,27,0" Name="InputText">
+            <Label Content="{x:Static activity:Resources.DetectSentiment_InputText_DisplayName}" Grid.Row="0"
+                   ToolTip="{x:Static activity:Resources.DetectSentiment_InputText_Description}"/>
+            <sapv:ExpressionTextBox Grid.Row="1" ExpressionType="{Binding ModelItem.Properties[InputText].PropertyType.GenericTypeArguments[0]}" OwnerActivity="{Binding Path=ModelItem}" HintText="{x:Static activity:Resources.DetectSentiment_InputText_Description}" UseLocationExpression="False" Name="InputText">
                 <sapv:ExpressionTextBox.Expression>
                     <Binding Path="ModelItem.InputText" Converter="{StaticResource ArgumentToExpressionConverter}" Mode="TwoWay" ConverterParameter="In" UpdateSourceTrigger="PropertyChanged" />
                 </sapv:ExpressionTextBox.Expression>
             </sapv:ExpressionTextBox>
-
             <!-- Menu Button-->
-            <Button Content="" Height="20" Width="20" Margin="275,2,5,1" RenderTransformOrigin="0.529,-0.15" Click="Call_DetectLanguage" Grid.Row="1" Name="btn" ToolTip="Preview Activity" Focusable="False" Visibility="Visible">
+            <Button Content="" Height="20" Width="20" Margin="275,2,5,1" RenderTransformOrigin="0.529,-0.15" Click="Call_DetectSentiment" Grid.Row="1" Name="btn" ToolTip="Preview Activity" Focusable="False" Visibility="Hidden">
                 <Button.Background>
                     <ImageBrush ImageSource="/BillBlech.TextToolbox.Activities.Design;component/Resources/MenuIcon.png"/>
                 </Button.Background>
             </Button>
 
-            <!-- Config File-->
-            <Label Content="{x:Static activity:Resources.DetectLanguage_ConfigFile_DisplayName}" Grid.Row="2"
-                   ToolTip="{x:Static activity:Resources.DetectLanguage_ConfigFile_Description}"/>
-            <sapv:ExpressionTextBox Grid.Row="3" ExpressionType="{Binding ModelItem.Properties[ConfigFile].PropertyType.GenericTypeArguments[0]}" OwnerActivity="{Binding Path=ModelItem}" HintText="{x:Static activity:Resources.DetectLanguage_ConfigFile_Description}" UseLocationExpression="False" Name="ConfigFile">
-                <sapv:ExpressionTextBox.Expression>
-                    <Binding Path="ModelItem.ConfigFile" Converter="{StaticResource ArgumentToExpressionConverter}" Mode="TwoWay" ConverterParameter="In" UpdateSourceTrigger="PropertyChanged" />
-                </sapv:ExpressionTextBox.Expression>
-            </sapv:ExpressionTextBox>
+
         </Grid>
     </uip:ActivityDecoratorControl>
 </sap:ActivityDesigner>

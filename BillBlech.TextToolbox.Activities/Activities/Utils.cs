@@ -1011,14 +1011,16 @@ namespace BillBlech.TextToolbox.Activities.Activities
 
                 //Write Log Message
                 if (displayLog == true)
+                {
+                    //Counter
+                    Console.WriteLine($"Matches count: {Results.Length}");
 
-                //Counter
-                Console.WriteLine($"Matches count: {Results.Length}");
+                    //Result
+                    WriteLogMessage("Results: " + Environment.NewLine + "-----------------------------------------------------------------------------------------------------------------------------------------------" + Environment.NewLine +
+                                          string.Join(Environment.NewLine + "-----------------------------------------------------------------------------------------------------------------------------------------------" + Environment.NewLine, Results) +
+                                                      Environment.NewLine + "-----------------------------------------------------------------------------------------------------------------------------------------------");
 
-                //Result
-                WriteLogMessage("Results: " + Environment.NewLine + "-----------------------------------------------------------------------------------------------------------------------------------------------" + Environment.NewLine +
-                                      string.Join(Environment.NewLine + "-----------------------------------------------------------------------------------------------------------------------------------------------" + Environment.NewLine, Results) +
-                                                  Environment.NewLine + "-----------------------------------------------------------------------------------------------------------------------------------------------");
+                }
 
                 return Results;
 
@@ -1343,7 +1345,7 @@ namespace BillBlech.TextToolbox.Activities.Activities
 
             //Start Log Message
             LogMessage = $"Replace Words: [Search Word: '{string.Join(";",SearchWords)}' Replaced Word '{ReplacedWord}' ";
-            
+
             //Start Output Variable
             string OuputString = InputString;
 
@@ -1394,7 +1396,7 @@ namespace BillBlech.TextToolbox.Activities.Activities
                             bSuccess = true;
 
                             //Update Log Message
-                            LogMessage += $"Replaced: '{indexes.Count}' time(s)";
+                            LogMessage += $"Replaced: '{indexes.Count}' time(s) ";
                         }
                         else
                         {
@@ -1441,7 +1443,7 @@ namespace BillBlech.TextToolbox.Activities.Activities
                             bSuccess = true;
 
                             //Update Log Message
-                            LogMessage += $"Replaced: '1' time(s)";
+                            LogMessage += $"Replaced: '1' time(s) ";
 
                         }
                         else
@@ -1474,7 +1476,7 @@ namespace BillBlech.TextToolbox.Activities.Activities
                             bSuccess = true;
 
                             //Update Log Message
-                            LogMessage += $"Replaced: '1' time(s)";
+                            LogMessage += $"Replaced: '1' time(s) ";
 
                         }
                         else
@@ -1515,7 +1517,7 @@ namespace BillBlech.TextToolbox.Activities.Activities
                                 bSuccess = true;
 
                                 //Update Log Message
-                                LogMessage += $"Replaced: '1' time(s)";
+                                LogMessage += $"Replaced: '1' time(s) ";
 
                             }
 
@@ -1548,7 +1550,7 @@ namespace BillBlech.TextToolbox.Activities.Activities
             if (displayLog == true)
                 Console.WriteLine(LogMessage);
 
-            return OuputString;
+            return OuputString.Trim();
         }
 
         //Create Dummy Word

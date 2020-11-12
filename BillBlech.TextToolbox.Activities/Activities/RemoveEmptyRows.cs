@@ -67,6 +67,7 @@ namespace BillBlech.TextToolbox.Activities
             if (InputTextRow == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(InputTextRow)));
             if (Encoding == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(Encoding)));
             if (AdjustedTextRow == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(AdjustedTextRow)));
+            if (Encoding == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(Encoding)));
 
             base.CacheMetadata(metadata);
         }

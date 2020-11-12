@@ -44,17 +44,11 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             //Case there is an IDText
             if (MyIDText != null)
             {
-                
-            }
-            else
-            {
-                //UpdateIDText
-                UpdateIDText();
-            }
 
-            //Auto Fill Controls
-            AutoFillControls();
-
+                //Auto Fill Controls
+                AutoFillControls();
+            }
+        
         }
         #endregion
 
@@ -62,18 +56,119 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         {
             InitializeComponent();
 
+            string FilePath;
+
             //Create Default Storage Folders (if needed)
             DesignUtils.CreateStorageTextToolboxFolders();
-            
+
+            #region hidden
+            ////CurrentFileUpdated
+            //string CurrentFile = ReturnCurrentFile();
+
+            ////Case there is a file
+            //if (CurrentFile != null)
+            //{
+
+            //    //CurrentFile
+            //    FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFile.txt";
+
+            //    //Case file does not exist, create it!
+            //    if (File.Exists(FilePath) == false)
+            //    {
+            //        System.IO.File.WriteAllText(FilePath, "0");
+            //    }
+            //    else
+            //    {
+            //        //Read CurrentFile Text File
+            //        string txtCurrentFile = System.IO.File.ReadAllText(FilePath);
+
+            //        //Case Both Matches
+            //        if (String.Equals(txtCurrentFile, CurrentFile)==true)
+            //        {
+            //            //Write to Text File: Updated Neeeded
+            //            System.IO.File.WriteAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFileUpdated.txt", "-1");
+
+            //            //Set Warning Button Hidden
+            //            btnWarning.Visibility = Visibility.Hidden;
+            //        }
+            //        else
+            //        {
+
+            //            //Check if File Exists
+            //            if (File.Exists(CurrentFile) == true)
+            //            {
+
+            //                //Write to Text File: Updated Neeeded
+            //                System.IO.File.WriteAllText(FilePath, CurrentFile);
+
+            //                //Write to Text File: Updated Neeeded
+            //                System.IO.File.WriteAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFileUpdated.txt", "-1");
+            //            }
+            //            else
+            //            {
+            //                //Write to Text File: Updated Neeeded
+            //                System.IO.File.WriteAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFileUpdated.txt", "0");
+
+            //                //Set Warning Button Visible
+            //                btnWarning.Visibility = Visibility.Visible;
+            //            }
+            //        }
+
+            //    }
+
+            //}
+            #endregion
+
             //Write to Text File: Updated Neeeded
             System.IO.File.WriteAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFileUpdated.txt", "0");
 
-            ////Write Clean Current File IDText
-            //System.IO.File.WriteAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFileIDText.txt", "");
+            //CurrentFile
+            FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFile.txt";
 
-            //Set Warning Button Visible
-            btnWarning.Visibility = Visibility.Visible;
+            //Case file does not exist, create it!
+            if (File.Exists(FilePath) == false)
+            {
+                System.IO.File.WriteAllText(FilePath, "0");
+            }
 
+            //Current File IDText
+            FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFileIDText.txt";
+
+            //Case file does not exist, create it!
+            if (File.Exists(FilePath) == false)
+            {
+                System.IO.File.WriteAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFileIDText.txt", "0");
+                System.IO.File.WriteAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/0.txt", "0");
+            }
+
+        }
+
+        //Auto Update Current Project
+        private void AutoUpdateIDText()
+        {
+            //Get Data from Control
+            string CurrentTextFilePath = ReturnCurrentFile();
+
+            //Check if files exist
+            if (File.Exists(CurrentTextFilePath) == true)
+            {
+
+                //Auto Update
+                //Button_RefreshCurrentFile();
+
+                //CurrentFile
+                System.IO.File.WriteAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFile.txt", CurrentTextFilePath);
+
+                //CurrentFileIDText
+                System.IO.File.WriteAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFileIDText.txt", MyIDText);
+
+                //Write to Text File: Update done!
+                System.IO.File.WriteAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFileUpdated.txt", "-1");
+
+                //Set Warning Button Hidden
+                btnWarning.Visibility = Visibility.Hidden;
+
+            }
         }
 
         private void CallButton_BlechTextAppScope(object sender, RoutedEventArgs e)
@@ -81,6 +176,9 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
             //Update IDText
             UpdateIDText();
+
+            //Auto Update Current Project
+            AutoUpdateIDText();
 
             //Auto Fill Controls
             AutoFillControls();
@@ -92,10 +190,71 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
         //View Recent File (Standard)
         private void Button_BlechTextAppScope()
         {
-            string CurrentTextFilePath = null;
+            //Get Data from Control
+            string CurrentTextFilePath = ReturnCurrentFile();
 
             //ExcelClass excel;
             ContextMenu cm = new ContextMenu();
+
+            #region Set Preview File
+
+            ////Read Current File Updated
+            //string CurrentFileFilePathUpdated = Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFileUpdated.txt";
+
+            ////Check if both files exist
+            //if (File.Exists(CurrentFileFilePathUpdated) == true && File.Exists(CurrentTextFilePath) == true)
+            //{
+
+            //    //Get Data from Text File
+            //    string CurrentFileUpdated = System.IO.File.ReadAllText(CurrentFileFilePathUpdated);
+
+            //    //if (CurrentFileUpdated == "-1")
+            //    //{
+            //        //Read Current File
+            //        string CurrentFilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFile.txt";
+
+            //        //Check if File Exists
+            //        if (File.Exists(CurrentFilePath) == true)
+            //        {
+
+            //            //Get Current File from "CurrentFile"
+            //            string CurrentFile = System.IO.File.ReadAllText(CurrentFilePath);
+
+            //            //Return Current File
+            //            string strCurrentTextFilePath = ReturnCurrentFile();
+
+            //            //Case it does not Match
+            //            if (String.Equals(CurrentFile, strCurrentTextFilePath) == false)
+            //            {
+            //                //Update Current File
+            //                System.Windows.Controls.MenuItem menuUpdateCurrentFile = new System.Windows.Controls.MenuItem();
+
+            //                menuUpdateCurrentFile.Header = "Set Preview File";
+            //                menuUpdateCurrentFile.Click += CallButton_CurrentFile;
+            //                menuUpdateCurrentFile.ToolTip = "Set '" + strCurrentTextFilePath + "' as Preview File";
+            //                //Add Icon to the uri_menuItem
+            //                var uri_UpdateCurrentFile = new System.Uri("https://img.icons8.com/emoji/20/000000/warning-emoji.png");
+            //                var bitmap_UpdateCurrentFile = new BitmapImage(uri_UpdateCurrentFile);
+            //                var image_UpdateCurrentFile = new Image();
+            //                image_UpdateCurrentFile.Source = bitmap_UpdateCurrentFile;
+            //                menuUpdateCurrentFile.Icon = image_UpdateCurrentFile;
+
+            //                cm.Items.Add(menuUpdateCurrentFile);
+
+            //                //Write to Text File: Updated Neeeded
+            //                System.IO.File.WriteAllText(Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFileUpdated.txt", "0");
+
+            //                //Launch menu
+            //                goto EndSub;
+
+            //            }
+
+            //        }
+            //    //}
+
+            //}
+
+            #endregion
 
             #region Create New ID
 
@@ -116,55 +275,6 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
             //Add Separator
             cm.Items.Add(new Separator());
-
-            #endregion
-
-            #region Update Current File
-
-            //Read Current File Updated
-            string CurrentFileFilePathUpdated =  Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFileUpdated.txt";
-
-            if (File.Exists(CurrentFileFilePathUpdated) == true)
-            {
-                string CurrentFileUpdated = System.IO.File.ReadAllText(CurrentFileFilePathUpdated);
-
-                if (CurrentFileUpdated == "-1")
-                {
-
-
-                    //Read Current File
-                    string CurrentFilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFile.txt";
-
-                    if (File.Exists(CurrentFilePath) == true)
-                    {
-                        string CurrentFile = System.IO.File.ReadAllText(CurrentFilePath);
-
-                        //Return Current File
-                        string strCurrentTextFilePath = ReturnCurrentFile();
-
-                        //Case it does not Match
-                        if (String.Equals(CurrentFile, strCurrentTextFilePath) == false)
-                        {
-                            //Update Current File
-                            System.Windows.Controls.MenuItem menuUpdateCurrentFile = new System.Windows.Controls.MenuItem();
-
-                            menuUpdateCurrentFile.Header = "Preview File";
-                            menuUpdateCurrentFile.Click += CallButton_CurrentFile;
-                            menuUpdateCurrentFile.ToolTip = "Set '" + strCurrentTextFilePath +  "' as Preview File";
-                            //Add Icon to the uri_menuItem
-                            var uri_UpdateCurrentFile = new System.Uri("https://img.icons8.com/emoji/20/000000/warning-emoji.png");
-                            var bitmap_UpdateCurrentFile = new BitmapImage(uri_UpdateCurrentFile);
-                            var image_UpdateCurrentFile = new Image();
-                            image_UpdateCurrentFile.Source = bitmap_UpdateCurrentFile;
-                            menuUpdateCurrentFile.Icon = image_UpdateCurrentFile;
-
-                            cm.Items.Add(menuUpdateCurrentFile);
-                        }
-
-                    }
-                }
-
-            }
 
             #endregion
 
@@ -236,14 +346,15 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                 #region Open File
                 //Get Current Excel File Name
 
-                //Get Data from Control
-                CurrentTextFilePath = ReturnCurrentFile();
-
                 //Case it is a Variable
-                if (CurrentTextFilePath == "1.5: VisualBasicValue<String>")
+                //if (CurrentTextFilePath == "1.5: VisualBasicValue<String>")
+                if (String.IsNullOrWhiteSpace(CurrentTextFilePath) == false)
                 {
-                    //Go
-                    goto selectfile;
+                    if (CurrentTextFilePath.Contains("VisualBasicValue") == true)
+                    {
+                        //Go
+                        goto selectfile;
+                    }
                 }
 
                 //Get the File Name
@@ -324,29 +435,40 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
             #region Preview
             //Preview
-            if (CurrentTextFilePath != null)
+            if (CurrentTextFilePath != null && CurrentTextFilePath.Contains("VisualBasicValue") == false)
             {
-                //Add Separator
-                cm.Items.Add(new Separator());
 
-                //Preview
-                System.Windows.Controls.MenuItem menuPreview = new System.Windows.Controls.MenuItem();
+                //Case file is found
+                if (File.Exists(CurrentTextFilePath) == true)
+                {
 
-                menuPreview.Header = "Preview";
-                menuPreview.Click += Button_OpenPreview;
-                menuPreview.ToolTip = "Preview Data Extraction With Current Activity Arguments";
-                //Add Icon to the uri_menuItem
-                var uri_menuPreview = new System.Uri("https://img.icons8.com/officexs/20/000000/new-file.png");
-                var bitmap_menuPreview = new BitmapImage(uri_menuPreview);
-                var image_menuPreview = new Image();
-                image_menuPreview.Source = bitmap_menuPreview;
-                menuPreview.Icon = image_menuPreview;
+                    //Add Separator
+                    cm.Items.Add(new Separator());
 
-                cm.Items.Add(menuPreview);
+                    //Preview
+                    System.Windows.Controls.MenuItem menuPreview = new System.Windows.Controls.MenuItem();
+
+                    //CurrentFile
+                    string FilePeview = ReturnCurrentFile();
+
+                    menuPreview.Header = "Preview";
+                    menuPreview.Click += Button_OpenPreview;
+                    menuPreview.ToolTip = "View Text from Text File '" + FilePeview + "'";
+                    //Add Icon to the uri_menuItem
+                    var uri_menuPreview = new System.Uri("https://img.icons8.com/officexs/20/000000/new-file.png");
+                    var bitmap_menuPreview = new BitmapImage(uri_menuPreview);
+                    var image_menuPreview = new Image();
+                    image_menuPreview.Source = bitmap_menuPreview;
+                    menuPreview.Icon = image_menuPreview;
+
+                    cm.Items.Add(menuPreview);
+
+                }
             }
 
             #endregion
 
+            EndSub:
             //Open the Menu
             cm.IsOpen = true;
 
@@ -489,15 +611,27 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
 
         public void Button_RefreshCurrentFile()
         {
+
             //Get Data from Control
-            //string CurrentExcelFilePath = this.FilePath.Expression.ToString();
             string CurrentTextFilePath = ReturnCurrentFile();
 
             //Case it is a Variable
             if (CurrentTextFilePath == "1.5: VisualBasicValue<String>")
             {
 
+                //Error Message
                 MessageBox.Show("File Path as Variable" + Environment.NewLine + "Please select Text file to use functionality ", "Select Text File", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                //Exit the Procedure
+                return;
+            }
+
+            //If Current File is not found, exit the procedure
+            if (File.Exists(CurrentTextFilePath) == false)
+            {
+
+                //Error Message
+                MessageBox.Show("The Preview file cannt be found:" + Environment.NewLine + CurrentTextFilePath, "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
 
                 //Exit the Procedure
                 return;
@@ -514,12 +648,18 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                 //Check if file exists
                 bool bExists = File.Exists(filePath);
 
-                //Case File Exists
-                switch (bExists)
+                //Case file does not exists, create it!
+                if (bExists == false)
                 {
+                    System.IO.File.WriteAllText(filePath, CurrentTextFilePath);
+                }
 
-                    //File Exists
-                    case true:
+                ////Case File Exists
+                //switch (bExists)
+                //{
+
+                //    //File Exists
+                //    case true:
 
                         #region Update CurrentFile.txt
 
@@ -577,15 +717,15 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                         //    //this.btn.Background = new SolidColorBrush(Colors.IndianRed);
                         //}
 
-                        break;
+                        //break;
 
-                    //Case File does not exists
-                    case false:
-                        //Warning Message
-                        MessageBox.Show("This funcionality is not available", "File does not exists", MessageBoxButton.OK, MessageBoxImage.Warning);
-                        break;
+                //    //Case File does not exists
+                //    case false:
+                //        //Warning Message
+                //        MessageBox.Show("This funcionality is not available", "File does not exists", MessageBoxButton.OK, MessageBoxImage.Warning);
+                //        break;
 
-                }
+                //}
 
             }
             #endregion
@@ -717,7 +857,8 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
             //Get IDText, if there is
             MyIDText = ReturnIDText();
 
-            if (MyIDText != null)
+            //if (MyIDText != null)
+            if (String.IsNullOrWhiteSpace(MyIDText)==false)
             {
                 string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/Infos/" + MyIDText + ".txt";
 

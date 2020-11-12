@@ -108,6 +108,7 @@ namespace BillBlech.TextToolbox.Activities
             if (FilterWords == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(FilterWords)));
             if (InputArray == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(InputArray)));
             if (Results == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(Results)));
+            if (Encoding == null) metadata.AddValidationError(string.Format(Resources.ValidationValue_Error, nameof(Encoding)));
 
             base.CacheMetadata(metadata);
         }

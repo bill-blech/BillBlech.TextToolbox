@@ -149,9 +149,13 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                 //Wizard
                 System.Windows.Controls.MenuItem menuWizard = new System.Windows.Controls.MenuItem();
 
+                //CurrentFile
+                string FilePath = Directory.GetCurrentDirectory() + "/StorageTextToolbox/CurrentFile.txt";
+                string FilePeview = System.IO.File.ReadAllText(FilePath);
+
                 menuWizard.Header = "Wizard";
                 menuWizard.Click += Button_OpenFormSelectData;
-                menuWizard.ToolTip = "Select Words from Text File selected as Preview";
+                menuWizard.ToolTip = "Select Words from Preview Text File '" + FilePeview + "'";
                 //Add Icon to the uri_menuItem
                 var uri_menuWizard = new System.Uri("https://img.icons8.com/officexs/20/000000/edit-file.png");
                 var bitmap_menuWizard = new BitmapImage(uri_menuWizard);
@@ -254,7 +258,7 @@ namespace BillBlech.TextToolbox.Activities.Design.Designers
                 string MyValue = MyArray[1];
 
                 //'Convert' Array to String
-                string[] SearchWords = DesignUtils.ConvertStringToArray(MyValue);
+                string[] SearchWords = DesignUtils.ConvertStringToArray(MyValue, false);
 
                 //Find Words in String
                 PercResults = Utils.FindWordsInString(inputText, SearchWords, false);
